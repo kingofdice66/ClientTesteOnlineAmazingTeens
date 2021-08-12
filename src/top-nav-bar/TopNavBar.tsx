@@ -7,12 +7,28 @@ function TopNavBar(): JSX.Element {
   return (
     <>
       <div className="top-nav-bar">
-        <div className="top-nav-bar--links">
-          <div>AMAZING TEENS</div>
-          <div>Link1</div>
-          <div>Link2</div>
-          <div>Link3</div>
-        </div>
+        <nav className="top-nav-bar--links">
+          <div>
+            <a href="##" className="tob-nav-bar--home-link">
+              AMAZING TEENS
+            </a>
+          </div>
+          <div>
+            <a href="##" className="top-nav-bar--link">
+              Link1
+            </a>
+          </div>
+          <div>
+            <a href="##" className="top-nav-bar--link">
+              Link2
+            </a>
+          </div>
+          <div>
+            <a href="##" className="top-nav-bar--link">
+              Link3
+            </a>
+          </div>
+        </nav>
       </div>
     </>
   );

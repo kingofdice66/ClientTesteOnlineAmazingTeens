@@ -2,6 +2,13 @@
   background-color: rgb(0, 132, 255);
 }
 
+.about-amazing-teens--text {
+  padding: 50px;
+  color: red;
+  text-align: center;
+  font-size: 35px;
+}
+
 .top-nav-bar--links {
   display: flex;
   flex-flow: row wrap;
@@ -12,9 +19,35 @@
 }
 
 .top-nav-bar {
-  background-color: aquamarine;
+  background-color: #01192f;
   padding-top: 35px;
   padding-bottom: 35px;
+}
+
+.top-nav-bar--link {
+  font-family: "Tangerine", cursive;
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+.tob-nav-bar--home-link {
+  font-family: "Tangerine", cursive;
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+.footer {
+  background-color: blueviolet;
+  padding: 50px;
+}
+
+.main-page--wrapper {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  background-color: whitesmoke;
 }
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */

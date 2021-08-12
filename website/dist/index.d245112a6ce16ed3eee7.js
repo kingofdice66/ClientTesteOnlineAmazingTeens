@@ -20,6 +20,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 
 /***/ }),
 
+/***/ "./src/footer/Footer.css":
+/*!*******************************!*\
+  !*** ./src/footer/Footer.css ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://testing/./src/footer/Footer.css?");
+
+/***/ }),
+
 /***/ "./src/main/components/About.css":
 /*!***************************************!*\
   !*** ./src/main/components/About.css ***!
@@ -27,6 +37,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://testing/./src/main/components/About.css?");
+
+/***/ }),
+
+/***/ "./src/main/public/Index.css":
+/*!***********************************!*\
+  !*** ./src/main/public/Index.css ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://testing/./src/main/public/Index.css?");
 
 /***/ }),
 
@@ -130,13 +150,23 @@ eval("\n\nif (false) {} else {\n  module.exports = __webpack_require__(/*! ./cjs
 
 /***/ }),
 
+/***/ "./src/footer/Footer.tsx":
+/*!*******************************!*\
+  !*** ./src/footer/Footer.tsx ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _Footer_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Footer.css */ \"./src/footer/Footer.css\");\n\r\n\r\nfunction Footer() {\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", { className: \"footer\" },\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"span\", null, \"Footer\"))));\r\n}\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Footer);\r\n\n\n//# sourceURL=webpack://testing/./src/footer/Footer.tsx?");
+
+/***/ }),
+
 /***/ "./src/main/components/About.tsx":
 /*!***************************************!*\
   !*** ./src/main/components/About.tsx ***!
   \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _About_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./About.css */ \"./src/main/components/About.css\");\n\r\n\r\nfunction About() {\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", { className: \"main-page--about\" },\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"span\", null, \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam fugit nobis molestias, nihil amet id voluptates at vero mollitia? At vel quasi quis id cum, quibusdam facilis harum. Eaque, quod. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae ipsum impedit necessitatibus autem, soluta optio eum aut, illo quas porro ipsam quis quaerat repudiandae. Inventore provident culpa ipsam natus aperiam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias quam, nobis error dolores accusamus velit debitis nostrum vel voluptas! Perferendis dolor mollitia repudiandae. Sit reprehenderit ex aut error nihil optio.\")))));\r\n}\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (About);\r\n\n\n//# sourceURL=webpack://testing/./src/main/components/About.tsx?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _About_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./About.css */ \"./src/main/components/About.css\");\n\r\n\r\nfunction About() {\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", { className: \"main-page--about\" },\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", { className: \"about-amazing-teens--text\" }, \"Ce este Amazing Teens\"),\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"section\", null, \"accusamus velit debitis nostrum vel voluptas! Perferendis dolor mollitia repudiandae. Sit reprehenderit ex aut error nihil optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam fugit nobis molestias, nihil amet id voluptates at vero mollitia? At vel quasi quis id cum, quibusdam facilis harum. Eaque, quod. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae ipsum impedit necessitatibus autem, soluta optio eum aut, illo quas porro ipsam quis quaerat repudiandae. Inventore provident culpa ipsam natus aperiam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias quam, nobis error dolores accusamus velit debitis nostrum vel voluptas! Perferendis dolor mollitia repudiandae. Sit reprehenderit ex aut error nihil optio.\"))))));\r\n}\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (About);\r\n\n\n//# sourceURL=webpack://testing/./src/main/components/About.tsx?");
 
 /***/ }),
 
@@ -146,7 +176,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \***********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var _components_About__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/About */ \"./src/main/components/About.tsx\");\n/* harmony import */ var _top_nav_bar_TopNavBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../top-nav-bar/TopNavBar */ \"./src/top-nav-bar/TopNavBar.tsx\");\n/* harmony import */ var normalize_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! normalize.css */ \"./node_modules/normalize.css/normalize.css\");\n\r\n\r\n\r\n\r\n\r\nfunction Index() {\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_top_nav_bar_TopNavBar__WEBPACK_IMPORTED_MODULE_3__.default, null),\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_About__WEBPACK_IMPORTED_MODULE_2__.default, null)));\r\n}\r\nreact_dom__WEBPACK_IMPORTED_MODULE_1__.render(react__WEBPACK_IMPORTED_MODULE_0__.createElement(Index, null), document.getElementById(\"index\"));\r\n\n\n//# sourceURL=webpack://testing/./src/main/public/Index.tsx?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var _components_About__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/About */ \"./src/main/components/About.tsx\");\n/* harmony import */ var _top_nav_bar_TopNavBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../top-nav-bar/TopNavBar */ \"./src/top-nav-bar/TopNavBar.tsx\");\n/* harmony import */ var _footer_Footer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../footer/Footer */ \"./src/footer/Footer.tsx\");\n/* harmony import */ var _Index_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Index.css */ \"./src/main/public/Index.css\");\n/* harmony import */ var normalize_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! normalize.css */ \"./node_modules/normalize.css/normalize.css\");\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nfunction Index() {\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", { className: \"main-page--wrapper\" },\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_top_nav_bar_TopNavBar__WEBPACK_IMPORTED_MODULE_3__.default, null)),\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_About__WEBPACK_IMPORTED_MODULE_2__.default, null)),\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_footer_Footer__WEBPACK_IMPORTED_MODULE_4__.default, null)))));\r\n}\r\nreact_dom__WEBPACK_IMPORTED_MODULE_1__.render(react__WEBPACK_IMPORTED_MODULE_0__.createElement(Index, null), document.getElementById(\"index\"));\r\n\n\n//# sourceURL=webpack://testing/./src/main/public/Index.tsx?");
 
 /***/ }),
 
@@ -156,7 +186,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
   \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _TopNavBar_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TopNavBar.css */ \"./src/top-nav-bar/TopNavBar.css\");\n\r\n\r\nfunction TopNavBar() {\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", { className: \"top-nav-bar\" },\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", { className: \"top-nav-bar--links\" },\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null, \"AMAZING TEENS\"),\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null, \"Link1\"),\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null, \"Link2\"),\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null, \"Link3\")))));\r\n}\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TopNavBar);\r\n\n\n//# sourceURL=webpack://testing/./src/top-nav-bar/TopNavBar.tsx?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _TopNavBar_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TopNavBar.css */ \"./src/top-nav-bar/TopNavBar.css\");\n\r\n\r\nfunction TopNavBar() {\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", { className: \"top-nav-bar\" },\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"nav\", { className: \"top-nav-bar--links\" },\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"a\", { href: \"##\", className: \"tob-nav-bar--home-link\" }, \"AMAZING TEENS\")),\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"a\", { href: \"##\", className: \"top-nav-bar--link\" }, \"Link1\")),\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"a\", { href: \"##\", className: \"top-nav-bar--link\" }, \"Link2\")),\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"a\", { href: \"##\", className: \"top-nav-bar--link\" }, \"Link3\"))))));\r\n}\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TopNavBar);\r\n\n\n//# sourceURL=webpack://testing/./src/top-nav-bar/TopNavBar.tsx?");
 
 /***/ })
 

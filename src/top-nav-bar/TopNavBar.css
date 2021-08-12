@@ -7,7 +7,19 @@
 }
 
 .top-nav-bar {
-  background-color: aquamarine;
+  background-color: #01192f;
   padding-top: 35px;
   padding-bottom: 35px;
+}
+
+.top-nav-bar--link {
+  font-family: "Tangerine", cursive;
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+.tob-nav-bar--home-link {
+  font-family: "Tangerine", cursive;
+  color: whitesmoke;
+  text-decoration: none;
 }

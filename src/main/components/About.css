@@ -1,3 +1,10 @@
 .main-page--about {
   background-color: rgb(0, 132, 255);
 }
+
+.about-amazing-teens--text {
+  padding: 50px;
+  color: red;
+  text-align: center;
+  font-size: 35px;
+}

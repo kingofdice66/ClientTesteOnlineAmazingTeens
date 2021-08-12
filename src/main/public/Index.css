@@ -1,0 +1,8 @@
+.main-page--wrapper {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  background-color: whitesmoke;
+}
