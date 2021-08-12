@@ -1,0 +1,13 @@
+.top-nav-bar--links {
+  display: flex;
+  flex-flow: row wrap;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 20px;
+}
+
+.top-nav-bar {
+  background-color: aquamarine;
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
