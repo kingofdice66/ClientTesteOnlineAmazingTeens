@@ -4,9 +4,7 @@ import "./Footer.css";
 function Footer(): JSX.Element {
   return (
     <>
-      <div className="footer">
-        <span>Footer</span>
-      </div>
+      <div className="footer">Footer</div>
     </>
   );
 }

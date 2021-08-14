@@ -1,8 +1,6 @@
 .main-page--wrapper {
-  display: grid;
-  grid-template-rows: auto auto auto;
+  display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
-  overflow-y: scroll;
-  background-color: whitesmoke;
 }

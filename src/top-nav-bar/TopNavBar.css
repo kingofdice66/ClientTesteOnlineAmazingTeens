@@ -1,25 +1,21 @@
 .top-nav-bar--links {
   display: flex;
   flex-flow: row wrap;
-  flex-direction: row;
-  justify-content: center;
-  column-gap: 20px;
+  background-color: cornflowerblue;
+  justify-content: space-around;
 }
 
 .top-nav-bar {
-  background-color: #01192f;
-  padding-top: 35px;
-  padding-bottom: 35px;
+  background-color: #011c34;
+  padding: 50px;
 }
 
-.top-nav-bar--link {
-  font-family: "Tangerine", cursive;
-  color: whitesmoke;
-  text-decoration: none;
+.tob-nav-bar--home-logo-link {
+  font-size: 25px;
+  
 }
 
-.tob-nav-bar--home-link {
-  font-family: "Tangerine", cursive;
-  color: whitesmoke;
-  text-decoration: none;
+.link-style {
+  font-size: 20px;
+  color: white;
 }
