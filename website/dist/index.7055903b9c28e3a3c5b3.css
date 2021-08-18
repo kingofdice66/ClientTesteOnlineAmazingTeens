@@ -10,57 +10,58 @@
   font-size: 30px;
   text-align: center;
 }
-.top-nav-bar {
+.topNavBar {
   background-color: #0d0d0d;
   padding-top: 70px;
 }
-.top-nav-bar .tob-nav-bar--home-logo-link {
+.topNavBar .logo {
   font-size: 25px;
   padding-left: 50px;
   white-space: nowrap;
 }
-
-.top-nav-bar--links--wrapper {
+.topNavBar .linksWrapper {
   background-color: #9e0303;
   padding: 10px 0;
 }
-.top-nav-bar--links--wrapper .home {
-  background-color: #00ff0d;
-  padding: 10px;
-  transform: skewX(-15deg);
-}
-.top-nav-bar--links--wrapper a {
-  text-decoration: none;
-}
-
-.top-nav-bar--links {
+.topNavBar .links {
   -moz-column-gap: 10px;
        column-gap: 10px;
   display: flex;
   flex-flow: row wrap;
-  font-family: "Roboto", sans-serif;
-  font-size: 20px;
-  font-weight: 700z;
   justify-content: left;
-  margin: 0 9%;
+  margin: 0 0 0 5%;
   white-space: nowrap;
 }
-.top-nav-bar--links .skew {
-  background-color: #ff0000;
-  padding: 10px;
+.topNavBar .skew {
+  background-color: #a81d1d;
+  padding: 10px 10px 10px 17px;
   transform: skewX(-15deg);
 }
-.top-nav-bar--links .skew--undo {
+.topNavBar .skew:hover {
+  background-color: #a81d1dc2;
+}
+.topNavBar .skew--undo {
   transform: skewX(15deg);
 }
-.top-nav-bar--links .style {
-  color: #3bcf16;
+.topNavBar .style {
+  color: #f2dddd;
+  font-family: "Cinzel", serif;
+  font-size: 20px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+.topNavBar a {
+  text-decoration: none;
+}
+
+.topNavBar .linksWrapper .links a {
+  background-color: red;
 }
 .footer {
   background-color: #2d2dcf;
   padding: 50px 0;
 }
-.main-page--wrapper {
+.mainPage-wrapper {
   display: flex;
   flex-direction: column;
 }

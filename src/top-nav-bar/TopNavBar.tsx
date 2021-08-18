@@ -6,27 +6,27 @@ import "./TopNavBar.scss";
 function TopNavBar(): JSX.Element {
   return (
     <>
-      <div className="top-nav-bar">
+      <div className="topNavBar">
         <div>
-          <a href="##" className="tob-nav-bar--home-logo-link">
+          <a href="##" className="logo">
             AMAZING TEENS
           </a>
         </div>
-        <nav className="top-nav-bar--links--wrapper">
-          <div className="top-nav-bar--links">
-            <a href="##" className="skew">
-              <div className="skew--undo">
-                <span className="style">Acasă</span>
+        <nav className="linksWrapper">
+          <div className="links">
+            <a href="##">
+              <div>
+                <span className="TEST">Acasă</span>
               </div>
             </a>
-            <a href="##" className="skew">
-              <div className="skew--undo">
-                <span className="style">Cursuri</span>
+            <a href="##">
+              <div>
+                <span>Cursuri</span>
               </div>
             </a>
-            <a href="##" className="skew">
-              <div className="skew--undo">
-                <span className="style">Contactează-ne</span>
+            <a href="./ContactForm.html">
+              <div>
+                <span>Contactează-ne</span>
               </div>
             </a>
           </div>

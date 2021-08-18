@@ -9,7 +9,7 @@ import "normalize.css";
 function Index(): JSX.Element {
   return (
     <>
-      <div className="main-page--wrapper">
+      <div className="mainPage-wrapper">
         <div>
           <TopNavBar />
         </div>

@@ -15,6 +15,7 @@ module.exports = {
   },
   entry: {
     index: "./src/main/public/Index.tsx",
+    ContactForm: "./src/contactForm/public/ContactForm.tsx",
   },
   output: {
     path: path.resolve(__dirname, "./website/dist"),
@@ -61,6 +62,12 @@ module.exports = {
       filename: "index.html",
       inject: "body",
       chunks: ["index"],
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/contactForm/public/ContactForm.html",
+      filename: "ContactForm.html",
+      inject: "body",
+      chunks: ["ContactForm"],
     }),
   ],
 };

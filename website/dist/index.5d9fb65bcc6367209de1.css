@@ -10,55 +10,11 @@
   font-size: 30px;
   text-align: center;
 }
-.top-nav-bar {
-  background-color: #0d0d0d;
-  padding-top: 70px;
-}
-.top-nav-bar .tob-nav-bar--home-logo-link {
-  font-size: 25px;
-  padding-left: 50px;
-  white-space: nowrap;
-}
-
-.top-nav-bar--links--wrapper {
-  background-color: #9e0303;
-  padding: 10px 0;
-}
-.top-nav-bar--links--wrapper a {
-  text-decoration: none;
-}
-
-.top-nav-bar--links {
-  -moz-column-gap: 10px;
-       column-gap: 10px;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: left;
-  margin: 0 9%;
-  white-space: nowrap;
-}
-.top-nav-bar--links .skew {
-  background-color: #a81d1d;
-  padding: 10px 10px;
-  transform: skewX(-15deg);
-}
-.top-nav-bar--links .skew:hover {
-  cursor: pointer;
-}
-.top-nav-bar--links .skew--undo {
-  transform: skewX(15deg);
-}
-.top-nav-bar--links .style {
-  color: #f2dddd;
-  font-family: "Cinzel", serif;
-  font-size: 20px;
-  font-weight: 500z;
-}
 .footer {
   background-color: #2d2dcf;
   padding: 50px 0;
 }
-.main-page--wrapper {
+.mainPage-wrapper {
   display: flex;
   flex-direction: column;
 }

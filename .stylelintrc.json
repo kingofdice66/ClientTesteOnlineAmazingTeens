@@ -6,6 +6,7 @@
     "node_modules/**/*.css"
   ],
   "rules": {
-    "string-quotes": "double"
+    "string-quotes": "double",
+    "selector-class-pattern": "^([a-z]|[A-Z])(-|_|[a-zA-Z0-9])+$"
   }
 }

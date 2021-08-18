@@ -10,56 +10,6 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/normalize.css/normalize.css":
-/*!**************************************************!*\
-  !*** ./node_modules/normalize.css/normalize.css ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://testing/./node_modules/normalize.css/normalize.css?");
-
-/***/ }),
-
-/***/ "./src/footer/Footer.scss":
-/*!********************************!*\
-  !*** ./src/footer/Footer.scss ***!
-  \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://testing/./src/footer/Footer.scss?");
-
-/***/ }),
-
-/***/ "./src/main/components/About.scss":
-/*!****************************************!*\
-  !*** ./src/main/components/About.scss ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://testing/./src/main/components/About.scss?");
-
-/***/ }),
-
-/***/ "./src/main/public/Index.scss":
-/*!************************************!*\
-  !*** ./src/main/public/Index.scss ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://testing/./src/main/public/Index.scss?");
-
-/***/ }),
-
-/***/ "./src/top-nav-bar/TopNavBar.scss":
-/*!****************************************!*\
-  !*** ./src/top-nav-bar/TopNavBar.scss ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://testing/./src/top-nav-bar/TopNavBar.scss?");
-
-/***/ }),
-
 /***/ "./node_modules/object-assign/index.js":
 /*!*********************************************!*\
   !*** ./node_modules/object-assign/index.js ***!
@@ -150,43 +100,23 @@ eval("\n\nif (false) {} else {\n  module.exports = __webpack_require__(/*! ./cjs
 
 /***/ }),
 
-/***/ "./src/footer/Footer.tsx":
-/*!*******************************!*\
-  !*** ./src/footer/Footer.tsx ***!
-  \*******************************/
+/***/ "./src/contactForm/components/Form.tsx":
+/*!*********************************************!*\
+  !*** ./src/contactForm/components/Form.tsx ***!
+  \*********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _Footer_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Footer.scss */ \"./src/footer/Footer.scss\");\n\r\n\r\nfunction Footer() {\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", { className: \"footer\" }, \"Footer\")));\r\n}\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Footer);\r\n\n\n//# sourceURL=webpack://testing/./src/footer/Footer.tsx?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\r\nfunction Form() {\r\n    var _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({\r\n        name: \"\",\r\n        learnerUsername: \"\",\r\n        email: \"\",\r\n        subject: \"\",\r\n        message: \"\",\r\n    }), data = _a[0], setData = _a[1];\r\n    var submit = function (e) {\r\n        e.preventDefault();\r\n        console.log(\"form submitted\");\r\n    };\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"form\", { onSubmit: submit },\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"label\", { htmlFor: \"name\" },\r\n                \"Name:\",\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"br\", null),\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"input\", { type: \"text\", id: \"name\" })),\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"label\", { htmlFor: \"learnerUsername\" },\r\n                \"Learner Username:\",\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"br\", null),\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"input\", { type: \"text\", id: \"learnerUsername\" })))));\r\n}\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Form);\r\n\n\n//# sourceURL=webpack://testing/./src/contactForm/components/Form.tsx?");
 
 /***/ }),
 
-/***/ "./src/main/components/About.tsx":
-/*!***************************************!*\
-  !*** ./src/main/components/About.tsx ***!
-  \***************************************/
+/***/ "./src/contactForm/public/ContactForm.tsx":
+/*!************************************************!*\
+  !*** ./src/contactForm/public/ContactForm.tsx ***!
+  \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _About_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./About.scss */ \"./src/main/components/About.scss\");\n\r\n\r\nfunction About() {\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", { className: \"main-page--about\" },\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", { className: \"about-amazing-teens--text\" }, \"Ce este Amazing Teens\"),\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"section\", { className: \"section\" }, \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam fugit nobis molestias, nihil amet id voluptates at vero mollitia? At vel quasi quis id cum, quibusdam facilis harum. Eaque, quod. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae ipsum impedit necessitatibus autem, soluta optio eum aut, illo quas porro ipsam quis quaerat repudiandae. Inventore provident culpa ipsam natus aperiam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias quam, nobis error dolores accusamus velit debitis nostrum vel voluptas! Perferendis dolor mollitia repudiandae. Sit reprehenderit ex aut error nihil optio. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam fugit nobis molestias, nihil amet id voluptates at vero mollitia? At vel quasi quis id cum, quibusdam facilis harum. Eaque, quod. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae ipsum impedit necessitatibus autem, soluta optio eum aut, illo quas porro ipsam quis quaerat repudiandae. Inventore provident culpa ipsam natus aperiam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias quam, nobis error dolores accusamus velit debitis nostrum vel voluptas! Perferendis dolor mollitia repudiandae. Sit reprehenderit ex aut error nihil optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam fugit nobis molestias, nihil amet id voluptates at vero mollitia? At vel quasi quis id cum, quibusdam facilis harum. Eaque, quod. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae ipsum impedit necessitatibus autem, soluta optio eum aut, illo quas porro ipsam quis quaerat repudiandae. Inventore provident culpa ipsam natus aperiam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias quam, nobis error dolores accusamus velit debitis nostrum vel voluptas! Perferendis dolor mollitia repudiandae. Sit reprehenderit ex aut error nihil optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam fugit nobis molestias, nihil amet id voluptates at vero mollitia? At vel quasi quis id cum, quibusdam facilis harum. Eaque, quod. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae ipsum impedit necessitatibus autem, soluta optio eum aut, illo quas porro ipsam quis quaerat repudiandae. Inventore provident culpa ipsam natus aperiam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias quam, nobis error dolores accusamus velit debitis nostrum vel voluptas! Perferendis dolor mollitia repudiandae. Sit reprehenderit ex aut error nihil optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam fugit nobis molestias, nihil amet id voluptates at vero mollitia? At vel quasi quis id cum, quibusdam facilis harum. Eaque, quod. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae ipsum impedit necessitatibus autem, soluta optio eum aut, illo quas porro ipsam quis quaerat repudiandae. Inventore provident culpa ipsam natus aperiam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias quam, nobis error dolores accusamus velit debitis nostrum vel voluptas! Perferendis dolor mollitia repudiandae. Sit reprehenderit ex aut error nihil optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam fugit nobis molestias, nihil amet id voluptates at vero mollitia? At vel quasi quis id cum, quibusdam facilis harum. Eaque, quod. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae ipsum impedit necessitatibus autem, soluta optio eum aut, illo quas porro ipsam quis quaerat repudiandae. Inventore provident culpa ipsam natus aperiam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias quam, nobis error dolores accusamus velit debitis nostrum vel voluptas! Perferendis dolor mollitia repudiandae. Sit reprehenderit ex aut error nihil optio.Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam fugit nobis molestias, nihil amet id voluptates at vero mollitia? At vel quasi quis id cum, quibusdam facilis harum. Eaque, quod. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae ipsum impedit necessitatibus autem, soluta optio eum aut, illo quas porro ipsam quis quaerat repudiandae. Inventore provident culpa ipsam natus aperiam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias quam, nobis error dolores accusamus velit debitis nostrum vel voluptas! Perferendis dolor mollitia repudiandae. Sit reprehenderit ex aut error nihil optio.\")))));\r\n}\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (About);\r\n\n\n//# sourceURL=webpack://testing/./src/main/components/About.tsx?");
-
-/***/ }),
-
-/***/ "./src/main/public/Index.tsx":
-/*!***********************************!*\
-  !*** ./src/main/public/Index.tsx ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var _components_About__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/About */ \"./src/main/components/About.tsx\");\n/* harmony import */ var _top_nav_bar_TopNavBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../top-nav-bar/TopNavBar */ \"./src/top-nav-bar/TopNavBar.tsx\");\n/* harmony import */ var _footer_Footer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../footer/Footer */ \"./src/footer/Footer.tsx\");\n/* harmony import */ var _Index_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Index.scss */ \"./src/main/public/Index.scss\");\n/* harmony import */ var normalize_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! normalize.css */ \"./node_modules/normalize.css/normalize.css\");\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nfunction Index() {\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", { className: \"main-page--wrapper\" },\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_top_nav_bar_TopNavBar__WEBPACK_IMPORTED_MODULE_3__.default, null)),\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_About__WEBPACK_IMPORTED_MODULE_2__.default, null)),\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_footer_Footer__WEBPACK_IMPORTED_MODULE_4__.default, null)))));\r\n}\r\nreact_dom__WEBPACK_IMPORTED_MODULE_1__.render(react__WEBPACK_IMPORTED_MODULE_0__.createElement(Index, null), document.getElementById(\"index\"));\r\n\n\n//# sourceURL=webpack://testing/./src/main/public/Index.tsx?");
-
-/***/ }),
-
-/***/ "./src/top-nav-bar/TopNavBar.tsx":
-/*!***************************************!*\
-  !*** ./src/top-nav-bar/TopNavBar.tsx ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _TopNavBar_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TopNavBar.scss */ \"./src/top-nav-bar/TopNavBar.scss\");\n\r\n\r\nfunction TopNavBar() {\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", { className: \"top-nav-bar\" },\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"a\", { href: \"##\", className: \"tob-nav-bar--home-logo-link\" }, \"AMAZING TEENS\")),\r\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"nav\", { className: \"top-nav-bar--links--wrapper\" },\r\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", { className: \"top-nav-bar--links\" },\r\n                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", { className: \"home\" },\r\n                            react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"a\", { href: \"##\" }, \"Acas\\u0103\"))),\r\n                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"a\", { href: \"##\" }, \"Cursuri\")),\r\n                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null,\r\n                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"a\", { href: \"##\" }, \"Contacteaz\\u0103-ne\")))))));\r\n}\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TopNavBar);\r\n\n\n//# sourceURL=webpack://testing/./src/top-nav-bar/TopNavBar.tsx?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var _components_Form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Form */ \"./src/contactForm/components/Form.tsx\");\n\r\n\r\n\r\nfunction ContactForm() {\r\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,\r\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Form__WEBPACK_IMPORTED_MODULE_2__.default, null)));\r\n}\r\nreact_dom__WEBPACK_IMPORTED_MODULE_1__.render(react__WEBPACK_IMPORTED_MODULE_0__.createElement(ContactForm, null), document.getElementById(\"contact-form\"));\r\n\n\n//# sourceURL=webpack://testing/./src/contactForm/public/ContactForm.tsx?");
 
 /***/ })
 
@@ -250,7 +180,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/main/public/Index.tsx");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/contactForm/public/ContactForm.tsx");
 /******/ 	
 /******/ })()
 ;
