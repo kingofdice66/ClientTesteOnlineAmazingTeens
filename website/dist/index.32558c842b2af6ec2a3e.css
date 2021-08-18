@@ -23,6 +23,7 @@
   background-color: #9e0303;
   padding: 10px 0;
 }
+
 .topNavBar .links {
   -moz-column-gap: 10px;
        column-gap: 10px;
@@ -32,20 +33,19 @@
   margin: 0 0 0 5%;
   white-space: nowrap;
 }
-
-.topNavBar .links a {
+.topNavBar .links .skew {
   background-color: #a81d1d;
   padding: 10px 10px 10px 17px;
   text-decoration: none;
   transform: skewX(-15deg);
 }
-.topNavBar .links a:hover {
+.topNavBar .links .skew:hover {
   background-color: #a81d1dc2;
 }
-.topNavBar .links div {
+.topNavBar .links .skew-undo {
   transform: skewX(15deg);
 }
-.topNavBar .links span {
+.topNavBar .links .styleLinkText {
   color: #f2dddd;
   font-family: "Cinzel", serif;
   font-size: 20px;

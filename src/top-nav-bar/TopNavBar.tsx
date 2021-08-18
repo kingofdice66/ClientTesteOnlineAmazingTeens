@@ -14,19 +14,19 @@ function TopNavBar(): JSX.Element {
         </div>
         <nav className="linksWrapper">
           <div className="links">
-            <a href="##">
-              <div>
-                <span className="TEST">Acasă</span>
+            <a href="##" className="skew">
+              <div className="skew-undo">
+                <span className="styleLinkText">Acasă</span>
               </div>
             </a>
-            <a href="##">
-              <div>
-                <span>Cursuri</span>
+            <a href="##" className="skew">
+              <div className="skew-undo">
+                <span className="styleLinkText">Cursuri</span>
               </div>
             </a>
-            <a href="./ContactForm.html">
-              <div>
-                <span>Contactează-ne</span>
+            <a href="./ContactForm.html" className="skew">
+              <div className="skew-undo">
+                <span className="styleLinkText">Contactează-ne</span>
               </div>
             </a>
           </div>
