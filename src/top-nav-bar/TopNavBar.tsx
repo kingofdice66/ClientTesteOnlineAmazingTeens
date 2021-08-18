@@ -1,7 +1,7 @@
 // This is the top navigation bar menu
 
 import React from "react";
-import "./TopNavBar.css";
+import "./TopNavBar.scss";
 
 function TopNavBar(): JSX.Element {
   return (
@@ -12,20 +12,22 @@ function TopNavBar(): JSX.Element {
             AMAZING TEENS
           </a>
         </div>
-        <nav className="top-nav-bar--links">
-          <div>
-            <a href="##" className="top-nav-bar--link link-style">
-              Link1
+        <nav className="top-nav-bar--links--wrapper">
+          <div className="top-nav-bar--links">
+            <a href="##" className="skew">
+              <div className="skew--undo">
+                <span className="style">Acasă</span>
+              </div>
             </a>
-          </div>
-          <div>
-            <a href="##" className="top-nav-bar--link link-style">
-              Link2
+            <a href="##" className="skew">
+              <div className="skew--undo">
+                <span className="style">Cursuri</span>
+              </div>
             </a>
-          </div>
-          <div>
-            <a href="##" className="top-nav-bar--link link-style">
-              Link3
+            <a href="##" className="skew">
+              <div className="skew--undo">
+                <span className="style">Contactează-ne</span>
+              </div>
             </a>
           </div>
         </nav>

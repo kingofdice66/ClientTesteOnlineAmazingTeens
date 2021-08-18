@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import About from "../components/About";
 import TopNavBar from "../../top-nav-bar/TopNavBar";
 import Footer from "../../footer/Footer";
-import "./Index.css";
+import "./Index.scss";
 import "normalize.css";
 
 function Index(): JSX.Element {

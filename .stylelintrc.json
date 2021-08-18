@@ -1,0 +1,11 @@
+{
+  "extends": "stylelint-config-sass-guidelines",
+  "ignoreFiles": [
+    "laravel/**/*.css",
+    "website/**/*.css",
+    "node_modules/**/*.css"
+  ],
+  "rules": {
+    "string-quotes": "double"
+  }
+}
