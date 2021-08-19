@@ -26,7 +26,7 @@ function Form(): JSX.Element {
   return (
     <>
       <div className="formFields-wrapper">
-        <div className="formFields-center">
+        <div className="formFields-centered">
           <div className="formFields">
             <form onSubmit={submit}>
               <label htmlFor="name">

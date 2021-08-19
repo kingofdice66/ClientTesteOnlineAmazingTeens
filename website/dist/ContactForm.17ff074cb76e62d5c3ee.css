@@ -1,14 +1,16 @@
-.main-page--about {
-  background-color: #33338b;
-  min-height: 100vh;
+.formFields-wrapper {
+  background-color: #b96020;
+  justify-content: center;
+  min-height: calc(100vh);
 }
-.main-page--about .section {
-  padding: 50px 80px;
+.formFields-wrapper .formFields-centered {
+  background-color: rgba(0, 17, 255, 0.815);
+  display: flex;
+  justify-content: center;
 }
-
-.about-amazing-teens--text {
-  font-size: 30px;
-  text-align: center;
+.formFields-wrapper .formFields-centered .formFields {
+  background-color: rgba(0, 255, 255, 0.938);
+  padding: 50px;
 }
 .topNavBar {
   background-color: #0d0d0d;
@@ -23,6 +25,7 @@
   background-color: #9e0303;
   padding: 10px 0;
 }
+
 .topNavBar .links {
   -moz-column-gap: 10px;
        column-gap: 10px;
@@ -32,38 +35,28 @@
   margin: 0 0 0 5%;
   white-space: nowrap;
 }
-.topNavBar .skew {
+.topNavBar .links .skew {
   background-color: #a81d1d;
   padding: 10px 10px 10px 17px;
+  text-decoration: none;
   transform: skewX(-15deg);
 }
-.topNavBar .skew:hover {
+.topNavBar .links .skew:hover {
   background-color: #a81d1dc2;
 }
-.topNavBar .skew--undo {
+.topNavBar .links .skew-undo {
   transform: skewX(15deg);
 }
-.topNavBar .style {
+.topNavBar .links .styleLinkText {
   color: #f2dddd;
   font-family: "Cinzel", serif;
   font-size: 20px;
   font-weight: 300;
   text-transform: uppercase;
 }
-.topNavBar a {
-  text-decoration: none;
-}
-
-.topNavBar .linksWrapper .links a {
-  background-color: rgba(194, 25, 25, 0.842);
-}
 .footer {
   background-color: #2d2dcf;
   padding: 50px 0;
-}
-.mainPage-wrapper {
-  display: flex;
-  flex-direction: column;
 }
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
