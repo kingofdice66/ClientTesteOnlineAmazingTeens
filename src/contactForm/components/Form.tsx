@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import "./Form.scss";
 
 interface IData {
   name: string;
-  learnerUsername: string; // Only if the user is registered.
+  username: string; // Only if the user is registered.
   email: string;
   subject: string; // What is it about.
   message: string; // The message.
@@ -11,7 +12,7 @@ interface IData {
 function Form(): JSX.Element {
   const [data, setData] = useState<IData>({
     name: "",
-    learnerUsername: "",
+    username: "",
     email: "",
     subject: "",
     message: "",
@@ -24,18 +25,50 @@ function Form(): JSX.Element {
 
   return (
     <>
-      <form onSubmit={submit}>
-        <label htmlFor="name">
-          Name:
-          <br />
-          <input type="text" id="name" />
-        </label>
-        <label htmlFor="learnerUsername">
-            Learner Username:
-            <br/>
-            <input type="text"  id="learnerUsername" />
-        </label>
-      </form>
+      <div className="formFields-wrapper">
+        <div className="formFields-center">
+          <div className="formFields">
+            <form onSubmit={submit}>
+              <label htmlFor="name">
+                Numele:
+                <br />
+                <input type="text" id="name" />
+              </label>
+              <br />
+              <br />
+              <label htmlFor="username">
+                Username:
+                <br />
+                <input type="email" id="username" />
+              </label>
+              <br />
+              <br />
+              <label htmlFor="email">
+                Adresa ta de email:
+                <br />
+                <input type="text" id="email" />
+              </label>
+              <br />
+              <br />
+              <label htmlFor="subject">
+                Subiect:
+                <br />
+                <input type="text" id="subject" />
+              </label>
+              <br />
+              <br />
+              <label htmlFor="message">
+                Întrebare/Mesaj:
+                <br />
+                <textarea id="message" />
+              </label>
+              <br />
+              <br />
+              <input type="submit" value="Trimite Email" />
+            </form>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
