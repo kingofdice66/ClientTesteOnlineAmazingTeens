@@ -30,35 +30,45 @@ function Form(): JSX.Element {
           <div className="formFields">
             <form onSubmit={submit}>
               <label htmlFor="name">
-                Numele:
+                <span className="formFieldName-style">
+                  Numele:<span style={{ color: "red", fontSize: 25 }}>*</span>
+                </span>
                 <br />
                 <input type="text" id="name" />
               </label>
               <br />
               <br />
               <label htmlFor="username">
-                Username:
+                <span className="formFieldName-style">Username:</span>
                 <br />
                 <input type="email" id="username" />
               </label>
               <br />
               <br />
               <label htmlFor="email">
-                Adresa ta de email:
+                <span className="formFieldName-style">
+                  Adresa ta de email:
+                  <span style={{ color: "red", fontSize: 25 }}>*</span>
+                </span>
                 <br />
                 <input type="text" id="email" />
               </label>
               <br />
               <br />
               <label htmlFor="subject">
-                Subiect:
+                <span className="formFieldName-style">
+                  Subiect:<span style={{ color: "red", fontSize: 25 }}>*</span>
+                </span>
                 <br />
                 <input type="text" id="subject" />
               </label>
               <br />
               <br />
               <label htmlFor="message">
-                Întrebare/Mesaj:
+                <span className="formFieldName-style">
+                  Întrebare/Mesaj:
+                  <span style={{ color: "red", fontSize: 25 }}>*</span>
+                </span>
                 <br />
                 <textarea id="message" />
               </label>

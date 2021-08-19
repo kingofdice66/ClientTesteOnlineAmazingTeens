@@ -14,9 +14,9 @@
   }
 }
 
-.topNavBar .links {
+.links {
   // background-color: red; //--> for testing only
-  column-gap: 10px;
+  column-gap: 6.5px;
   display: flex;
   flex-flow: row wrap;
   justify-content: left;
@@ -43,8 +43,8 @@
   .styleLinkText {
     color: #f2dddd;
     font-family: "Cinzel", serif;
-    font-size: 20px;
-    font-weight: 300;
+    font-size: 15px;
+    font-weight: 150;
     text-transform: uppercase;
   }
 }
