@@ -108,17 +108,15 @@ function Form(): JSX.Element {
               </label>
               <br />
               <br />
-              <div className="formField-submitButton-wrapper">
-                <button
-                  type="submit"
-                  value="Trimite Email"
-                  className="formField-submitButton"
-                >
-                  <span className="formField-submitButton-text">
-                    Timite Email
-                  </span>
-                </button>
-              </div>
+              <button
+                type="submit"
+                value="Trimite Email"
+                className="formField-submitButton"
+              >
+                <span className="formField-submitButton-text">
+                  Timite Email
+                </span>
+              </button>
             </form>
             <br />
             <div>
