@@ -13,12 +13,49 @@
 
   .formFields {
     background-color: rgba(0, 255, 255, 0.938);
+    border-radius: 10px;
     font-size: 17.5px;
     margin: 50px 0;
+    min-width: 270px;
     padding: 50px;
   }
 
   .formFieldName-style {
     font-family: "Roboto Condensed", sans-serif;
+  }
+
+  .formField-input {
+    background-color: rgba(166, 255, 0, 0.876);
+    border-radius: 3.5px;
+    padding: 7px 6px;
+    width: 100%;
+  }
+
+  .formField-textarea {
+    background-color: rgba(255, 0, 0, 0.911);
+    border-radius: 3.5px;
+    width: 100%;
+  }
+
+  .formField-submitButton-wrapper {
+    background-color: rgba(255, 174, 0, 0.719);
+    display: flex;
+    height: 35px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .formField-submitButton {
+    height: 100%;
+    width: 100%;
+  }
+
+  .formField-submitButton:hover {
+    cursor: pointer;
+  }
+
+  .formField-submitButton-text {
+    font-family: "Roboto Slab", serif;
+    font-weight: 700;
   }
 }

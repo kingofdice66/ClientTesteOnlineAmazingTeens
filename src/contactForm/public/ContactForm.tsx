@@ -26,4 +26,4 @@ function ContactForm(): JSX.Element {
   );
 }
 
-ReactDOM.render(<ContactForm />, document.getElementById("contact-form"));
+ReactDOM.render(<ContactForm />, document.getElementById("contactForm"));

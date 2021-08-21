@@ -6,13 +6,18 @@ const ESLintPlugin = require("eslint-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
-  watch: true,
-  watchOptions: {
-    ignored: [
-      path.posix.resolve(__dirname, "./node_modules"),
-      path.posix.resolve(__dirname, "./vendor"),
-    ],
-  },
+  /*******************************************************************/
+  /*               Not needed because webpack-dev-server is in use */
+  /*******************************************************************/
+  // watch: true,                                                    *
+  // watchOptions: {                                                 *
+  //   ignored: [                                                    *
+  //     path.posix.resolve(__dirname, "./node_modules"),            *
+  //     path.posix.resolve(__dirname, "./vendor"),                  * 
+  //   ],                                                            * 
+  // },                                                              *
+  /*******************************************************************/
+
   entry: {
     index: "./src/main/public/Index.tsx",
     ContactForm: "./src/contactForm/public/ContactForm.tsx",

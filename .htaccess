@@ -1,0 +1,4 @@
+Options +Indexes
+IndexOptions FancyIndexing
+RewriteEngine on
+RewriteRule ^custom website/dist/ContactForm.html [NC,L]
