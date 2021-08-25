@@ -9,15 +9,6 @@ interface IData {
   message: string; // The message.
 }
 
-// Input errors
-interface IErrorData {
-  nameErrorInput: string;
-  usernameErrorInput: string;
-  emailErrorInput: string;
-  subjectErrorInput: string;
-  messageErrorInput: string;
-}
-
 function Form(): JSX.Element {
   const [data, setData] = useState<IData>({
     name: "",
@@ -28,19 +19,20 @@ function Form(): JSX.Element {
   });
 
   /* ************************************************** */
-  /*        Check for errors in input fields            */
+  /*      Check for errors in input fields              */
   /* ************************************************** */
   //! Attention. Don't put these under an array form like for example:
   // ? const [data, setData] = useState({
   // ? usernameErrorInput: "",
   // ? emailErrorInput: "",
   // ? });
-  //* because when you hit submit button, one of them will not
+  //* because when you hit submit button, some of them will not
   //* get rendered on the page. Don't know why.
   const [nameErrorInput, setNameErrorInput] = useState<string>("");
   const [usernameErrorInput, setUsernameErrorInput] = useState<string>("");
   const [emailErrorInput, setEmailErrorInput] = useState<string>("");
   const [subjectErrorInput, setSubjectErrorInput] = useState<string>("");
+  const [textareaErrorInput, setTextareaErrorInput] = useState<string>();
   /* ************************************************** */
 
   const inputErrors = (): boolean => {
@@ -65,6 +57,34 @@ function Form(): JSX.Element {
       error = true;
     } else {
       setUsernameErrorInput("");
+    }
+    /* ************************************************** */
+    /*            Check email input field                 */
+    /* ************************************************** */
+    const emailPattern = /^[ ]*$/;
+    if (data.email.length === 0 || emailPattern.test(data.email)) {
+      setEmailErrorInput("Campul nu poate fi gol!");
+      error = true;
+    } else {
+      setEmailErrorInput("");
+    }
+    /* ************************************************** */
+    /*            Check subject input field               */
+    /* ************************************************** */
+    const subjectPattern = /^[ ]*$/;
+    if (data.subject.length === 0 || subjectPattern.test(data.subject)) {
+      setSubjectErrorInput("Campul nu poate fi gol!");
+    } else {
+      setSubjectErrorInput("");
+    }
+    /* ************************************************** */
+    /*            Check textarea input field              */
+    /* ************************************************** */
+    const textareaPattern = /^[ ]*$/;
+    if (data.message.length === 0 || textareaPattern.test(data.message)) {
+      setTextareaErrorInput("Campul nu poate fi gol!");
+    } else {
+      setTextareaErrorInput("");
     }
     /* ************************************************** */
 
@@ -97,7 +117,7 @@ function Form(): JSX.Element {
                   id="name"
                   className="formField-input"
                   onChange={(e): void =>
-                    setData({ ...data, name: e.target.value })
+                    setData({ ...data, name: e.target.value.trim() })
                   }
                 />
                 <div>{nameErrorInput}</div>
@@ -112,7 +132,7 @@ function Form(): JSX.Element {
                   id="username"
                   className="formField-input"
                   onChange={(e): void =>
-                    setData({ ...data, username: e.target.value })
+                    setData({ ...data, username: e.target.value.trim() })
                   }
                 />
                 <div>{usernameErrorInput}</div>
@@ -126,13 +146,14 @@ function Form(): JSX.Element {
                 </span>
                 <br />
                 <input
-                  type="email"
+                  type="text"
                   id="email"
                   className="formField-input"
                   onChange={(e): void =>
-                    setData({ ...data, email: e.target.value })
+                    setData({ ...data, email: e.target.value.trim() })
                   }
                 />
+                <div>{emailErrorInput}</div>
               </label>
               <br />
               <br />
@@ -146,9 +167,10 @@ function Form(): JSX.Element {
                   id="subject"
                   className="formField-input"
                   onChange={(e): void =>
-                    setData({ ...data, subject: e.target.value })
+                    setData({ ...data, subject: e.target.value.trim() })
                   }
                 />
+                <div>{subjectErrorInput}</div>
               </label>
               <br />
               <br />
@@ -162,9 +184,10 @@ function Form(): JSX.Element {
                   id="message"
                   className="formField-textarea"
                   onChange={(e): void =>
-                    setData({ ...data, message: e.target.value })
+                    setData({ ...data, message: e.target.value.trim() })
                   }
                 />
+                <div>{textareaErrorInput}</div>
               </label>
               <br />
               <br />
