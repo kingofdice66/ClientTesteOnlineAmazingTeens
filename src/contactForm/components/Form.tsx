@@ -27,13 +27,21 @@ function Form(): JSX.Element {
     message: "",
   });
 
-  const [dataError, setErrorData] = useState<IErrorData>({
-    nameErrorInput: "",
-    usernameErrorInput: "",
-    emailErrorInput: "",
-    subjectErrorInput: "",
-    messageErrorInput: "",
-  });
+  /* ************************************************** */
+  /*        Check for errors in input fields            */
+  /* ************************************************** */
+  //! Attention. Don't put these under an array form like for example:
+  // ? const [data, setData] = useState({
+  // ? usernameErrorInput: "",
+  // ? emailErrorInput: "",
+  // ? });
+  //* because when you hit submit button, one of them will not
+  //* get rendered on the page. Don't know why.
+  const [nameErrorInput, setNameErrorInput] = useState<string>("");
+  const [usernameErrorInput, setUsernameErrorInput] = useState<string>("");
+  const [emailErrorInput, setEmailErrorInput] = useState<string>("");
+  const [subjectErrorInput, setSubjectErrorInput] = useState<string>("");
+  /* ************************************************** */
 
   const inputErrors = (): boolean => {
     let error = false; // error flag
@@ -43,10 +51,20 @@ function Form(): JSX.Element {
     /* ************************************************** */
     const namePattern = /^[ ]*$/;
     if (data.name.length === 0 || namePattern.test(data.name)) {
-      setErrorData({ ...dataError, nameErrorInput: "Campul nu poate fi gol!" });
+      setNameErrorInput("Campul nu poate fi gol!");
       error = true;
     } else {
-      setErrorData({ ...dataError, nameErrorInput: "" });
+      setNameErrorInput("");
+    }
+    /* ************************************************** */
+    /*            Check username input field              */
+    /* ************************************************** */
+    const usernamePatter = /^[ ]*$/;
+    if (data.username.length === 0 || usernamePatter.test(data.username)) {
+      setUsernameErrorInput("Campul nu poate fi gol!");
+      error = true;
+    } else {
+      setUsernameErrorInput("");
     }
     /* ************************************************** */
 
@@ -82,7 +100,7 @@ function Form(): JSX.Element {
                     setData({ ...data, name: e.target.value })
                   }
                 />
-                <div>{dataError.nameErrorInput}</div>
+                <div>{nameErrorInput}</div>
               </label>
               <br />
               <br />
@@ -97,6 +115,7 @@ function Form(): JSX.Element {
                     setData({ ...data, username: e.target.value })
                   }
                 />
+                <div>{usernameErrorInput}</div>
               </label>
               <br />
               <br />
@@ -107,7 +126,7 @@ function Form(): JSX.Element {
                 </span>
                 <br />
                 <input
-                  type="text"
+                  type="email"
                   id="email"
                   className="formField-input"
                   onChange={(e): void =>
