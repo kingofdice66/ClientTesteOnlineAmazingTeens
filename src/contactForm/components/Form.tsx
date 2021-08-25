@@ -9,6 +9,15 @@ interface IData {
   message: string; // The message.
 }
 
+// Input errors
+interface IErrorData {
+  nameErrorInput: string;
+  usernameErrorInput: string;
+  emailErrorInput: string;
+  subjectErrorInput: string;
+  messageErrorInput: string;
+}
+
 function Form(): JSX.Element {
   const [data, setData] = useState<IData>({
     name: "",
@@ -18,9 +27,40 @@ function Form(): JSX.Element {
     message: "",
   });
 
+  const [dataError, setErrorData] = useState<IErrorData>({
+    nameErrorInput: "",
+    usernameErrorInput: "",
+    emailErrorInput: "",
+    subjectErrorInput: "",
+    messageErrorInput: "",
+  });
+
+  const inputErrors = (): boolean => {
+    let error = false; // error flag
+
+    /* ************************************************** */
+    /*            Check name input field                  */
+    /* ************************************************** */
+    const namePattern = /^[ ]*$/;
+    if (data.name.length === 0 || namePattern.test(data.name)) {
+      setErrorData({ ...dataError, nameErrorInput: "Campul nu poate fi gol!" });
+      error = true;
+    } else {
+      setErrorData({ ...dataError, nameErrorInput: "" });
+    }
+    /* ************************************************** */
+
+    return error;
+  };
+
   const submit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    console.log("data: ", data);
+
+    if (inputErrors()) {
+      // ...
+    } else {
+      console.log("Error");
+    }
   };
 
   return (
@@ -42,6 +82,7 @@ function Form(): JSX.Element {
                     setData({ ...data, name: e.target.value })
                   }
                 />
+                <div>{dataError.nameErrorInput}</div>
               </label>
               <br />
               <br />
@@ -120,9 +161,11 @@ function Form(): JSX.Element {
             </form>
             <br />
             <div>
-              Toate câmpurile marcate cu
-              <br />
-              steluță roșie sunt obligatorii!
+              <span className="formField-footerMessage">
+                Toate câmpurile marcate cu
+                <br />
+                steluță roșie sunt obligatorii!
+              </span>
             </div>
           </div>
         </div>

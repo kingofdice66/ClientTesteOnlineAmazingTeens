@@ -1,5 +1,6 @@
 .formFields-wrapper {
   $backgroundColor: rgb(185, 96, 32);
+  $borderRadius: 5px;
 
   background-color: $backgroundColor;
   justify-content: center;
@@ -12,7 +13,8 @@
   }
 
   .formFields {
-    background-color: rgba(0, 255, 255, 0.938);
+    background-color: rgba(0, 140, 255, 0.938);
+    background-repeat: repeat;
     border-radius: 10px;
     font-size: 17.5px;
     margin: 50px 0;
@@ -21,24 +23,25 @@
   }
 
   .formFieldName-style {
+    color: rgba(255, 255, 255, 0.952);
     font-family: "Roboto Condensed", sans-serif;
   }
 
   .formField-input {
     background-color: rgba(166, 255, 0, 0.876);
-    border-radius: 3.5px;
+    border-radius: $borderRadius;
     padding: 7px 6px;
     width: 100%;
   }
 
   .formField-textarea {
     background-color: rgba(255, 0, 0, 0.911);
-    border-radius: 3.5px;
+    border-radius: $borderRadius;
     width: 100%;
   }
 
   .formField-submitButton {
-    border-radius: 3.5px;
+    border-radius: $borderRadius;
     height: 50px;
     width: 100%;
   }
@@ -48,7 +51,14 @@
   }
 
   .formField-submitButton-text {
+    border-radius: $borderRadius;
     font-family: "Roboto Slab", serif;
     font-weight: 700;
+  }
+
+  .formField-footerMessage {
+    color: rgba(255, 255, 255, 0.938);
+    font-size: larger;
+    font-weight: 800;
   }
 }
