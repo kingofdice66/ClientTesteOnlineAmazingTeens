@@ -19,4 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post("contactForm", [ContactForm::class, "contactForm"]);
+// Send mail through the contact form with a question or a message.
+Route::post("contactFormMail", [ContactForm::class, "sendEmail"]);
