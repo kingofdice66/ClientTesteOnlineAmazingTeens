@@ -1,4 +1,4 @@
-// This is used to send messages to the sites owner. Like, for example,
+// This is used to send email messages to the sites owner. Like, for example,
 // how to sign up to the course and payments.
 
 import React from "react";

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import sendData from "../../fetch/sendData";
+import apiURL from "../../apiURL/ApiURL";
 import "./Form.scss";
 
 interface IData {
@@ -19,7 +21,7 @@ function Form(): JSX.Element {
   });
 
   /* ************************************************** */
-  /*      Check for errors in input fields              */
+  /*      Check for errors in the input fields          */
   /* ************************************************** */
   //! Attention. Don't put these under an array form like for example:
   // ? const [data, setData] = useState({
@@ -27,7 +29,7 @@ function Form(): JSX.Element {
   // ? emailErrorInput: "",
   // ? });
   //* because when you hit submit button, some of them will not
-  //* get rendered on the page. Don't know why.
+  //* get rendered on the page.
   const [nameErrorInput, setNameErrorInput] = useState<string>("");
   const [usernameErrorInput, setUsernameErrorInput] = useState<string>("");
   const [emailErrorInput, setEmailErrorInput] = useState<string>("");
@@ -35,6 +37,7 @@ function Form(): JSX.Element {
   const [textareaErrorInput, setTextareaErrorInput] = useState<string>();
   /* ************************************************** */
 
+  /** Check for errors in the input fields */
   const inputErrors = (): boolean => {
     let error = false; // error flag
 
@@ -43,7 +46,7 @@ function Form(): JSX.Element {
     /* ************************************************** */
     const namePattern = /^[ ]*$/;
     if (data.name.length === 0 || namePattern.test(data.name)) {
-      setNameErrorInput("Campul nu poate fi gol!");
+      setNameErrorInput("Câmpul nu poate fi gol!");
       error = true;
     } else {
       setNameErrorInput("");
@@ -53,7 +56,7 @@ function Form(): JSX.Element {
     /* ************************************************** */
     const usernamePatter = /^[ ]*$/;
     if (data.username.length === 0 || usernamePatter.test(data.username)) {
-      setUsernameErrorInput("Campul nu poate fi gol!");
+      setUsernameErrorInput("Câmpul nu poate fi gol!");
       error = true;
     } else {
       setUsernameErrorInput("");
@@ -63,7 +66,7 @@ function Form(): JSX.Element {
     /* ************************************************** */
     const emailPattern = /^[ ]*$/;
     if (data.email.length === 0 || emailPattern.test(data.email)) {
-      setEmailErrorInput("Campul nu poate fi gol!");
+      setEmailErrorInput("Câmpul nu poate fi gol!");
       error = true;
     } else {
       setEmailErrorInput("");
@@ -73,7 +76,8 @@ function Form(): JSX.Element {
     /* ************************************************** */
     const subjectPattern = /^[ ]*$/;
     if (data.subject.length === 0 || subjectPattern.test(data.subject)) {
-      setSubjectErrorInput("Campul nu poate fi gol!");
+      setSubjectErrorInput("Câmpul nu poate fi gol!");
+      error = true;
     } else {
       setSubjectErrorInput("");
     }
@@ -82,7 +86,8 @@ function Form(): JSX.Element {
     /* ************************************************** */
     const textareaPattern = /^[ ]*$/;
     if (data.message.length === 0 || textareaPattern.test(data.message)) {
-      setTextareaErrorInput("Campul nu poate fi gol!");
+      setTextareaErrorInput("Câmpul nu poate fi gol!");
+      error = true;
     } else {
       setTextareaErrorInput("");
     }
@@ -94,8 +99,9 @@ function Form(): JSX.Element {
   const submit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    if (inputErrors()) {
-      // ...
+    if (!inputErrors()) {
+      console.log("Success");
+      sendData<IData>(`${apiURL}contactForm`, data);
     } else {
       console.log("Error");
     }
