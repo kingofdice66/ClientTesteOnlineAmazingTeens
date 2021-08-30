@@ -1,13 +1,21 @@
 {
-  "extends": "stylelint-config-sass-guidelines",
-  "ignoreFiles": [
-    "laravel/**/*.css",
-    "website/**/*.css",
-    "node_modules/**/*.css"
-  ],
-  "rules": {
-    "string-quotes": "double",
-    "selector-class-pattern": "^([a-z]|[A-Z])(-|_|[a-zA-Z0-9])+$",
-    "scss/dollar-variable-pattern": "^([a-z]|[A-Z])(-|_|[a-zA-Z0-9])+$"
-  }
+    "extends": "stylelint-config-sass-guidelines",
+    "rules": {
+        "string-quotes": "double",
+        "selector-class-pattern": "^([a-z]|[A-Z])(-|_|[a-zA-Z0-9])+$",
+        "scss/dollar-variable-pattern": "^([a-z]|[A-Z])(-|_|[a-zA-Z0-9])+$",
+        "indentation": 4
+    },
+    "ignoreFiles": [
+        "node_modules/**/*.css",
+        "app/**/*.css",
+        "bootstrap/**/*.css",
+        "config/**/*.css",
+        "database/**/*.css",
+        "public/**/*.css",
+        "routes/**/*.css",
+        "storage/**/*.css",
+        "tests/**/*.css",
+        "vendor/**/*.css"
+    ]
 }
