@@ -8,7 +8,7 @@
     },
     "ignoreFiles": [
         "node_modules/**/*.css",
-        "app/**/*.css",
+        "app/***/*.css",
         "bootstrap/**/*.css",
         "config/**/*.css",
         "database/**/*.css",

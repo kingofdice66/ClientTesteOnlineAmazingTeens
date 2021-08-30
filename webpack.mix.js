@@ -13,7 +13,7 @@ const ESLintPlugin = require("eslint-webpack-plugin");
  |
  */
 
-mix.ts("resources/src/main/public/Index.tsx", "public/js").version();
+mix.ts("resources/src/main/public/Main.tsx", "public/js").version();
 
 mix.webpackConfig({
     plugins: [new StylelintPlugin(), new ESLintPlugin()],

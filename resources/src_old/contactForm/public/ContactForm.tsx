@@ -1,20 +1,22 @@
+// This is used to send email messages to the sites owner. Like, for example,
+// how to sign up to the course and payments.
+
 import React from "react";
 import ReactDOM from "react-dom";
-import About from "../components/About";
+import Form from "../components/Form";
 import TopNavBar from "../../top-nav-bar/TopNavBar";
 import Footer from "../../footer/Footer";
-import "./Index.scss";
 import "normalize.css";
 
-function Index(): JSX.Element {
+function ContactForm(): JSX.Element {
   return (
     <>
-      <div className="mainPage-wrapper">
+      <div className="contactForm-mainPage--wrapper">
         <div>
           <TopNavBar />
         </div>
         <div>
-          <About />
+          <Form />
         </div>
         <div>
           <Footer />
@@ -24,4 +26,4 @@ function Index(): JSX.Element {
   );
 }
 
-ReactDOM.render(<Index />, document.getElementById("index"));
+// ReactDOM.render(<ContactForm />, document.getElementById("contactForm"));
