@@ -18,6 +18,7 @@ mix.ts(
     "resources/src/contactForm/public/ContactForm.tsx",
     "public/js"
 ).version();
+mix.ts("resources/src/makeCourse/public/MakeCourse.tsx", "public/js").version();
 
 mix.webpackConfig({
     plugins: [new StylelintPlugin(), new ESLintPlugin()],
