@@ -1,4 +1,5 @@
 import React from "react";
+//-----------------------------------------------------------
 import { Editor } from "@tinymce/tinymce-react";
 import "tinymce/tinymce";
 import "tinymce/icons/default";
@@ -35,30 +36,39 @@ function MakeCourseForm(): JSX.Element {
         <>
             <div className="makeCourseForm-wrapper">
                 <form onSubmit={submit}>
-                    <label htmlFor="courseName">
-                        <span>Numele cursului:</span>
-                        <br />
-                        <textarea
-                            id="courseName"
-                            placeholder="Numele cursului ..."
-                        />
-                    </label>
-                    <br />
-                    <br />
-                    <label htmlFor="chapterName">
-                        <span>Numele capitolului:</span>
-                        <br />
-                        <textarea
-                            id="chapterName"
-                            placeholder="Numele capitolului ..."
-                        />
-                    </label>
+                    <div className="chapterAndNameInput-wrapper">
+                        <div /* this div is used for centering item */>
+                            <div>
+                                <label htmlFor="courseName">
+                                    <span>Numele cursului:</span>
+                                    <br />
+                                    <textarea
+                                        id="courseName"
+                                        placeholder="Numele cursului ..."
+                                    />
+                                </label>
+                                <br />
+                                <br />
+                            </div>
+                            <div>
+                                <label htmlFor="chapterName">
+                                    <span>Numele capitolului:</span>
+                                    <br />
+                                    <textarea
+                                        id="chapterName"
+                                        placeholder="Numele capitolului ..."
+                                    />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                     <br />
                     <br />
                     <span>Conținutul capitolului</span>
                     <br />
                     <Editor
                         init={{
+                            width: "100%",
                             skin: false, // so it can get the skins downloaded from the packages
                             // eslint-disable-next-line camelcase
                             content_css: false, // so it can get the skins downloaded from the packages
@@ -79,9 +89,9 @@ function MakeCourseForm(): JSX.Element {
                                 "insertdatetime media table paste code help wordcount",
                             ],
                             toolbar: `
-                            undo redo | formatselect | bold italic backcolor |
-                            alignleft aligncenter alignright alignjustify |
-                            bullist numlist outdent indent | removeformat | help`,
+                                undo redo | formatselect | bold italic backcolor |
+                                alignleft aligncenter alignright alignjustify |
+                                bullist numlist outdent indent | removeformat | help`,
                         }}
                     />
                     <br />

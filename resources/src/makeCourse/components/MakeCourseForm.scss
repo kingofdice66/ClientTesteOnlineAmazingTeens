@@ -1,4 +1,12 @@
 .makeCourseForm-wrapper {
     justify-content: center;
+    margin: 0 60px;
     min-height: 100vh;
+
+    .chapterAndNameInput-wrapper {
+        align-items: center;
+        background-color: rgba(255, 166, 0, 0.966);
+        display: flex;
+        justify-content: center;
+    }
 }
