@@ -36,7 +36,7 @@ function MakeCourseForm(): JSX.Element {
         <>
             <div className="makeCourseForm-wrapper">
                 <form onSubmit={submit}>
-                    <div className="chapterAndNameInput-wrapper">
+                    <div className="chapterAndCourseNameInput-wrapper">
                         <div /* this div is used for centering item */>
                             <div>
                                 <label htmlFor="courseName">
