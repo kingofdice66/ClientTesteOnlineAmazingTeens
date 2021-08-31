@@ -1,4 +1,5 @@
 import React from "react";
+import TinyMCE from "../../tinyMCE/TinyMCE";
 
 function MakeCourseForm(): JSX.Element {
     const submit = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -17,9 +18,7 @@ function MakeCourseForm(): JSX.Element {
                 </label>
                 <br />
                 <br />
-                <label htmlFor="chapter">
-                    <input type="text" id="chapter" />
-                </label>
+                <TinyMCE />
                 <br />
                 <br />
                 <button type="submit">Adaugă Curs</button>
