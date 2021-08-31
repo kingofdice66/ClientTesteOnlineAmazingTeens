@@ -39,7 +39,7 @@ function TinyMCE(): JSX.Element {
                     // eslint-disable-next-line camelcase
                     browser_spellcheck: true,
                     // eslint-disable-next-line camelcase
-                    content_style: "p {margin: 0}", //* 'content_style: "p {margin: 0}"' eliminate spacing between paragraphs.
+                    content_style: "p {margin: 0}", // 'content_style: "p {margin: 0}"' eliminate spacing between paragraphs.
                     mobile: {
                         menubar: true,
                     },
