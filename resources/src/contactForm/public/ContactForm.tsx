@@ -9,21 +9,21 @@ import Footer from "../../footer/Footer";
 import "normalize.css";
 
 function ContactForm(): JSX.Element {
-  return (
-    <>
-      <div className="contactForm-mainPage--wrapper">
-        <div>
-          <TopNavBar />
-        </div>
-        <div>
-          <Form />
-        </div>
-        <div>
-          <Footer />
-        </div>
-      </div>
-    </>
-  );
+    return (
+        <>
+            <div className="contactForm-mainPage--wrapper">
+                <div>
+                    <TopNavBar />
+                </div>
+                <div>
+                    <Form />
+                </div>
+                <div>
+                    <Footer />
+                </div>
+            </div>
+        </>
+    );
 }
 
-// ReactDOM.render(<ContactForm />, document.getElementById("contactForm"));
+ReactDOM.render(<ContactForm />, document.getElementById("contactForm"));

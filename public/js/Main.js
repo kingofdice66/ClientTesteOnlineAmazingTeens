@@ -96,7 +96,7 @@ function TopNavBar() {
   }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "styleLinkText"
   }, "Cursuri"))), react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "./ContactForm.html",
+    href: "ContactForm",
     className: "skew"
   }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "skew-undo"

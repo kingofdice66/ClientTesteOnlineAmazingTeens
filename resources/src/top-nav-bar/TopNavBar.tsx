@@ -24,7 +24,7 @@ function TopNavBar(): JSX.Element {
                 <span className="styleLinkText">Cursuri</span>
               </div>
             </a>
-            <a href="./ContactForm.html" className="skew">
+            <a href="ContactForm" className="skew">
               <div className="skew-undo">
                 <span className="styleLinkText">Contactează-ne</span>
               </div>

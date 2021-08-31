@@ -1,5 +1,4 @@
 // For use with api Laravel
-const apiURL =
-  "http://localhost/projects/ClientTesteOnlineAmazingTeens/website/laravel/public/api/";
+const apiURL = "http://127.0.0.1:8000/api/";
 
 export default apiURL;
