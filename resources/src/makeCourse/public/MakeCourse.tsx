@@ -1,12 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "normalize.css";
 import Form from "../components/MakeCourseForm";
+import TopNavBar from "../../top-nav-bar/TopNavBar";
+import Footer from "../../footer/Footer";
+import "./MakeCourse.scss";
+import "normalize.css";
 
 function MakeCourse(): JSX.Element {
     return (
         <>
-            <Form />
+            <div className="makeCourse-wrapper">
+                <div>
+                    <TopNavBar />
+                </div>
+                <div>
+                    <Form />
+                </div>
+                <div>
+                    <Footer />
+                </div>
+            </div>
         </>
     );
 }

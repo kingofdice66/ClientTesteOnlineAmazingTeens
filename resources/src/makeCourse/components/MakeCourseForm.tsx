@@ -23,6 +23,8 @@ import "tinymce/plugins/wordcount/plugin";
 import "tinymce/skins/ui/oxide/skin.min.css";
 import "tinymce/skins/ui/oxide/content.min.css";
 import "tinymce/skins/content/default/content.min.css";
+//-----------------------------------------------------------
+import "./MakeCourseForm.scss";
 
 function MakeCourseForm(): JSX.Element {
     const submit = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -31,58 +33,62 @@ function MakeCourseForm(): JSX.Element {
     };
     return (
         <>
-            <form onSubmit={submit}>
-                <label htmlFor="courseName">
-                    <span>Numele cursului:</span>
+            <div className="makeCourseForm-wrapper">
+                <form onSubmit={submit}>
+                    <label htmlFor="courseName">
+                        <span>Numele cursului:</span>
+                        <br />
+                        <textarea
+                            id="courseName"
+                            placeholder="Numele cursului ..."
+                        />
+                    </label>
                     <br />
-                    <textarea
-                        id="courseName"
-                        placeholder="Numele cursului ..."
-                    />
-                </label>
-                <br />
-                <br />
-                <label htmlFor="courseName">
-                    <span>Numele capitolului:</span>
                     <br />
-                    <textarea
-                        id="chapterName"
-                        placeholder="Numele capitolului ..."
-                    />
-                </label>
-                <br />
-                <br />
-                <Editor
-                    init={{
-                        skin: false, // so it can get the skins downloaded from the packages
-                        // eslint-disable-next-line camelcase
-                        content_css: false, // so it can get the skins downloaded from the packages
-                        height: 250,
-                        menubar: true,
-                        branding: false,
-                        contextmenu: false,
-                        // eslint-disable-next-line camelcase
-                        browser_spellcheck: true,
-                        // eslint-disable-next-line camelcase
-                        content_style: "p {margin: 0}", // 'content_style: "p {margin: 0}"' eliminate spacing between paragraphs.
-                        mobile: {
+                    <label htmlFor="chapterName">
+                        <span>Numele capitolului:</span>
+                        <br />
+                        <textarea
+                            id="chapterName"
+                            placeholder="Numele capitolului ..."
+                        />
+                    </label>
+                    <br />
+                    <br />
+                    <span>Conținutul capitolului</span>
+                    <br />
+                    <Editor
+                        init={{
+                            skin: false, // so it can get the skins downloaded from the packages
+                            // eslint-disable-next-line camelcase
+                            content_css: false, // so it can get the skins downloaded from the packages
+                            height: 250,
                             menubar: true,
-                        },
-                        plugins: [
-                            "advlist autolink lists link image charmap anchor",
-                            "searchreplace visualblocks code fullscreen",
-                            "insertdatetime media table paste code help wordcount",
-                        ],
-                        toolbar: `
-                        undo redo | formatselect | bold italic backcolor | 
-                        alignleft aligncenter alignright alignjustify | 
-                        bullist numlist outdent indent | removeformat | help`,
-                    }}
-                />
-                <br />
-                <br />
-                <button type="submit">Adaugă Curs</button>
-            </form>
+                            branding: false,
+                            contextmenu: false,
+                            // eslint-disable-next-line camelcase
+                            browser_spellcheck: true,
+                            // eslint-disable-next-line camelcase
+                            content_style: "p {margin: 0}", // 'content_style: "p {margin: 0}"' eliminate spacing between paragraphs.
+                            mobile: {
+                                menubar: true,
+                            },
+                            plugins: [
+                                "advlist autolink lists link image charmap anchor",
+                                "searchreplace visualblocks code fullscreen",
+                                "insertdatetime media table paste code help wordcount",
+                            ],
+                            toolbar: `
+                            undo redo | formatselect | bold italic backcolor |
+                            alignleft aligncenter alignright alignjustify |
+                            bullist numlist outdent indent | removeformat | help`,
+                        }}
+                    />
+                    <br />
+                    <br />
+                    <button type="submit">Adaugă Curs</button>
+                </form>
+            </div>
         </>
     );
 }
