@@ -4,7 +4,6 @@
     min-height: 100vh;
 
     .chapterAndCourseNameInput-wrapper {
-        align-items: center;
         background-color: rgba(255, 166, 0, 0.966);
         display: flex;
         justify-content: center;
@@ -12,6 +11,6 @@
 
     textarea {
         height: 80px;
-        width: 500px;
+        min-width: calc(100vw - 800px);
     }
 }
