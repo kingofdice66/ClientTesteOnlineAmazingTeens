@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 //-----------------------------------------------------------
 import { Editor } from "@tinymce/tinymce-react";
 import "tinymce/tinymce";
@@ -25,6 +25,7 @@ import "tinymce/skins/ui/oxide/skin.min.css";
 import "tinymce/skins/ui/oxide/content.min.css";
 import "tinymce/skins/content/default/content.min.css";
 //-----------------------------------------------------------
+import QuizForm from "./QuizForm";
 import "./MakeCourseForm.scss";
 
 function MakeCourseForm(): JSX.Element {
@@ -32,6 +33,7 @@ function MakeCourseForm(): JSX.Element {
         e.preventDefault();
         console.log("Form Submitted");
     };
+
     return (
         <>
             <div className="makeCourseForm-wrapper">
@@ -61,6 +63,9 @@ function MakeCourseForm(): JSX.Element {
                                 </label>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <QuizForm />
                     </div>
                     <br />
                     <br />
