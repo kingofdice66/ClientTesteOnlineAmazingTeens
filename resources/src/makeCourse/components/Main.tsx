@@ -52,7 +52,7 @@ function MakeCourseForm(): JSX.Element {
     });
 
     // This 'errorChapterName' is for when there is some sort of error with the network when we set the name of the course.
-    const [error, setError] = useState<IError>({
+    const [networkError, setNetworkError] = useState<IError>({
         courseName: "",
         chapterName: "",
     });
@@ -72,7 +72,7 @@ function MakeCourseForm(): JSX.Element {
                 prevState.courseName = false;
                 return { ...prevState };
             });
-            setError({ ...error, courseName: "" });
+            setNetworkError({ ...networkError, courseName: "" });
             // If both 'courseID' and 'chapterID' are set means that both course name and chapter name are set.
         } else if (!Number.isNaN(courseID) && !Number.isNaN(chapterID)) {
             setVisibility((prevState) => {
@@ -109,8 +109,8 @@ function MakeCourseForm(): JSX.Element {
                 }
             },
             (errorMsg) => {
-                setError({
-                    ...error,
+                setNetworkError({
+                    ...networkError,
                     courseName:
                         "Numele cursului nu s-a putut stabili din cauza unei posibile probleme de retea. Verificati-va conexiunea la internet si incercati din nou!",
                 });
@@ -138,8 +138,8 @@ function MakeCourseForm(): JSX.Element {
                 }
             },
             (errorMsg) => {
-                setError({
-                    ...error,
+                setNetworkError({
+                    ...networkError,
                     chapterName:
                         "Numele cursului nu s-a putut stabili din cauza unei posibile probleme de retea. Verificati-va conexiunea la internet si incercati din nou!",
                 });
@@ -166,7 +166,7 @@ function MakeCourseForm(): JSX.Element {
                     setCourse={setCourse}
                     // ################################
                 />
-                <div>{error.chapterName}</div>
+                <div>{networkError.chapterName}</div>
                 {visibility.setCourseButton === true ? (
                     <button type="button" onClick={uploadCourseNameToDatabase}>
                         Seteaza Numele Cursului
