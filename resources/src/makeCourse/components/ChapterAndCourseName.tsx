@@ -1,15 +1,20 @@
 import React from "react";
 import "./ChapterAndCourseName.scss";
 
-function ChapterAndCourseName(props: any): JSX.Element {
-    const { visibility } = props; // Some parts are visible only when the name of the course is set.
-    const { courseName, setCourseName } = props; // Passed the whole state.
+interface ICourse {
+    courseName: string;
+    chapterName: string;
+}
 
-    const setCourseNameOnChange = (
-        e: React.ChangeEvent<HTMLTextAreaElement>
-    ): void => {
-        setCourseName(e.target.value);
-    };
+interface IProps {
+    visibility: { courseName: boolean; chapterName: boolean };
+    course: { courseName: string; chapterName: string };
+    setCourse: React.Dispatch<React.SetStateAction<ICourse>>;
+}
+
+function ChapterAndCourseName(props: IProps): JSX.Element {
+    const { visibility } = props; // Some parts are visible depending on how chapter and course names are set.
+    const { course, setCourse } = props; // course state.
 
     return (
         <div className="chapterAndCourseNameInput-wrapper">
@@ -22,8 +27,13 @@ function ChapterAndCourseName(props: any): JSX.Element {
                             <textarea
                                 id="courseName"
                                 placeholder="Scrie aici numele cursului ..."
-                                value={courseName}
-                                onChange={setCourseNameOnChange}
+                                value={course.courseName}
+                                onChange={(e): void =>
+                                    setCourse({
+                                        ...course,
+                                        courseName: e.target.value,
+                                    })
+                                }
                             />
                         </label>
                         <br />
@@ -40,6 +50,13 @@ function ChapterAndCourseName(props: any): JSX.Element {
                             <textarea
                                 id="chapterName"
                                 placeholder="Scrie aici numele capitolului ..."
+                                value={course.chapterName}
+                                onChange={(e): void =>
+                                    setCourse({
+                                        ...course,
+                                        chapterName: e.target.value,
+                                    })
+                                }
                             />
                         </label>
                     </div>

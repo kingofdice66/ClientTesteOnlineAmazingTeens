@@ -15,11 +15,11 @@ class CreateChaptersTable extends Migration
     {
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
-            $table->text("name");
-            $table->mediumText("content");
-            $table->text("quiz_form");
+            $table->text("name")->nullable(); // To be set at a later time.
+            $table->mediumText("content")->nullable(); // To be set at a later time.
+            $table->text("quiz_form")->nullable(); // To be set at a later time.
             // The correct answers to the quiz.
-            $table->text("quiz_correct_answers");
+            $table->text("quiz_correct_answers")->nullable(); // To be set at a later time.
             // Option to show the respective chapter or not. For example, if the
             // chapter is not ready, the user choses to not show the chapter yet.
             $table->boolean("show")->default(false);

@@ -1,5 +1,5 @@
 import React from "react";
-//-----------------------------------------------------------
+// #################################################################
 import { Editor } from "@tinymce/tinymce-react";
 import "tinymce/tinymce";
 import "tinymce/icons/default";
@@ -24,7 +24,7 @@ import "tinymce/plugins/wordcount/plugin";
 import "tinymce/skins/ui/oxide/skin.min.css";
 import "tinymce/skins/ui/oxide/content.min.css";
 import "tinymce/skins/content/default/content.min.css";
-//-----------------------------------------------------------
+// #################################################################
 
 function TinyMCE(): JSX.Element {
     return (

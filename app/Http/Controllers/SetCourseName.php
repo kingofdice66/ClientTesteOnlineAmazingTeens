@@ -10,24 +10,26 @@ use Carbon\Carbon;
 class SetCourseName extends Controller
 {
     private $data = NULL;
+    private $dateTime = NULL;
+    private $dateTimeFormat = NULL;
 
     public function __construct()
     {
-        $this->data = json_decode(file_get_contents("php://input"), true);
+        $this->data = (new CustomFunctions)->jsonDecode();
+        $this->dateTime = new Carbon;
+        $this->dateTimeFormat = (new CustomFunctions)->dateTimeFormat();
     }
 
+    /* Set the name of the chapter. */
     public function setCourseName()
     {
-        $dateTime = new Carbon;
-        $dateTimeFormat = (new CustomFunctions)->dateTimeFormat();
-
         DB::table("courses")->insert([
             "name" => $this->data,
-            "created_at" => $dateTime->format($dateTimeFormat),
+            "created_at" => $this->dateTime->format($this->dateTimeFormat),
         ]);
 
         $courseID = DB::table("courses")->max("id");
 
-        return ["id" =>  $courseID];
+        return ["courseID" =>  $courseID];
     }
 }

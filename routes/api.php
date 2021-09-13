@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SetChapterName;
 use App\Http\Controllers\SetCourseName;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post("setCourseName", [SetCourseName::class, "setCourseName"]);
+
+Route::post("setChapterName", [SetChapterName::class, "setChapterName"]);
