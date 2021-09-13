@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Form from "../components/MakeCourseForm";
+import Main from "../components/Main";
 import TopNavBar from "../../top-nav-bar/TopNavBar";
 import Footer from "../../footer/Footer";
 import "./MakeCourse.scss";
@@ -14,7 +14,7 @@ function MakeCourse(): JSX.Element {
                     <TopNavBar />
                 </div>
                 <div>
-                    <Form />
+                    <Main />
                 </div>
                 <div>
                     <Footer />
