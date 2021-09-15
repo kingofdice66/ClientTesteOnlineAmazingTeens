@@ -45,7 +45,7 @@ const EXIT_FAILED = 1;
 function MakeCourseForm(): JSX.Element {
     const [visibility, setVisibility] = useState<IVisibility>({
         courseName: true, // This is hidden only when the name of the course is set.
-        chapterName: false, // Visible only if the name fo the course is set.
+        chapterName: false, // Visible only if the name of the course is set.
         quizFormAndTextEditor: false, // Visible only if the name of the chapter is set.
         setCourseButton: true, // Visible only if the course is not set.
         setChapterButton: false, // Visible only if the chapter is not set.
@@ -68,6 +68,7 @@ function MakeCourseForm(): JSX.Element {
         courseName: "",
     });
 
+    /** Get data from database related to making the course. */
     const getDataFromDatabase = (): void => {
         const urlData = {
             courseID,
@@ -75,8 +76,22 @@ function MakeCourseForm(): JSX.Element {
         };
 
         sendGetData(`${apiURL}/api/getMakeCourseData`, urlData).then(
-            (data) => {
+            (data: any /* to be set at a later time */) => {
                 console.log("data = ", data);
+                if (data.courseName !== null) {
+                    setCourse((prevState) => {
+                        // eslint-disable-next-line no-param-reassign
+                        prevState.courseName = data.courseName;
+                        return { ...prevState };
+                    });
+                }
+                if (data.chapterName !== null) {
+                    setCourse((prevState) => {
+                        // eslint-disable-next-line no-param-reassign
+                        prevState.chapterName = data.chapterName;
+                        return { ...prevState };
+                    });
+                }
             },
             (errorMsg) => {
                 console.log("Error: ", errorMsg);
@@ -85,6 +100,7 @@ function MakeCourseForm(): JSX.Element {
         console.log("Get data from database");
     };
 
+    /** Show different components upon different conditions. */
     const setVisibilityFunction = (): void => {
         // If 'courseID' is set but not 'chapterID' means that the name of the course is set but not the chapter name.
         if (!Number.isNaN(courseID) && Number.isNaN(chapterID)) {
