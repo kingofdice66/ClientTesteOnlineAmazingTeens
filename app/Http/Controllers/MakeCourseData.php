@@ -21,11 +21,17 @@ class MakeCourseData extends Controller
         $chapterID = $this->data["chapterID"];
 
         $courseName = DB::table("courses")->where("id", $courseID)->value("name");
-        $chapterName = DB::table("courses")->where("id", $chapterID)->value("name");
+        $chapterName = DB::table("chapters")->where([["course_id", $courseID], ["id", $chapterID]])->value("name");
+        $chapterContent = DB::table("chapters")->where([["course_id", $courseID], ["id", $chapterID]])->value("content");
+        $chapterQuizForm = DB::table("chapters")->where([["course_id", $courseID], ["id", $chapterID]])->value("quiz_form");
+        $chapterQuizCorrectAnswers = DB::table("chapters")->where([["course_id", $courseID], ["id", $chapterID]])->value("quiz_correct_answers");
 
         return [
             "courseName" => $courseName,
             "chapterName" => $chapterName,
+            "chapterContent" => $chapterContent,
+            "chapterQuizForm" => $chapterQuizForm,
+            "chapterQuizCorrectAnswers" => $chapterQuizCorrectAnswers,
         ];
     }
 }
