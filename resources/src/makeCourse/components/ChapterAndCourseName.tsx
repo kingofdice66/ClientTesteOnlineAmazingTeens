@@ -1,4 +1,6 @@
 import React from "react";
+import apiURL from "../../apiURL/ApiURL";
+import sendData from "../../fetch/sendData";
 import "./ChapterAndCourseName.scss";
 
 interface ICourse {
@@ -20,6 +22,24 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
     const { inputError } = props;
     const { urlIDs } = props; // In order to upload data to database in correct location.
 
+    /** It is updated only if visibility of the name of the course input field is visible. */
+    const updateCourseNameInDatabase = (): void => {
+        const data = {
+            courseName: course.courseName,
+            courseID: urlIDs.courseID,
+        };
+        sendData(`${apiURL}/api/updateCourserName`, data);
+    };
+
+    /** It is update only if visibility of the name of the chapter input field is visible. */
+    const updateChapterNameInDatabase = (): void => {
+        const data = {
+            chapterName: course.chapterName,
+            chapterID: urlIDs.chapterID,
+        };
+        sendData(`${apiURL}/api/updateChapterName`, data);
+    };
+
     return (
         <div className="chapterAndCourseNameInput-wrapper">
             <div className="chapterAndCourseNameInput">
@@ -32,12 +52,15 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
                                 id="courseName"
                                 placeholder="Scrie aici numele cursului ..."
                                 value={course.courseName}
-                                onChange={(e): void =>
+                                onChange={(e): void => {
                                     setCourse({
                                         ...course,
                                         courseName: e.target.value,
-                                    })
-                                }
+                                    });
+                                    if (visibility.courseName === true) {
+                                        updateCourseNameInDatabase();
+                                    }
+                                }}
                             />
                         </label>
                         {inputError.courseName.length !== 0 ? (
@@ -60,12 +83,15 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
                                 id="chapterName"
                                 placeholder="Scrie aici numele capitolului ..."
                                 value={course.chapterName}
-                                onChange={(e): void =>
+                                onChange={(e): void => {
                                     setCourse({
                                         ...course,
                                         chapterName: e.target.value,
-                                    })
-                                }
+                                    });
+                                    if (visibility.chapterName === true) {
+                                        updateChapterNameInDatabase();
+                                    }
+                                }}
                             />
                         </label>
                         {inputError.chapterName.length !== 0 ? (

@@ -77,12 +77,20 @@ function MakeCourseForm(): JSX.Element {
         courseName: "",
     });
 
-    const [urlIDs, setUrlIDs] = useState<IUrlIDs>(() => {
-        if (!Number.isNaN(courseID) && !Number.isNaN(chapterID)) {
-            return { chapterID, courseID };
-        }
-        return { chapterID: null, courseID: null };
-    });
+    const urlIDs: IUrlIDs = {
+        courseID: ((): number => {
+            if (!Number.isNaN(courseID)) {
+                return courseID;
+            }
+            return null;
+        })(),
+        chapterID: ((): number => {
+            if (!Number.isNaN(chapterID)) {
+                return chapterID;
+            }
+            return null;
+        })(),
+    };
 
     /** Get data from database related to making the course. */
     const getDataFromDatabase = (): void => {
