@@ -32,15 +32,12 @@ interface IChapter {
     courseID: number;
 }
 
-interface INetworkError {
-    courseName: string;
-    chapterName: string;
-}
-
 interface IInputError {
     courseName: string;
     chapterName: string;
 }
+
+type INetworkError = IInputError;
 
 const EXIT_SUCCESS = 0;
 const EXIT_FAILED = 1;
@@ -71,16 +68,21 @@ function MakeCourseForm(): JSX.Element {
         courseName: "",
     });
 
-    const returnCourseAndChapterNameFromDatabase = (): void => {
-        //
-    };
+    const getDataFromDatabase = (): void => {
+        const urlData = {
+            courseID,
+            chapterID,
+        };
 
-    const returnQuizFormFromDatabase = (): void => {
-        //
-    };
-
-    const returnRichTextEditorContentFromDatabase = (): void => {
-        //
+        sendGetData(`${apiURL}/api/getMakeCourseData`, urlData).then(
+            (data) => {
+                console.log("data = ", data);
+            },
+            (errorMsg) => {
+                console.log("Error: ", errorMsg);
+            }
+        );
+        console.log("Get data from database");
     };
 
     const setVisibilityFunction = (): void => {
@@ -113,9 +115,7 @@ function MakeCourseForm(): JSX.Element {
                 prevState.quizFormAndTextEditor = true;
                 return { ...prevState };
             });
-            returnCourseAndChapterNameFromDatabase();
-            returnQuizFormFromDatabase();
-            returnRichTextEditorContentFromDatabase();
+            getDataFromDatabase();
         } else {
             console.log("Conditions failed in 'useEffect()'");
         }
