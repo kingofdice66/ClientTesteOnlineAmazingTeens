@@ -10,11 +10,13 @@ interface IProps {
     visibility: { courseName: boolean; chapterName: boolean };
     course: { courseName: string; chapterName: string };
     setCourse: React.Dispatch<React.SetStateAction<ICourse>>;
+    inputError: { chapterName: string; courseName: string };
 }
 
 function ChapterAndCourseName(props: IProps): JSX.Element {
     const { visibility } = props; // Some parts are visible depending on how chapter and course names are set.
     const { course, setCourse } = props; // course state.
+    const { inputError } = props;
 
     return (
         <div className="chapterAndCourseNameInput-wrapper">
@@ -36,6 +38,11 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
                                 }
                             />
                         </label>
+                        {inputError.courseName.length !== 0 ? (
+                            <div>{inputError.courseName}</div>
+                        ) : (
+                            ""
+                        )}
                         <br />
                         <br />
                     </div>
@@ -59,6 +66,11 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
                                 }
                             />
                         </label>
+                        {inputError.chapterName.length !== 0 ? (
+                            <div>{inputError.chapterName}</div>
+                        ) : (
+                            ""
+                        )}
                     </div>
                 ) : (
                     ""

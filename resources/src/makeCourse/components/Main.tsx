@@ -32,10 +32,18 @@ interface IChapter {
     courseID: number;
 }
 
-interface IError {
+interface INetworkError {
     courseName: string;
     chapterName: string;
 }
+
+interface IInputError {
+    courseName: string;
+    chapterName: string;
+}
+
+const EXIT_SUCCESS = 0;
+const EXIT_FAILED = 1;
 
 function MakeCourseForm(): JSX.Element {
     const [visibility, setVisibility] = useState<IVisibility>({
@@ -51,14 +59,31 @@ function MakeCourseForm(): JSX.Element {
         chapterName: "",
     });
 
-    // This 'errorChapterName' is for when there is some sort of error with the network when we set the name of the course.
-    const [networkError, setNetworkError] = useState<IError>({
+    // This is for when there is some sort of error with the network when we set the name of the course.
+    const [networkError, setNetworkError] = useState<INetworkError>({
         courseName: "",
         chapterName: "",
     });
 
-    // To be called once when page loads.
-    useEffect(() => {
+    // This is for when there is some sort of error in the input fields like leaving the field empty.
+    const [inputError, setInputError] = useState<IInputError>({
+        chapterName: "",
+        courseName: "",
+    });
+
+    const returnCourseAndChapterNameFromDatabase = (): void => {
+        //
+    };
+
+    const returnQuizFormFromDatabase = (): void => {
+        //
+    };
+
+    const returnRichTextEditorContentFromDatabase = (): void => {
+        //
+    };
+
+    const setVisibilityFunction = (): void => {
         // If 'courseID' is set but not 'chapterID' means that the name of the course is set but not the chapter name.
         if (!Number.isNaN(courseID) && Number.isNaN(chapterID)) {
             setVisibility((prevState) => {
@@ -88,14 +113,35 @@ function MakeCourseForm(): JSX.Element {
                 prevState.quizFormAndTextEditor = true;
                 return { ...prevState };
             });
+            returnCourseAndChapterNameFromDatabase();
+            returnQuizFormFromDatabase();
+            returnRichTextEditorContentFromDatabase();
         } else {
             console.log("Conditions failed in 'useEffect()'");
         }
+    };
+
+    // To be called once when page loads.
+    useEffect(() => {
+        setVisibilityFunction();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     /** Upload course name to the database. */
-    const uploadCourseNameToDatabase = (): void => {
+    const uploadCourseNameToDatabase = (): number => {
+        // #################################################################################
+        //                      If input field is empty, give a warning.
+        // #################################################################################
+        const pattern = /^[ ]*$/;
+        if (course.courseName.length === 0 || pattern.test(course.courseName)) {
+            setInputError({
+                ...inputError,
+                courseName: "Campul nu poate fi gol!",
+            });
+            return EXIT_FAILED; // Exit. Don't send data to database.
+        }
+        // #################################################################################
+
         sendGetData(`${apiURL}/api/setCourseName`, course.courseName).then(
             (item: any /* Set proper type interface after! */) => {
                 if (item.courseID === undefined) {
@@ -117,10 +163,28 @@ function MakeCourseForm(): JSX.Element {
                 console.error("Error: ", errorMsg);
             }
         );
+
+        return EXIT_SUCCESS;
     };
 
     /** Upload chapter name to the database. */
-    const uploadChapterNameToDatabase = (): void => {
+    const uploadChapterNameToDatabase = (): number => {
+        // #################################################################################
+        //                      If input field is empty, give a warning.
+        // #################################################################################
+        const pattern = /^[ ]*$/;
+        if (
+            course.chapterName.length === 0 ||
+            pattern.test(course.chapterName)
+        ) {
+            setInputError({
+                ...inputError,
+                chapterName: "Campul nu poate fi gol!",
+            });
+            return EXIT_FAILED; // Exit. Don't send data to database.
+        }
+        // #################################################################################
+
         const data: IChapter = {
             name: course.chapterName,
             courseID, // The new chapter must be associated with the proper course.
@@ -153,6 +217,8 @@ function MakeCourseForm(): JSX.Element {
             prevState.chapterName = false;
             return { ...prevState };
         });
+
+        return EXIT_SUCCESS;
     };
 
     return (
@@ -160,6 +226,7 @@ function MakeCourseForm(): JSX.Element {
             <div className="makeCourseForm-wrapper">
                 <ChapterAndCourseName
                     visibility={visibility}
+                    inputError={inputError}
                     // ################################
                     //   Pass the course state.
                     course={course}
