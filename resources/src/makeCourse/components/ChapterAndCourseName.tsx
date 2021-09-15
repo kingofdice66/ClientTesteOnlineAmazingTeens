@@ -11,12 +11,14 @@ interface IProps {
     course: { courseName: string; chapterName: string };
     setCourse: React.Dispatch<React.SetStateAction<ICourse>>;
     inputError: { chapterName: string; courseName: string };
+    urlIDs: { chapterID: number; courseID: number };
 }
 
 function ChapterAndCourseName(props: IProps): JSX.Element {
     const { visibility } = props; // Some parts are visible depending on how chapter and course names are set.
     const { course, setCourse } = props; // course state.
     const { inputError } = props;
+    const { urlIDs } = props; // In order to upload data to database in correct location.
 
     return (
         <div className="chapterAndCourseNameInput-wrapper">

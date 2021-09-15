@@ -25,6 +25,8 @@ interface IVisibility {
 interface ICourse {
     courseName: string;
     chapterName: string;
+    quizForm: string;
+    chapterContent: string;
 }
 
 interface IChapter {
@@ -38,6 +40,11 @@ interface IInputError {
 }
 
 type INetworkError = IInputError;
+
+interface IUrlIDs {
+    chapterID: number;
+    courseID: number;
+}
 
 const EXIT_SUCCESS = 0;
 const EXIT_FAILED = 1;
@@ -54,6 +61,8 @@ function MakeCourseForm(): JSX.Element {
     const [course, setCourse] = useState<ICourse>({
         courseName: "",
         chapterName: "",
+        quizForm: "",
+        chapterContent: "",
     });
 
     // This is for when there is some sort of error with the network when we set the name of the course.
@@ -66,6 +75,13 @@ function MakeCourseForm(): JSX.Element {
     const [inputError, setInputError] = useState<IInputError>({
         chapterName: "",
         courseName: "",
+    });
+
+    const [urlIDs, setUrlIDs] = useState<IUrlIDs>(() => {
+        if (!Number.isNaN(courseID) && !Number.isNaN(chapterID)) {
+            return { chapterID, courseID };
+        }
+        return { chapterID: null, courseID: null };
     });
 
     /** Get data from database related to making the course. */
@@ -89,6 +105,20 @@ function MakeCourseForm(): JSX.Element {
                     setCourse((prevState) => {
                         // eslint-disable-next-line no-param-reassign
                         prevState.chapterName = data.chapterName;
+                        return { ...prevState };
+                    });
+                }
+                if (data.chapterContent !== null) {
+                    setCourse((prevState) => {
+                        // eslint-disable-next-line no-param-reassign
+                        prevState.chapterContent = data.chapterContent;
+                        return { ...prevState };
+                    });
+                }
+                if (data.chapterQuizForm !== null) {
+                    setCourse((prevState) => {
+                        // eslint-disable-next-line no-param-reassign
+                        prevState.quizForm = data.chapterQuizForm;
                         return { ...prevState };
                     });
                 }
@@ -241,10 +271,11 @@ function MakeCourseForm(): JSX.Element {
         <>
             <div className="makeCourseForm-wrapper">
                 <ChapterAndCourseName
+                    urlIDs={urlIDs}
                     visibility={visibility}
                     inputError={inputError}
                     // ################################
-                    //   Pass the course state.
+                    //   Pass the 'course' state.
                     course={course}
                     setCourse={setCourse}
                     // ################################
