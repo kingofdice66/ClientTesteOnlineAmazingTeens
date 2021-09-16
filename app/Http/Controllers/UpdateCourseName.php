@@ -15,12 +15,12 @@ class UpdateCourseName extends Controller
         $this->data = (new CustomFunctions)->jsonDecode();
     }
 
-    public function update()
+    public function updateData()
     {
         $courseID = $this->data["courseID"];
         $courseName = $this->data["courseName"];
         DB::table("courses")->where("id", $courseID)->update(["name" => $courseName]);
 
-        return ["CourseName" => "updated successfully"];
+        return ["CourseName" => "updated successfully", "courseID" => $courseID, "courseName" => $courseName];
     }
 }

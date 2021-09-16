@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ChapterAndCourseName from "./ChapterAndCourseName";
 import QuizForm from "./QuizForm";
 import TinyMCE from "./TinyMCE";
@@ -77,7 +77,7 @@ function MakeCourseForm(): JSX.Element {
         courseName: "",
     });
 
-    const urlIDs: IUrlIDs = {
+    const urlIDsRef = useRef<IUrlIDs>({
         courseID: ((): number => {
             if (!Number.isNaN(courseID)) {
                 return courseID;
@@ -90,7 +90,7 @@ function MakeCourseForm(): JSX.Element {
             }
             return null;
         })(),
-    };
+    });
 
     /** Get data from database related to making the course. */
     const getDataFromDatabase = (): void => {
@@ -103,14 +103,14 @@ function MakeCourseForm(): JSX.Element {
             (data: any /* to be set at a later time */) => {
                 console.log("data = ", data);
                 if (data.courseName !== null) {
-                    setCourse((prevState) => {
+                    setCourse((prevState: any) => {
                         // eslint-disable-next-line no-param-reassign
                         prevState.courseName = data.courseName;
                         return { ...prevState };
                     });
                 }
                 if (data.chapterName !== null) {
-                    setCourse((prevState) => {
+                    setCourse((prevState: any) => {
                         // eslint-disable-next-line no-param-reassign
                         prevState.chapterName = data.chapterName;
                         return { ...prevState };
@@ -279,7 +279,7 @@ function MakeCourseForm(): JSX.Element {
         <>
             <div className="makeCourseForm-wrapper">
                 <ChapterAndCourseName
-                    urlIDs={urlIDs}
+                    urlIDsRef={urlIDsRef.current}
                     visibility={visibility}
                     inputError={inputError}
                     // ################################

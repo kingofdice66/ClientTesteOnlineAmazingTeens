@@ -13,29 +13,30 @@ interface IProps {
     course: { courseName: string; chapterName: string };
     setCourse: React.Dispatch<React.SetStateAction<ICourse>>;
     inputError: { chapterName: string; courseName: string };
-    urlIDs: { chapterID: number; courseID: number };
+    urlIDsRef: { chapterID: number; courseID: number };
 }
 
 function ChapterAndCourseName(props: IProps): JSX.Element {
     const { visibility } = props; // Some parts are visible depending on how chapter and course names are set.
     const { course, setCourse } = props; // course state.
     const { inputError } = props;
-    const { urlIDs } = props; // In order to upload data to database in correct location.
+    const { urlIDsRef } = props; // In order to upload data to database in correct location.
 
-    /** It is updated only if visibility of the name of the course input field is visible. */
+    /** Update the name of the course as you type. */
     const updateCourseNameInDatabase = (): void => {
         const data = {
             courseName: course.courseName,
-            courseID: urlIDs.courseID,
+            courseID: urlIDsRef.courseID,
         };
-        sendData(`${apiURL}/api/updateCourserName`, data);
+        sendData(`${apiURL}/api/updateCourseName`, data);
     };
 
-    /** It is update only if visibility of the name of the chapter input field is visible. */
+    /** Update the name of the chapter as you type. */
     const updateChapterNameInDatabase = (): void => {
         const data = {
             chapterName: course.chapterName,
-            chapterID: urlIDs.chapterID,
+            chapterID: urlIDsRef.chapterID,
+            courseID: urlIDsRef.courseID,
         };
         sendData(`${apiURL}/api/updateChapterName`, data);
     };
@@ -53,13 +54,15 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
                                 placeholder="Scrie aici numele cursului ..."
                                 value={course.courseName}
                                 onChange={(e): void => {
-                                    setCourse({
-                                        ...course,
-                                        courseName: e.target.value,
+                                    setCourse((prevState) => {
+                                        // eslint-disable-next-line no-param-reassign
+                                        prevState.courseName = e.target.value;
+
+                                        if (visibility.courseName === true) {
+                                            updateCourseNameInDatabase();
+                                        }
+                                        return { ...prevState };
                                     });
-                                    if (visibility.courseName === true) {
-                                        updateCourseNameInDatabase();
-                                    }
                                 }}
                             />
                         </label>
@@ -84,13 +87,15 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
                                 placeholder="Scrie aici numele capitolului ..."
                                 value={course.chapterName}
                                 onChange={(e): void => {
-                                    setCourse({
-                                        ...course,
-                                        chapterName: e.target.value,
+                                    setCourse((prevState) => {
+                                        // eslint-disable-next-line no-param-reassign
+                                        prevState.chapterName = e.target.value;
+
+                                        if (visibility.chapterName === true) {
+                                            updateChapterNameInDatabase();
+                                        }
+                                        return { ...prevState };
                                     });
-                                    if (visibility.chapterName === true) {
-                                        updateChapterNameInDatabase();
-                                    }
                                 }}
                             />
                         </label>

@@ -15,12 +15,17 @@ class UpdateChapterName extends Controller
         $this->data = (new CustomFunctions)->jsonDecode();
     }
 
-    public function update()
+    public function updateData()
     {
         $courseID = $this->data["courseID"];
+        $chapterID = $this->data["chapterID"];
         $chapterName = $this->data["chapterName"];
-        DB::table("chapters")->where("id", $courseID)->update(["name" => $chapterName]);
+        DB::table("chapters")->where([["course_id", $courseID], ["id", $chapterID]])->update(["name" => $chapterName]);
 
-        return ["ChapterName" => "updated successfully"];
+        return [
+            "ChapterName" => "updated successfully",
+            "courseID" => $courseID,
+            "chapterID" => $chapterID
+        ];
     }
 }
