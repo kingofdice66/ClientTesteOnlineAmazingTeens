@@ -9,18 +9,20 @@ use App\Helpers\CustomFunctions;
 class UpdateCourseName extends Controller
 {
     private $data = NULL;
+    private $courseID = NULL;
+    private $courseName = NULL;
 
     public function __construct()
     {
         $this->data = (new CustomFunctions)->jsonDecode();
+        $this->courseID = $this->data["courseID"];
+        $this->courseName = $this->data["courseName"];
     }
 
     public function updateData()
     {
-        $courseID = $this->data["courseID"];
-        $courseName = $this->data["courseName"];
-        DB::table("courses")->where("id", $courseID)->update(["name" => $courseName]);
+        DB::table("courses")->where("id", $this->courseID)->update(["name" => $this->courseName]);
 
-        return ["CourseName" => "updated successfully", "courseID" => $courseID, "courseName" => $courseName];
+        return ["CourseName" => "updated successfully", "courseID" => $this->courseID, "courseName" => $this->courseName];
     }
 }

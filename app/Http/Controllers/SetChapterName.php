@@ -17,7 +17,7 @@ class SetChapterName extends Controller
     public function __construct()
     {
         $this->data = (new CustomFunctions)->jsonDecode();
-        $this->chapterName = htmlspecialchars($this->data["chapterName"]);
+        $this->chapterName = $this->data["chapterName"];
         $this->dateTime = new Carbon;
         $this->dateTimeFormat = (new CustomFunctions)->dateTimeFormat();
     }

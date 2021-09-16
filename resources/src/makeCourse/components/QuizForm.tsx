@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import sendGetData from "../../fetch/sendGetData";
+import apiURL from "../../apiURL/ApiURL";
 import "./QuizForm.scss";
 
 interface IInputList {
@@ -32,15 +34,15 @@ function QuizForm(): JSX.Element {
         ],
     });
 
+    /** Get data from the database. Run once on page load. */
+    useEffect(() => {
+        // sendGetData(`${apiURL}/api/`).then();
+    }, []);
+
     /** Update changes to the quiz form when it changes. */
     useEffect(() => {
         // console.log("inputList updated");
     }, [inputList]);
-
-    const updateDataInDatabase = (): void => {
-        //
-        console.log("updateDataInDatabase");
-    };
 
     /** Update question input field as you type. */
     const updateQuestion = (

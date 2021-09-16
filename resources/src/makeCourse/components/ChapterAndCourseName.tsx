@@ -73,7 +73,7 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
     const { courseID, chapterID } = urlIDs;
 
     const getDataFromDatabase = (): void => {
-        sendGetData(`${apiURL}/api/getMakeCourseData`, urlIDs).then(
+        sendGetData(`${apiURL}/api/getCourseAndChapterName`, urlIDs).then(
             (data: any) => {
                 // console.log("data = ", data);
                 if (data.courseName !== null) {

@@ -16,7 +16,7 @@ class SetCourseName extends Controller
     public function __construct()
     {
         $this->courseName = (new CustomFunctions)->jsonDecode();
-        $this->courseName = htmlspecialchars($this->courseName);
+        $this->courseName = $this->courseName;
         $this->dateTime = new Carbon;
         $this->dateTimeFormat = (new CustomFunctions)->dateTimeFormat();
     }

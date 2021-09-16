@@ -18,7 +18,7 @@ class UpdateChapterName extends Controller
         $this->data = (new CustomFunctions)->jsonDecode();
         $this->courseID = $this->data['courseID'];
         $this->chapterID = $this->data['chapterID'];
-        $this->chapterName = htmlspecialchars($this->data['chapterName']);
+        $this->chapterName = $this->data['chapterName'];
     }
 
     public function updateData()

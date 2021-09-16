@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\MakeCourseData;
+use App\Http\Controllers\GetCourseAndChapterName;
 use App\Http\Controllers\SetChapterName;
 use App\Http\Controllers\SetCourseName;
 use App\Http\Controllers\UpdateCourseName;
@@ -30,8 +30,8 @@ Route::post("setCourseName", [SetCourseName::class, "setCourseName"]);
 /** Set the name of the chapter into the database. */
 Route::post("setChapterName", [SetChapterName::class, "setChapterName"]);
 
-/** Get the data from the database like the name of the chapter, quizform etc. for the 'MakeCourse' page. */
-Route::post("getMakeCourseData", [MakeCourseData::class, "getData"]);
+/** Get the data from the database like the name of the chapter, quiz form etc. for the 'MakeCourse' page. */
+Route::post("getCourseAndChapterName", [GetCourseAndChapterName::class, "getData"]);
 
 /** Update the name of the course in the database. */
 Route::post("updateCourseName", [UpdateCourseName::class, "updateData"]);
