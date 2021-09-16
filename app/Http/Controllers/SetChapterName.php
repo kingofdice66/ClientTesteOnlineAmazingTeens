@@ -11,11 +11,13 @@ class SetChapterName extends Controller
 {
     private $data = NULL;
     private $dateTime = NULL;
+    private $chapterName = NULL;
     private $dateTimeFormat = NULL;
 
     public function __construct()
     {
         $this->data = (new CustomFunctions)->jsonDecode();
+        $this->chapterName = htmlspecialchars($this->data["chapterName"]);
         $this->dateTime = new Carbon;
         $this->dateTimeFormat = (new CustomFunctions)->dateTimeFormat();
     }
@@ -25,7 +27,7 @@ class SetChapterName extends Controller
     {
         DB::table("chapters")->insert(
             [
-                "name" => $this->data["chapterName"],
+                "name" => $this->chapterName,
                 "created_at" => $this->dateTime->format($this->dateTimeFormat),
                 "course_id" => $this->data["courseID"],
             ]

@@ -16,6 +16,7 @@ class SetCourseName extends Controller
     public function __construct()
     {
         $this->courseName = (new CustomFunctions)->jsonDecode();
+        $this->courseName = htmlspecialchars($this->courseName);
         $this->dateTime = new Carbon;
         $this->dateTimeFormat = (new CustomFunctions)->dateTimeFormat();
     }
@@ -23,6 +24,7 @@ class SetCourseName extends Controller
     /* Set the name of the chapter. */
     public function setCourseName()
     {
+
         DB::table("courses")->insert([
             "name" => $this->courseName,
             "created_at" => $this->dateTime->format($this->dateTimeFormat),
