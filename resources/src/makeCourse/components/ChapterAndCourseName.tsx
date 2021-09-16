@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import apiURL from "../../apiURL/ApiURL";
 import sendGetData from "../../fetch/sendGetData";
+import sendData from "../../fetch/sendData";
 import "./ChapterAndCourseName.scss";
 
 const EXIT_SUCCESS = 0;
@@ -133,43 +134,39 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
     /**
      * Count countRef to 0 in order for 'useEffect(()=>{...},[course.courseName])' and 'useEffect(()=>{...},[course.chapterName])'
      * to not send data to the database too early because 'course.courseName=""' and 'course.chapterName=""' and then
-     * subsequently it set to a value coming from the database which will call those 2 'useEffect' mentioned at the beginning.
+     * subsequently it is set to a value coming from the database which will
+     * call those 2 'useEffect' ,mentioned at the beginning, each time those changes take effect.
      * */
     useEffect(() => {
         if (countRef.current !== 0) {
             countRef.current--;
-            console.log("current count: ", countRef.current);
         }
     }, [course.courseName, course.chapterName]);
 
     /** Update the name of the course as you type. */
     useEffect(() => {
-        // const data = {
-        //     courseName: course.courseName,
-        //     courseID: urlIDsRef.courseID,
-        // };
-        // sendData(`${apiURL}/api/updateCourseName`, data);
         if (countRef.current === 0) {
-            console.log("course name updated", course.courseName);
+            const data = {
+                courseName: course.courseName,
+                courseID,
+            };
+            sendData(`${apiURL}/api/updateCourseName`, data);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [course.courseName]);
 
     /** Update the name of the chapter as you type. */
     useEffect(() => {
         if (countRef.current === 0) {
-            console.log("chapter name updated", course.chapterName);
+            const data = {
+                chapterName: course.chapterName,
+                chapterID,
+                courseID,
+            };
+            sendData(`${apiURL}/api/updateChapterName`, data);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [course.chapterName]);
-
-    /** Update the name of the chapter as you type. */
-    // const updateChapterNameInDatabase = (): void => {
-    //     const data = {
-    //         chapterName: course.chapterName,
-    //         chapterID: urlIDsRef.chapterID,
-    //         courseID: urlIDsRef.courseID,
-    //     };
-    //     sendData(`${apiURL}/api/updateChapterName`, data);
-    // };
 
     const uploadCourseNameToDatabase = (): number => {
         // #################################################################################
