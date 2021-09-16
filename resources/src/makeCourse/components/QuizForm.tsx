@@ -12,6 +12,10 @@ interface IInputList {
     }>;
 }
 
+interface IProps {
+    urlIDs: { chapterID: number; courseID: number };
+}
+
 interface IData {
     question: string;
     numberOfAnswers: number | string; // Number of answerers per question.
@@ -22,7 +26,7 @@ interface IAnswers {
     answer: string;
 }
 
-function QuizForm(): JSX.Element {
+function QuizForm(props: IProps): JSX.Element {
     const [inputList, setInputList] = useState<IInputList>({
         numberOfQuestions: 1,
         data: [
@@ -34,14 +38,29 @@ function QuizForm(): JSX.Element {
         ],
     });
 
+    const { urlIDs } = props; // In order to upload data to database in correct location.
+    const { courseID, chapterID } = urlIDs;
+
     /** Get data from the database. Run once on page load. */
     useEffect(() => {
-        // sendGetData(`${apiURL}/api/`).then();
+        const data = {
+            courseID,
+            chapterID,
+        };
+        sendGetData(`${apiURL}/api/getQuizForm`, data).then(
+            (data_) => {
+                console.log(data_);
+            },
+            (errorMsg) => {
+                console.log("Error: ", errorMsg);
+            }
+        );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     /** Update changes to the quiz form when it changes. */
     useEffect(() => {
-        // console.log("inputList updated");
+        console.log("inputList updated");
     }, [inputList]);
 
     /** Update question input field as you type. */

@@ -58,7 +58,7 @@ function MakeCourseForm(): JSX.Element {
             <ChapterAndCourseName urlIDs={urlIDs} />
             {visibility.quizFormAndTextEditor === true ? (
                 <>
-                    <QuizForm />
+                    <QuizForm urlIDs={urlIDs} />
                     <br />
                     <br />
                     <span>Conținutul capitolului</span>
