@@ -9,13 +9,13 @@ use Carbon\Carbon;
 
 class SetCourseName extends Controller
 {
-    private $data = NULL;
+    private $courseName = NULL;
     private $dateTime = NULL;
     private $dateTimeFormat = NULL;
 
     public function __construct()
     {
-        $this->data = (new CustomFunctions)->jsonDecode();
+        $this->courseName = (new CustomFunctions)->jsonDecode();
         $this->dateTime = new Carbon;
         $this->dateTimeFormat = (new CustomFunctions)->dateTimeFormat();
     }
@@ -24,7 +24,7 @@ class SetCourseName extends Controller
     public function setCourseName()
     {
         DB::table("courses")->insert([
-            "name" => $this->data,
+            "name" => $this->courseName,
             "created_at" => $this->dateTime->format($this->dateTimeFormat),
         ]);
 

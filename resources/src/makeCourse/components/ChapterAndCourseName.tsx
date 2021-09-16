@@ -55,7 +55,7 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
 
     const setVisibilityFunction = (): void => {
         // If 'courseID' is set but not 'chapterID' means that the name of the course is set but not the chapter name.
-        if (chapterID !== null && chapterID === null) {
+        if (courseID !== null && chapterID === null) {
             setVisibility((prevState) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.chapterName = true;
@@ -158,6 +158,12 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
                 console.error("Error: ", errorMsg);
             }
         );
+        // setVisibility((prevState) => {
+        //     // eslint-disable-next-line no-param-reassign
+        //     prevState.chapterName = false;
+
+        //     return { ...prevState };
+        // });
 
         return EXIT_SUCCESS;
     };
@@ -182,7 +188,11 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
         }
         // #################################################################################
 
-        sendGetData(`${apiURL}/api/SetChapterName`, course.chapterName).then(
+        const data = {
+            chapterName: course.chapterName,
+            courseID,
+        };
+        sendGetData(`${apiURL}/api/setChapterName`, data).then(
             (item: any /* Set proper interface after */) => {
                 if (item.chapterID === undefined) {
                     console.log(
@@ -205,12 +215,6 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
                 console.log("Error: ", errorMsg);
             }
         );
-        setVisibility((prevState) => {
-            // eslint-disable-next-line no-param-reassign
-            prevState.chapterName = false;
-
-            return { ...prevState };
-        });
 
         return EXIT_SUCCESS;
     };

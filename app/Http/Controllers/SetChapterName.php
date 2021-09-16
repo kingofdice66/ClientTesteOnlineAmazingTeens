@@ -25,7 +25,7 @@ class SetChapterName extends Controller
     {
         DB::table("chapters")->insert(
             [
-                "name" => $this->data["name"],
+                "name" => $this->data["chapterName"],
                 "created_at" => $this->dateTime->format($this->dateTimeFormat),
                 "course_id" => $this->data["courseID"],
             ]
