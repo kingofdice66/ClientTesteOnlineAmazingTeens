@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import apiURL from "../../apiURL/ApiURL";
 import sendGetData from "../../fetch/sendGetData";
 import "./ChapterAndCourseName.scss";
@@ -30,6 +30,14 @@ interface IInputError {
 type INetworkError = IInputError;
 
 function ChapterAndCourseName(props: IProps): JSX.Element {
+    /**
+     * This is used to prevent 'useEffect(()=> {...},[course.courseName])' and'useEffect(()=> {...},[course.chapterName])'
+     * form updating data to the database too early.
+     * First, the course.courseName="" and course.chapterName="" are set to ""
+     * and then subsequently those 2 are set
+     * to the values that are obtained from the database which will use the 'useEffect' too early.
+     */
+    const countRef = useRef<number>(4);
     const [visibility, setVisibility] = useState<IVisibility>({
         courseName: true, // This is hidden only when the name of the course is set.
         chapterName: false, // Visible only if the name of the course is set.
@@ -50,8 +58,36 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
         courseName: "",
         chapterName: "",
     });
+
     const { urlIDs } = props; // In order to upload data to database in correct location.
     const { courseID, chapterID } = urlIDs;
+
+    const getDataFromDatabase = (): void => {
+        sendGetData(`${apiURL}/api/getMakeCourseData`, urlIDs).then(
+            (data: any) => {
+                // console.log("data = ", data);
+                if (data.courseName !== null) {
+                    setCourse((prevState) => {
+                        // eslint-disable-next-line no-param-reassign
+                        prevState.courseName = data.courseName;
+
+                        return { ...prevState };
+                    });
+                }
+                if (data.chapterName !== null) {
+                    setCourse((prevState) => {
+                        // eslint-disable-next-line no-param-reassign
+                        prevState.chapterName = data.chapterName;
+
+                        return { ...prevState };
+                    });
+                }
+            },
+            (errorMsg) => {
+                console.log("Error: ", errorMsg);
+            }
+        );
+    };
 
     const setVisibilityFunction = (): void => {
         // If 'courseID' is set but not 'chapterID' means that the name of the course is set but not the chapter name.
@@ -82,6 +118,7 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
 
                 return { ...prevState };
             });
+            getDataFromDatabase();
         } else {
             console.log("Condition failed in 'useEffect()' visibility");
         }
@@ -93,6 +130,18 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    /**
+     * Count countRef to 0 in order for 'useEffect(()=>{...},[course.courseName])' and 'useEffect(()=>{...},[course.chapterName])'
+     * to not send data to the database too early because 'course.courseName=""' and 'course.chapterName=""' and then
+     * subsequently it set to a value coming from the database which will call those 2 'useEffect' mentioned at the beginning.
+     * */
+    useEffect(() => {
+        if (countRef.current !== 0) {
+            countRef.current--;
+            console.log("current count: ", countRef.current);
+        }
+    }, [course.courseName, course.chapterName]);
+
     /** Update the name of the course as you type. */
     useEffect(() => {
         // const data = {
@@ -100,12 +149,16 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
         //     courseID: urlIDsRef.courseID,
         // };
         // sendData(`${apiURL}/api/updateCourseName`, data);
-        console.log("course name updated");
+        if (countRef.current === 0) {
+            console.log("course name updated", course.courseName);
+        }
     }, [course.courseName]);
 
     /** Update the name of the chapter as you type. */
     useEffect(() => {
-        console.log("chapter name updated");
+        if (countRef.current === 0) {
+            console.log("chapter name updated", course.chapterName);
+        }
     }, [course.chapterName]);
 
     /** Update the name of the chapter as you type. */
@@ -158,12 +211,6 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
                 console.error("Error: ", errorMsg);
             }
         );
-        // setVisibility((prevState) => {
-        //     // eslint-disable-next-line no-param-reassign
-        //     prevState.chapterName = false;
-
-        //     return { ...prevState };
-        // });
 
         return EXIT_SUCCESS;
     };

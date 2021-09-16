@@ -34,7 +34,7 @@ function QuizForm(): JSX.Element {
 
     /** Update changes to the quiz form when it changes. */
     useEffect(() => {
-        console.log("inputList updated");
+        // console.log("inputList updated");
     }, [inputList]);
 
     const updateDataInDatabase = (): void => {
