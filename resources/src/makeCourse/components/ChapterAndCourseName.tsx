@@ -23,6 +23,11 @@ interface IVisibility {
     setChapterButton: boolean;
 }
 
+interface ITimeout {
+    courseName: NodeJS.Timeout;
+    chapterName: NodeJS.Timeout;
+}
+
 interface IInputError {
     courseName: string;
     chapterName: string;
@@ -39,6 +44,10 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
      * to the values that are obtained from the database which will use the 'useEffect' too early.
      */
     const countRef = useRef<number>(4);
+    const timeoutRef = useRef<ITimeout>({
+        courseName: null,
+        chapterName: null,
+    });
     const [visibility, setVisibility] = useState<IVisibility>({
         courseName: true, // This is hidden only when the name of the course is set.
         chapterName: false, // Visible only if the name of the course is set.
@@ -146,11 +155,17 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
     /** Update the name of the course as you type. */
     useEffect(() => {
         if (countRef.current === 0) {
-            const data = {
-                courseName: course.courseName,
-                courseID,
-            };
-            sendData(`${apiURL}/api/updateCourseName`, data);
+            if (timeoutRef.current.courseName) {
+                clearTimeout(timeoutRef.current.courseName);
+            }
+            // Delay sending data for 0.75 seconds in order to not send on every key press.
+            timeoutRef.current.courseName = setTimeout(() => {
+                const data = {
+                    courseName: course.courseName,
+                    courseID,
+                };
+                sendData(`${apiURL}/api/updateCourseName`, data);
+            }, 0.75 * 1000);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [course.courseName]);
@@ -158,12 +173,18 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
     /** Update the name of the chapter as you type. */
     useEffect(() => {
         if (countRef.current === 0) {
-            const data = {
-                chapterName: course.chapterName,
-                chapterID,
-                courseID,
-            };
-            sendData(`${apiURL}/api/updateChapterName`, data);
+            if (timeoutRef.current.chapterName) {
+                clearTimeout(timeoutRef.current.chapterName);
+            }
+            // Delay sending data for 0.75 seconds in order to not send on every key press.
+            timeoutRef.current.chapterName = setTimeout(() => {
+                const data = {
+                    chapterName: course.chapterName,
+                    chapterID,
+                    courseID,
+                };
+                sendData(`${apiURL}/api/updateChapterName`, data);
+            }, 0.75 * 1000);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [course.chapterName]);
