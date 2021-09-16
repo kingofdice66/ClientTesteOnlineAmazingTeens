@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./QuizForm.scss";
 
 interface IInputList {
@@ -31,6 +31,16 @@ function QuizForm(): JSX.Element {
             },
         ],
     });
+
+    /** Update changes to the quiz form when it changes. */
+    useEffect(() => {
+        console.log("inputList updated");
+    }, [inputList]);
+
+    const updateDataInDatabase = (): void => {
+        //
+        console.log("updateDataInDatabase");
+    };
 
     /** Update question input field as you type. */
     const updateQuestion = (
@@ -114,6 +124,7 @@ function QuizForm(): JSX.Element {
         const value = parseInt(e.target.value, 10);
         const list: Array<IData> = [];
         if (Number.isNaN(value) || value <= 0) {
+            /** If user erases everything in the input field. */
             setInputList((prevState: IInputList) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.numberOfQuestions = "";
@@ -144,6 +155,7 @@ function QuizForm(): JSX.Element {
     ): void => {
         const value = parseInt(e.target.value, 10);
         if (Number.isNaN(value) || value <= 0) {
+            /** If the user erases everything in the input field. */
             setInputList((prevState: IInputList) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.data[parentIndex].numberOfAnswers = "";
