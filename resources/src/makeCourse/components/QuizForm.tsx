@@ -33,6 +33,7 @@ function QuizForm(props: IProps): JSX.Element {
      * from updating data to the database too early.
      */
     const countRef = useRef<number>(2);
+    const timeoutRef = useRef<NodeJS.Timeout>(null);
     const [inputList, setInputList] = useState<IInputList>({
         numberOfQuestions: 1,
         data: [
@@ -62,24 +63,29 @@ function QuizForm(props: IProps): JSX.Element {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    /** Prevent from updating data to database too early. */
+    /**
+     * Count countRef to 0 first in order for 'useEffect(()=>{...},[inputList])'
+     * to not send data to the database too early because 'inputList' state will update
+     * immediately causing 'useEffect' to be called which it is not desired on the first go.
+     * Then send data to the database.
+     * */
     useEffect(() => {
         if (countRef.current !== 0) {
             countRef.current--;
             console.log("count: ", countRef.current);
-        }
-    }, [inputList]);
-
-    /** Update changes to the quiz form when it changes. */
-    useEffect(() => {
-        if (countRef.current === 0) {
-            const data = {
-                courseID,
-                chapterID,
-                quizForm: inputList,
-            };
-            sendData(`${apiURL}/api/updateQuizForm`, data);
-            console.log("updated");
+        } else if (countRef.current === 0) {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+            timeoutRef.current = setTimeout(() => {
+                const data = {
+                    courseID,
+                    chapterID,
+                    quizForm: inputList,
+                };
+                sendData(`${apiURL}/api/updateQuizForm`, data);
+                console.log("updated");
+            }, 0.75 * 1000);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inputList]);
