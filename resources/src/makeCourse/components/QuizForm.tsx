@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import sendGetData from "../../fetch/sendGetData";
+import sendData from "../../fetch/sendData";
 import apiURL from "../../apiURL/ApiURL";
 import "./QuizForm.scss";
 
@@ -27,6 +28,11 @@ interface IAnswers {
 }
 
 function QuizForm(props: IProps): JSX.Element {
+    /**
+     * This is used to prevent 'useEffect(()=> {...},[inputList])'
+     * from updating data to the database too early.
+     */
+    const countRef = useRef<number>(2);
     const [inputList, setInputList] = useState<IInputList>({
         numberOfQuestions: 1,
         data: [
@@ -43,13 +49,11 @@ function QuizForm(props: IProps): JSX.Element {
 
     /** Get data from the database. Run once on page load. */
     useEffect(() => {
-        const data = {
-            courseID,
-            chapterID,
-        };
-        sendGetData(`${apiURL}/api/getQuizForm`, data).then(
-            (data_) => {
-                console.log(data_);
+        sendGetData(`${apiURL}/api/getQuizForm`, urlIDs).then(
+            (data: any /* To be set at a later time. */) => {
+                if (data.quizForm !== null) {
+                    setInputList(JSON.parse(data.quizForm));
+                }
             },
             (errorMsg) => {
                 console.log("Error: ", errorMsg);
@@ -58,9 +62,26 @@ function QuizForm(props: IProps): JSX.Element {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    /** Prevent from updating data to database too early. */
+    useEffect(() => {
+        if (countRef.current !== 0) {
+            countRef.current--;
+            console.log("count: ", countRef.current);
+        }
+    }, [inputList]);
+
     /** Update changes to the quiz form when it changes. */
     useEffect(() => {
-        console.log("inputList updated");
+        if (countRef.current === 0) {
+            const data = {
+                courseID,
+                chapterID,
+                quizForm: inputList,
+            };
+            sendData(`${apiURL}/api/updateQuizForm`, data);
+            console.log("updated");
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inputList]);
 
     /** Update question input field as you type. */

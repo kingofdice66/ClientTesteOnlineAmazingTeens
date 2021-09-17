@@ -6,7 +6,7 @@ use App\Http\Controllers\SetChapterName;
 use App\Http\Controllers\SetCourseName;
 use App\Http\Controllers\UpdateCourseName;
 use App\Http\controllers\UpdateChapterName;
-
+use App\Http\Controllers\UpdateQuizForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,3 +42,6 @@ Route::post("updateChapterName", [UpdateChapterName::class, "updateData"]);
 
 /** Get the quiz form from the database. */
 Route::post("getQuizForm", [GetQuizForm::class, "getData"]);
+
+/** Update the quiz form in the database. */
+Route::post("updateQuizForm", [UpdateQuizForm::class, "setData"]);
