@@ -14,6 +14,14 @@ interface IInputList {
     }>;
 }
 
+interface ICorrectAnswers {
+    question: number;
+    answers: Array<{
+        answer: number;
+        value: boolean;
+    }>;
+}
+
 interface IProps {
     urlIDs: { chapterID: number; courseID: number };
 }
@@ -46,7 +54,9 @@ function QuizForm(props: IProps): JSX.Element {
         ],
     });
     /* Correct answers per given question. */
-    const [correctAnswers, setCorrectAnswers] = useState<any>([
+    const [correctAnswers, setCorrectAnswers] = useState<
+        Array<ICorrectAnswers>
+    >([
         {
             question: 0,
             answers: [{ answer: 0, value: false }],
