@@ -260,6 +260,7 @@ function QuizForm(props: IProps): JSX.Element {
                                 onChange={(e): void => updateQuestion(e, i)}
                             />
                         </label>
+
                         {inputList.data.length - 1 === i && (
                             <button
                                 type="button"
@@ -271,6 +272,7 @@ function QuizForm(props: IProps): JSX.Element {
                                 +
                             </button>
                         )}
+
                         {inputList.data.length - 1 !== 0 && (
                             <button
                                 type="button"
@@ -282,6 +284,7 @@ function QuizForm(props: IProps): JSX.Element {
                                 -
                             </button>
                         )}
+
                         {i === 0 && (
                             <input
                                 type="text"
@@ -289,34 +292,32 @@ function QuizForm(props: IProps): JSX.Element {
                                 onChange={(e): void => addNumberOfQuestions(e)}
                             />
                         )}
+
                         {x.answers.map((y: IAnswers, j: number) => (
                             // eslint-disable-next-line react/no-array-index-key
                             <div key={j}>
                                 <label htmlFor={`answer${i}${j}`}>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Răspunsul#{j}
-                                    :
-                                    <br />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Răspunsul#
+                                    {j + 1}:{/* <br /> */}
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
-                                    <span>
-                                        <IOSSwitch
-                                            isON={IOSSwitchState}
-                                            onToggle={(): void =>
-                                                setIOSSwitchState(
-                                                    !IOSSwitchState
-                                                )
-                                            }
-                                            ONColor="green"
-                                        />
-                                    </span>
-                                    <input
-                                        type="text"
-                                        id={`answer${i}${j}`}
-                                        value={y.answer}
-                                        onChange={(e): void =>
-                                            updateAnswer(e, i, j)
+                                    <IOSSwitch
+                                        isON={IOSSwitchState}
+                                        onToggle={(): void =>
+                                            setIOSSwitchState(!IOSSwitchState)
                                         }
+                                        ONColor="green"
                                     />
                                 </label>
+
+                                <input
+                                    type="text"
+                                    id={`answer${i}${j}`}
+                                    value={y.answer}
+                                    onChange={(e): void =>
+                                        updateAnswer(e, i, j)
+                                    }
+                                />
+
                                 {x.answers.length - 1 === j && (
                                     <button
                                         type="button"
@@ -328,6 +329,7 @@ function QuizForm(props: IProps): JSX.Element {
                                         +
                                     </button>
                                 )}
+
                                 {x.answers.length - 1 !== 0 && (
                                     <button
                                         type="button"
@@ -339,6 +341,7 @@ function QuizForm(props: IProps): JSX.Element {
                                         -
                                     </button>
                                 )}
+
                                 {j === 0 && (
                                     <input
                                         type="text"
@@ -350,6 +353,8 @@ function QuizForm(props: IProps): JSX.Element {
                                 )}
                             </div>
                         ))}
+                        <br />
+                        <br />
                     </div>
                 ))}
             </div>
