@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import sendData from "../../fetch/sendData";
+import sendData from "../../customComponents/Fetch/sendData";
 import apiURL from "../../apiURL/ApiURL";
 import "./Form.scss";
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import sendGetData from "../../fetch/sendGetData";
-import sendData from "../../fetch/sendData";
+import sendGetData from "../../customComponents/Fetch/sendGetData";
+import sendData from "../../customComponents/Fetch/sendData";
+import IOSSwitch from "../../customComponents/IOSSwitch/IOSSwitch";
 import apiURL from "../../apiURL/ApiURL";
 import "./QuizForm.scss";
 
@@ -44,6 +45,14 @@ function QuizForm(props: IProps): JSX.Element {
             },
         ],
     });
+    /* Correct answers per given question. */
+    const [correctAnswers, setCorrectAnswers] = useState<any>([
+        {
+            question: 0,
+            answers: [{ answer: 0, value: false }],
+        },
+    ]);
+    const [IOSSwitchState, setIOSSwitchState] = useState<boolean>(false); // The switch for setting the answer for the quiz true or false.
 
     const { urlIDs } = props; // In order to upload data to database in correct location.
     const { courseID, chapterID } = urlIDs;
@@ -288,6 +297,17 @@ function QuizForm(props: IProps): JSX.Element {
                                     :
                                     <br />
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
+                                    <span>
+                                        <IOSSwitch
+                                            isON={IOSSwitchState}
+                                            onToggle={(): void =>
+                                                setIOSSwitchState(
+                                                    !IOSSwitchState
+                                                )
+                                            }
+                                            ONColor="green"
+                                        />
+                                    </span>
                                     <input
                                         type="text"
                                         id={`answer${i}${j}`}

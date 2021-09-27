@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import apiURL from "../../apiURL/ApiURL";
-import sendGetData from "../../fetch/sendGetData";
-import sendData from "../../fetch/sendData";
+import sendGetData from "../../customComponents/Fetch/sendGetData";
+import sendData from "../../customComponents/Fetch/sendData";
 import "./ChapterAndCourseName.scss";
 
 const EXIT_SUCCESS = 0;
@@ -202,7 +202,7 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
                 return { ...prevState };
             });
 
-            return EXIT_FAILED; // Exit. Don't send data to database.
+            return EXIT_FAILED; // Exit. Don't send data to database. The function caller doesn't use the value of 'EXIT_FAILED'. This is just a dummy to exit the function upon failed conditions.
         }
         // #################################################################################
 
@@ -230,7 +230,7 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
             }
         );
 
-        return EXIT_SUCCESS;
+        return EXIT_SUCCESS; // The function caller doesn't use the value of 'EXIT_SUCCESS'. This is just a dummy.
     };
 
     const uploadChapterNameToDatabase = (): number => {

@@ -4,7 +4,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Form from "../components/Form";
-import TopNavBar from "../../top-nav-bar/TopNavBar";
+import TopNavBar from "../../topNavBar/TopNavBar";
 import Footer from "../../footer/Footer";
 import "normalize.css";
 

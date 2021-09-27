@@ -4,7 +4,9 @@
         "string-quotes": "double",
         "selector-class-pattern": "^([a-z]|[A-Z])(-|_|[a-zA-Z0-9])+$",
         "scss/dollar-variable-pattern": "^([a-z]|[A-Z])(-|_|[a-zA-Z0-9])+$",
-        "indentation": 4
+        "indentation": 4,
+        "order/properties-alphabetical-order": null,
+        "color-named": null
     },
     "ignoreFiles": [
         "node_modules/**/*.css",

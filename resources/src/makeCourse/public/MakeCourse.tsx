@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Main from "../components/Main";
-import TopNavBar from "../../top-nav-bar/TopNavBar";
+import TopNavBar from "../../topNavBar/TopNavBar";
 import Footer from "../../footer/Footer";
 import "./MakeCourse.scss";
 import "normalize.css";

@@ -24,3 +24,7 @@ Route::get("ContactForm", function () {
 Route::get("MakeCourse", function () {
     return view("MakeCourse");
 });
+
+Route::get("UsersAccount", function () {
+    return view("UsersAccount");
+});
