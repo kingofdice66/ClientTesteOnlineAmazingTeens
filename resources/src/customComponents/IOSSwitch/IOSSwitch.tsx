@@ -17,23 +17,22 @@ function IOSSwitch(props: IProps): JSX.Element {
 
     return (
         <>
-            <div className="IOSSwitch">
+            {/**
+             * //! ATTENTION: Don't use 'htmlFor' in the label otherwise the checkbox won't function properly.
+             */}
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label className="switch">
                 <input
-                    checked={isON}
-                    onChange={onToggle}
-                    className="reactSwitchCheckbox"
-                    id="reactSwitchNew"
                     type="checkbox"
+                    onChange={onToggle}
+                    checked={isON}
+                    className="checkbox"
                 />
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                <label
-                    style={{ background: isON && ONColor }}
-                    className="reactSwitchLabel"
-                    htmlFor="reactSwitchNew"
-                >
-                    <span className="reactSwitchButton" />
-                </label>
-            </div>
+                <span
+                    className="slider round"
+                    style={{ backgroundColor: isON && ONColor }}
+                />
+            </label>
         </>
     );
 }

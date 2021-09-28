@@ -1,53 +1,57 @@
-.IOSSwitch {
-    top: -20px;
-    right: 50px;
-    width: 0;
-    height: 0;
+/* The switch - the box around the slider */
+.switch {
     position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 23px;
+    right: 7px;
 
-    .reactSwitchCheckbox {
-        height: 0;
+    /* Hide default HTML checkbox */
+    .checkbox {
+        opacity: 0;
         width: 0;
-        visibility: hidden;
+        height: 0;
     }
 
-    .reactSwitchLabel {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        cursor: pointer;
-        // width: 100px;
-        width: 45px;
-        // height: 50px;
-        height: 20px;
-        background: grey;
-        border-radius: 100px;
-        position: relative;
-        transition: background-color 0.2s;
-    }
-
-    .reactSwitchButton {
-        $heighAndWidth: 15px;
-        content: "";
+    /* The slider */
+    .slider {
         position: absolute;
-        top: 2px;
-        left: 2px;
-        width: $heighAndWidth;
-        height: $heighAndWidth;
-        border-radius: 45px;
-        transition: 0.2s;
-        background: #fff;
-        box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
     }
 
-    /* stylelint-disable-next-line selector-max-compound-selectors */
-    .reactSwitchCheckbox:checked + .reactSwitchLabel .reactSwitchButton {
-        left: calc(100% - 2px);
-        transform: translateX(-100%);
+    .slider::before {
+        $size: 15px;
+        $position: 4px;
+        position: absolute;
+        content: "";
+        height: $size;
+        width: $size;
+        left: $position;
+        bottom: $position;
+        background-color: white;
+        transition: 0.4s;
     }
 
-    .reactSwitchLabel:active .reactSwitchButton {
-        // width: 60px;
-        width: 20px;
+    .checkbox:focus + .slider {
+        box-shadow: 0 0 1px #2196f3;
+    }
+
+    .checkbox:checked + .slider::before {
+        transform: translateX(17px);
+    }
+
+    /* Rounded sliders */
+    .slider {
+        border-radius: 34px;
+    }
+
+    .slider::before {
+        border-radius: 50%;
     }
 }

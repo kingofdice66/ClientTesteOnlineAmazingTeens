@@ -310,11 +310,13 @@ function QuizForm(props: IProps): JSX.Element {
                             />
                         )}
                         {x.answers.map((y: IAnswers, j: number) => (
-                            <div key={uuidV4()}>
+                            //! ATTENTION:  Here we must use the index of the map as the key otherwise the form won't work as intended
+                            // eslint-disable-next-line react/no-array-index-key
+                            <div key={i}>
                                 <label htmlFor={`answer${i}${j}`}>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Răspunsul#
                                     {j + 1}:{/* <br /> */}
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />
                                     <IOSSwitch
                                         isON={
                                             correctAnswers[i].answers[j].value
