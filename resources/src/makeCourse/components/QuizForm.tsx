@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { v4 as uuidV4 } from "uuid";
 import sendGetData from "../../customComponents/Fetch/sendGetData";
 import sendData from "../../customComponents/Fetch/sendData";
 import IOSSwitch from "../../customComponents/IOSSwitch/IOSSwitch";
@@ -62,7 +63,6 @@ function QuizForm(props: IProps): JSX.Element {
             answers: [{ answer: 0, value: false }],
         },
     ]);
-    const [IOSSwitchState, setIOSSwitchState] = useState<boolean>(false); // The switch for setting the answer for the quiz true or false.
 
     const { urlIDs } = props; // In order to upload data to database in correct location.
     const { courseID, chapterID } = urlIDs;
@@ -137,7 +137,7 @@ function QuizForm(props: IProps): JSX.Element {
     };
 
     /** Append another question input field along with answers children. */
-    const addQuestion = (): void => {
+    const addQuestion = (parentIndex: number): void => {
         setInputList((prevState: IInputList) => {
             prevState.data.push({
                 question: "",
@@ -145,6 +145,15 @@ function QuizForm(props: IProps): JSX.Element {
                 answers: [{ answer: "" }],
             });
             return { ...prevState };
+        });
+
+        setCorrectAnswers((prevState: Array<ICorrectAnswers>) => {
+            // eslint-disable-next-line no-param-reassign
+            prevState.push({
+                question: parentIndex + 1,
+                answers: [{ answer: 0, value: false }],
+            });
+            return [...prevState];
         });
     };
 
@@ -259,6 +268,7 @@ function QuizForm(props: IProps): JSX.Element {
         <>
             <div className="quizForm">
                 {inputList.data.map((x: IData, i: number) => (
+                    //! ATTENTION: Here we must use the index of the map as the key otherwise the form won't work as intended.
                     // eslint-disable-next-line react/no-array-index-key
                     <div key={i}>
                         <label htmlFor={`question${i}`}>
@@ -270,19 +280,17 @@ function QuizForm(props: IProps): JSX.Element {
                                 onChange={(e): void => updateQuestion(e, i)}
                             />
                         </label>
-
                         {inputList.data.length - 1 === i && (
                             <button
                                 type="button"
                                 onClick={(): void => {
-                                    addQuestion();
+                                    addQuestion(i);
                                     eraseNumberOfQuestionsInputField();
                                 }}
                             >
                                 +
                             </button>
                         )}
-
                         {inputList.data.length - 1 !== 0 && (
                             <button
                                 type="button"
@@ -294,7 +302,6 @@ function QuizForm(props: IProps): JSX.Element {
                                 -
                             </button>
                         )}
-
                         {i === 0 && (
                             <input
                                 type="text"
@@ -302,18 +309,27 @@ function QuizForm(props: IProps): JSX.Element {
                                 onChange={(e): void => addNumberOfQuestions(e)}
                             />
                         )}
-
                         {x.answers.map((y: IAnswers, j: number) => (
-                            // eslint-disable-next-line react/no-array-index-key
-                            <div key={j}>
+                            <div key={uuidV4()}>
                                 <label htmlFor={`answer${i}${j}`}>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Răspunsul#
                                     {j + 1}:{/* <br /> */}
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
                                     <IOSSwitch
-                                        isON={IOSSwitchState}
+                                        isON={
+                                            correctAnswers[i].answers[j].value
+                                        }
                                         onToggle={(): void =>
-                                            setIOSSwitchState(!IOSSwitchState)
+                                            // setIOSSwitchState(!correctAnswers[0].answers[0].value)
+                                            setCorrectAnswers((prevState) => {
+                                                // eslint-disable-next-line no-param-reassign
+                                                prevState[i].answers[
+                                                    j
+                                                ].value = !prevState[i].answers[
+                                                    j
+                                                ].value;
+                                                return [...prevState];
+                                            })
                                         }
                                         ONColor="green"
                                     />
@@ -368,7 +384,8 @@ function QuizForm(props: IProps): JSX.Element {
                     </div>
                 ))}
             </div>
-            {JSON.stringify(inputList, null, 2)}
+            {/* {JSON.stringify(inputList, null, 2)} */}
+            {JSON.stringify(correctAnswers, null, 2)}
         </>
     );
 }
