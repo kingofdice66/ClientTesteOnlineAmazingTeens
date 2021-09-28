@@ -136,7 +136,7 @@ function QuizForm(props: IProps): JSX.Element {
         });
     };
 
-    /** Append another question input field along with answers children. */
+    /** Append another question input field along with answers children and correct answers. */
     const addQuestion = (parentIndex: number): void => {
         setInputList((prevState: IInputList) => {
             prevState.data.push({
@@ -150,7 +150,7 @@ function QuizForm(props: IProps): JSX.Element {
         setCorrectAnswers((prevState: Array<ICorrectAnswers>) => {
             // eslint-disable-next-line no-param-reassign
             prevState.push({
-                question: parentIndex + 1,
+                question: parentIndex + 1, // Plus once because it starts at 0.
                 answers: [{ answer: 0, value: false }],
             });
             return [...prevState];
@@ -177,11 +177,21 @@ function QuizForm(props: IProps): JSX.Element {
         });
     };
 
-    /** Append another answer to the question */
-    const addAnswer = (parentIndex: number): void => {
+    /** Append another answer to the question along with a correct answer. */
+    const addAnswer = (parentIndex: number, childIndex: number): void => {
         setInputList((prevState: IInputList) => {
             prevState.data[parentIndex].answers.push({ answer: "" });
             return { ...prevState };
+        });
+
+        setCorrectAnswers((prevState) => {
+            // eslint-disable-next-line no-param-reassign
+            prevState[parentIndex].answers.push({
+                answer: childIndex + 1, // Because is starts at 0.
+                value: false,
+            });
+
+            return [...prevState];
         });
     };
 
@@ -310,13 +320,13 @@ function QuizForm(props: IProps): JSX.Element {
                             />
                         )}
                         {x.answers.map((y: IAnswers, j: number) => (
-                            //! ATTENTION:  Here we must use the index of the map as the key otherwise the form won't work as intended
+                            //! ATTENTION:  Here we must use the index of the map as the key otherwise 'IOSSwitch' won't work as intended
                             // eslint-disable-next-line react/no-array-index-key
                             <div key={i}>
                                 <label htmlFor={`answer${i}${j}`}>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Răspunsul#
-                                    {j + 1}:{/* <br /> */}
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />
+                                    {j + 1}: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
+                                    <br />
                                     <IOSSwitch
                                         isON={
                                             correctAnswers[i].answers[j].value
@@ -350,7 +360,7 @@ function QuizForm(props: IProps): JSX.Element {
                                     <button
                                         type="button"
                                         onClick={(): void => {
-                                            addAnswer(i);
+                                            addAnswer(i, j);
                                             eraseNumberOfAnswersInputField(i);
                                         }}
                                     >
