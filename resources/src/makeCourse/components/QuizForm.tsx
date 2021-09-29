@@ -69,7 +69,7 @@ function QuizForm(props: IProps): JSX.Element {
      * 'data' specifies what 'inputList' specifies in the 'data' above.
      * */
     const [tempList, setTempList] = useState<any>({
-        value: null,
+        value: 1,
         data: [],
     });
     /**
@@ -78,7 +78,7 @@ function QuizForm(props: IProps): JSX.Element {
      * 'answers' specifies what 'correctAnswers' specifies in 'answers' above.
      */
     const [tempCorrectAnswers, setTempCorrectAnswers] = useState<any>({
-        value: null,
+        value: 1,
         answers: [],
     });
 
@@ -270,7 +270,7 @@ function QuizForm(props: IProps): JSX.Element {
 
     /** Set the number of question when the user clicks the set number of questions button. */
     const setNumberOfQuestions = (): void => {
-        if (tempList.value !== "" && tempList.value !== null) {
+        if (tempList.value !== "") {
             const list: any = [];
             const corrAnswers: any = [];
 
