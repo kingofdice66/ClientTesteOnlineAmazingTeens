@@ -152,11 +152,12 @@ function QuizForm(props: IProps): JSX.Element {
         childIndex: number
     ): void => {
         const { value } = e.target;
-        setInputList((prevState: IInputList) => {
+        setInputList((prevState: any) => {
             // eslint-disable-next-line no-param-reassign
             prevState.data[parentIndex].answers[childIndex].answer = value;
             return { ...prevState };
         });
+        console.log("XXXXYYYXXXWWWW");
     };
 
     /** Append another question input field along with answers children and correct answers. */
@@ -411,7 +412,9 @@ function QuizForm(props: IProps): JSX.Element {
                             </>
                         )}
                         {x.answers.map((y: IAnswers, j: number) => (
-                            <div key={uuidV4()}>
+                            //! ATTENTION: Here we must use the index of the map as the key otherwise the form won't work as intended.
+                            // eslint-disable-next-line react/no-array-index-key
+                            <div key={j}>
                                 <label htmlFor={`answer${i}${j}`}>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Răspunsul#
                                     {j + 1}: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
@@ -470,20 +473,21 @@ function QuizForm(props: IProps): JSX.Element {
                                 )}
 
                                 {j === 0 && (
-                                    <input
-                                        type="text"
-                                        value={x.numberOfAnswers}
-                                        onChange={(e): void =>
-                                            addNumberOfAnswers(e, i)
-                                        }
-                                    />
+                                    <>
+                                        <input
+                                            type="text"
+                                            value={x.numberOfAnswers}
+                                            onChange={(e): void =>
+                                                addNumberOfAnswers(e, i)
+                                            }
+                                        />
+                                        <span>
+                                            <button type="button">
+                                                Adaugă Răspunsuri
+                                            </button>
+                                        </span>
+                                    </>
                                 )}
-
-                                <span>
-                                    <button type="button">
-                                        Adaugă Răspunsuri
-                                    </button>
-                                </span>
                             </div>
                         ))}
                         <br />
