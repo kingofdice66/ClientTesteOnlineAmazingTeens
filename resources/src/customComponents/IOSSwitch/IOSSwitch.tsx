@@ -5,7 +5,6 @@ interface IProps {
     isON: boolean;
     onToggle: () => void;
     ONColor: string;
-    OFFColor: string;
 }
 
 /**
@@ -14,7 +13,7 @@ interface IProps {
  * @prop {string} ONColor - Set the color of the switch when it is on.
  */
 function IOSSwitch(props: IProps): JSX.Element {
-    const { isON, onToggle, ONColor, OFFColor } = props;
+    const { isON, onToggle, ONColor } = props;
 
     return (
         <>
@@ -31,8 +30,7 @@ function IOSSwitch(props: IProps): JSX.Element {
                 />
                 <span
                     className="slider round"
-                    // style={{ backgroundColor: isON && ONColor }}
-                    style={{ backgroundColor: isON ? ONColor : OFFColor }}
+                    style={{ backgroundColor: isON && ONColor }}
                 />
             </label>
         </>

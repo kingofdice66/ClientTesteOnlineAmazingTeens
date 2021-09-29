@@ -127,12 +127,16 @@ function QuizForm(props: IProps): JSX.Element {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inputList]);
 
+<<<<<<< HEAD
     /** Update correct answer in database. */
     useEffect(() => {
         console.log("correct answers updated");
     }, [correctAnswers]);
 
     /** Update question input a field as you type. */
+=======
+    /** Update question input field as you type. */
+>>>>>>> parent of 173f4a6 (setting up correct answers for the quiz)
     const updateQuestion = (
         e: React.ChangeEvent<HTMLInputElement>,
         parentIndex: number
@@ -192,16 +196,11 @@ function QuizForm(props: IProps): JSX.Element {
         });
     };
 
-    /** Remove question input field along with answers children and correct answers. */
+    /** Remove question input field along with answers children. */
     const removeQuestion = (parentIndex: number): void => {
         setInputList((prevState: IInputList) => {
             prevState.data.splice(parentIndex, 1);
             return { ...prevState };
-        });
-
-        setCorrectAnswers((prevState) => {
-            prevState.splice(parentIndex, 1);
-            return [...prevState];
         });
     };
 
@@ -223,16 +222,11 @@ function QuizForm(props: IProps): JSX.Element {
         });
     };
 
-    /** Remove an answer from the question along with the respective correct answer. */
+    /** Remove an answer from the question. */
     const removeAnswer = (parentIndex: number, childIndex: number): void => {
         setInputList((prevState: IInputList) => {
             prevState.data[parentIndex].answers.splice(childIndex, 1);
             return { ...prevState };
-        });
-
-        setCorrectAnswers((prevState) => {
-            prevState[parentIndex].answers.splice(childIndex, 1);
-            return [...prevState];
         });
     };
 
@@ -415,9 +409,15 @@ function QuizForm(props: IProps): JSX.Element {
                             </>
                         )}
                         {x.answers.map((y: IAnswers, j: number) => (
+<<<<<<< HEAD
                             //! ATTENTION: Here we must use the index of the map as the key otherwise the form won't work as intended.
                             // eslint-disable-next-line react/no-array-index-key
                             <div key={j}>
+=======
+                            //! ATTENTION:  Here we must use the index of the map as the key otherwise 'IOSSwitch' won't work as intended
+                            // eslint-disable-next-line react/no-array-index-key
+                            <div key={i}>
+>>>>>>> parent of 173f4a6 (setting up correct answers for the quiz)
                                 <label htmlFor={`answer${i}${j}`}>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Răspunsul#
                                     {j + 1}: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
@@ -427,6 +427,7 @@ function QuizForm(props: IProps): JSX.Element {
                                             correctAnswers[i].answers[j].value
                                         }
                                         onToggle={(): void =>
+                                            // setIOSSwitchState(!correctAnswers[0].answers[0].value)
                                             setCorrectAnswers((prevState) => {
                                                 // eslint-disable-next-line no-param-reassign
                                                 prevState[i].answers[
@@ -438,7 +439,6 @@ function QuizForm(props: IProps): JSX.Element {
                                             })
                                         }
                                         ONColor="green"
-                                        OFFColor="#baa6ee"
                                     />
                                 </label>
 
