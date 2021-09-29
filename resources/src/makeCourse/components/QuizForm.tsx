@@ -109,6 +109,11 @@ function QuizForm(props: IProps): JSX.Element {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inputList]);
 
+    /** Update correct answer in database. */
+    useEffect(() => {
+        console.log("correct answers updated");
+    }, [correctAnswers]);
+
     /** Update question input field as you type. */
     const updateQuestion = (
         e: React.ChangeEvent<HTMLInputElement>,
@@ -169,11 +174,16 @@ function QuizForm(props: IProps): JSX.Element {
         });
     };
 
-    /** Remove question input field along with answers children. */
+    /** Remove question input field along with answers children and correct answers. */
     const removeQuestion = (parentIndex: number): void => {
         setInputList((prevState: IInputList) => {
             prevState.data.splice(parentIndex, 1);
             return { ...prevState };
+        });
+
+        setCorrectAnswers((prevState) => {
+            prevState.splice(parentIndex, 1);
+            return [...prevState];
         });
     };
 
@@ -195,11 +205,16 @@ function QuizForm(props: IProps): JSX.Element {
         });
     };
 
-    /** Remove an answer from the question. */
+    /** Remove an answer from the question along with the respective correct answer. */
     const removeAnswer = (parentIndex: number, childIndex: number): void => {
         setInputList((prevState: IInputList) => {
             prevState.data[parentIndex].answers.splice(childIndex, 1);
             return { ...prevState };
+        });
+
+        setCorrectAnswers((prevState) => {
+            prevState[parentIndex].answers.splice(childIndex, 1);
+            return [...prevState];
         });
     };
 
@@ -320,9 +335,7 @@ function QuizForm(props: IProps): JSX.Element {
                             />
                         )}
                         {x.answers.map((y: IAnswers, j: number) => (
-                            //! ATTENTION:  Here we must use the index of the map as the key otherwise 'IOSSwitch' won't work as intended
-                            // eslint-disable-next-line react/no-array-index-key
-                            <div key={i}>
+                            <div key={uuidV4()}>
                                 <label htmlFor={`answer${i}${j}`}>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Răspunsul#
                                     {j + 1}: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
@@ -332,7 +345,6 @@ function QuizForm(props: IProps): JSX.Element {
                                             correctAnswers[i].answers[j].value
                                         }
                                         onToggle={(): void =>
-                                            // setIOSSwitchState(!correctAnswers[0].answers[0].value)
                                             setCorrectAnswers((prevState) => {
                                                 // eslint-disable-next-line no-param-reassign
                                                 prevState[i].answers[
@@ -344,6 +356,7 @@ function QuizForm(props: IProps): JSX.Element {
                                             })
                                         }
                                         ONColor="green"
+                                        OFFColor="#baa6ee"
                                     />
                                 </label>
 
