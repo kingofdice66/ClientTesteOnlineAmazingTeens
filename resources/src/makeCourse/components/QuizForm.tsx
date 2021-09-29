@@ -22,6 +22,11 @@ interface ICorrectAnswers {
     }>;
 }
 
+// For a temporary constant.
+interface ITempCorrectAnswers {
+    answer: number;
+    value: boolean;
+}
 interface IProps {
     urlIDs: { chapterID: number; courseID: number };
 }
@@ -264,7 +269,9 @@ function QuizForm(props: IProps): JSX.Element {
         e: React.ChangeEvent<HTMLInputElement>,
         parentIndex: number
     ): void => {
+        const list: Array<IAnswers> = [];
         const value = parseInt(e.target.value, 10);
+        const corrAnswers: Array<ITempCorrectAnswers> = [];
         if (Number.isNaN(value) || value <= 0) {
             /** If the user erases everything in the input field. */
             setInputList((prevState: IInputList) => {
@@ -273,9 +280,9 @@ function QuizForm(props: IProps): JSX.Element {
                 return { ...prevState };
             });
         } else {
-            const list: Array<{ answer: "" }> = [];
             for (let i = 0; i < value; i++) {
                 list.push({ answer: "" });
+                corrAnswers.push({ answer: 0, value: false });
             }
             setInputList((prevState: IInputList) => {
                 // eslint-disable-next-line no-param-reassign
@@ -283,6 +290,11 @@ function QuizForm(props: IProps): JSX.Element {
                 // eslint-disable-next-line no-param-reassign
                 prevState.data[parentIndex].answers = list;
                 return { ...prevState };
+            });
+            setCorrectAnswers((prevState) => {
+                // eslint-disable-next-line no-param-reassign
+                prevState[parentIndex].answers = corrAnswers;
+                return [...prevState];
             });
         }
     };
