@@ -63,6 +63,24 @@ function QuizForm(props: IProps): JSX.Element {
             answers: [{ answer: 0, value: false }],
         },
     ]);
+    /**
+     *  A temporary array for use in 'addNumberOfQuestions' function.
+     *  'value' specifies the number of questions to be added.
+     * 'data' specifies what 'inputList' specifies in the 'data' above.
+     * */
+    const [tempList, setTempList] = useState<any>({
+        value: null,
+        data: [],
+    });
+    /**
+     * A temporary array for use in 'addNumberOfQuestions' function.
+     * 'value' specifies the number of answers per questions.
+     * 'answers' specifies what 'correctAnswers' specifies in 'answers' above.
+     */
+    const [tempCorrectAnswers, setTempCorrectAnswers] = useState<any>({
+        value: null,
+        answers: [],
+    });
 
     const { urlIDs } = props; // In order to upload data to database in correct location.
     const { courseID, chapterID } = urlIDs;
@@ -114,7 +132,7 @@ function QuizForm(props: IProps): JSX.Element {
         console.log("correct answers updated");
     }, [correctAnswers]);
 
-    /** Update question input field as you type. */
+    /** Update question input a field as you type. */
     const updateQuestion = (
         e: React.ChangeEvent<HTMLInputElement>,
         parentIndex: number
@@ -218,30 +236,31 @@ function QuizForm(props: IProps): JSX.Element {
         });
     };
 
-    /** Input field specifying the number of questions. */
+    /** Input field specifying the number of questions and a default answer and a default correct answer. */
     const addNumberOfQuestions = (
         e: React.ChangeEvent<HTMLInputElement>
     ): void => {
         const value = parseInt(e.target.value, 10);
-        const list: Array<IData> = [];
         if (Number.isNaN(value) || value <= 0) {
-            /** If user erases everything in the input field. */
-            setInputList((prevState: IInputList) => {
+            setTempList((prevState: any) => {
+                // eslint-disable-next-line no-param-reassign
+                prevState.value = "";
+                return { ...prevState };
+            });
+            /* This is needed to set 'value' in the input tag. */
+            setInputList((prevState: any) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.numberOfQuestions = "";
                 return { ...prevState };
             });
         } else {
-            for (let i = 0; i < value; i++) {
-                list.push({
-                    question: "",
-                    numberOfAnswers: 1, // Number of answerers per question.
-                    answers: [{ answer: "" }],
-                });
-            }
-            setInputList((prevState: IInputList) => {
+            setTempList((prevState: any) => {
                 // eslint-disable-next-line no-param-reassign
-                prevState.data = list;
+                prevState.value = value;
+                return { ...prevState };
+            });
+            /* This is needed to set 'value' in the input tag. */
+            setInputList((prevState: any) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.numberOfQuestions = value;
                 return { ...prevState };
@@ -249,7 +268,43 @@ function QuizForm(props: IProps): JSX.Element {
         }
     };
 
-    /** Input field specifying the number of answers per question. */
+    /** Set the number of question when the user clicks the set number of questions button. */
+    const setNumberOfQuestions = (): void => {
+        if (tempList.value !== "") {
+            const list: any = [];
+            const corrAnswers: any = [];
+
+            for (let i = 0; i < tempList.value; i++) {
+                list.push({
+                    question: "",
+                    numberOfAnswers: 1, // Number of answerers per question.
+                    answers: [{ answer: "" }],
+                });
+
+                corrAnswers.push({
+                    question: i + 1, // Plus once because it starts at 0.
+                    answers: [{ answer: 0, value: false }],
+                });
+            }
+
+            setInputList((prevState: any) => {
+                // eslint-disable-next-line no-param-reassign
+                prevState.data = list;
+                return { ...prevState };
+            });
+
+            setCorrectAnswers((prevState) => {
+                // eslint-disable-next-line no-param-reassign
+                prevState = corrAnswers;
+                return [...prevState];
+            });
+
+            console.log("tempList.value: ", tempList.value);
+            console.log("tempList.data: ", tempList.data);
+        }
+    };
+
+    /** Input field specifying the number of answers per question along with the correct answers. */
     const addNumberOfAnswers = (
         e: React.ChangeEvent<HTMLInputElement>,
         parentIndex: number
@@ -264,8 +319,10 @@ function QuizForm(props: IProps): JSX.Element {
             });
         } else {
             const list: Array<{ answer: "" }> = [];
+            const corrAnswers: any = [];
             for (let i = 0; i < value; i++) {
                 list.push({ answer: "" });
+                corrAnswers.push({ answer: 0, value: false });
             }
             setInputList((prevState: IInputList) => {
                 // eslint-disable-next-line no-param-reassign
@@ -273,6 +330,12 @@ function QuizForm(props: IProps): JSX.Element {
                 // eslint-disable-next-line no-param-reassign
                 prevState.data[parentIndex].answers = list;
                 return { ...prevState };
+            });
+
+            setCorrectAnswers((prevState) => {
+                // eslint-disable-next-line no-param-reassign
+                prevState[parentIndex].answers = corrAnswers;
+                return [...prevState];
             });
         }
     };
@@ -328,11 +391,24 @@ function QuizForm(props: IProps): JSX.Element {
                             </button>
                         )}
                         {i === 0 && (
-                            <input
-                                type="text"
-                                value={inputList.numberOfQuestions}
-                                onChange={(e): void => addNumberOfQuestions(e)}
-                            />
+                            <>
+                                <input
+                                    type="text"
+                                    maxLength={2}
+                                    value={inputList.numberOfQuestions}
+                                    onChange={(e): void =>
+                                        addNumberOfQuestions(e)
+                                    }
+                                />
+                                <span>
+                                    <button
+                                        type="button"
+                                        onClick={setNumberOfQuestions}
+                                    >
+                                        Adaugă Întrebări
+                                    </button>
+                                </span>
+                            </>
                         )}
                         {x.answers.map((y: IAnswers, j: number) => (
                             <div key={uuidV4()}>
@@ -402,6 +478,12 @@ function QuizForm(props: IProps): JSX.Element {
                                         }
                                     />
                                 )}
+
+                                <span>
+                                    <button type="button">
+                                        Adaugă Răspunsuri
+                                    </button>
+                                </span>
                             </div>
                         ))}
                         <br />
