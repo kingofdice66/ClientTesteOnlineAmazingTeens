@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { v4 as uuidV4 } from "uuid";
 import sendGetData from "../../customComponents/Fetch/sendGetData";
 import sendData from "../../customComponents/Fetch/sendData";
 import IOSSwitch from "../../customComponents/IOSSwitch/IOSSwitch";
@@ -224,6 +223,8 @@ function QuizForm(props: IProps): JSX.Element {
     ): void => {
         const value = parseInt(e.target.value, 10);
         const list: Array<IData> = [];
+        const corrAnswers: Array<ICorrectAnswers> = [];
+
         if (Number.isNaN(value) || value <= 0) {
             /** If user erases everything in the input field. */
             setInputList((prevState: IInputList) => {
@@ -238,6 +239,10 @@ function QuizForm(props: IProps): JSX.Element {
                     numberOfAnswers: 1, // Number of answerers per question.
                     answers: [{ answer: "" }],
                 });
+                corrAnswers.push({
+                    question: i + 1, // Plus once because it starts at 0.
+                    answers: [{ answer: 0, value: false }],
+                });
             }
             setInputList((prevState: IInputList) => {
                 // eslint-disable-next-line no-param-reassign
@@ -245,6 +250,11 @@ function QuizForm(props: IProps): JSX.Element {
                 // eslint-disable-next-line no-param-reassign
                 prevState.numberOfQuestions = value;
                 return { ...prevState };
+            });
+            setCorrectAnswers((prevState) => {
+                // eslint-disable-next-line no-param-reassign
+                prevState = corrAnswers;
+                return [...prevState];
             });
         }
     };
@@ -335,7 +345,9 @@ function QuizForm(props: IProps): JSX.Element {
                             />
                         )}
                         {x.answers.map((y: IAnswers, j: number) => (
-                            <div key={uuidV4()}>
+                            //! ATTENTION: Here we must use the index of the map as the key otherwise the form won't work as intended.
+                            // eslint-disable-next-line react/no-array-index-key
+                            <div key={j}>
                                 <label htmlFor={`answer${i}${j}`}>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Răspunsul#
                                     {j + 1}: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
