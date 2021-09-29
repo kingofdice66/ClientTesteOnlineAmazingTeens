@@ -157,7 +157,6 @@ function QuizForm(props: IProps): JSX.Element {
             prevState.data[parentIndex].answers[childIndex].answer = value;
             return { ...prevState };
         });
-        console.log("XXXXYYYXXXWWWW");
     };
 
     /** Append another question input field along with answers children and correct answers. */
@@ -271,7 +270,7 @@ function QuizForm(props: IProps): JSX.Element {
 
     /** Set the number of question when the user clicks the set number of questions button. */
     const setNumberOfQuestions = (): void => {
-        if (tempList.value !== "") {
+        if (tempList.value !== "" && tempList.value !== null) {
             const list: any = [];
             const corrAnswers: any = [];
 
@@ -339,6 +338,10 @@ function QuizForm(props: IProps): JSX.Element {
                 return [...prevState];
             });
         }
+    };
+
+    const setNumberOfAnswers = (): void => {
+        console.log("number of answers");
     };
 
     /**
@@ -482,7 +485,10 @@ function QuizForm(props: IProps): JSX.Element {
                                             }
                                         />
                                         <span>
-                                            <button type="button">
+                                            <button
+                                                type="button"
+                                                onClick={setNumberOfAnswers}
+                                            >
                                                 Adaugă Răspunsuri
                                             </button>
                                         </span>
