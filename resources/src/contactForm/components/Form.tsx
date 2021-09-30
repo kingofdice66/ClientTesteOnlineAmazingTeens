@@ -31,18 +31,6 @@ function Form(): JSX.Element {
     /* ************************************************** */
     /*      Check for errors in the input fields          */
     /* ************************************************** */
-    //! Attention. Don't put these under an array form like for example:
-    // ? const [data, setData] = useState({
-    // ? usernameErrorInput: "",
-    // ? emailErrorInput: "",
-    // ? });
-    //* because when you hit submit button, some of them will not
-    //* get rendered on the page.
-    // const [nameErrorInput, setNameErrorInput] = useState<string>("");
-    // const [usernameErrorInput, setUsernameErrorInput] = useState<string>("");
-    // const [emailErrorInput, setEmailErrorInput] = useState<string>("");
-    // const [subjectErrorInput, setSubjectErrorInput] = useState<string>("");
-    // const [textareaErrorInput, setTextareaErrorInput] = useState<string>("");
     const [errorInput, setErrorInput] = useState<IInputError>({
         name: "",
         username: "",
