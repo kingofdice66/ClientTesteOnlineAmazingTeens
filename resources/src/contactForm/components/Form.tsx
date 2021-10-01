@@ -31,7 +31,7 @@ function Form(): JSX.Element {
     /* ************************************************** */
     /*      Check for errors in the input fields          */
     /* ************************************************** */
-    const [errorInput, setErrorInput] = useState<IInputError>({
+    const [inputError, setInputError] = useState<IInputError>({
         name: "",
         username: "",
         email: "",
@@ -49,14 +49,14 @@ function Form(): JSX.Element {
         /* ************************************************** */
         const namePattern = /^[ ]*$/;
         if (data.name.length === 0 || namePattern.test(data.name)) {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.name = "Câmpul nu poate fi gol!";
                 return { ...prevState };
             });
             error = true;
         } else if (data.name.length < 3) {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.name =
                     "Câmpul nu poate contine mai putin de 3 caractere!";
@@ -64,7 +64,7 @@ function Form(): JSX.Element {
             });
             error = true;
         } else if (data.name.length > 20) {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.name =
                     "Câmpul nu poate contine mai mult de 40 de caractere!";
@@ -72,7 +72,7 @@ function Form(): JSX.Element {
             });
             error = true;
         } else {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.name = "";
                 return { ...prevState };
@@ -83,14 +83,14 @@ function Form(): JSX.Element {
         /* ************************************************** */
         const usernamePatter = /^[ ]*$/;
         if (data.username.length === 0 || usernamePatter.test(data.username)) {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.username = "Câmpul nu poate fi gol!";
                 return { ...prevState };
             });
             error = true;
         } else if (data.username.length < 3) {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.username =
                     "Câmpul nu poate contine mai putin de 3 caractere!";
@@ -98,7 +98,7 @@ function Form(): JSX.Element {
             });
             error = true;
         } else if (data.username.length > 20) {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.username =
                     "Câmpul nu poate contine mai mult de 40 de caractere!";
@@ -106,7 +106,7 @@ function Form(): JSX.Element {
             });
             error = true;
         } else {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.username = "";
                 return { ...prevState };
@@ -117,14 +117,14 @@ function Form(): JSX.Element {
         /* ************************************************** */
         const emailPattern = /^[ ]*$/;
         if (data.email.length === 0 || emailPattern.test(data.email)) {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.email = "Câmpul nu poate fi gol!";
                 return { ...prevState };
             });
             error = true;
         } else if (data.email.length < 3) {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.email =
                     "Câmpul nu poate contine mai putin de 3 caractere!";
@@ -132,7 +132,7 @@ function Form(): JSX.Element {
             });
             error = true;
         } else if (data.email.length > 300) {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.email =
                     "Câmpul nu poate contine mai mult de 300 de caractere!";
@@ -140,7 +140,7 @@ function Form(): JSX.Element {
             });
             error = true;
         } else {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.email = "";
                 return { ...prevState };
@@ -151,14 +151,14 @@ function Form(): JSX.Element {
         /* ************************************************** */
         const subjectPattern = /^[ ]*$/;
         if (data.subject.length === 0 || subjectPattern.test(data.subject)) {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.subject = "Câmpul nu poate fi gol!";
                 return { ...prevState };
             });
             error = true;
         } else if (data.subject.length < 3) {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.subject =
                     "Câmpul nu poate contine mai putin de 3 caractere!";
@@ -166,7 +166,7 @@ function Form(): JSX.Element {
             });
             error = true;
         } else if (data.subject.length > 20) {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.subject =
                     "Câmpul nu poate contine mai mult de 40 de caractere!";
@@ -174,7 +174,7 @@ function Form(): JSX.Element {
             });
             error = true;
         } else {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.subject = "";
                 return { ...prevState };
@@ -185,14 +185,14 @@ function Form(): JSX.Element {
         /* ************************************************** */
         const textareaPattern = /^[ ]*$/;
         if (data.message.length === 0 || textareaPattern.test(data.message)) {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.textarea = "Câmpul nu poate fi gol!";
                 return { ...prevState };
             });
             error = true;
         } else {
-            setErrorInput((prevState: IInputError) => {
+            setInputError((prevState: IInputError) => {
                 // eslint-disable-next-line no-param-reassign
                 prevState.textarea = "";
                 return { ...prevState };
@@ -241,7 +241,7 @@ function Form(): JSX.Element {
                                         })
                                     }
                                 />
-                                <div>{errorInput.name}</div>
+                                <div>{inputError.name}</div>
                             </label>
                             <br />
                             <br />
@@ -261,7 +261,7 @@ function Form(): JSX.Element {
                                         })
                                     }
                                 />
-                                <div>{errorInput.username}</div>
+                                <div>{inputError.username}</div>
                             </label>
                             <br />
                             <br />
@@ -286,7 +286,7 @@ function Form(): JSX.Element {
                                         })
                                     }
                                 />
-                                <div>{errorInput.email}</div>
+                                <div>{inputError.email}</div>
                             </label>
                             <br />
                             <br />
@@ -311,7 +311,7 @@ function Form(): JSX.Element {
                                         })
                                     }
                                 />
-                                <div>{errorInput.subject}</div>
+                                <div>{inputError.subject}</div>
                             </label>
                             <br />
                             <br />
@@ -335,7 +335,7 @@ function Form(): JSX.Element {
                                         })
                                     }
                                 />
-                                <div>{errorInput.textarea}</div>
+                                <div>{inputError.textarea}</div>
                             </label>
                             <br />
                             <br />

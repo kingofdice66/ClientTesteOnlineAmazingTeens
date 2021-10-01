@@ -34,7 +34,7 @@ function TopNavBar(): JSX.Element {
                         <a href="UsersAccount" className="skew">
                             <div className="skew-undo">
                                 <span className="styleLinkText">
-                                    Contul Tau
+                                    Contul Tău
                                 </span>
                             </div>
                         </a>

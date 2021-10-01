@@ -134,7 +134,7 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
         }
     };
 
-    // To be called once when the page loads.
+    /* To be called once when the page loads. */
     useEffect(() => {
         setVisibilityFunction();
         // eslint-disable-next-line react-hooks/exhaustive-deps

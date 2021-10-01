@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\GetCourseAndChapterName;
+use App\Http\Controllers\GetCorrectAnswersQuiz;
 use App\Http\Controllers\GetQuizForm;
 use App\Http\Controllers\SetChapterName;
 use App\Http\Controllers\SetCourseName;
 use App\Http\Controllers\UpdateCourseName;
 use App\Http\controllers\UpdateChapterName;
+use App\Http\Controllers\UpdateCorrectAnswersQuiz;
 use App\Http\Controllers\UpdateQuizForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,3 +47,10 @@ Route::post("getQuizForm", [GetQuizForm::class, "getData"]);
 
 /** Update the quiz form in the database. */
 Route::post("updateQuizForm", [UpdateQuizForm::class, "setData"]);
+
+/** Update the correct answers for the quiz. */
+Route::post("updateCorrectAnswersQuiz", [UpdateCorrectAnswersQuiz::class, "updateData"]);
+
+
+/** Get the correct answers for the quiz. */
+Route::post("getCorrectAnswersQuiz", [GetCorrectAnswersQuiz::class, "getData"]);

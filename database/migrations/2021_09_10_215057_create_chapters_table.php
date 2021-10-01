@@ -18,10 +18,10 @@ class CreateChaptersTable extends Migration
             $table->text("name")->nullable(); // To be set at a later time.
             $table->mediumText("content")->nullable(); // To be set at a later time.
             $table->text("quiz_form")->nullable(); // To be set at a later time.
-            // The correct answers to the quiz.
-            $table->text("quiz_correct_answers")->nullable(); // To be set at a later time.
-            // Option to show the respective chapter or not. For example, if the
-            // chapter is not ready, the user choses to not show the chapter yet.
+            /**  
+             * Option to show the respective chapter or not. For example, if the
+             * chapter is not ready, the user choses to not show the chapter yet. 
+             */
             $table->boolean("show")->default(false);
             // The count-down time for the quiz. If the time is up, the quiz finishes.
             $table->unsignedInteger("quiz_countdown_time")->default(0);

@@ -9,36 +9,27 @@ interface IInputList {
     numberOfQuestions: number | string;
     data: Array<{
         question: string;
+        points: number; // How many points the question is worth if answered correctly.
         numberOfAnswers: number | string; // Number of answerers per question.
-        answers: Array<{ answer: string }>;
-    }>;
-}
-
-interface ICorrectAnswers {
-    question: number;
-    answers: Array<{
-        answer: number;
-        value: boolean;
+        answers: Array<{ answer: string; value: boolean }>; // 'value' specifies if the answer is correct or not.
     }>;
 }
 
 // For a temporary constant.
-interface ITempCorrectAnswers {
-    answer: number;
-    value: boolean;
-}
 interface IProps {
     urlIDs: { chapterID: number; courseID: number };
 }
 
 interface IData {
     question: string;
+    points: number; // How many points the question is worth if answered correctly.
     numberOfAnswers: number | string; // Number of answerers per question.
-    answers: Array<{ answer: string }>;
+    answers: Array<{ answer: string; value: boolean }>; // 'value' specifies if the answer is correct or not.
 }
 
 interface IAnswers {
     answer: string;
+    value: false;
 }
 
 function QuizForm(props: IProps): JSX.Element {
@@ -46,27 +37,19 @@ function QuizForm(props: IProps): JSX.Element {
      * This is used to prevent 'useEffect(()=> {...},[inputList])'
      * from updating data to the database too early.
      */
-    const countRef = useRef<number>(2);
-    const timeoutRef = useRef<NodeJS.Timeout>(null);
+    const countInputListRef = useRef<number>(2);
+    const timeoutInputListRef = useRef<NodeJS.Timeout>(null);
     const [inputList, setInputList] = useState<IInputList>({
         numberOfQuestions: 1,
         data: [
             {
                 question: "",
+                points: 1,
                 numberOfAnswers: 1, // Number of answerers per question.
-                answers: [{ answer: "" }],
+                answers: [{ answer: "", value: false }], // 'value' specifies if the answer is correct or not.
             },
         ],
     });
-    /* Correct answers per given question. */
-    const [correctAnswers, setCorrectAnswers] = useState<
-        Array<ICorrectAnswers>
-    >([
-        {
-            question: 0,
-            answers: [{ answer: 0, value: false }],
-        },
-    ]);
 
     const { urlIDs } = props; // In order to upload data to database in correct location.
     const { courseID, chapterID } = urlIDs;
@@ -93,30 +76,26 @@ function QuizForm(props: IProps): JSX.Element {
      * Then send data to the database.
      * */
     useEffect(() => {
-        if (countRef.current !== 0) {
-            countRef.current--;
-            console.log("count: ", countRef.current);
-        } else if (countRef.current === 0) {
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
+        if (countInputListRef.current !== 0) {
+            countInputListRef.current--;
+        } else if (countInputListRef.current === 0) {
+            if (timeoutInputListRef.current) {
+                clearTimeout(timeoutInputListRef.current);
             }
-            timeoutRef.current = setTimeout(() => {
+            timeoutInputListRef.current = setTimeout(() => {
                 const data = {
                     courseID,
                     chapterID,
                     quizForm: inputList,
                 };
                 sendData(`${apiURL}/api/updateQuizForm`, data);
-                console.log("updated");
+                // console.log("updated");
             }, 0.75 * 1000);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inputList]);
 
     /** Update correct answer in database. */
-    useEffect(() => {
-        console.log("correct answers updated");
-    }, [correctAnswers]);
 
     /** Update question input field as you type. */
     const updateQuestion = (
@@ -150,19 +129,11 @@ function QuizForm(props: IProps): JSX.Element {
         setInputList((prevState: IInputList) => {
             prevState.data.push({
                 question: "",
+                points: 1, // How many points the question is worth if answered correctly.
                 numberOfAnswers: 1, // Number of answerers per question.
-                answers: [{ answer: "" }],
+                answers: [{ answer: "", value: false }], // 'value' specifies if the answer is correct or not.
             });
             return { ...prevState };
-        });
-
-        setCorrectAnswers((prevState: Array<ICorrectAnswers>) => {
-            // eslint-disable-next-line no-param-reassign
-            prevState.push({
-                question: parentIndex + 1, // Plus once because it starts at 0.
-                answers: [{ answer: 0, value: false }],
-            });
-            return [...prevState];
         });
     };
 
@@ -184,28 +155,16 @@ function QuizForm(props: IProps): JSX.Element {
             prevState.data.splice(parentIndex, 1);
             return { ...prevState };
         });
-
-        setCorrectAnswers((prevState) => {
-            prevState.splice(parentIndex, 1);
-            return [...prevState];
-        });
     };
 
     /** Append another answer to the question along with a correct answer. */
     const addAnswer = (parentIndex: number, childIndex: number): void => {
         setInputList((prevState: IInputList) => {
-            prevState.data[parentIndex].answers.push({ answer: "" });
-            return { ...prevState };
-        });
-
-        setCorrectAnswers((prevState) => {
-            // eslint-disable-next-line no-param-reassign
-            prevState[parentIndex].answers.push({
-                answer: childIndex + 1, // Because is starts at 0.
+            prevState.data[parentIndex].answers.push({
+                answer: "",
                 value: false,
             });
-
-            return [...prevState];
+            return { ...prevState };
         });
     };
 
@@ -215,11 +174,6 @@ function QuizForm(props: IProps): JSX.Element {
             prevState.data[parentIndex].answers.splice(childIndex, 1);
             return { ...prevState };
         });
-
-        setCorrectAnswers((prevState) => {
-            prevState[parentIndex].answers.splice(childIndex, 1);
-            return [...prevState];
-        });
     };
 
     /** Input field specifying the number of questions. */
@@ -228,7 +182,6 @@ function QuizForm(props: IProps): JSX.Element {
     ): void => {
         const value = parseInt(e.target.value, 10);
         const list: Array<IData> = [];
-        const corrAnswers: Array<ICorrectAnswers> = [];
 
         if (Number.isNaN(value) || value <= 0) {
             /** If user erases everything in the input field. */
@@ -241,12 +194,9 @@ function QuizForm(props: IProps): JSX.Element {
             for (let i = 0; i < value; i++) {
                 list.push({
                     question: "",
+                    points: 1,
                     numberOfAnswers: 1, // Number of answerers per question.
-                    answers: [{ answer: "" }],
-                });
-                corrAnswers.push({
-                    question: i + 1, // Plus once because it starts at 0.
-                    answers: [{ answer: 0, value: false }],
+                    answers: [{ answer: "", value: false }],
                 });
             }
             setInputList((prevState: IInputList) => {
@@ -255,11 +205,6 @@ function QuizForm(props: IProps): JSX.Element {
                 // eslint-disable-next-line no-param-reassign
                 prevState.numberOfQuestions = value;
                 return { ...prevState };
-            });
-            setCorrectAnswers((prevState) => {
-                // eslint-disable-next-line no-param-reassign
-                prevState = corrAnswers;
-                return [...prevState];
             });
         }
     };
@@ -271,7 +216,7 @@ function QuizForm(props: IProps): JSX.Element {
     ): void => {
         const list: Array<IAnswers> = [];
         const value = parseInt(e.target.value, 10);
-        const corrAnswers: Array<ITempCorrectAnswers> = [];
+
         if (Number.isNaN(value) || value <= 0) {
             /** If the user erases everything in the input field. */
             setInputList((prevState: IInputList) => {
@@ -281,8 +226,7 @@ function QuizForm(props: IProps): JSX.Element {
             });
         } else {
             for (let i = 0; i < value; i++) {
-                list.push({ answer: "" });
-                corrAnswers.push({ answer: 0, value: false });
+                list.push({ answer: "", value: false });
             }
             setInputList((prevState: IInputList) => {
                 // eslint-disable-next-line no-param-reassign
@@ -290,11 +234,6 @@ function QuizForm(props: IProps): JSX.Element {
                 // eslint-disable-next-line no-param-reassign
                 prevState.data[parentIndex].answers = list;
                 return { ...prevState };
-            });
-            setCorrectAnswers((prevState) => {
-                // eslint-disable-next-line no-param-reassign
-                prevState[parentIndex].answers = corrAnswers;
-                return [...prevState];
             });
         }
     };
@@ -366,17 +305,16 @@ function QuizForm(props: IProps): JSX.Element {
                                     <br />
                                     <IOSSwitch
                                         isON={
-                                            correctAnswers[i].answers[j].value
+                                            inputList.data[i].answers[j].value
                                         }
                                         onToggle={(): void =>
-                                            setCorrectAnswers((prevState) => {
+                                            setInputList((prevState) => {
                                                 // eslint-disable-next-line no-param-reassign
-                                                prevState[i].answers[
+                                                prevState.data[i].answers[
                                                     j
-                                                ].value = !prevState[i].answers[
-                                                    j
-                                                ].value;
-                                                return [...prevState];
+                                                ].value = !prevState.data[i]
+                                                    .answers[j].value;
+                                                return { ...prevState };
                                             })
                                         }
                                         ONColor="green"
@@ -433,8 +371,7 @@ function QuizForm(props: IProps): JSX.Element {
                     </div>
                 ))}
             </div>
-            {/* {JSON.stringify(inputList, null, 2)} */}
-            {JSON.stringify(correctAnswers, null, 2)}
+            {JSON.stringify(inputList, null, 2)}
         </>
     );
 }
