@@ -1,7 +1,7 @@
 import React from "react";
 
-function UserMainPage(): JSX.Element {
+function UsersMainPage(): JSX.Element {
     return <div>UsersMainPage</div>;
 }
 
-export default UserMainPage;
+export default UsersMainPage;

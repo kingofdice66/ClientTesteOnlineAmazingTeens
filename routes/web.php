@@ -28,3 +28,7 @@ Route::get("MakeCourse", function () {
 Route::get("UsersAccount", function () {
     return view("UsersAccount");
 });
+
+Route::get("Courses", function () {
+    return view("Courses");
+});

@@ -27,6 +27,8 @@ mix.ts(
     "public/js"
 ).version();
 
+mix.ts("resources/src/courses/public/Courses.tsx", "public/js").version();
+
 mix.webpackConfig({
     plugins: [new StylelintPlugin(), new ESLintPlugin()],
 });

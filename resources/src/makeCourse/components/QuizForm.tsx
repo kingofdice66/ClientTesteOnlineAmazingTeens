@@ -44,7 +44,7 @@ function QuizForm(props: IProps): JSX.Element {
         data: [
             {
                 question: "",
-                points: 1,
+                points: 1, // How many points the question is worth if answered correctly.
                 numberOfAnswers: 1, // Number of answerers per question.
                 answers: [{ answer: "", value: false }], // 'value' specifies if the answer is correct or not.
             },
@@ -125,7 +125,7 @@ function QuizForm(props: IProps): JSX.Element {
     };
 
     /** Append another question input field along with answers children and correct answers. */
-    const addQuestion = (parentIndex: number): void => {
+    const addQuestion = (): void => {
         setInputList((prevState: IInputList) => {
             prevState.data.push({
                 question: "",
@@ -158,7 +158,7 @@ function QuizForm(props: IProps): JSX.Element {
     };
 
     /** Append another answer to the question along with a correct answer. */
-    const addAnswer = (parentIndex: number, childIndex: number): void => {
+    const addAnswer = (parentIndex: number): void => {
         setInputList((prevState: IInputList) => {
             prevState.data[parentIndex].answers.push({
                 answer: "",
@@ -257,6 +257,8 @@ function QuizForm(props: IProps): JSX.Element {
                     //! ATTENTION: Here we must use the index of the map as the key otherwise the form won't work as intended.
                     // eslint-disable-next-line react/no-array-index-key
                     <div key={i}>
+                        <input type="text" placeholder="puncte..." />
+
                         <label htmlFor={`question${i}`}>
                             Întrebarea#{i + 1}:<br />
                             <input
@@ -266,11 +268,12 @@ function QuizForm(props: IProps): JSX.Element {
                                 onChange={(e): void => updateQuestion(e, i)}
                             />
                         </label>
+
                         {inputList.data.length - 1 === i && (
                             <button
                                 type="button"
                                 onClick={(): void => {
-                                    addQuestion(i);
+                                    addQuestion();
                                     eraseNumberOfQuestionsInputField();
                                 }}
                             >
@@ -335,7 +338,7 @@ function QuizForm(props: IProps): JSX.Element {
                                     <button
                                         type="button"
                                         onClick={(): void => {
-                                            addAnswer(i, j);
+                                            addAnswer(i);
                                             eraseNumberOfAnswersInputField(i);
                                         }}
                                     >

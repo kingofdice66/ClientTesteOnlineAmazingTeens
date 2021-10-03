@@ -1,20 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import UsersMainPage from "../components/MainPage";
 import TopNavBar from "../../topNavBar/TopNavBar";
 import Footer from "../../footer/Footer";
-import "./UsersAccount.scss";
+import CoursesOffered from "../components/CoursesOffered";
+import "./Courses.scss";
 import "normalize.css";
 
-function UsersAccount(): JSX.Element {
+function Courses(): JSX.Element {
     return (
         <>
-            <div className="usersAccount-wrapper">
+            <div className="courses-wrapper">
                 <div>
                     <TopNavBar />
                 </div>
-                <div className="usersMainPage">
-                    <UsersMainPage />
+                <div className="coursesOffered">
+                    <CoursesOffered />
                 </div>
                 <div>
                     <Footer />
@@ -24,4 +24,4 @@ function UsersAccount(): JSX.Element {
     );
 }
 
-ReactDOM.render(<UsersAccount />, document.getElementById("usersAccount"));
+ReactDOM.render(<Courses />, document.getElementById("courses"));

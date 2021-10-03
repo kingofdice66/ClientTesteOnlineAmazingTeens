@@ -19,7 +19,7 @@ function TopNavBar(): JSX.Element {
                                 <span className="styleLinkText">Acasă</span>
                             </div>
                         </a>
-                        <a href="##" className="skew">
+                        <a href="Courses" className="skew">
                             <div className="skew-undo">
                                 <span className="styleLinkText">Cursuri</span>
                             </div>
