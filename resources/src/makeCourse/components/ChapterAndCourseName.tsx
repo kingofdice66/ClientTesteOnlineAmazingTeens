@@ -206,7 +206,10 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
         }
         // #################################################################################
 
-        sendGetData(`${apiURL}/api/setCourseName`, course.courseName).then(
+        sendGetData(
+            `${apiURL}/api/setCourseName`,
+            course.courseName.trim()
+        ).then(
             (item: any /* Set proper type interface after! */) => {
                 if (item.courseID === undefined) {
                     console.log(
@@ -254,7 +257,7 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
         // #################################################################################
 
         const data = {
-            chapterName: course.chapterName,
+            chapterName: course.chapterName.trim(),
             courseID,
         };
         sendGetData(`${apiURL}/api/setChapterName`, data).then(
