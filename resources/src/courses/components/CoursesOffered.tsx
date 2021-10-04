@@ -33,7 +33,7 @@ function CoursesOffered(): JSX.Element {
                     : courses.data.map((x: any) => (
                           <React.Fragment key={uuidV4()}>
                               <div>
-                                  <a href="Chapters?chapterID=test">
+                                  <a href={`Chapters?chapterID=${x.id}`}>
                                       Name: {x.name}
                                   </a>
                               </div>
