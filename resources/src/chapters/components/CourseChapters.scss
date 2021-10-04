@@ -1,4 +1,4 @@
-.courses {
+.courseChapters {
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -9,9 +9,5 @@
 
     div {
         background-color: dodgerblue;
-    }
-
-    a {
-        text-decoration: none;
     }
 }

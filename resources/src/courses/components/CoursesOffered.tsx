@@ -26,21 +26,17 @@ function CoursesOffered(): JSX.Element {
 
     // console.log("courses: ", courses[0]);
     return (
-        <>
-            <div className="courses">
-                {courses.data === null
-                    ? ""
-                    : courses.data.map((x: any) => (
-                          <React.Fragment key={uuidV4()}>
-                              <div>
-                                  <a href={`Chapters?chapterID=${x.id}`}>
-                                      Name: {x.name}
-                                  </a>
-                              </div>
-                          </React.Fragment>
-                      ))}
-            </div>
-        </>
+        <div className="courses">
+            {courses.data === null
+                ? ""
+                : courses.data.map((x: any) => (
+                      <div key={uuidV4()}>
+                          <a href={`Chapters?courseID=${x.id}`}>
+                              Name: {x.name}
+                          </a>
+                      </div>
+                  ))}
+        </div>
     );
 }
 
