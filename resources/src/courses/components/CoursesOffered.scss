@@ -1,0 +1,14 @@
+.courses {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    div {
+        background-color: dodgerblue;
+    }
+
+    a {
+        text-decoration: none;
+    }
+}

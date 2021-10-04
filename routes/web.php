@@ -32,3 +32,7 @@ Route::get("UsersAccount", function () {
 Route::get("Courses", function () {
     return view("Courses");
 });
+
+Route::get("Chapters", function () {
+    return view("Chapters");
+});
