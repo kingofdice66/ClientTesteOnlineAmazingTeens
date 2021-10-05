@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import CourseChapters from "../../chapters/components/CourseChapters";
+import CourseChapters from "../routes/CourseChapters";
 import CoursesOffered from "../routes/CoursesOffered";
 
 function Main(): JSX.Element {

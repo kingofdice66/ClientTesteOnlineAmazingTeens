@@ -47,4 +47,5 @@ Route::get("/Courses{path?}", function () {
 Route::get("/Chapters{path?}", function () {
     return view("Courses");
 })->where("path", ".*");
+
 // ######################################################

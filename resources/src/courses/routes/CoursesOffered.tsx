@@ -27,14 +27,16 @@ function CoursesOffered(): JSX.Element {
 
     return (
         <div className="courses">
-            <Link to="/Chapters?courseID=1">TEST</Link>
             {courses.data === null
                 ? ""
                 : courses.data.map((x: any) => (
                       <div key={uuidV4()}>
-                          <a href={`Chapters?courseID=${x.id}`}>
+                          {/* <a href={`Chapters?courseID=${x.id}`}>
                               Name: {x.name}
-                          </a>
+                          </a> */}
+                          <Link to={`Chapters?courseID=${x.id}`}>
+                              Name: {x.name}
+                          </Link>
                       </div>
                   ))}
         </div>
