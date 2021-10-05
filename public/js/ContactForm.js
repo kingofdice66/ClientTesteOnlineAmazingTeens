@@ -28,7 +28,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _fetch_sendData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../fetch/sendData */ "./resources/src/fetch/sendData.ts");
+/* harmony import */ var _customComponents_Fetch_sendData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../customComponents/Fetch/sendData */ "./resources/src/customComponents/Fetch/sendData.ts");
 /* harmony import */ var _apiURL_ApiURL__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../apiURL/ApiURL */ "./resources/src/apiURL/ApiURL.tsx");
 /* harmony import */ var _Form_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Form.scss */ "./resources/src/contactForm/components/Form.scss");
 var __assign = undefined && undefined.__assign || function () {
@@ -63,95 +63,139 @@ function Form() {
       data = _a[0],
       setData = _a[1];
 
-  var _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
-      nameErrorInput = _b[0],
-      setNameErrorInput = _b[1];
-
-  var _c = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
-      usernameErrorInput = _c[0],
-      setUsernameErrorInput = _c[1];
-
-  var _d = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
-      emailErrorInput = _d[0],
-      setEmailErrorInput = _d[1];
-
-  var _e = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
-      subjectErrorInput = _e[0],
-      setSubjectErrorInput = _e[1];
-
-  var _f = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
-      textareaErrorInput = _f[0],
-      setTextareaErrorInput = _f[1];
+  var _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    name: "",
+    username: "",
+    email: "",
+    subject: "",
+    textarea: ""
+  }),
+      inputError = _b[0],
+      setInputError = _b[1];
 
   var inputErrors = function inputErrors() {
     var error = false;
     var namePattern = /^[ ]*$/;
 
     if (data.name.length === 0 || namePattern.test(data.name)) {
-      setNameErrorInput("Câmpul nu poate fi gol!");
+      setInputError(function (prevState) {
+        prevState.name = "Câmpul nu poate fi gol!";
+        return __assign({}, prevState);
+      });
       error = true;
     } else if (data.name.length < 3) {
-      setNameErrorInput("Câmpul nu poate contine mai putin de 3 caractere!");
+      setInputError(function (prevState) {
+        prevState.name = "Câmpul nu poate contine mai putin de 3 caractere!";
+        return __assign({}, prevState);
+      });
       error = true;
     } else if (data.name.length > 20) {
-      setNameErrorInput("Câmpul nu poate contine mai mult de 40 de caractere!");
+      setInputError(function (prevState) {
+        prevState.name = "Câmpul nu poate contine mai mult de 40 de caractere!";
+        return __assign({}, prevState);
+      });
       error = true;
     } else {
-      setNameErrorInput("");
+      setInputError(function (prevState) {
+        prevState.name = "";
+        return __assign({}, prevState);
+      });
     }
 
     var usernamePatter = /^[ ]*$/;
 
     if (data.username.length === 0 || usernamePatter.test(data.username)) {
-      setUsernameErrorInput("Câmpul nu poate fi gol!");
+      setInputError(function (prevState) {
+        prevState.username = "Câmpul nu poate fi gol!";
+        return __assign({}, prevState);
+      });
       error = true;
     } else if (data.username.length < 3) {
-      setUsernameErrorInput("Câmpul nu poate contine mai putin de 3 caractere!");
+      setInputError(function (prevState) {
+        prevState.username = "Câmpul nu poate contine mai putin de 3 caractere!";
+        return __assign({}, prevState);
+      });
       error = true;
     } else if (data.username.length > 20) {
-      setUsernameErrorInput("Câmpul nu poate contine mai mult de 40 de caractere!");
+      setInputError(function (prevState) {
+        prevState.username = "Câmpul nu poate contine mai mult de 40 de caractere!";
+        return __assign({}, prevState);
+      });
       error = true;
     } else {
-      setUsernameErrorInput("");
+      setInputError(function (prevState) {
+        prevState.username = "";
+        return __assign({}, prevState);
+      });
     }
 
     var emailPattern = /^[ ]*$/;
 
     if (data.email.length === 0 || emailPattern.test(data.email)) {
-      setEmailErrorInput("Câmpul nu poate fi gol!");
+      setInputError(function (prevState) {
+        prevState.email = "Câmpul nu poate fi gol!";
+        return __assign({}, prevState);
+      });
       error = true;
     } else if (data.email.length < 3) {
-      setEmailErrorInput("Câmpul nu poate contine mai putin de 3 caractere!");
+      setInputError(function (prevState) {
+        prevState.email = "Câmpul nu poate contine mai putin de 3 caractere!";
+        return __assign({}, prevState);
+      });
       error = true;
     } else if (data.email.length > 300) {
-      setEmailErrorInput("Câmpul nu poate contine mai mult de 300 de caractere!");
+      setInputError(function (prevState) {
+        prevState.email = "Câmpul nu poate contine mai mult de 300 de caractere!";
+        return __assign({}, prevState);
+      });
       error = true;
     } else {
-      setEmailErrorInput("");
+      setInputError(function (prevState) {
+        prevState.email = "";
+        return __assign({}, prevState);
+      });
     }
 
     var subjectPattern = /^[ ]*$/;
 
     if (data.subject.length === 0 || subjectPattern.test(data.subject)) {
-      setSubjectErrorInput("Câmpul nu poate fi gol!");
+      setInputError(function (prevState) {
+        prevState.subject = "Câmpul nu poate fi gol!";
+        return __assign({}, prevState);
+      });
       error = true;
     } else if (data.subject.length < 3) {
-      setSubjectErrorInput("Câmpul nu poate contine mai putin de 3 caractere!");
+      setInputError(function (prevState) {
+        prevState.subject = "Câmpul nu poate contine mai putin de 3 caractere!";
+        return __assign({}, prevState);
+      });
       error = true;
     } else if (data.subject.length > 20) {
-      setSubjectErrorInput("Câmpul nu poate contine mai mult de 40 de caractere!");
+      setInputError(function (prevState) {
+        prevState.subject = "Câmpul nu poate contine mai mult de 40 de caractere!";
+        return __assign({}, prevState);
+      });
       error = true;
     } else {
-      setSubjectErrorInput("");
+      setInputError(function (prevState) {
+        prevState.subject = "";
+        return __assign({}, prevState);
+      });
     }
 
     var textareaPattern = /^[ ]*$/;
 
     if (data.message.length === 0 || textareaPattern.test(data.message)) {
-      setTextareaErrorInput("Câmpul nu poate fi gol!");
+      setInputError(function (prevState) {
+        prevState.textarea = "Câmpul nu poate fi gol!";
+        return __assign({}, prevState);
+      });
       error = true;
     } else {
-      setTextareaErrorInput("");
+      setInputError(function (prevState) {
+        prevState.textarea = "";
+        return __assign({}, prevState);
+      });
     }
 
     return error;
@@ -162,7 +206,7 @@ function Form() {
 
     if (!inputErrors()) {
       console.log("Success");
-      (0,_fetch_sendData__WEBPACK_IMPORTED_MODULE_1__.default)(_apiURL_ApiURL__WEBPACK_IMPORTED_MODULE_2__.default + "contactFormMail", data);
+      (0,_customComponents_Fetch_sendData__WEBPACK_IMPORTED_MODULE_1__["default"])(_apiURL_ApiURL__WEBPACK_IMPORTED_MODULE_2__["default"] + "contactFormMail", data);
     } else {
       console.log("Error");
     }
@@ -194,7 +238,7 @@ function Form() {
         name: e.target.value.trim()
       }));
     }
-  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, nameErrorInput)), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, inputError.name)), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
     htmlFor: "username"
   }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "formFieldName-style"
@@ -207,7 +251,7 @@ function Form() {
         username: e.target.value.trim()
       }));
     }
-  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, usernameErrorInput)), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, inputError.username)), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
     htmlFor: "email"
   }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "formFieldName-style"
@@ -225,7 +269,7 @@ function Form() {
         email: e.target.value.trim()
       }));
     }
-  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, emailErrorInput)), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, inputError.email)), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
     htmlFor: "subject"
   }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "formFieldName-style"
@@ -243,7 +287,7 @@ function Form() {
         subject: e.target.value.trim()
       }));
     }
-  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, subjectErrorInput)), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, inputError.subject)), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
     htmlFor: "message"
   }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "formFieldName-style"
@@ -260,7 +304,7 @@ function Form() {
         message: e.target.value.trim()
       }));
     }
-  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, textareaErrorInput)), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, inputError.textarea)), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     type: "submit",
     value: "Trimite Email",
     className: "formField-submitButton"
@@ -275,10 +319,10 @@ function Form() {
 
 /***/ }),
 
-/***/ "./resources/src/fetch/sendData.ts":
-/*!*****************************************!*\
-  !*** ./resources/src/fetch/sendData.ts ***!
-  \*****************************************/
+/***/ "./resources/src/customComponents/Fetch/sendData.ts":
+/*!**********************************************************!*\
+  !*** ./resources/src/customComponents/Fetch/sendData.ts ***!
+  \**********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -507,7 +551,7 @@ function TopNavBar() {
   }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "styleLinkText"
   }, "Acas\u0103"))), react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "##",
+    href: "Courses",
     className: "skew"
   }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "skew-undo"
@@ -521,13 +565,13 @@ function TopNavBar() {
   }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "styleLinkText"
   }, "Contacteaz\u0103-ne"))), react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-    href: "UsersAccountMainPage",
+    href: "UsersAccount",
     className: "skew"
   }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "skew-undo"
   }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "styleLinkText"
-  }, "Contul Tau"))), react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+  }, "Contul T\u0103u"))), react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
     href: "MakeCourse",
     className: "skew"
   }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -30540,11 +30584,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_laravel_mix_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_normalize_css__WEBPACK_IMPORTED_MODULE_1__.default, options);
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_laravel_mix_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_normalize_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_laravel_mix_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_normalize_css__WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_laravel_mix_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_normalize_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -30569,11 +30613,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_laravel_mix_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_Form_scss__WEBPACK_IMPORTED_MODULE_1__.default, options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_laravel_mix_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_Form_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_laravel_mix_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_Form_scss__WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_laravel_mix_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_Form_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -30598,11 +30642,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_laravel_mix_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_Footer_scss__WEBPACK_IMPORTED_MODULE_1__.default, options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_laravel_mix_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_Footer_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_laravel_mix_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_Footer_scss__WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_laravel_mix_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_Footer_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -30627,11 +30671,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_laravel_mix_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_TopNavBar_scss__WEBPACK_IMPORTED_MODULE_1__.default, options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_laravel_mix_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_TopNavBar_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_laravel_mix_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_TopNavBar_scss__WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_laravel_mix_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_TopNavBar_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -31004,7 +31048,7 @@ __webpack_require__.r(__webpack_exports__);
 function ContactForm() {
   return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "contactForm-mainPage--wrapper"
-  }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0__.createElement(_topNavBar_TopNavBar__WEBPACK_IMPORTED_MODULE_3__.default, null)), react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Form__WEBPACK_IMPORTED_MODULE_2__.default, null)), react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0__.createElement(_footer_Footer__WEBPACK_IMPORTED_MODULE_4__.default, null))));
+  }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0__.createElement(_topNavBar_TopNavBar__WEBPACK_IMPORTED_MODULE_3__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Form__WEBPACK_IMPORTED_MODULE_2__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0__.createElement(_footer_Footer__WEBPACK_IMPORTED_MODULE_4__["default"], null))));
 }
 
 react_dom__WEBPACK_IMPORTED_MODULE_1__.render(react__WEBPACK_IMPORTED_MODULE_0__.createElement(ContactForm, null), document.getElementById("contactForm"));

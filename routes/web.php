@@ -29,10 +29,19 @@ Route::get("UsersAccount", function () {
     return view("UsersAccount");
 });
 
-Route::get("Courses", function () {
-    return view("Courses");
-});
+// Route::get("Courses", function () {
+//     return view("Courses");
+// });
 
-Route::get("Chapters", function () {
-    return view("Chapters");
-});
+// ######################################################
+// #                 For React Router                   #
+// ######################################################
+
+Route::get("/Courses{path?}", function () {
+    return view("Courses");
+})->where("path", ".*");
+
+Route::get("/Chapters{path?}", function () {
+    return view("Courses");
+})->where("path", ".*");
+// ######################################################

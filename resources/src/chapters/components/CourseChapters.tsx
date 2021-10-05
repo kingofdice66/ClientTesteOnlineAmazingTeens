@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidV4 } from "uuid";
+import { useLocation } from "react-router-dom";
 import sendGetData from "../../customComponents/Fetch/sendGetData";
 import apiURL from "../../apiURL/ApiURL";
 import "./CourseChapters.scss";
@@ -19,6 +20,7 @@ const courseID: number = parseInt(searchParams.get("courseID"), 10);
 function CourseChapters(): JSX.Element {
     /* Data coming from database will be of the form: [{...},{...},...,{...}] so 'chapters' will be of the form '{data: [{...},{...},...,{...}]}'. */
     const [chapters, setChapters] = useState({ data: null });
+    const query = new URLSearchParams(useLocation().search);
 
     useEffect(() => {
         sendGetData(`${apiURL}/api/getChapters`, courseID).then(
@@ -31,6 +33,9 @@ function CourseChapters(): JSX.Element {
             },
             (error) => console.log("Error: ", error)
         );
+        console.log("query: ", query.get("courseID"));
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

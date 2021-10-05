@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidV4 } from "uuid";
+import { Link } from "react-router-dom";
 import getData from "../../customComponents/Fetch/getData";
 import apiURL from "../../apiURL/ApiURL";
 import "./CoursesOffered.scss";
@@ -24,9 +25,9 @@ function CoursesOffered(): JSX.Element {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // console.log("courses: ", courses[0]);
     return (
         <div className="courses">
+            <Link to="/Chapters?courseID=1">TEST</Link>
             {courses.data === null
                 ? ""
                 : courses.data.map((x: any) => (

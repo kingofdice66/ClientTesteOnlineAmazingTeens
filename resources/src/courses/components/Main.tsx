@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import CourseChapters from "../../chapters/components/CourseChapters";
 import CoursesOffered from "../routes/CoursesOffered";
 
 function Main(): JSX.Element {
@@ -8,6 +9,11 @@ function Main(): JSX.Element {
             <Switch>
                 <Route exact path="/Courses">
                     <CoursesOffered />
+                </Route>
+            </Switch>
+            <Switch>
+                <Route path="/Chapters">
+                    <CourseChapters />
                 </Route>
             </Switch>
         </Router>
