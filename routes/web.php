@@ -36,11 +36,3 @@ Route::get("Courses", function () {
 Route::get("Chapters", function () {
     return view("Chapters");
 });
-
-route::get("CourseDescription", function () {
-    return view("CourseDescription");
-});
-
-route::get("ChapterDescription", function () {
-    return view("ChapterDescription");
-});

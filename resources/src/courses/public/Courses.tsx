@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import TopNavBar from "../../topNavBar/TopNavBar";
 import Footer from "../../footer/Footer";
-import CoursesOffered from "../components/CoursesOffered";
+import Main from "../components/Main";
 import "./Courses.scss";
 import "normalize.css";
 
@@ -14,7 +14,7 @@ function Courses(): JSX.Element {
                     <TopNavBar />
                 </div>
                 <div className="coursesOffered">
-                    <CoursesOffered />
+                    <Main />
                 </div>
                 <div>
                     <Footer />

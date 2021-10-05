@@ -31,16 +31,6 @@ mix.ts("resources/src/courses/public/Courses.tsx", "public/js").version();
 
 mix.ts("resources/src/chapters/public/Chapters.tsx", "public/js").version();
 
-mix.ts(
-    "resources/src/courseDescription/public/CourseDescription.tsx",
-    "public/js"
-).version();
-
-mix.ts(
-    "resources/src/chapterDescription/public/ChapterDescription.tsx",
-    "public/js"
-).version();
-
 mix.webpackConfig({
     plugins: [new StylelintPlugin(), new ESLintPlugin()],
 });
