@@ -29,16 +29,17 @@ Route::get("UsersAccount", function () {
     return view("UsersAccount");
 });
 
-Route::get("Courses", function () {
-    return view("Courses");
-});
 
 // ######################################################
 // #******           For React Router             ******#
 // ######################################################
 
-Route::get("/Chapters{path?}", function () {
+Route::get("Courses", function () {
     return view("Courses");
-})->where("path", "\?courseID=[0-9]*");
+});
+
+Route::get("Chapters", function () {
+    return view("Courses");
+});
 
 // ######################################################
