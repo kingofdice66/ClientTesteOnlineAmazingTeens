@@ -29,12 +29,15 @@ Route::get("UsersAccount", function () {
     return view("UsersAccount");
 });
 
-// Route::get("Courses", function () {
-//     return view("Courses");
-// });
+
+
+
+
+
+
 
 // ######################################################
-// #                 For React Router                   #
+// #******           For React Router             ******#
 // ######################################################
 
 Route::get("/Courses{path?}", function () {
