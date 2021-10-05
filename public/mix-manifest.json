@@ -4,5 +4,7 @@
     "/js/MakeCourse.js": "/js/MakeCourse.js",
     "/js/UsersAccount.js": "/js/UsersAccount.js",
     "/js/Courses.js": "/js/Courses.js",
-    "/js/Chapters.js": "/js/Chapters.js"
+    "/js/Chapters.js": "/js/Chapters.js",
+    "/js/CourseDescription.js": "/js/CourseDescription.js",
+    "/js/ChapterDescription.js": "/js/ChapterDescription.js"
 }
