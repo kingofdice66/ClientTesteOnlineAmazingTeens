@@ -17,6 +17,7 @@ class CreateChaptersTable extends Migration
             $table->id();
             $table->text("name")->nullable(); // To be set at a later time.
             $table->mediumText("content")->nullable(); // To be set at a later time.
+            $table->mediumText("description")->nullable(); // To be set at a later time.
             $table->text("quiz_form")->nullable(); // To be set at a later time.
             /**  
              * Option to show the respective chapter or not. For example, if the

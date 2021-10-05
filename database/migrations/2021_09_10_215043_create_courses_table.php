@@ -16,6 +16,7 @@ class CreateCoursesTable extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->text("name");
+            $table->mediumText("description")->nullable(); // To be set at a later time.
             // Option to show the respective course to the users or not.
             $table->boolean("show")->default(false);
             $table->timestamps(6);
