@@ -19,9 +19,8 @@ function CoursesOffered(): JSX.Element {
                 });
                 console.log("data: ", courses.data);
             },
-            (error) => console.log("Error: ", error)
+            (error) => console.error("Error: ", error)
         );
-        console.log("data");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -31,9 +30,6 @@ function CoursesOffered(): JSX.Element {
                 ? ""
                 : courses.data.map((x: any) => (
                       <div key={uuidV4()}>
-                          {/* <a href={`Chapters?courseID=${x.id}`}>
-                              Name: {x.name}
-                          </a> */}
                           <Link to={`Chapters?courseID=${x.id}`}>
                               Name: {x.name}
                           </Link>

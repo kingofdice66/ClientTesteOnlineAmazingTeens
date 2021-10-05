@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import ChapterDescription from "../routes/ChapterDescription";
 import CourseChapters from "../routes/CourseChapters";
+import CourseDescription from "../routes/CourseDescription";
 import CoursesOffered from "../routes/CoursesOffered";
 
 function Main(): JSX.Element {
@@ -14,6 +16,16 @@ function Main(): JSX.Element {
             <Switch>
                 <Route path="/Chapters">
                     <CourseChapters />
+                </Route>
+            </Switch>
+            <Switch>
+                <Route path="/CourseDescription">
+                    <CourseDescription />
+                </Route>
+            </Switch>
+            <Switch>
+                <Route path="/ChapterDescription">
+                    <ChapterDescription />
                 </Route>
             </Switch>
         </Router>
