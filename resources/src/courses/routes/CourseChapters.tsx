@@ -33,6 +33,7 @@ function CourseChapters(): JSX.Element {
                 (error) => console.log("Error: ", error)
             );
         }
+        console.log("courseID: ", courseID);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

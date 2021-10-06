@@ -34,11 +34,22 @@ Route::get("UsersAccount", function () {
 // #******           For React Router             ******#
 // ######################################################
 
+// ######################################
+// #****          Courses           ****#
+// ######################################
 Route::get("Courses", function () {
     return view("Courses");
 });
 
 Route::get("Chapters", function () {
+    return view("Courses");
+});
+
+Route::get("CourseDescription", function () {
+    return view("Courses");
+});
+
+Route::get("ChapterDescription", function () {
     return view("Courses");
 });
 
