@@ -1,3 +1,5 @@
+// This contains the top navigation bar, footer and the appropriate component.
+
 import React from "react";
 import TopNavBar from "../topNavBar/TopNavBar";
 import Footer from "../footer/Footer";

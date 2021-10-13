@@ -1,3 +1,5 @@
+// This page contain courses.
+
 import React from "react";
 import ReactDOM from "react-dom";
 import CoursesOffered from "../components/CoursesOffered";
