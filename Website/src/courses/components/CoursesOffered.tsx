@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidV4 } from "uuid";
+import Icon from "../icons/PenBookAndInk.png";
 import getData from "../../customComponents/Fetch/getData";
 import apiURL from "../../apiURL/ApiURL";
 import "./CoursesOffered.scss";
@@ -28,7 +29,12 @@ function CoursesOffered(): JSX.Element {
       {courses.data === null
         ? ""
         : courses.data.map((x: any) => (
-            <div key={uuidV4()}>Name: {x.name}</div>
+            <React.Fragment key={uuidV4()}>
+              <a href="./CourseChapters.html">
+                <img src={Icon} height={150} alt="pen book and ink" />
+                <div className="courseName">Name: {x.name}</div>
+              </a>
+            </React.Fragment>
           ))}
     </div>
   );

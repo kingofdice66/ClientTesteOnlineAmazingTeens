@@ -23,6 +23,7 @@ module.exports = {
     MakeCourse: "./src/makeCourse/public/MakeCourse.tsx",
     ContactForm: "./src/contactForm/public/ContactForm.tsx",
     Courses: "./src/courses/public/Courses.tsx",
+    CourseChapters: "./src/courseChapters/public/CourseChapters.tsx",
   },
   output: {
     path: path.resolve(__dirname, "./dist"),
@@ -87,6 +88,12 @@ module.exports = {
       filename: "Courses.html",
       inject: "body",
       chunks: ["Courses"],
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/courseChapters/public/CourseChapters.html",
+      filename: "CourseChapters.html",
+      inject: "body",
+      chunks: ["CourseChapters"],
     }),
   ],
 };

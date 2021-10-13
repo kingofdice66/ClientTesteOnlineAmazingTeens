@@ -4,26 +4,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Form from "../components/Form";
-import TopNavBar from "../../topNavBar/TopNavBar";
-import Footer from "../../footer/Footer";
+import Facade from "../../pageFacade/Facade";
 import "normalize.css";
 
 function ContactForm(): JSX.Element {
-    return (
-        <>
-            <div className="contactForm-mainPage--wrapper">
-                <div>
-                    <TopNavBar />
-                </div>
-                <div>
-                    <Form />
-                </div>
-                <div>
-                    <Footer />
-                </div>
-            </div>
-        </>
-    );
+  return (
+    <>
+      <Facade Component={Form} />
+    </>
+  );
 }
 
 ReactDOM.render(<ContactForm />, document.getElementById("contactForm"));
