@@ -39,6 +39,13 @@ function TopNavBar(): JSX.Element {
                 <span className="styleLinkText">Creează Curs</span>
               </div>
             </a>
+            <a href="./OwnerAdminPanel.html" className="skew">
+              <div className="skew-undo">
+                <span className="styleLinkText">
+                  Panoul de administrare - Owner
+                </span>
+              </div>
+            </a>
           </div>
         </nav>
       </div>

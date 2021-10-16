@@ -24,6 +24,7 @@ module.exports = {
     ContactForm: "./src/contactForm/public/ContactForm.tsx",
     Courses: "./src/courses/public/Courses.tsx",
     CourseChapters: "./src/courseChapters/public/CourseChapters.tsx",
+    OwnerAdminPanel: "./src/ownerAdminPanel/public/OwnerAdminPanel.tsx",
   },
   output: {
     path: path.resolve(__dirname, "./dist"),
@@ -94,6 +95,12 @@ module.exports = {
       filename: "CourseChapters.html",
       inject: "body",
       chunks: ["CourseChapters"],
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/ownerAdminPanel/public/OwnerAdminPanel.html",
+      filename: "OwnerAdminPanel.html",
+      inject: "body",
+      chunks: ["OwnerAdminPanel"],
     }),
   ],
 };
