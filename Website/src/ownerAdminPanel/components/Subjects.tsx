@@ -9,11 +9,6 @@ function Subjects(): JSX.Element {
 
   const submitSubject = (): void => {
     setData(`${apiURL}/api/setSubject`, subjectName);
-    // .then(
-    //   (data) => console.log("data: ", data),
-    //   (error) => console.error("Error: ", error)
-    // );
-    console.log("subject submitted", subjectName);
   };
 
   useEffect(() => {

@@ -16,12 +16,17 @@ class SetSubject extends Controller
     public function __construct()
     {
         $this->subjectName = (new CustomFunctions)->jsonDecode();
+        $this->subjectName = trim($this->subjectName);
         $this->dateTime = new Carbon;
         $this->dateTimeFormat = (new CustomFunctions)->dateTimeFormat();
     }
 
+    /** Set the name of the subject. */
     public function setData()
     {
-        return ["SetSubject" => $this->subjectName];
+        DB::table("subjects")->insert([
+            "name" => "test", // $this->subjectName,
+            "created_at" => $this->dateTime->format($this->dateTimeFormat),
+        ]);
     }
 }
