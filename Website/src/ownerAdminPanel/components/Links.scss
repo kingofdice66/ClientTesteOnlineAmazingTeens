@@ -8,7 +8,7 @@
   }
 }
 
-.linksWrapper .links {
+.ownerAdminPanelLinks .links {
   // background-color: red; //--> for testing only
   column-gap: 6.5px;
   display: flex;
@@ -20,7 +20,7 @@
   .skew {
     // skewX() for styling links
     background-color: #a81d1d;
-    padding: 10px 10px 10px 17px;
+    padding: 5px 5px 5px 9px;
     text-decoration: none;
     transform: skewX(-15deg);
   }

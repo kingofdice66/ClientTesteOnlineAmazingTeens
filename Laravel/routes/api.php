@@ -5,6 +5,7 @@ use App\Http\Controllers\GetCorrectAnswersQuiz;
 use App\Http\Controllers\GetQuizForm;
 use App\Http\Controllers\GetCourses;
 use App\Http\Controllers\GetChapters;
+use App\Http\Controllers\GetSubjects;
 use App\Http\Controllers\SetChapterName;
 use App\Http\Controllers\SetCourseName;
 use App\Http\Controllers\UpdateCourseName;
@@ -62,3 +63,6 @@ Route::get("getCourses", [GetCourses::class, "getData"]);
 
 /** Get chapters. */
 Route::post("getChapters", [GetChapters::class, "getData"]);
+
+/** Get subjects. */
+Route::get("getSubjects", [GetSubjects::class, "getData"]);
