@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
+import { v4 as uuidV4 } from "uuid";
 import apiURL from "../../apiURL/ApiURL";
 import getData from "../../customComponents/Fetch/getData";
 import setData from "../../customComponents/Fetch/sendData";
@@ -7,15 +8,27 @@ function Subjects(): JSX.Element {
   const [subjects, setSubjects] = useState({ data: null });
   const [subjectName, setSubjectName] = useState<string>("");
 
+  const getSubjects = (): void => {
+    getData(`${apiURL}/api/getSubjects`).then(
+      (data) =>
+        setSubjects((prevState: any) => {
+          // eslint-disable-next-line no-param-reassign
+          prevState.data = data.subjects;
+          return { ...prevState };
+        }),
+      (error) => console.error("Error: ", error)
+    );
+  };
+
   const submitSubject = (): void => {
     setData(`${apiURL}/api/setSubject`, subjectName);
+    setSubjectName(""); // Clear textarea.
+    getSubjects();
   };
 
   useEffect(() => {
-    getData(`${apiURL}/api/getSubjects`).then(
-      (data) => console.log("data: ", data),
-      (error) => console.error("Error: ", error)
-    );
+    getSubjects();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -35,7 +48,17 @@ function Subjects(): JSX.Element {
         Creează
       </button>
       <br />
-      {subjects.data !== null ? <div>SUBJECTS</div> : ""}
+      {subjects.data !== null ? (
+        <>
+          {subjects.data.map((x: any) => (
+            <React.Fragment key={uuidV4()}>
+              <div>{x.name}</div>
+            </React.Fragment>
+          ))}
+        </>
+      ) : (
+        ""
+      )}
     </>
   );
 }

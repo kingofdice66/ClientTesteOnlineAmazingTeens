@@ -19,7 +19,6 @@ class GetCourses extends Controller
         $this->dataArray = DB::table("courses")->select("name", "id")->get();
 
         return [
-            "GetCourses" => "success",
             "courses" => $this->dataArray,
         ];
     }
