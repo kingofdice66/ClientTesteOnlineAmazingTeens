@@ -23,7 +23,7 @@ class SetChapterName extends Controller
     }
 
     /** Set the name of the chapter. */
-    public function setChapterName()
+    public function setData()
     {
         DB::table("chapters")->insert(
             [

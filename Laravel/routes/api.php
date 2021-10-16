@@ -6,6 +6,7 @@ use App\Http\Controllers\GetQuizForm;
 use App\Http\Controllers\GetCourses;
 use App\Http\Controllers\GetChapters;
 use App\Http\Controllers\GetSubjects;
+use App\Http\Controllers\SetSubject;
 use App\Http\Controllers\SetChapterName;
 use App\Http\Controllers\SetCourseName;
 use App\Http\Controllers\UpdateCourseName;
@@ -31,10 +32,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 /** Set the name of the course into the database. */
-Route::post("setCourseName", [SetCourseName::class, "setCourseName"]);
+Route::post("setCourseName", [SetCourseName::class, "setData"]);
 
 /** Set the name of the chapter into the database. */
-Route::post("setChapterName", [SetChapterName::class, "setChapterName"]);
+Route::post("setChapterName", [SetChapterName::class, "setData"]);
 
 /** Get the course and chapter name from the database. */
 Route::post("getCourseAndChapterName", [GetCourseAndChapterName::class, "getData"]);
@@ -54,7 +55,6 @@ Route::post("updateQuizForm", [UpdateQuizForm::class, "setData"]);
 /** Update the correct answers for the quiz. */
 Route::post("updateCorrectAnswersQuiz", [UpdateCorrectAnswersQuiz::class, "updateData"]);
 
-
 /** Get the correct answers for the quiz. */
 Route::post("getCorrectAnswersQuiz", [GetCorrectAnswersQuiz::class, "getData"]);
 
@@ -66,3 +66,6 @@ Route::post("getChapters", [GetChapters::class, "getData"]);
 
 /** Get subjects. */
 Route::get("getSubjects", [GetSubjects::class, "getData"]);
+
+/** Set subject. */
+Route::post("setSubject", [SetSubject::class, "setData"]);

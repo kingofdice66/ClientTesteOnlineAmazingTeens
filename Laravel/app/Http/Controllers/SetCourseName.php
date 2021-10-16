@@ -22,7 +22,7 @@ class SetCourseName extends Controller
     }
 
     /* Set the name of the chapter. */
-    public function setCourseName()
+    public function setData()
     {
 
         DB::table("courses")->insert([

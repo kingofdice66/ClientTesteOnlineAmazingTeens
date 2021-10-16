@@ -13,12 +13,12 @@ function Links(): JSX.Element {
           </a>
           <a href="/" className="skew">
             <div className="skew-undo">
-              <span className="styleLinkText">administratorii site-ului</span>
+              <span className="styleLinkText">administratorii forumului</span>
             </div>
           </a>
           <a href="/" className="skew">
             <div className="skew-undo">
-              <span className="styleLinkText">useri</span>
+              <span className="styleLinkText">utilizatori</span>
             </div>
           </a>
         </div>
