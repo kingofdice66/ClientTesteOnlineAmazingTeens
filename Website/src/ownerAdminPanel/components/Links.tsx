@@ -6,14 +6,19 @@ function Links(): JSX.Element {
     <div className="ownerAdminPanelLinks">
       <nav className="linksWrapper">
         <div className="links">
-          <a href="/" className="skew">
+          <a href="?highlight=courses&subjects=show" className="skew">
             <div className="skew-undo">
-              <span className="styleLinkText">Link_1</span>
+              <span className="styleLinkText">cursuri</span>
             </div>
           </a>
           <a href="/" className="skew">
             <div className="skew-undo">
-              <span className="styleLinkText">Link_2</span>
+              <span className="styleLinkText">administratorii site-ului</span>
+            </div>
+          </a>
+          <a href="/" className="skew">
+            <div className="skew-undo">
+              <span className="styleLinkText">useri</span>
             </div>
           </a>
         </div>

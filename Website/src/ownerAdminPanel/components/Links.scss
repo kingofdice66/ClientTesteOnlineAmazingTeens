@@ -2,19 +2,13 @@
   background-color: #0d0d0d;
   padding-top: 10px;
 
-  .logo {
-    font-size: 25px;
-    padding-left: 50px;
-    white-space: nowrap;
-  }
-
   .linksWrapper {
     background-color: #9e0303;
     // padding: 10px 0;
   }
 }
 
-.links {
+.linksWrapper .links {
   // background-color: red; //--> for testing only
   column-gap: 6.5px;
   display: flex;
