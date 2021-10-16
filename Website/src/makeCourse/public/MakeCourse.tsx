@@ -3,13 +3,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Main from "../components/Main";
-import Facade from "../../pageFacade/Facade";
+import NavBarFooter from "../../navBarFooter/NavBarFooter";
 import "normalize.css";
 
 function MakeCourse(): JSX.Element {
   return (
     <>
-      <Facade Component={Main} />
+      <NavBarFooter Component={Main} />
     </>
   );
 }

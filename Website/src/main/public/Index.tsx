@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import About from "../components/About";
-import Facade from "../../pageFacade/Facade";
+import NavBarFooter from "../../navBarFooter/NavBarFooter";
 import "normalize.css";
 
 function Index(): JSX.Element {
   return (
     <>
-      <Facade Component={About} />
+      <NavBarFooter Component={About} />
     </>
   );
 }

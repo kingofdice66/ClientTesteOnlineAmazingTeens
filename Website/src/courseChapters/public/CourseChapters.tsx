@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Chapters from "../components/Chapters";
-import Facade from "../../pageFacade/Facade";
+import NavBarFooter from "../../navBarFooter/NavBarFooter";
 import "normalize.css";
 
 function CourseChapters(): JSX.Element {
   return (
     <>
-      <Facade Component={Chapters} />
+      <NavBarFooter Component={Chapters} />
     </>
   );
 }

@@ -4,13 +4,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Form from "../components/Form";
-import Facade from "../../pageFacade/Facade";
+import NavBarFooter from "../../navBarFooter/NavBarFooter";
 import "normalize.css";
 
 function ContactForm(): JSX.Element {
   return (
     <>
-      <Facade Component={Form} />
+      <NavBarFooter Component={Form} />
     </>
   );
 }

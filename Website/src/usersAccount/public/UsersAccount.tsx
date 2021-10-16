@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import UsersMainPage from "../components/MainPage";
-import Facade from "../../pageFacade/Facade";
+import NavBarFooter from "../../navBarFooter/NavBarFooter";
 import "normalize.css";
 
 function UsersAccount(): JSX.Element {
   return (
     <>
-      <Facade Component={UsersMainPage} />
+      <NavBarFooter Component={UsersMainPage} />
     </>
   );
 }
