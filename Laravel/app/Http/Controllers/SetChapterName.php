@@ -10,13 +10,17 @@ use Carbon\Carbon;
 class SetChapterName extends Controller
 {
     private $data = NULL;
-    private $dateTime = NULL;
+    private $courseID = NULL;
+    private $subjectID = NULL;
     private $chapterName = NULL;
+    private $dateTime = NULL;
     private $dateTimeFormat = NULL;
 
     public function __construct()
     {
         $this->data = (new CustomFunctions)->jsonDecode();
+        $this->courseID = $this->data["courseID"];
+        $this->subjectID = $this->data["subjectID"];
         $this->chapterName = $this->data["chapterName"];
         $this->dateTime = new Carbon;
         $this->dateTimeFormat = (new CustomFunctions)->dateTimeFormat();
@@ -29,7 +33,8 @@ class SetChapterName extends Controller
             [
                 "name" => $this->chapterName,
                 "created_at" => $this->dateTime->format($this->dateTimeFormat),
-                "course_id" => $this->data["courseID"],
+                "subject_id" => $this->subjectID,
+                "course_id" => $this->courseID,
             ]
         );
 
@@ -38,6 +43,7 @@ class SetChapterName extends Controller
         return [
             "courseID" => $this->data["courseID"],
             "chapterID" => $chapterID,
+            "subjectID" => $this->subjectID,
         ];
     }
 }

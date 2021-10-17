@@ -44,15 +44,19 @@ function Subjects(): JSX.Element {
         />
         <br />
       </label>
-      <button type="button" style={{ width: 100 }} onClick={submitSubject}>
-        Creează
+      <button type="button" style={{ width: 200 }} onClick={submitSubject}>
+        Creează Subiect
       </button>
       <br />
       {subjects.data !== null ? (
         <>
           {subjects.data.map((x: any) => (
             <React.Fragment key={uuidV4()}>
-              <div>{x.name}</div>
+              <a
+                href={`./OwnerAdminPanel.html?highlight=courses&subjectID=${x.id}`}
+              >
+                {x.name}
+              </a>
             </React.Fragment>
           ))}
         </>

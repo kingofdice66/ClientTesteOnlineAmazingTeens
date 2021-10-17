@@ -1,7 +1,26 @@
 import React from "react";
 
+// ##############################################################
+// #########              Get URL parameters            #########
+// ##############################################################
+const url: string = window.location.search;
+const searchParams: URLSearchParams = new URLSearchParams(url);
+const subjectID: number = parseInt(searchParams.get("subjectID"), 10);
+// ##############################################################
+
 function Courses(): JSX.Element {
-  return <div>Cursuri</div>;
+  return (
+    <>
+      <button type="button" style={{ width: 100 }}>
+        <a
+          href={`./MakeCourse.html?subjectID=${subjectID}`}
+          style={{ color: "black", textDecoration: "none" }}
+        >
+          Creează Curs
+        </a>
+      </button>
+    </>
+  );
 }
 
 export default Courses;

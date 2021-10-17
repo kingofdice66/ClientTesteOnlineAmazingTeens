@@ -9,7 +9,7 @@ import Courses from "./Courses";
 const url: string = window.location.search;
 const searchParams: URLSearchParams = new URLSearchParams(url);
 const subjects: string = searchParams.get("subjects");
-const courses: string = searchParams.get("courses");
+const subjectID: string = searchParams.get("subjectID");
 // ##############################################################
 
 function Panel(): JSX.Element {
@@ -17,7 +17,7 @@ function Panel(): JSX.Element {
     <>
       <Links />
       {subjects ? <Subjects /> : ""}
-      {courses ? <Courses /> : ""}
+      {subjectID ? <Courses /> : ""}
     </>
   );
 }
