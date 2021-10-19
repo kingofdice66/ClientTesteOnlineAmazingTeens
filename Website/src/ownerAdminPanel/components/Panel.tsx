@@ -1,5 +1,5 @@
 import React from "react";
-import Links from "./Links";
+import OwnerNavBarAdmin from "../../ownerAdminTopNavBar/OwnerNavBarAdmin";
 import Subjects from "./Subjects";
 import Courses from "./Courses";
 
@@ -15,7 +15,7 @@ const subjectID: string = searchParams.get("subjectID");
 function Panel(): JSX.Element {
   return (
     <>
-      <Links />
+      <OwnerNavBarAdmin />
       {subjects ? <Subjects /> : ""}
       {subjectID ? <Courses /> : ""}
     </>

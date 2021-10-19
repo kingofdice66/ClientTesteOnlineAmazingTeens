@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ChapterAndCourseName from "./ChapterAndCourseName";
 import QuizForm from "./QuizForm";
 import TinyMCE from "./TinyMCE";
+import OwnerNavBarAdmin from "../../ownerAdminTopNavBar/OwnerNavBarAdmin";
 import "./Main.scss";
 
 // #######################################################################
@@ -62,23 +63,26 @@ function MakeCourseForm(): JSX.Element {
   }, []);
 
   return (
-    <div className="makeCourseForm-wrapper">
-      <ChapterAndCourseName urlIDs={urlIDs} />
-      {visibility.quizFormAndTextEditor === true ? (
-        <>
-          <QuizForm urlIDs={urlIDs} />
-          <br />
-          <br />
-          <span>Conținutul capitolului</span>
-          <br />
-          <TinyMCE />
-          <br />
-          <br />
-        </>
-      ) : (
-        ""
-      )}
-    </div>
+    <>
+      <OwnerNavBarAdmin />
+      <div className="makeCourseForm-wrapper">
+        <ChapterAndCourseName urlIDs={urlIDs} />
+        {visibility.quizFormAndTextEditor === true ? (
+          <>
+            <QuizForm urlIDs={urlIDs} />
+            <br />
+            <br />
+            <span>Conținutul capitolului</span>
+            <br />
+            <TinyMCE />
+            <br />
+            <br />
+          </>
+        ) : (
+          ""
+        )}
+      </div>
+    </>
   );
 }
 

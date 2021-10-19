@@ -1,7 +1,9 @@
-import React from "react";
-import "./Links.scss";
+// Top nav bar for administration for the site owner.
 
-function Links(): JSX.Element {
+import React from "react";
+import "./OwnerNavBarAdmin.scss";
+
+function OwnerNavBarAdmin(): JSX.Element {
   return (
     <div className="ownerAdminPanelLinks">
       <nav className="linksWrapper">
@@ -27,4 +29,4 @@ function Links(): JSX.Element {
   );
 }
 
-export default Links;
+export default OwnerNavBarAdmin;
