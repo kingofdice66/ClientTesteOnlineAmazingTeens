@@ -4,16 +4,6 @@ import QuizForm from "./QuizForm";
 import TinyMCE from "./TinyMCE";
 import "./MakeCourseForm.scss";
 
-// #######################################################################
-// ################           Get url parameters.         ################
-// #######################################################################
-const url: string = window.location.search;
-const searchParams: URLSearchParams = new URLSearchParams(url);
-const courseID: number = parseInt(searchParams.get("courseID"), 10);
-const chapterID: number = parseInt(searchParams.get("chapterID"), 10);
-const subjectID: number = parseInt(searchParams.get("subjectID"), 10);
-// #######################################################################
-
 interface IUrlIDs {
   chapterID: number;
   courseID: number;
@@ -24,7 +14,9 @@ interface IVisibility {
   quizFormAndTextEditor: boolean;
 }
 
-function MakeCourseForm(): JSX.Element {
+function MakeCourseForm(props: any): JSX.Element {
+  const { courseID, chapterID, subjectID } = props;
+
   const [visibility, setVisibility] = useState<IVisibility>({
     quizFormAndTextEditor: false,
   });

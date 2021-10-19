@@ -53,7 +53,7 @@ function Subjects(): JSX.Element {
           {subjects.data.map((x: any) => (
             <React.Fragment key={uuidV4()}>
               <a
-                href={`./OwnerAdminPanel.html?highlight=courses&subjectID=${x.id}`}
+                href={`./OwnerAdminPanel.html?highlight=courses&show=courses&subjectID=${x.id}`}
               >
                 {x.name}
               </a>

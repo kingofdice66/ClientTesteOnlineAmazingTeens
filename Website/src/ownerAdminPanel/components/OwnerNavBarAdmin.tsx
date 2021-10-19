@@ -8,7 +8,7 @@ function OwnerNavBarAdmin(): JSX.Element {
     <div className="ownerAdminPanelLinks">
       <nav className="linksWrapper">
         <div className="links">
-          <a href="?highlight=courses&subjects=show" className="skew">
+          <a href="?highlight=cursuri&show=subjects" className="skew">
             <div className="skew-undo">
               <span className="styleLinkText">cursuri</span>
             </div>

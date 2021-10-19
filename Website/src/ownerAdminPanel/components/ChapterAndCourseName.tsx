@@ -223,7 +223,7 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
           );
         } else {
           window.location.assign(
-            `?courseID=${data_.courseID}&subjectID=${subjectID}`
+            `?highlight=cursuri&show=MakeCourse&courseID=${data_.courseID}&subjectID=${subjectID}`
           );
         }
       },
@@ -272,7 +272,7 @@ function ChapterAndCourseName(props: IProps): JSX.Element {
           );
         } else {
           window.location.assign(
-            `?courseID=${data_.courseID}&chapterID=${data_.chapterID}&subjectID=${data_.subjectID}`
+            `?highlight=cursuri&show=MakeCourse&courseID=${data_.courseID}&chapterID=${data_.chapterID}&subjectID=${data_.subjectID}`
           );
         }
       },

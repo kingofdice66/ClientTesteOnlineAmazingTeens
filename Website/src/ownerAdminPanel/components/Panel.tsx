@@ -9,17 +9,27 @@ import Courses from "./Courses";
 // ##############################################################
 const url: string = window.location.search;
 const searchParams: URLSearchParams = new URLSearchParams(url);
-const subjects: string = searchParams.get("subjects");
 const subjectID: string = searchParams.get("subjectID");
+const courseID: number = parseInt(searchParams.get("courseID"), 10);
+const chapterID: number = parseInt(searchParams.get("chapterID"), 10);
+const show: string = searchParams.get("show");
 // ##############################################################
 
 function Panel(): JSX.Element {
   return (
     <>
       <OwnerNavBarAdmin />
-      {subjects ? <Subjects /> : ""}
-      {subjectID ? <Courses /> : ""}
-      {true ? <MakeCourseForm /> : ""}
+      {show === "subjects" ? <Subjects /> : ""}
+      {show === "courses" ? <Courses subjectID={subjectID} /> : ""}
+      {show === "MakeCourse" ? (
+        <MakeCourseForm
+          subjectID={subjectID}
+          courseID={courseID}
+          chapterID={chapterID}
+        />
+      ) : (
+        ""
+      )}
     </>
   );
 }

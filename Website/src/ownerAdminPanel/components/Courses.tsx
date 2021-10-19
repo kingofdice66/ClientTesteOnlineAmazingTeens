@@ -1,19 +1,13 @@
 import React from "react";
 
-// ##############################################################
-// #########              Get URL parameters            #########
-// ##############################################################
-const url: string = window.location.search;
-const searchParams: URLSearchParams = new URLSearchParams(url);
-const subjectID: number = parseInt(searchParams.get("subjectID"), 10);
-// ##############################################################
+function Courses(props: any): JSX.Element {
+  const { subjectID } = props;
 
-function Courses(): JSX.Element {
   return (
     <>
-      <button type="button" style={{ width: 100 }}>
+      <button type="button" style={{ width: 150 }}>
         <a
-          href={`./MakeCourse.html?subjectID=${subjectID}`}
+          href={`?highlight=cursuri&show=MakeCourse&subjectID=${subjectID}`}
           style={{ color: "black", textDecoration: "none" }}
         >
           Creează Curs

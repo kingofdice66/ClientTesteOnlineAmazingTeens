@@ -35,7 +35,7 @@ function TopNavBar(): JSX.Element {
               </div>
             </a>
             <a
-              href="./OwnerAdminPanel.html?highlight=courses&subjects=show"
+              href="./OwnerAdminPanel.html?highlight=cursuri&show=subjects"
               className="skew"
             >
               <div className="skew-undo">
