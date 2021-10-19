@@ -1,6 +1,7 @@
 import React from "react";
 import OwnerNavBarAdmin from "./OwnerNavBarAdmin";
-import MakeCourseForm from "./MakeCourseForm";
+// import MakeCourseForm from "./MakeCourseForm";
+import CourseName from "./CourseName";
 import Subjects from "./Subjects";
 import Courses from "./Courses";
 
@@ -9,9 +10,10 @@ import Courses from "./Courses";
 // ##############################################################
 const url: string = window.location.search;
 const searchParams: URLSearchParams = new URLSearchParams(url);
-const subjectID: string = searchParams.get("subjectID");
+const subjectID: number = parseInt(searchParams.get("subjectID"), 10);
 const courseID: number = parseInt(searchParams.get("courseID"), 10);
 const chapterID: number = parseInt(searchParams.get("chapterID"), 10);
+const courseShow: string = searchParams.get("courseShow");
 const show: string = searchParams.get("show");
 // ##############################################################
 
@@ -21,7 +23,7 @@ function Panel(): JSX.Element {
       <OwnerNavBarAdmin />
       {show === "subjects" ? <Subjects /> : ""}
       {show === "courses" ? <Courses subjectID={subjectID} /> : ""}
-      {show === "MakeCourse" ? (
+      {/* {makeCourseShow === "MakeCourse" ? (
         <MakeCourseForm
           subjectID={subjectID}
           courseID={courseID}
@@ -29,7 +31,13 @@ function Panel(): JSX.Element {
         />
       ) : (
         ""
+      )} */}
+      {courseShow === "courseName" || courseShow === "all" ? (
+        <CourseName subjectID={subjectID}/>
+      ) : (
+        ""
       )}
+      {courseShow === "chapterName" || courseShow === "all" ? "" : ""}
     </>
   );
 }

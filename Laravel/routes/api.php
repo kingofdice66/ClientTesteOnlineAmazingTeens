@@ -59,7 +59,7 @@ Route::post("updateCorrectAnswersQuiz", [UpdateCorrectAnswersQuiz::class, "updat
 Route::post("getCorrectAnswersQuiz", [GetCorrectAnswersQuiz::class, "getData"]);
 
 /** Get courses. */
-Route::get("getCourses", [GetCourses::class, "getData"]);
+Route::post("getCourses", [GetCourses::class, "getData"]);
 
 /** Get chapters. */
 Route::post("getChapters", [GetChapters::class, "getData"]);

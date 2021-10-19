@@ -14,7 +14,7 @@ interface IVisibility {
   quizFormAndTextEditor: boolean;
 }
 
-function MakeCourseForm(props: any): JSX.Element {
+function MakeCourseForm(props: IUrlIDs): JSX.Element {
   const { courseID, chapterID, subjectID } = props;
 
   const [visibility, setVisibility] = useState<IVisibility>({
