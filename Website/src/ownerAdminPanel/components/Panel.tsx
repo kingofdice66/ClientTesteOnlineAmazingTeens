@@ -1,5 +1,6 @@
 import React from "react";
-import OwnerNavBarAdmin from "../../ownerAdminTopNavBar/OwnerNavBarAdmin";
+import OwnerNavBarAdmin from "./OwnerNavBarAdmin";
+import MakeCourseForm from "./MakeCourseForm";
 import Subjects from "./Subjects";
 import Courses from "./Courses";
 
@@ -18,6 +19,7 @@ function Panel(): JSX.Element {
       <OwnerNavBarAdmin />
       {subjects ? <Subjects /> : ""}
       {subjectID ? <Courses /> : ""}
+      {true ? <MakeCourseForm /> : ""}
     </>
   );
 }

@@ -20,7 +20,6 @@ module.exports = {
 
   entry: {
     index: "./src/main/public/Index.tsx",
-    MakeCourse: "./src/makeCourse/public/MakeCourse.tsx",
     ContactForm: "./src/contactForm/public/ContactForm.tsx",
     Courses: "./src/courses/public/Courses.tsx",
     CourseChapters: "./src/courseChapters/public/CourseChapters.tsx",
@@ -71,12 +70,6 @@ module.exports = {
       filename: "index.html",
       inject: "body",
       chunks: ["index"],
-    }),
-    new HtmlWebpackPlugin({
-      template: "./src/makeCourse/public/MakeCourse.html",
-      filename: "MakeCourse.html",
-      inject: "body",
-      chunks: ["MakeCourse"],
     }),
     new HtmlWebpackPlugin({
       template: "./src/contactForm/public/ContactForm.html",

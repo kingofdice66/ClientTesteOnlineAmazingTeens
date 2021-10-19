@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import ChapterAndCourseName from "./ChapterAndCourseName";
 import QuizForm from "./QuizForm";
 import TinyMCE from "./TinyMCE";
-import OwnerNavBarAdmin from "../../ownerAdminTopNavBar/OwnerNavBarAdmin";
-import "./Main.scss";
+import "./MakeCourseForm.scss";
 
 // #######################################################################
 // ################           Get url parameters.         ################
@@ -64,7 +63,6 @@ function MakeCourseForm(): JSX.Element {
 
   return (
     <>
-      <OwnerNavBarAdmin />
       <div className="makeCourseForm-wrapper">
         <ChapterAndCourseName urlIDs={urlIDs} />
         {visibility.quizFormAndTextEditor === true ? (
