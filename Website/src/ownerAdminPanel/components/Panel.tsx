@@ -10,19 +10,17 @@ import ChapterName from "./ChapterName";
 // ##############################################################
 const url: string = window.location.search;
 const searchParams: URLSearchParams = new URLSearchParams(url);
-const subjects: string = searchParams.get("subjects");
-const subjectID: number = parseInt(searchParams.get("subjectID"), 10);
-const show: string = searchParams.get("show");
+const OwnerAdminPanelShow: string = searchParams.get("OwnerAdminPanelShow");
 // ##############################################################
 
 function Panel(): JSX.Element {
   return (
     <>
       <OwnerAdminNavBar />
-      {show === "subjects" ? <Subjects /> : ""}
-      {show === "courses" ? <Courses /> : ""}
-      {show === "courseName" ? <CourseName subjectID={subjectID} /> : ""}
-      {show === "chapterName" ? <ChapterName /> : ""}
+      {OwnerAdminPanelShow === "subjects" ? <Subjects /> : ""}
+      {OwnerAdminPanelShow === "courses" ? <Courses /> : ""}
+      {OwnerAdminPanelShow === "courseName" ? <CourseName /> : ""}
+      {OwnerAdminPanelShow === "chapterName" ? <ChapterName /> : ""}
     </>
   );
 }

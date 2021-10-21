@@ -3,16 +3,20 @@ import sendGetData from "../../customComponents/Fetch/sendGetData";
 import apiURL from "../../apiURL/ApiURL";
 import sendData from "../../customComponents/Fetch/sendData";
 
-interface IProps {
-  subjectID: number;
-}
+// #################################################################
+// ########                 Get URL parameters             #########
+// #################################################################
+const url: string = window.location.search;
+const searchParams: URLSearchParams = new URLSearchParams(url);
+const subjectID: number = parseInt(searchParams.get("subjectID"), 10);
+const updateCourseOnType: string = searchParams.get("updateCourseOnType");
+const showCourseNameSetBtn: string = searchParams.get("showCourseNameSetBtn");
+// #################################################################
 
 const EXIT_SUCCESS = 0;
 const EXIT_FAILED = 1;
 
-function CourseName(props: IProps): JSX.Element {
-  const { subjectID } = props;
-
+function CourseName(): JSX.Element {
   const timeoutRef = useRef<NodeJS.Timeout>(null);
   const [courseName, setCourseName] = useState<string>("");
   const [inputError, setInputError] = useState<string>("");
@@ -34,10 +38,10 @@ function CourseName(props: IProps): JSX.Element {
       subjectID,
     };
 
-    sendGetData(`${apiURL}/api/SetCourseName`, data).then(
+    sendGetData(`${apiURL}/api/setCourseName`, data).then(
       (data_: any) =>
         window.location.assign(
-          `?courseID=${data_.courseID}&subjectID=${subjectID}`
+          `?OwnerAdminPanelShow=chapterName&updateChapterNameOnType=no&courseID=${data_.courseID}&subjectID=${subjectID}`
         ),
       (error) => console.error("Error: ", error)
     );
@@ -46,18 +50,21 @@ function CourseName(props: IProps): JSX.Element {
 
   /** Update course name as you type. */
   useEffect(() => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
+    if (updateCourseOnType === "yes") {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
 
-    // Delay sending data for 0.75 seconds in order to not send on every key press.
-    timeoutRef.current = setTimeout(() => {
-      const data = {
-        courseName,
-        subjectID,
-      };
-      sendData(`${apiURL}/api/updateCourseName`, data);
-    }, 0.75 * 1000);
+      // Delay sending data for 0.75 seconds in order to not send on every key press.
+      timeoutRef.current = setTimeout(() => {
+        const data = {
+          courseName,
+          subjectID,
+        };
+        sendData(`${apiURL}/api/updateCourseName`, data);
+      }, 0.75 * 1000);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseName]);
 

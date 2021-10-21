@@ -52,9 +52,8 @@ function Subjects(): JSX.Element {
         <>
           {subjects.data.map((x: any) => (
             <React.Fragment key={uuidV4()}>
-              <a
-                href={`./OwnerAdminPanel.html?highlight=courses&show=courses&subjectID=${x.id}`}
-              >
+              {/* prettier-ignore */}
+              <a href={`./OwnerAdminPanel.html?highlight=courses&OwnerAdminPanelShow=courses&subjectID=${x.id}`}>
                 {x.name}
               </a>
             </React.Fragment>
