@@ -1,14 +1,14 @@
 // Top nav bar for administration for the site owner.
 
 import React from "react";
-import "./OwnerNavBarAdmin.scss";
+import "./AdminNavbar.scss";
 
-function OwnerNavBarAdmin(): JSX.Element {
+function AdminNavbar(): JSX.Element {
   return (
     <div className="ownerAdminPanelLinks">
       <nav className="linksWrapper">
         <div className="links">
-          <a href="?highlight=courses&subjects=show" className="skew">
+          <a href="?highlight=courses&show=subjects" className="skew">
             <div className="skew-undo">
               <span className="styleLinkText">cursuri</span>
             </div>
@@ -29,4 +29,4 @@ function OwnerNavBarAdmin(): JSX.Element {
   );
 }
 
-export default OwnerNavBarAdmin;
+export default AdminNavbar;

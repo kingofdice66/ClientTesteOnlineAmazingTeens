@@ -13,7 +13,7 @@ function Courses(): JSX.Element {
     <>
       <button type="button" style={{ width: 100 }}>
         <a
-          href={`./MakeCourse.html?subjectID=${subjectID}`}
+          href={`./OwnerAdminPanel.html?show=courseName&subjectID=${subjectID}`}
           style={{ color: "black", textDecoration: "none" }}
         >
           Creează Curs

@@ -35,6 +35,7 @@ class SetCourseName extends Controller
             "created_at" => $this->dateTime->format($this->dateTimeFormat),
         ]);
 
+        /** Get the courses id, the one just created. */
         $courseID = DB::table("courses")->max("id");
 
         return ["courseID" =>  $courseID];

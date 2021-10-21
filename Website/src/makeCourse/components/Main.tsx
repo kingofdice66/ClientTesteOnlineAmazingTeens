@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ChapterAndCourseName from "./ChapterAndCourseName";
 import QuizForm from "./QuizForm";
 import TinyMCE from "./TinyMCE";
-import OwnerNavBarAdmin from "../../ownerAdminTopNavBar/OwnerNavBarAdmin";
+import OwnerAdminNavBar from "../../ownerAdminPanel/components/AdminNavbar";
 import "./Main.scss";
 
 // #######################################################################
@@ -64,7 +64,7 @@ function MakeCourseForm(): JSX.Element {
 
   return (
     <>
-      <OwnerNavBarAdmin />
+      <OwnerAdminNavBar />
       <div className="makeCourseForm-wrapper">
         <ChapterAndCourseName urlIDs={urlIDs} />
         {visibility.quizFormAndTextEditor === true ? (
