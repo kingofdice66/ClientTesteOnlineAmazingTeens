@@ -1,4 +1,4 @@
-import Link from "../Link/Link";
+import Link from "next/link";
 import style from "./Navbar.module.scss";
 
 function Navbar() {
@@ -7,11 +7,11 @@ function Navbar() {
       <nav>
         <ul>
           {/* prettier-ignore */}
-          <li><Link to="##">Link_1</Link></li>
+          <li><Link href="/" passHref><a href="dummy">Acasă</a></Link></li>
           {/* prettier-ignore */}
-          <li><Link to="##">Link_1</Link></li>
+          <li><Link href="##" passHref><a href="dummy">Link_1</a></Link></li>
           {/* prettier-ignore */}
-          <li><Link to="##">Link_1</Link></li>
+          <li><Link href="/owner-admin-panel/courses" passHref><a href="dummy">Panoul Administrare Owner</a></Link></li>
         </ul>
       </nav>
     </div>
