@@ -1,0 +1,49 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "airbnb",
+    "prettier",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/jsx-runtime"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 13,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint"],
+  "rules": {
+    //*****************************************************************
+    // !no need for prop-types validation since we're using typescript
+    "react/prop-types": "off",
+    //*****************************************************************
+    "import/extensions": "off",
+    "no-plusplus": "off",
+    "import/no-unresolved": "error",
+    "quotes": ["error", "double"],
+    "linebreak-style": ["error", "windows"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".tsx"] }],
+    "react/jsx-one-expression-per-line": [0],
+    "camelcase": ["error", { "allow": ["^UNSAFE_"] }],
+    "react-hooks/exhaustive-deps": "warn",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    //**************************************************************************
+    // !note you must disable the base rule as it can report incorrect errors
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    //**************************************************************************
+    // !note you must disable the base rule as it can report incorrect errors
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"]
+    //**************************************************************************
+  }
+}
