@@ -1,13 +1,33 @@
+import { useRouter } from "next/router";
 import Link from "next/link";
-import style from "./Courses.module.scss";
+import style from "./Navbar.module.scss";
 
 function Navbar() {
+  const router = useRouter();
+  // ########################################################
+  // ######       Highlight appropriate URL navbar     ######
+  // ########################################################
+  // eslint-disable-next-line camelcase
+  const pattern_courses = /\/courses/;
+
+  // eslint-disable-next-line camelcase
+  const highlight_courses = pattern_courses.test(router.pathname);
+  // ########################################################
   return (
     <div className={style.links}>
       <nav>
         <ul>
-          {/* prettier-ignore */}
-          <li><Link href="##" passHref><a href="dummy">Cursuri</a></Link></li>
+          <li>
+            <Link href="/owner-admin-panel/courses" passHref>
+              <a
+                href="dummy"
+                // eslint-disable-next-line camelcase
+                className={highlight_courses ? style.active : ""}
+              >
+                Cursuri
+              </a>
+            </Link>
+          </li>
           {/* prettier-ignore */}
           <li><Link href="##" passHref><a href="dummy">Administratorii Forumului</a></Link></li>
           {/* prettier-ignore */}

@@ -1,6 +1,6 @@
 .links {
-  font-size: 20px;
-
+  font-size: 17px;
+  margin-top: 10px;
   ul {
     list-style-type: none;
     margin: 0;
@@ -14,15 +14,10 @@
     border-right: 1px solid #bbb;
   }
 
-  // li:first-child {
-  //   border-left: 1px solid #bbb;
-  // }
-
   a {
     display: block;
     color: rgb(246, 243, 243);
-    text-align: center;
-    padding: 14px 16px;
+    padding: 14px 6px;
     text-decoration: none;
   }
 

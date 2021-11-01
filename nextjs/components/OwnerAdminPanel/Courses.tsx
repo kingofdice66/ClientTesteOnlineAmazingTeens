@@ -9,7 +9,10 @@ function Courses(props: any) {
       {courses.map((course: any) => (
         <div key={course.id}>
           <div>
-            <Link href={`/owner-admin-panel/subjects/${course.id}`} passHref>
+            <Link
+              href={`/owner-admin-panel/courses/subjects/${course.id}`}
+              passHref
+            >
               <a href="dummy">{course.name}</a>
             </Link>
           </div>
