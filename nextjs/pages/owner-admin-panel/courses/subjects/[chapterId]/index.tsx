@@ -18,11 +18,11 @@ export default subjects;
 
 export async function getServerSideProps(context: any) {
   const { query } = context;
-  const { subjectsId } = query;
+  const { chapterId } = query;
 
   // prettier-ignore
   // eslint-disable-next-line @typescript-eslint/no-shadow
   const subjects = await axios.get("http://localhost:4000/subjects");
 
-  return { props: { subjects: subjects.data[subjectsId - 1] } };
+  return { props: { subjects: subjects.data[chapterId - 1] } };
 }
