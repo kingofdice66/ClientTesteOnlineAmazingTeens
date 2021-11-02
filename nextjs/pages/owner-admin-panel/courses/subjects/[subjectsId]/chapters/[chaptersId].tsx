@@ -1,5 +1,7 @@
-function Chapters() {
-  return <div>ChaptersId</div>;
+import Chapters from "../../../../../../components/OwnerAdminPanel/Chapters";
+
+function chapters() {
+  return <Chapters />;
 }
 
-export default Chapters;
+export default chapters;
