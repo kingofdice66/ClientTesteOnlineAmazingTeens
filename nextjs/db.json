@@ -1,74 +1,74 @@
 {
-  "courses": [
+  "subjects": [
     {
       "id": 1,
-      "name": "course_name_1"
+      "name": "subject_name_1"
     },
     {
       "id": 2,
-      "name": "course_name_2"
+      "name": "subject_name_2"
     },
     {
       "id": 3,
-      "name": "course_name_3"
+      "name": "subject_name_3"
     },
     {
       "id": 4,
-      "name": "course_name_4"
+      "name": "subject_name_4"
     }
   ],
-  "subjects": [
+  "courses": [
     [
-      { "id": 1, "name": "subject_name_1", "course_id": 1 },
-      { "id": 2, "name": "subject_name_2", "course_id": 1 },
-      { "id": 3, "name": "subject_name_3", "course_id": 1 },
-      { "id": 4, "name": "subject_name_4", "course_id": 1 },
-      { "id": 5, "name": "subject_name_5", "course_id": 1 }
+      { "id": 1, "name": "course_name_1", "course_id": 1 },
+      { "id": 2, "name": "course_name_2", "course_id": 1 },
+      { "id": 3, "name": "course_name_3", "course_id": 1 },
+      { "id": 4, "name": "course_name_4", "course_id": 1 },
+      { "id": 5, "name": "course_name_5", "course_id": 1 }
     ],
     [
-      { "id": 1, "name": "subject_name_1", "course_id": 2 },
-      { "id": 2, "name": "subject_name_2", "course_id": 2 },
-      { "id": 3, "name": "subject_name_3", "course_id": 2 }
+      { "id": 1, "name": "course_name_1", "course_id": 2 },
+      { "id": 2, "name": "course_name_2", "course_id": 2 },
+      { "id": 3, "name": "course_name_3", "course_id": 2 }
     ],
     [
-      { "id": 1, "name": "subject_name_1", "course_id": 3 },
-      { "id": 2, "name": "subject_name_2", "course_id": 3 },
-      { "id": 3, "name": "subject_name_3", "course_id": 3 },
-      { "id": 4, "name": "subject_name_4", "course_id": 3 }
+      { "id": 1, "name": "course_name_1", "course_id": 3 },
+      { "id": 2, "name": "course_name_2", "course_id": 3 },
+      { "id": 3, "name": "course_name_3", "course_id": 3 },
+      { "id": 4, "name": "course_name_4", "course_id": 3 }
     ],
     [
-      { "id": 1, "name": "subject_name_1", "course_id": 4 },
-      { "id": 2, "name": "subject_name_2", "course_id": 4 }
+      { "id": 1, "name": "course_name_1", "course_id": 4 },
+      { "id": 2, "name": "course_name_2", "course_id": 4 }
     ]
   ],
   "chapters": [
     [
       [
-        { "id": 1, "name": "chapter_name_1" },
-        { "id": 2, "name": "chapter_name_2" },
-        { "id": 3, "name": "chapter_name_3" }
+        { "id": 1, "name": "chapters_name_1" },
+        { "id": 2, "name": "chapters_name_2" },
+        { "id": 3, "name": "chapters_name_3" }
       ],
       [
-        { "id": 4, "name": "chapter_name_4" },
-        { "id": 5, "name": "chapter_name_5" },
-        { "id": 6, "name": "chapter_name_6" }
+        { "id": 4, "name": "chapters_name_4" },
+        { "id": 5, "name": "chapters_name_5" },
+        { "id": 6, "name": "chapters_name_6" }
       ],
       [
-        { "id": 7, "name": "chapter_name_7" },
-        { "id": 8, "name": "chapter_name_8" },
-        { "id": 9, "name": "chapter_name_9" }
+        { "id": 7, "name": "chapters_name_7" },
+        { "id": 8, "name": "chapters_name_8" },
+        { "id": 9, "name": "chapters_name_9" }
       ]
     ],
     [
       [
-        { "id": 10, "name": "chapter_name_10" },
-        { "id": 11, "name": "chapter_name_11" },
-        { "id": 12, "name": "chapter_name_12" }
+        { "id": 10, "name": "chapters_name_10" },
+        { "id": 11, "name": "chapters_name_11" },
+        { "id": 12, "name": "chapters_name_12" }
       ],
       [
-        { "id": 13, "name": "chapter_name_13" },
-        { "id": 14, "name": "chapter_name_14" },
-        { "id": 15, "name": "chapter_name_15" }
+        { "id": 13, "name": "chapters_name_13" },
+        { "id": 14, "name": "chapters_name_14" },
+        { "id": 15, "name": "chapters_name_15" }
       ]
     ]
   ]

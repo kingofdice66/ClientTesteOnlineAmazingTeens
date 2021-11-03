@@ -19,8 +19,8 @@ function Navbar() {
   const highlight_home = pattern_home.test(router.pathname);
   // ########################################################
 
-  console.log("highlight_adminPanel: ", highlight_adminPanel);
-  console.log("highlight_home: ", highlight_home);
+  // console.log("highlight_adminPanel: ", highlight_adminPanel);
+  // console.log("highlight_home: ", highlight_home);
 
   return (
     <div className={style.links}>
@@ -45,7 +45,7 @@ function Navbar() {
           </li>
 
           <li>
-            <Link href="/owner-admin-panel/courses" passHref>
+            <Link href="/owner-admin-panel/subjects" passHref>
               <a
                 href="dummy"
                 // eslint-disable-next-line camelcase

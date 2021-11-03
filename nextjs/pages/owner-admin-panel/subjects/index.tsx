@@ -1,6 +1,6 @@
 import axios from "axios";
-import Navbar from "../../../../../components/OwnerAdminPanel/Navbar";
-import Subjects from "../../../../../components/OwnerAdminPanel/Subjects";
+import Navbar from "../../../components/OwnerAdminPanel/Navbar";
+import Subjects from "../../../components/OwnerAdminPanel/Subjects";
 
 function subjects(props: any) {
   // eslint-disable-next-line @typescript-eslint/no-shadow
@@ -24,5 +24,5 @@ export async function getServerSideProps(context: any) {
   // eslint-disable-next-line @typescript-eslint/no-shadow
   const subjects = await axios.get("http://localhost:4000/subjects");
 
-  return { props: { subjects: subjects.data[chapterId - 1] } };
+  return { props: { subjects: subjects.data } };
 }

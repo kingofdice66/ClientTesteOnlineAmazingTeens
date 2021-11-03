@@ -8,7 +8,7 @@ function Navbar() {
   // ######       Highlight appropriate URL navbar     ######
   // ########################################################
   // eslint-disable-next-line camelcase
-  const pattern_courses = /\/courses/;
+  const pattern_courses = /\/subjects/;
 
   // eslint-disable-next-line camelcase
   const highlight_courses = pattern_courses.test(router.pathname);
@@ -18,13 +18,13 @@ function Navbar() {
       <nav>
         <ul>
           <li>
-            <Link href="/owner-admin-panel/courses" passHref>
+            <Link href="/owner-admin-panel/subjects" passHref>
               <a
                 href="dummy"
                 // eslint-disable-next-line camelcase
                 className={highlight_courses ? style.active : ""}
               >
-                Cursuri
+                Material Didactic
               </a>
             </Link>
           </li>
