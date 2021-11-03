@@ -10,7 +10,7 @@ function Subjects(props: any) {
         <div key={subject.id}>
           <div>
             <Link
-              href={`/owner-admin-panel/subjects/courses/${subject.id}`}
+              href={`/owner-admin-panel/learning-material/subjects/courses/${subject.id}`}
               passHref
             >
               <a href="dummy">{subject.name}</a>

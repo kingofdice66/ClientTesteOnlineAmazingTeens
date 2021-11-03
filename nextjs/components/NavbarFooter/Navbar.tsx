@@ -45,7 +45,7 @@ function Navbar() {
           </li>
 
           <li>
-            <Link href="/owner-admin-panel/subjects" passHref>
+            <Link href="/owner-admin-panel/learning-material/subjects" passHref>
               <a
                 href="dummy"
                 // eslint-disable-next-line camelcase

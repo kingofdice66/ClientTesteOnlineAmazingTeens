@@ -1,6 +1,6 @@
 import axios from "axios";
-import Courses from "../../../../../components/OwnerAdminPanel/Courses";
-import Navbar from "../../../../../components/OwnerAdminPanel/Navbar";
+import Courses from "../../../../../../components/OwnerAdminPanel/Courses";
+import Navbar from "../../../../../../components/OwnerAdminPanel/Navbar";
 
 function courses(props: any) {
   // eslint-disable-next-line @typescript-eslint/no-shadow
