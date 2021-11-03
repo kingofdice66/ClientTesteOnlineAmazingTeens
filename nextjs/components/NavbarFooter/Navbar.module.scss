@@ -1,0 +1,37 @@
+.links {
+  font-size: 20px;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    overflow: hidden;
+  }
+
+  li {
+    float: left;
+    border-right: 1px solid #bbb;
+  }
+
+  // li:first-child {
+  //   border-left: 1px solid #bbb;
+  // }
+
+  a {
+    display: block;
+    color: rgb(246, 243, 243);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  a:hover {
+    background-color: #111;
+  }
+
+  // for highlighting active links
+  .active {
+    background-color: #111;
+  }
+}
