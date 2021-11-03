@@ -4,7 +4,7 @@ import Subjects from "../../../../components/OwnerAdminPanel/Subjects";
 
 function subjects(props: any) {
   // eslint-disable-next-line @typescript-eslint/no-shadow
-  const { subjects } = props; //
+  const { subjects } = props;
 
   return (
     <>
