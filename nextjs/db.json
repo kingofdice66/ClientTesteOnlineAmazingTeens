@@ -1,46 +1,4 @@
 {
-<<<<<<< HEAD
-  "courses": [
-    {
-      "id": 1,
-      "name": "course_name_1"
-    },
-    {
-      "id": 2,
-      "name": "course_name_2"
-    },
-    {
-      "id": 3,
-      "name": "course_name_3"
-    },
-    {
-      "id": 4,
-      "name": "course_name_4"
-    }
-  ],
-  "subjects": [
-    [
-      { "id": 1, "name": "subject_name_1", "course_id": 1 },
-      { "id": 2, "name": "subject_name_2", "course_id": 1 },
-      { "id": 3, "name": "subject_name_3", "course_id": 1 },
-      { "id": 4, "name": "subject_name_4", "course_id": 1 },
-      { "id": 5, "name": "subject_name_5", "course_id": 1 }
-    ],
-    [
-      { "id": 1, "name": "subject_name_1", "course_id": 2 },
-      { "id": 2, "name": "subject_name_2", "course_id": 2 },
-      { "id": 3, "name": "subject_name_3", "course_id": 2 }
-    ],
-    [
-      { "id": 1, "name": "subject_name_1", "course_id": 3 },
-      { "id": 2, "name": "subject_name_2", "course_id": 3 },
-      { "id": 3, "name": "subject_name_3", "course_id": 3 },
-      { "id": 4, "name": "subject_name_4", "course_id": 3 }
-    ],
-    [
-      { "id": 1, "name": "subject_name_1", "course_id": 4 },
-      { "id": 2, "name": "subject_name_2", "course_id": 4 }
-=======
   "subjects": [
     {
       "id": 1,
@@ -112,7 +70,6 @@
         { "id": 14, "name": "chapters_name_14" },
         { "id": 15, "name": "chapters_name_15" }
       ]
->>>>>>> ported_to_nextjs
     ]
   ]
 }

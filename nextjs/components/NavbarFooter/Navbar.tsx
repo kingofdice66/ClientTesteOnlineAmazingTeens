@@ -19,13 +19,8 @@ function Navbar() {
   const highlight_home = pattern_home.test(router.pathname);
   // ########################################################
 
-<<<<<<< HEAD
-  console.log("highlight_adminPanel: ", highlight_adminPanel);
-  console.log("highlight_home: ", highlight_home);
-=======
   // console.log("highlight_adminPanel: ", highlight_adminPanel);
   // console.log("highlight_home: ", highlight_home);
->>>>>>> ported_to_nextjs
 
   return (
     <div className={style.links}>
@@ -50,21 +45,13 @@ function Navbar() {
           </li>
 
           <li>
-<<<<<<< HEAD
-            <Link href="/owner-admin-panel/courses" passHref>
-=======
             <Link href="/owner-admin-panel/subjects" passHref>
->>>>>>> ported_to_nextjs
               <a
                 href="dummy"
                 // eslint-disable-next-line camelcase
                 className={highlight_adminPanel ? style.active : ""}
               >
-<<<<<<< HEAD
-                Panou Administrare Owner
-=======
                 Panoul Administrare Owner
->>>>>>> ported_to_nextjs
               </a>
             </Link>
           </li>
