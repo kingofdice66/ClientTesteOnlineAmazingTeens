@@ -1,4 +1,4 @@
-import Navbar from "../../../../components/OwnerAdminPanel/Navbar";
+import Navbar from "../../../../components/OwnerAdminPanel/Navbar/Navbar";
 
 function makeOrModifyLearningMaterial() {
   return (

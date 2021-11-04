@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import Link from "next/link";
-import apiURL from "../ApiURL/ApiURL";
+import apiURL from "../../ApiURL/ApiURL";
 
 function Courses() {
   const { data, error } = useSWR(`${apiURL}/courses`);
@@ -11,6 +11,7 @@ function Courses() {
   return (
     <>
       <div>Courses</div>
+      {/* <button type="button">Button</button> */}
       {data.map((course: any) => (
         <div key={course.id}>
           <div>
