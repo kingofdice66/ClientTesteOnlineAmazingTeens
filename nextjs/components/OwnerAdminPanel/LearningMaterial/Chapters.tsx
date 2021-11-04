@@ -1,10 +1,22 @@
-function Chapters(props: any) {
-  const { chapterId, subjectId } = props;
+import useSWR from "swr";
+import apiURL from "../../ApiURL/ApiURL";
 
-  console.log("chapterId: ", chapterId);
-  console.log("subjectId: ", subjectId);
+function Chapters() {
+  // const { data, error } = useSWR(`${apiURL}/chapters`);
 
-  return <div>ChaptersX</div>;
+  // if (!data) return <h1>Loading...</h1>;
+  // if (error) return <h1>Error</h1>;
+
+  return (
+    <>
+      <div>ChaptersX</div>
+      {
+        // data.map((chapter: any) => (
+        //   <div key={chapter.id}>{chapter.name}</div>
+        // ))
+      }
+    </>
+  );
 }
 
 export default Chapters;

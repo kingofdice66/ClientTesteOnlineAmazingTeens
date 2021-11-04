@@ -25,7 +25,6 @@ export async function getServerSideProps(context: any) {
   // eslint-disable-next-line @typescript-eslint/no-shadow
   const courses = await axios.get(`${apiURL}/courses`);
 
-  // return { props: { courses: courses.data[subjectId - 1] } };
   return {
     props: { fallback: { [`${apiURL}/courses`]: courses.data[subjectId - 1] } },
   };
