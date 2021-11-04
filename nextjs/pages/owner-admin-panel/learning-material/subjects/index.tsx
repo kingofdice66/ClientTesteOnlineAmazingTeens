@@ -1,7 +1,7 @@
 import { SWRConfig } from "swr";
 import axios from "axios";
-import Navbar from "../../../../components/OwnerAdminPanel/Navbar";
-import Subjects from "../../../../components/OwnerAdminPanel/Subjects";
+import Navbar from "../../../../components/OwnerAdminPanel/Navbar/Navbar";
+import Subjects from "../../../../components/OwnerAdminPanel/LearningMaterial/Subjects";
 import apiURL from "../../../../components/ApiURL/ApiURL";
 
 function subjects(props: any) {

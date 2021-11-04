@@ -1,8 +1,8 @@
 import useSWR, { mutate } from "swr";
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import apiURL from "../ApiURL/ApiURL";
+import apiURL from "../../ApiURL/ApiURL";
 
 function Subjects() {
   const { data, error } = useSWR(`${apiURL}/subjects`);
@@ -38,14 +38,14 @@ function Subjects() {
       <button type="button" onClick={createSubject}>Creeaza</button>
       <div>Subjects</div>
       {data.map((subject: any) => (
-        <div key={subject.id}>
+        <React.Fragment key={subject.id}>
           <div>
             {/* prettier-ignore */}
             <Link href={`/owner-admin-panel/learning-material/subjects/courses/${subject.id}`} passHref>
               <a href="dummy">{subject.name}</a>
             </Link>
           </div>
-        </div>
+        </React.Fragment>
       ))}
     </>
   );

@@ -1,15 +1,18 @@
+import { SWRConfig } from "swr";
 import axios from "axios";
-import Courses from "../../../../../../components/OwnerAdminPanel/Courses";
-import Navbar from "../../../../../../components/OwnerAdminPanel/Navbar";
+import Courses from "../../../../../../components/OwnerAdminPanel/LearningMaterial/Courses";
+import Navbar from "../../../../../../components/OwnerAdminPanel/Navbar/Navbar";
+import apiURL from "../../../../../../components/ApiURL/ApiURL";
 
 function courses(props: any) {
-  // eslint-disable-next-line @typescript-eslint/no-shadow
-  const { courses } = props;
+  const { fallback } = props;
 
   return (
     <>
       <Navbar />
-      <Courses courses={courses} />
+      <SWRConfig value={{ fallback }}>
+        <Courses />
+      </SWRConfig>
     </>
   );
 }
@@ -20,7 +23,10 @@ export async function getServerSideProps(context: any) {
   const { subjectId } = context.query;
 
   // eslint-disable-next-line @typescript-eslint/no-shadow
-  const courses = await axios.get("http://localhost:4000/courses");
+  const courses = await axios.get(`${apiURL}/courses`);
 
-  return { props: { courses: courses.data[subjectId - 1] } };
+  // return { props: { courses: courses.data[subjectId - 1] } };
+  return {
+    props: { fallback: { [`${apiURL}/courses`]: courses.data[subjectId - 1] } },
+  };
 }

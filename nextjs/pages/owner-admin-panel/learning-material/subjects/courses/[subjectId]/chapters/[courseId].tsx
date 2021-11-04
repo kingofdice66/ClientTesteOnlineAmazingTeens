@@ -1,5 +1,5 @@
-import Chapters from "../../../../../../../components/OwnerAdminPanel/Chapters";
-import Navbar from "../../../../../../../components/OwnerAdminPanel/Navbar";
+import Chapters from "../../../../../../../components/OwnerAdminPanel/LearningMaterial/Courses";
+import Navbar from "../../../../../../../components/OwnerAdminPanel/Navbar/Navbar";
 
 function chapters() {
   return (

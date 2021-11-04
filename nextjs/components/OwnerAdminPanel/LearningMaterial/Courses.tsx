@@ -1,12 +1,17 @@
+import useSWR from "swr";
 import Link from "next/link";
+import apiURL from "../ApiURL/ApiURL";
 
-function Courses(props: any) {
-  const { courses } = props;
+function Courses() {
+  const { data, error } = useSWR(`${apiURL}/courses`);
+
+  if (!data) return <h1>Loading...</h1>;
+  if (error) return <h1>Error</h1>;
 
   return (
     <>
       <div>Courses</div>
-      {courses.map((course: any) => (
+      {data.map((course: any) => (
         <div key={course.id}>
           <div>
             <Link
