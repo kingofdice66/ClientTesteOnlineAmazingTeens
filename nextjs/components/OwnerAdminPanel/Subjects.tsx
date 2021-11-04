@@ -2,18 +2,19 @@ import useSWR, { mutate } from "swr";
 import { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
+import apiURL from "../ApiURL/ApiURL";
 
 function Subjects() {
-  const { data, error } = useSWR("http://localhost:4000/subjects");
+  const { data, error } = useSWR(`${apiURL}/subjects`);
   const [subjectName, setSubjectName] = useState<string>("");
 
   const createSubject = (): void => {
     const subj = {
       name: subjectName,
     };
-    axios.post("http://localhost:4000/subjects", subj);
+    axios.post(`${apiURL}/subjects`, subj);
     setSubjectName(""); // Clear textarea;
-    mutate("http://localhost:4000/subjects", [...data, subj], false);
+    mutate(`${apiURL}/subjects`, [...data, subj], false);
   };
 
   console.log("data: ", data);
