@@ -6,7 +6,7 @@ import apiURL from "../../ApiURL/ApiURL";
 function Courses() {
   const router = useRouter();
   const { subjectId } = router.query;
-  const { data, error } = useSWR(`${apiURL}/courses`);
+  const { data, error } = useSWR(`${apiURL}/getCourses`);
 
   if (!data) return <h1>Loading...</h1>;
   if (error) return <h1>Error</h1>;

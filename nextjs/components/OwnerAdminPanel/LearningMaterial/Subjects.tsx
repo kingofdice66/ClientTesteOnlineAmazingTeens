@@ -10,11 +10,12 @@ function Subjects() {
   const { data, error } = useSWR(`${apiURL}/getSubjects`);
   const [subjectName, setSubjectName] = useState<string>("");
 
-  console.log("data.length: ", data.length);
-
   const createSubject = (): void => {
-    axios.post(`${apiURL}/setSubjects`, { subjectName });
-    router.replace(router.asPath);
+    axios
+      .post(`${apiURL}/setSubjects`, { subjectName })
+      .then(() => router.replace(router.asPath))
+      .catch((err: any) => console.error("Error: ", err));
+
     setSubjectName(""); // Clear textarea;
   };
 
