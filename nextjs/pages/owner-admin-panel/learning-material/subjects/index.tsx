@@ -23,9 +23,9 @@ export default subjects;
 export async function getServerSideProps() {
   // prettier-ignore
   // eslint-disable-next-line @typescript-eslint/no-shadow
-  const subjects = await axios.get(`${apiURL}/subjects`);
+  const subjects = await axios.get(`${apiURL}/getSubjects`);
 
   return {
-    props: { fallback: { [`${apiURL}/subjects`]: subjects.data } },
+    props: { fallback: { [`${apiURL}/getSubjects`]: subjects.data } },
   };
 }

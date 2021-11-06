@@ -5,16 +5,13 @@ import Link from "next/link";
 import apiURL from "../../ApiURL/ApiURL";
 
 function Subjects() {
-  const { data, error } = useSWR(`${apiURL}/subjects`);
+  const { data, error } = useSWR(`${apiURL}/getSubjects`);
   const [subjectName, setSubjectName] = useState<string>("");
 
   const createSubject = (): void => {
-    const subj = {
-      name: subjectName,
-    };
-    axios.post(`${apiURL}/subjects`, subj);
+    axios.post(`${apiURL}/setSubjects`, { subjectName });
     setSubjectName(""); // Clear textarea;
-    mutate(`${apiURL}/subjects`, [...data, subj], false);
+    // mutate(`${apiURL}/getSubjects`, [...data, subj], false);
   };
 
   console.log("data: ", data);
@@ -37,16 +34,18 @@ function Subjects() {
       {/* prettier-ignore */}
       <button type="button" onClick={createSubject}>Creeaza</button>
       <div>Subjects</div>
-      {data.map((subject: any) => (
-        <React.Fragment key={subject.id}>
-          <div>
-            {/* prettier-ignore */}
-            <Link href={`/owner-admin-panel/learning-material/subjects/courses/${subject.id}`} passHref>
-              <a href="dummy">{subject.name}</a>
-            </Link>
-          </div>
-        </React.Fragment>
-      ))}
+      {
+        // data.map((subject: any) => (
+        //   <React.Fragment key={subject.id}>
+        //     <div>
+        //       {/* prettier-ignore */}
+        //       <Link href={`/owner-admin-panel/learning-material/subjects/courses/${subject.id}`} passHref>
+        //         <a href="dummy">{subject.name}</a>
+        //       </Link>
+        //     </div>
+        //   </React.Fragment>
+        // ))
+      }
     </>
   );
 }
