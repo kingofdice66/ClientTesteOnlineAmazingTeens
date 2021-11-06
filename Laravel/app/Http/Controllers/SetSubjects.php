@@ -26,10 +26,9 @@ class SetSubjects extends Controller
     /** Set the name of the subject. */
     public function setData()
     {
-        // DB::table("subjects")->insert([
-        //     "name" => $this->subjectName,
-        //     "created_at" => $this->dateTime->format($this->dateTimeFormat),
-        // ]);
-        return ["SetSubjects" => $this->subjectName];
+        DB::table("subjects")->insert([
+            "name" => $this->subjectName,
+            "created_at" => $this->dateTime->format($this->dateTimeFormat),
+        ]);
     }
 }

@@ -17,10 +17,6 @@ class GetSubjects extends Controller
     public function getData()
     {
         $this->dataArray = DB::table("subjects")->select("name", "id")->get();
-
-        // return [
-        //     "subjects" => $this->dataArray,
-        // ];
-        return ["GetSubjects" => "success"];
+        return $this->dataArray;
     }
 }
