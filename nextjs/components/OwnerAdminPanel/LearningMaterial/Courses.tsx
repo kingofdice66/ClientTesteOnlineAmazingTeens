@@ -15,7 +15,7 @@ function Courses() {
     <>
       <div>Courses</div>
       {/* prettier-ignore */}
-      <Link href="/owner-admin-panel/learning-material/make-or-modify-learning-material?show=1" passHref>
+      <Link href="/owner-admin-panel/learning-material/make-or-modify-learning-material?set=course&updateCourseOnType=no&showSetCourseBtn=yes" passHref>
         <a href="dummy">Creeaza Curs</a>
       </Link>
       {data.map((course: any) => (
