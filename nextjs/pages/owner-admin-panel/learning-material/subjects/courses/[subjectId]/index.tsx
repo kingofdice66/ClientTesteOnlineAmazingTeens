@@ -10,10 +10,9 @@ function courses(props: any) {
   return (
     <>
       <Navbar />
-      {/* <SWRConfig value={{ fallback }}>
+      <SWRConfig value={{ fallback }}>
         <Courses />
-      </SWRConfig> */}
-      <div>Courses</div>
+      </SWRConfig>
     </>
   );
 }
@@ -29,8 +28,6 @@ export async function getServerSideProps(context: any) {
   console.log("courses: ", courses.data);
 
   return {
-    props: {
-      // fallback: { [`${apiURL}/getCourses`]: courses.data[subjectId - 1] },
-    },
+    props: { fallback: { [`${apiURL}/getCourses`]: courses.data } },
   };
 }

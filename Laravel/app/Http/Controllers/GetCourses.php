@@ -20,7 +20,7 @@ class GetCourses extends Controller
 
     public function getData()
     {
-        $this->dataArray = DB::table("courses")->select("name", "id")->get();
+        $this->dataArray = DB::table("courses")->select("name", "id")->where("subject_id", $this->subjectId)->get();
 
         return $this->dataArray;
     }

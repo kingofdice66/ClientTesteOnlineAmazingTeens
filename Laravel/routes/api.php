@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // ######################################################################
 // #########                    SUBJECTS                        #########
 // ######################################################################
+
 /** Set subject. */
 Route::post("setSubjects", [SetSubjects::class, "setData"]);
 
