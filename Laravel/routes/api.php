@@ -3,7 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GetSubjects;
+use App\Http\Controllers\GetCourses;
 use App\Http\Controllers\SetSubjects;
+use App\Http\Controllers\SetCourses;
 
 
 /*
@@ -21,8 +23,24 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+
+
+// ######################################################################
+// #########                    SUBJECTS                        #########
+// ######################################################################
+/** Set subject. */
+Route::post("setSubjects", [SetSubjects::class, "setData"]);
+
 /** Get subjects. */
 Route::get("getSubjects", [GetSubjects::class, "getData"]);
 
-/** Set subject. */
-Route::post("setSubjects", [SetSubjects::class, "setData"]);
+// ######################################################################
+// #########                    COURSES                         #########
+// ######################################################################
+
+/** Set course. */
+Route::post("setCourse", [SetCourses::class, "setData"]);
+
+/** Get course. */
+Route::post("getCourses", [GetCourses::class, "getData"]);

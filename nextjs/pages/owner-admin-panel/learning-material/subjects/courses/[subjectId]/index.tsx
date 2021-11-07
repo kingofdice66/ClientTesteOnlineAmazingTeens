@@ -10,9 +10,10 @@ function courses(props: any) {
   return (
     <>
       <Navbar />
-      <SWRConfig value={{ fallback }}>
+      {/* <SWRConfig value={{ fallback }}>
         <Courses />
-      </SWRConfig>
+      </SWRConfig> */}
+      <div>Courses</div>
     </>
   );
 }
@@ -23,11 +24,13 @@ export async function getServerSideProps(context: any) {
   const { subjectId } = context.query;
 
   // eslint-disable-next-line @typescript-eslint/no-shadow
-  const courses = await axios.get(`${apiURL}/getCourses`);
+  const courses = await axios.post(`${apiURL}/getCourses`, { subjectId });
+
+  console.log("courses: ", courses.data);
 
   return {
     props: {
-      fallback: { [`${apiURL}/getCourses`]: courses.data[subjectId - 1] },
+      // fallback: { [`${apiURL}/getCourses`]: courses.data[subjectId - 1] },
     },
   };
 }
