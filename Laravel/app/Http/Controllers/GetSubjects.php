@@ -16,7 +16,11 @@ class GetSubjects extends Controller
 
     public function getData()
     {
-        $this->dataArray = DB::table("subjects")->select("name", "id")->orderBy("id", "desc")->get();
+        $this->dataArray =
+            DB::table("subjects")
+            ->select("name", "id")
+            ->orderBy("id", "desc")
+            ->get();
         return $this->dataArray;
     }
 }

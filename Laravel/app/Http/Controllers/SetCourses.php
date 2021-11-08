@@ -36,7 +36,10 @@ class SetCourses extends Controller
         ]);
 
         /** Get the courses id, the one just created. */
-        $courseId = DB::table("courses")->where("subject_id", $this->subjectId)->max("id");
+        $courseId =
+            DB::table("courses")
+            ->where("subject_id", $this->subjectId)
+            ->max("id");
 
         return ["courseId" =>  $courseId];
     }
