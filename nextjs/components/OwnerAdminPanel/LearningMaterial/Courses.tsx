@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import apiURL from "../../ApiURL/ApiURL";
 
-function Courses() {
+function Courses(): JSX.Element {
   const router = useRouter();
   const { subjectId } = router.query;
   const { data, error } = useSWR(`${apiURL}/getCourses`);
@@ -14,8 +14,10 @@ function Courses() {
   return (
     <>
       <div>Courses</div>
-      {/* prettier-ignore */}
-      <Link href="/owner-admin-panel/learning-material/make-or-modify-learning-material?set=course&updateCourseOnType=no&showSetCourseBtn=yes" passHref>
+      <Link
+        href={`/owner-admin-panel/learning-material/make-or-modify-learning-material?set=course&subjectId=${subjectId}&updateCourseOnType=no&showSetCourseBtn=yes`}
+        passHref
+      >
         <a href="dummy">Creeaza Curs</a>
       </Link>
       {data.map((course: any) => (

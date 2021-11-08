@@ -4,7 +4,7 @@ import apiURL from "../../../../../../../components/ApiURL/ApiURL";
 import Chapters from "../../../../../../../components/OwnerAdminPanel/LearningMaterial/Chapters";
 import Navbar from "../../../../../../../components/OwnerAdminPanel/Navbar/Navbar";
 
-function chapters(props: any) {
+function chapters(props: any): JSX.Element {
   const { fallback } = props;
 
   return (
@@ -19,7 +19,15 @@ function chapters(props: any) {
 
 export default chapters;
 
-export async function getServerSideProps(context: any) {
+interface ISSP {
+  props: {
+    fallback: {
+      [x: string]: any;
+    };
+  };
+}
+
+export async function getServerSideProps(context: any): Promise<ISSP> {
   const { query } = context;
   const { subjectId, courseId } = query;
 

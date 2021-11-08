@@ -5,7 +5,7 @@ import axios from "axios";
 import Link from "next/link";
 import apiURL from "../../ApiURL/ApiURL";
 
-function Subjects() {
+function Subjects(): JSX.Element {
   const router = useRouter();
   const { data, error } = useSWR(`${apiURL}/getSubjects`);
   const [subjectName, setSubjectName] = useState<string>("");
@@ -14,7 +14,7 @@ function Subjects() {
     axios
       .post(`${apiURL}/setSubjects`, { subjectName })
       .then(() => router.replace(router.asPath))
-      .catch((err: any) => console.error("Error: ", err));
+      .catch((err: any) => console.error(err));
 
     setSubjectName(""); // Clear textarea;
   };
@@ -30,7 +30,7 @@ function Subjects() {
         <textarea
           id="subjects"
           value={subjectName}
-          onChange={(e) => setSubjectName(e.target.value)}
+          onChange={(e): void => setSubjectName(e.target.value)}
           cols={30}
           rows={3}
         />

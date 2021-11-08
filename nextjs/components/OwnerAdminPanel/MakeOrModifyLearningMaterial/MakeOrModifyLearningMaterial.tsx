@@ -3,7 +3,7 @@ import SetCourse from "./SetCourse";
 import SetChapter from "./SetChapter";
 import SetQuiz from "./SetQuiz";
 
-function MakeOrModifyLearningMaterial() {
+function MakeOrModifyLearningMaterial(): JSX.Element {
   const router = useRouter();
   const { set } = router.query;
 

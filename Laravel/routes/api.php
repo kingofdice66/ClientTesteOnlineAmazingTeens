@@ -30,7 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // #########                    SUBJECTS                        #########
 // ######################################################################
 
-/** Set subject. */
+/** Set subjects. */
 Route::post("setSubjects", [SetSubjects::class, "setData"]);
 
 /** Get subjects. */
@@ -40,8 +40,8 @@ Route::get("getSubjects", [GetSubjects::class, "getData"]);
 // #########                    COURSES                         #########
 // ######################################################################
 
-/** Set course. */
-Route::post("setCourse", [SetCourses::class, "setData"]);
+/** Set courses. */
+Route::post("setCourses", [SetCourses::class, "setData"]);
 
-/** Get course. */
+/** Get courses. */
 Route::post("getCourses", [GetCourses::class, "getData"]);

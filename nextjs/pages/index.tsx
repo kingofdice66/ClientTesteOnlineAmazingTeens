@@ -1,6 +1,6 @@
 import HomePage from "../components/HomePage/HomePage";
 
-function index() {
+function index(): JSX.Element {
   return <HomePage />;
 }
 

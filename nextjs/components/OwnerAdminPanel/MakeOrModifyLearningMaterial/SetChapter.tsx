@@ -1,4 +1,4 @@
-function SetChapter() {
+function SetChapter(): JSX.Element {
   return <div>MakeChapter</div>;
 }
 

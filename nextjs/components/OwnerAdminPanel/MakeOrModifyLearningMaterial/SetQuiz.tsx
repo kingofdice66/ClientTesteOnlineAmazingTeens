@@ -1,4 +1,4 @@
-function SetQuiz() {
+function SetQuiz(): JSX.Element {
   return <div>MakeQuiz</div>;
 }
 

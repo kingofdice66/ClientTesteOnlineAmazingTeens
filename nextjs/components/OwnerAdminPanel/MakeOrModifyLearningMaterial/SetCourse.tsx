@@ -9,8 +9,10 @@ import apiURL from "../../ApiURL/ApiURL";
 const EXIT_SUCCESS = 0;
 const EXIT_FAILED = 1;
 
-function SetCourse() {
+function SetCourse(): JSX.Element {
   const router = useRouter();
+  const { subjectId } = router.query;
+
   const timeoutRef = useRef<NodeJS.Timeout>(null);
   const [courseName, setCourseName] = useState<string>("");
   const [inputError, setInputError] = useState<string>("");
@@ -40,7 +42,12 @@ function SetCourse() {
     //   (error) => console.error("Error: ", error)
     // );
 
-    axios.post(`${apiURL}/api/setCourse`, { courseName, subjectId });
+    axios
+      .post(`${apiURL}/setCoursesX`, { courseName, subjectId })
+      .then((data: any) => console.log("data: ", data))
+      .catch((err: any) => console.error(err));
+
+    // console.log("courseId: ", courseId);
 
     return EXIT_SUCCESS;
   };

@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import style from "./Navbar.module.scss";
 
-function Navbar() {
+function Navbar(): JSX.Element {
   const router = useRouter();
   // ########################################################
   // ######       Highlight appropriate URL navbar     ######

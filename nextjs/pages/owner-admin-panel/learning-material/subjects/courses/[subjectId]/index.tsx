@@ -4,7 +4,7 @@ import Courses from "../../../../../../components/OwnerAdminPanel/LearningMateri
 import Navbar from "../../../../../../components/OwnerAdminPanel/Navbar/Navbar";
 import apiURL from "../../../../../../components/ApiURL/ApiURL";
 
-function courses(props: any) {
+function courses(props: any): JSX.Element {
   const { fallback } = props;
 
   return (
@@ -19,13 +19,19 @@ function courses(props: any) {
 
 export default courses;
 
-export async function getServerSideProps(context: any) {
+interface ISSP {
+  props: {
+    fallback: {
+      [x: string]: any;
+    };
+  };
+}
+
+export async function getServerSideProps(context: any): Promise<ISSP> {
   const { subjectId } = context.query;
 
   // eslint-disable-next-line @typescript-eslint/no-shadow
   const courses = await axios.post(`${apiURL}/getCourses`, { subjectId });
-
-  console.log("courses: ", courses.data);
 
   return {
     props: { fallback: { [`${apiURL}/getCourses`]: courses.data } },

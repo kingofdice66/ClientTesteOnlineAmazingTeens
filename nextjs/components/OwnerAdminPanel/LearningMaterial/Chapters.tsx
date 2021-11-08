@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import apiURL from "../../ApiURL/ApiURL";
 
-function Chapters() {
+function Chapters(): JSX.Element {
   // const { data, error } = useSWR(`${apiURL}/chapters`);
 
   // if (!data) return <h1>Loading...</h1>;

@@ -11,7 +11,7 @@ class SetCourses extends Controller
 {
     private $data = NULL;
     private $courseName = NULL;
-    private $subjectID = NULL;
+    private $subjectId = NULL;
     private $dateTime = NULL;
     private $dateTimeFormat = NULL;
 
@@ -20,7 +20,7 @@ class SetCourses extends Controller
         $this->data = (new CustomFunctions)->jsonDecode();
         $this->courseName = $this->data["courseName"];
         $this->courseName = trim($this->courseName);
-        $this->subjectID = $this->data["subjectID"];
+        $this->subjectId = $this->data["subjectId"];
         $this->dateTime = new Carbon;
         $this->dateTimeFormat = (new CustomFunctions)->dateTimeFormat();
     }
@@ -31,13 +31,13 @@ class SetCourses extends Controller
 
         DB::table("courses")->insert([
             "name" => $this->courseName,
-            "subject_id" => $this->subjectID,
+            "subject_id" => $this->subjectId,
             "created_at" => $this->dateTime->format($this->dateTimeFormat),
         ]);
 
         /** Get the courses id, the one just created. */
-        $courseID = DB::table("courses")->max("id");
+        $courseId = DB::table("courses")->where("subject_id", $this->subjectId)->max("id");
 
-        return ["courseID" =>  $courseID];
+        return ["courseId" =>  $courseId];
     }
 }
