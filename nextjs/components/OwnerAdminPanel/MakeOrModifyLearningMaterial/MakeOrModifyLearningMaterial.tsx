@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
-import SetCourse from "./SetCourse";
-import SetChapter from "./SetChapter";
-import SetQuiz from "./SetQuiz";
+import SetCourse from "./SetCourses";
+import SetChapter from "./SetChapters";
+import SetQuiz from "./SetQuizes";
 
 function MakeOrModifyLearningMaterial(): JSX.Element {
   const router = useRouter();

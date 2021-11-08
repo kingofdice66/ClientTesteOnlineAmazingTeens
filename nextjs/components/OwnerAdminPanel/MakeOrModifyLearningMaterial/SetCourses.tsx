@@ -73,7 +73,7 @@ function SetCourse(): JSX.Element {
   // }, [courseName]);
 
   return (
-    <>
+    <div>
       <label htmlFor="courseName">
         <span>Numele cursului:</span>
         <br />
@@ -94,7 +94,7 @@ function SetCourse(): JSX.Element {
       <button type="button" onClick={uploadCourseNameToDatabase}>
         <span>Seteaza Numele Cursului</span>
       </button>
-    </>
+    </div>
   );
 }
 

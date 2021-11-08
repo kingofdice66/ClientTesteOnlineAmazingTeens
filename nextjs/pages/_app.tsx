@@ -5,7 +5,7 @@ import Footer from "../components/NavbarFooter/Footer";
 import style from "../styles/Content.module.scss";
 import "normalize.css";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
       <Navbar />
