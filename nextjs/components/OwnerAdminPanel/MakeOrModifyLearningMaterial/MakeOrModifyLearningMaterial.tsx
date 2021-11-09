@@ -7,12 +7,10 @@ function MakeOrModifyLearningMaterial(): JSX.Element {
   const router = useRouter();
   const { set } = router.query;
 
-  console.log("router.query: ", router.query);
-
   return (
     <>
-      {set === "course" || set === "all" ? <SetCourse /> : ""}
-      {set === "chapter" || set === "all" ? <SetChapter /> : ""}
+      {set === "courses" || set === "all" ? <SetCourse /> : ""}
+      {set === "chapters" || set === "all" ? <SetChapter /> : ""}
       {set === "all" ? <SetQuiz /> : ""}
     </>
   );

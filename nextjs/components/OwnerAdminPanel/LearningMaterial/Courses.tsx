@@ -15,7 +15,7 @@ function Courses(): JSX.Element {
     <>
       <div>Courses</div>
       <Link
-        href={`/owner-admin-panel/learning-material/make-or-modify-learning-material?set=course&subjectId=${subjectId}&updateCourseOnType=no&showSetCourseBtn=yes`}
+        href={`/owner-admin-panel/learning-material/make-or-modify-learning-material?set=courses&subjectId=${subjectId}&updateCoursesOnType=no&showSetCoursesBtn=yes`}
         passHref
       >
         <a href="dummy">Creeaza Curs</a>
@@ -25,8 +25,8 @@ function Courses(): JSX.Element {
           <div>
             {/* prettier-ignore */}
             <Link href={`/owner-admin-panel/learning-material/subjects/courses/${subjectId}/chapters/${course.id}`} passHref>
-                <a href="dummy">{course.name}</a>
-              </Link>
+              <a href="dummy">{course.name}</a>
+            </Link>
           </div>
         </div>
       ))}

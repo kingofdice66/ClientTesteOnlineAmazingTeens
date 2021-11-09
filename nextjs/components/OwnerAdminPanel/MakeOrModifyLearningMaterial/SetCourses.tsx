@@ -11,7 +11,9 @@ const EXIT_FAILED = 1;
 
 function SetCourse(): JSX.Element {
   const router = useRouter();
-  const { subjectId } = router.query;
+  const { subjectId, showSetCoursesBtn } = router.query;
+
+  console.log("showSetCoursesBtn: ", showSetCoursesBtn);
 
   const timeoutRef = useRef<NodeJS.Timeout>(null);
   const [courseName, setCourseName] = useState<string>("");
@@ -41,13 +43,16 @@ function SetCourse(): JSX.Element {
     //     ),
     //   (error) => console.error("Error: ", error)
     // );
-
+    // prettier-ignore
     axios
-      .post(`${apiURL}/setCoursesX`, { courseName, subjectId })
-      .then((data: any) => console.log("data: ", data))
+      .post(`${apiURL}/setCourses`, { courseName, subjectId })
+      .then((res: any) => {
+        // router.replace(`/owner-admin-panel/learning-material/make-or-modify-learning-material?set=chapters&subjectId=${subjectId}`);
+        console.log("data: ", res.data.courseId);
+      })
       .catch((err: any) => console.error(err));
 
-    // console.log("courseId: ", courseId);
+    setCourseName(""); // Clear textarea;
 
     return EXIT_SUCCESS;
   };
@@ -91,9 +96,10 @@ function SetCourse(): JSX.Element {
         // prettier-ignore
         inputError.length !== 0 ? <div><span>{inputError}</span></div> : ""
       }
-      <button type="button" onClick={uploadCourseNameToDatabase}>
-        <span>Seteaza Numele Cursului</span>
-      </button>
+      {
+        // prettier-ignore
+        showSetCoursesBtn === "yes" ? <button type="button" onClick={uploadCourseNameToDatabase}><span>Seteaza Numele Cursului</span></button> : ""
+      }
     </div>
   );
 }
