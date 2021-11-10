@@ -15,7 +15,13 @@ function Courses(): JSX.Element {
     <>
       <div>Courses</div>
       <Link
-        href={`/owner-admin-panel/learning-material/make-or-modify-learning-material?set=courses&subjectId=${subjectId}&updateCoursesOnType=no&showSetCoursesBtn=yes`}
+        href={
+          "/owner-admin-panel/learning-material/make-or-modify-learning-material?" +
+          "set=courses&" +
+          `subjectId=${subjectId}&` +
+          "updateCoursesOnType=no&" +
+          "showSetCoursesBtn=yes"
+        }
         passHref
       >
         <a href="dummy">Creeaza Curs</a>

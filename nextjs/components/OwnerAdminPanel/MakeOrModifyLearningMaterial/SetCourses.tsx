@@ -43,12 +43,19 @@ function SetCourse(): JSX.Element {
     //     ),
     //   (error) => console.error("Error: ", error)
     // );
-    // prettier-ignore
+
     axios
       .post(`${apiURL}/setCourses`, { courseName, subjectId })
       .then((res: any) => {
-        const {courseId} = res.data;
-        router.replace(`/owner-admin-panel/learning-material/make-or-modify-learning-material?set=chapters&showSetChaptersBtn=yes&subjectId=${subjectId}&courseId=${courseId}`);
+        const { courseId } = res.data;
+
+        router.replace(
+          "/owner-admin-panel/learning-material/make-or-modify-learning-material?" +
+            "set=chapters&" +
+            "showSetChaptersBtn=yes&" +
+            `subjectId=${subjectId}&` +
+            `courseId=${courseId}`
+        );
       })
       .catch((err: any) => console.error(err));
 

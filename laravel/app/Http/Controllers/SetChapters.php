@@ -11,8 +11,8 @@ use Carbon\Carbon;
 class SetChapters extends Controller
 {
     private $data = NULL;
-    private $courseID = NULL;
-    private $subjectID = NULL;
+    private $courseId = NULL;
+    private $subjectId = NULL;
     private $chapterName = NULL;
     private $dateTime = NULL;
     private $dateTimeFormat = NULL;
@@ -20,8 +20,8 @@ class SetChapters extends Controller
     public function __construct()
     {
         $this->data = (new CustomFunctions)->jsonDecode();
-        $this->courseID = $this->data["courseID"];
-        $this->subjectID = $this->data["subjectID"];
+        $this->courseId = $this->data["courseId"];
+        $this->subjectId = $this->data["subjectId"];
         $this->chapterName = $this->data["chapterName"];
         $this->dateTime = new Carbon;
         $this->dateTimeFormat = (new CustomFunctions)->dateTimeFormat();
@@ -34,18 +34,14 @@ class SetChapters extends Controller
             [
                 "name" => $this->chapterName,
                 "created_at" => $this->dateTime->format($this->dateTimeFormat),
-                "subject_id" => $this->subjectID,
-                "course_id" => $this->courseID,
+                "subject_id" => $this->subjectId,
+                "course_id" => $this->courseId,
             ]
         );
 
         // Get the id of the chapter just created.
-        $chapterID = DB::table("chapters")->max("id");
+        $this->chapterId = DB::table("chapters")->max("id");
 
-        return [
-            "courseID" => $this->data["courseID"],
-            "chapterID" => $chapterID,
-            "subjectID" => $this->subjectID,
-        ];
+        return ["chapterId" => $this->chapterId];
     }
 }

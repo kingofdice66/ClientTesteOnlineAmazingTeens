@@ -10,7 +10,7 @@ function SetChapter(): JSX.Element {
   const router = useRouter();
   const { subjectId, courseId, showSetChaptersBtn } = router.query;
 
-  const timoutRef = useRef<NodeJS.Timeout>(null);
+  const timeoutRef = useRef<NodeJS.Timeout>(null);
   const [chapterName, setChapterName] = useState<string>("");
   const [inputError, setInputError] = useState<string>("");
 
@@ -28,7 +28,17 @@ function SetChapter(): JSX.Element {
 
     axios
       .post(`${apiURL}/setChapters`, { chapterName, subjectId, courseId })
-      .then((res: any) => console.log("res: ", res))
+      .then((res: any) => {
+        console.log("res: ", res);
+        const { chapterId } = res.data;
+        router.replace(
+          "/owner-admin-panel/learning-material/make-or-modify-learning-material?" +
+            "set=all&" +
+            `subjectId=${subjectId}&` +
+            `courseId=${courseId}` +
+            `chapterId=${chapterId}`
+        );
+      })
       .catch((err: any) => console.error(err));
 
     setChapterName(""); // Clear textarea;
