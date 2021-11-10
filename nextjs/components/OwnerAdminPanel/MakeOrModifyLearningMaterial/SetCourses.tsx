@@ -47,8 +47,8 @@ function SetCourse(): JSX.Element {
     axios
       .post(`${apiURL}/setCourses`, { courseName, subjectId })
       .then((res: any) => {
-        // router.replace(`/owner-admin-panel/learning-material/make-or-modify-learning-material?set=chapters&subjectId=${subjectId}`);
-        console.log("data: ", res.data.courseId);
+        const {courseId} = res.data;
+        router.replace(`/owner-admin-panel/learning-material/make-or-modify-learning-material?set=chapters&showSetChaptersBtn=yes&subjectId=${subjectId}&courseId=${courseId}`);
       })
       .catch((err: any) => console.error(err));
 
@@ -86,9 +86,7 @@ function SetCourse(): JSX.Element {
           id="courseName"
           placeholder="Scrie aici numele cursului ..."
           value={courseName}
-          onChange={(e): void => {
-            setCourseName(e.target.value);
-          }}
+          onChange={(e): void => setCourseName(e.target.value)}
         />
       </label>
       <br />
