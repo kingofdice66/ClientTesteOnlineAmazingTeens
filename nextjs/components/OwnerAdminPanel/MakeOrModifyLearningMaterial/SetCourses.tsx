@@ -11,11 +11,18 @@ const EXIT_FAILED = 1;
 
 function SetCourse(): JSX.Element {
   const router = useRouter();
-  const { subjectId, showSetCoursesBtn } = router.query;
 
-  console.log("showSetCoursesBtn: ", showSetCoursesBtn);
+  const {
+    subjectId,
+    courseId,
+    showSetCoursesBtn,
+    showSetChaptersBtn,
+    updateCoursesOnType,
+  } = router.query;
 
-  const timeoutRef = useRef<NodeJS.Timeout>(null);
+  console.log("updateCoursesOnType: ", updateCoursesOnType);
+
+  const timeoutRef = useRef<NodeJS.Timeout>();
   const [courseName, setCourseName] = useState<string>("");
   const [inputError, setInputError] = useState<string>("");
 
@@ -30,19 +37,6 @@ function SetCourse(): JSX.Element {
       return EXIT_FAILED; // Exit. Don't send data to database.
     }
     // ##################################################################
-
-    // const data = {
-    //   courseName,
-    //   subjectID,
-    // };
-
-    // sendGetData(`${apiURL}/api/setCourseName`, data).then(
-    //   (data_: any) =>
-    //     window.location.assign(
-    //       `?OwnerAdminPanelShow=chapterName&updateChapterNameOnType=no&courseID=${data_.courseID}&subjectID=${subjectID}`
-    //     ),
-    //   (error) => console.error("Error: ", error)
-    // );
 
     axios
       .post(`${apiURL}/setCourses`, { courseName, subjectId })
@@ -65,24 +59,20 @@ function SetCourse(): JSX.Element {
   };
 
   /** Update course name as you type. */
-  // useEffect(() => {
-  //   if (updateCourseOnType === "yes") {
-  //     if (timeoutRef.current) {
-  //       clearTimeout(timeoutRef.current);
-  //     }
+  useEffect(() => {
+    if (updateCoursesOnType === "yes") {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
 
-  //     // Delay sending data for 0.75 seconds in order to not send on every key press.
-  //     timeoutRef.current = setTimeout(() => {
-  //       const data = {
-  //         courseName,
-  //         subjectID,
-  //       };
-  //       sendData(`${apiURL}/api/updateCourseName`, data);
-  //     }, 0.75 * 1000);
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [courseName]);
+      // Delay sending data for 0.75 seconds in order to not send on every key press.
+      timeoutRef.current = setTimeout(() => {
+        // prettier-ignore
+        axios.post(`${apiURL}/updateCourses`, { courseName, subjectId, courseId });
+      }, 0.75 * 1000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [courseName]);
 
   return (
     <div>

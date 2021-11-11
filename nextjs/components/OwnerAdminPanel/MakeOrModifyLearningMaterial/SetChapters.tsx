@@ -8,9 +8,15 @@ const EXIT_FAILED = 1;
 
 function SetChapter(): JSX.Element {
   const router = useRouter();
-  const { subjectId, courseId, showSetChaptersBtn } = router.query;
+  const {
+    subjectId,
+    courseId,
+    chapterId,
+    showSetChaptersBtn,
+    updateChaptersOnType,
+  } = router.query;
 
-  const timeoutRef = useRef<NodeJS.Timeout>(null);
+  const timeoutRef = useRef<NodeJS.Timeout>();
   const [chapterName, setChapterName] = useState<string>("");
   const [inputError, setInputError] = useState<string>("");
 
@@ -29,13 +35,16 @@ function SetChapter(): JSX.Element {
     axios
       .post(`${apiURL}/setChapters`, { chapterName, subjectId, courseId })
       .then((res: any) => {
-        console.log("res: ", res);
+        // eslint-disable-next-line @typescript-eslint/no-shadow
         const { chapterId } = res.data;
+
         router.replace(
           "/owner-admin-panel/learning-material/make-or-modify-learning-material?" +
             "set=all&" +
+            "updateCoursesOnType=yes&" +
+            "updateChaptersOnType=yes&" +
             `subjectId=${subjectId}&` +
-            `courseId=${courseId}` +
+            `courseId=${courseId}&` +
             `chapterId=${chapterId}`
         );
       })
@@ -45,6 +54,22 @@ function SetChapter(): JSX.Element {
 
     return EXIT_SUCCESS;
   };
+
+  /** Update chapter name as you type. */
+  useEffect(() => {
+    if (updateChaptersOnType === "yes") {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      // Delay sending data for 0.75 seconds in order to not send on every key press.
+      timeoutRef.current = setTimeout(() => {
+        // prettier-ignore
+        axios.post(`${apiURL}/updateChapters`, { chapterName, subjectId, courseId, chapterId });
+      }, 0.75 * 1000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chapterName]);
 
   return (
     <div>

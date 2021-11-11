@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UpdateCourses;
+use App\Http\Controllers\UpdateChapters;
 use App\Http\Controllers\GetSubjects;
 use App\Http\Controllers\GetCourses;
 use App\Http\Controllers\GetChapters;
@@ -48,6 +50,9 @@ Route::post("setCourses", [SetCourses::class, "setData"]);
 /** Get courses. */
 Route::post("getCourses", [GetCourses::class, "getData"]);
 
+/** Update courses. */
+Route::post("updateCourses", [UpdateCourses::class, "updateData"]);
+
 // ######################################################################
 // #########                    CHAPTERS                        #########
 // ######################################################################
@@ -57,3 +62,6 @@ Route::post("setChapters", [SetChapters::class, "setData"]);
 
 /** Get chapters. */
 Route::get("getChapters", [GetChapters::class, "getData"]);
+
+/** Update chapters. */
+Route::post("updateChapters", [UpdateChapters::class, "updateData"]);
