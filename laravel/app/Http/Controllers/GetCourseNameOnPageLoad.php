@@ -6,27 +6,31 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\CustomFunctions;
 
-class GetCourses extends Controller
+class GetCourseNameOnPageLoad extends Controller
 {
-    private $dataArray = NULL;
     private $data = NULL;
+    private $courseId = NULL;
     private $subjectId = NULL;
+    private $courseName = NULL;
 
     public function __construct()
     {
         $this->data = (new CustomFunctions)->jsonDecode();
         $this->subjectId = $this->data["subjectId"];
+        $this->courseId = $this->data["courseId"];
     }
 
     public function getData()
     {
-        $this->dataArray =
+        $this->courseName =
             DB::table("courses")
-            ->select("name", "id")
-            ->where("subject_id", $this->subjectId)
-            ->orderBy("id", "asc")
-            ->get();
+            ->select("name")
+            ->where([
+                ["subject_id", $this->subjectId],
+                ["id", $this->courseId],
+            ])
+            ->first();
 
-        return $this->dataArray;
+        return $this->courseName;
     }
 }

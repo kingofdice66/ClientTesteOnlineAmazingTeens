@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UpdateCourses;
 use App\Http\Controllers\UpdateChapters;
 use App\Http\Controllers\GetSubjects;
+use App\Http\Controllers\GetCourseNameOnPageLoad;
+use App\Http\Controllers\GetChapterNameOnPageLoad;
 use App\Http\Controllers\GetCourses;
 use App\Http\Controllers\GetChapters;
 use App\Http\Controllers\SetChapters;
@@ -53,6 +55,9 @@ Route::post("getCourses", [GetCourses::class, "getData"]);
 /** Update courses. */
 Route::post("updateCourses", [UpdateCourses::class, "updateData"]);
 
+/** Download the name of the course when the appropriate page loads. */
+Route::post("getCourseName", [GetCourseNameOnPageLoad::class, "getData"]);
+
 // ######################################################################
 // #########                    CHAPTERS                        #########
 // ######################################################################
@@ -65,3 +70,6 @@ Route::get("getChapters", [GetChapters::class, "getData"]);
 
 /** Update chapters. */
 Route::post("updateChapters", [UpdateChapters::class, "updateData"]);
+
+/** Download the name of the chapter when the appropriate page loads. */
+Route::post("getChapterName", [GetChapterNameOnPageLoad::class, "getData"]);

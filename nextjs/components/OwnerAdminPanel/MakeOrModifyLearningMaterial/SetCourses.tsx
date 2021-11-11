@@ -2,9 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import apiURL from "../../ApiURL/ApiURL";
-// import sendGetData from "../../customComponents/Fetch/sendGetData";
-// import apiURL from "../../apiURL/ApiURL";
-// import sendData from "../../customComponents/Fetch/sendData";
 
 const EXIT_SUCCESS = 0;
 const EXIT_FAILED = 1;
@@ -17,11 +14,15 @@ function SetCourse(): JSX.Element {
     courseId,
     showSetCoursesBtn,
     showSetChaptersBtn,
-    updateCoursesOnType,
+    updateOnType,
   } = router.query;
 
-  console.log("updateCoursesOnType: ", updateCoursesOnType);
-
+  /**
+   * Count countRef to 0 in order for 'updateOnType' in  'useEffect' to not
+   * send data to the database too early because 'setCourseName' on page load is
+   * set to "" and that will trigger an early update to database.
+   */
+  const countRef = useRef<number>(2);
   const timeoutRef = useRef<NodeJS.Timeout>();
   const [courseName, setCourseName] = useState<string>("");
   const [inputError, setInputError] = useState<string>("");
@@ -41,6 +42,7 @@ function SetCourse(): JSX.Element {
     axios
       .post(`${apiURL}/setCourses`, { courseName, subjectId })
       .then((res: any) => {
+        // eslint-disable-next-line @typescript-eslint/no-shadow
         const { courseId } = res.data;
 
         router.replace(
@@ -58,9 +60,29 @@ function SetCourse(): JSX.Element {
     return EXIT_SUCCESS;
   };
 
+  /**
+   * Count countRef to 0 in order for 'updateOnType' in  'useEffect' to not
+   * send data to the database too early because 'setCourseName' on page load is
+   * set to "" and that will trigger an early update to database.
+   */
+  useEffect(() => {
+    if (countRef.current !== 0) {
+      countRef.current--;
+    }
+  }, [courseName]);
+
+  /** Download current course name from database. */
+  useEffect(() => {
+    axios
+      .post(`${apiURL}/getCourseName`, { courseId, subjectId })
+      .then((res: any) => setCourseName(res.data.name))
+      .catch((err: any) => console.error(err));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   /** Update course name as you type. */
   useEffect(() => {
-    if (updateCoursesOnType === "yes") {
+    if (updateOnType === "yes" && countRef.current === 0) {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
