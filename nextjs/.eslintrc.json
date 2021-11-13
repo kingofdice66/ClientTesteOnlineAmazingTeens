@@ -22,6 +22,7 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "react/function-component-definition": "off",
     // disable the rule for all files
     "@typescript-eslint/explicit-function-return-type": "off",
     //*****************************************************************

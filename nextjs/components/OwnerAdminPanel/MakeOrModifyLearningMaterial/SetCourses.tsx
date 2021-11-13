@@ -12,6 +12,7 @@ function SetCourse(): JSX.Element {
   const {
     subjectId,
     courseId,
+    getCourseName,
     showSetCoursesBtn,
     showSetChaptersBtn,
     updateOnType,
@@ -73,12 +74,14 @@ function SetCourse(): JSX.Element {
 
   /** Download current course name from database. */
   useEffect(() => {
-    axios
-      .post(`${apiURL}/getCourseName`, { courseId, subjectId })
-      .then((res: any) => setCourseName(res.data.name))
-      .catch((err: any) => console.error(err));
+    if (getCourseName === "yes") {
+      axios
+        .post(`${apiURL}/getCourseName`, { courseId, subjectId })
+        .then((res: any) => setCourseName(res.data.name))
+        .catch((err: any) => console.error(err));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [getCourseName]);
 
   /** Update course name as you type. */
   useEffect(() => {

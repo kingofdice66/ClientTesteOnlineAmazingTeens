@@ -13,6 +13,7 @@ function SetChapter(): JSX.Element {
     subjectId, 
     courseId, 
     chapterId, 
+    getChapterName,
     showSetChaptersBtn, 
     updateOnType 
   } = router.query;
@@ -49,6 +50,8 @@ function SetChapter(): JSX.Element {
           "/owner-admin-panel/learning-material/make-or-modify-learning-material?" +
             "set=all&" +
             "updateOnType=yes&" +
+            "getChapterName=yes&" +
+            "getCourseName=yes&" +
             `subjectId=${subjectId}&` +
             `courseId=${courseId}&` +
             `chapterId=${chapterId}`
@@ -74,12 +77,17 @@ function SetChapter(): JSX.Element {
 
   /** Download current chapter name from database. */
   useEffect(() => {
-    axios
-      .post(`${apiURL}/getChapterName`, { subjectId, courseId, chapterId })
-      .then((res: any) => setChapterName(res.data.name))
-      .catch((err: any) => console.error(err));
+    if (getChapterName === "yes") {
+      axios
+        .post(`${apiURL}/getChapterName`, { subjectId, courseId, chapterId })
+        .then((res: any) => {
+          console.log("data fetch: ", res.data);
+          setChapterName(res.data.name);
+        })
+        .catch((err: any) => console.error(err));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [getChapterName]);
 
   /** Update chapter name as you type. */
   useEffect(() => {
