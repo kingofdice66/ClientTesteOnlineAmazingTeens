@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import SetCourse from "./SetCourses";
 import SetChapter from "./SetChapters";
-import SetQuiz from "./SetQuizes";
+import SetQuizzes from "./SetQuizzes";
 
 function MakeOrModifyLearningMaterial(): JSX.Element {
   const router = useRouter();
@@ -11,7 +11,7 @@ function MakeOrModifyLearningMaterial(): JSX.Element {
     <>
       {set === "courses" || set === "all" ? <SetCourse /> : ""}
       {set === "chapters" || set === "all" ? <SetChapter /> : ""}
-      {set === "all" ? <SetQuiz /> : ""}
+      {set === "all" ? <SetQuizzes /> : ""}
     </>
   );
 }
