@@ -1,6 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-// import sendGetData from "../../customComponents/Fetch/sendGetData";
-// import sendData from "../../customComponents/Fetch/sendData";
 import { useRouter } from "next/router";
 import axios from "axios";
 import IOSSwitch from "../../CustomComponents/IOSSwitch/IOSSwitch";
@@ -15,11 +13,6 @@ interface IInputList {
     numberOfAnswers: number | string; // Number of answerers per question.
     answers: Array<{ answer: string; value: boolean }>; // 'value' specifies if the answer is correct or not.
   }>;
-}
-
-// For a temporary constant.
-interface IProps {
-  urlIDs: { chapterID: number; courseID: number };
 }
 
 interface IData {
@@ -75,7 +68,7 @@ function SetQuizzes(): JSX.Element {
     // );
     axios
       .post(`${apiURL}/getQuizzes`, { subjectId, courseId, chapterId })
-      .then((data: any) => console.log("quiz data: ", data))
+      .then((data: any) => console.log("quiz data on page load: ", data.data))
       .catch((err: any) => console.error(err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -93,39 +86,23 @@ function SetQuizzes(): JSX.Element {
 
   /** Update quiz to database as you make modifications . */
   useEffect(() => {
-    // if (countInputListRef.current !== 0) {
-    //   countInputListRef.current--;
-    // } else if (countInputListRef.current === 0) {
-    //   if (timeoutInputListRef.current) {
-    //     clearTimeout(timeoutInputListRef.current);
-    //   }
-    //   timeoutInputListRef.current = setTimeout(() => {
-    //     const data = {
-    //       courseID,
-    //       chapterID,
-    //       quizForm: inputList,
-    //     };
-    //     sendData(`${apiURL}/api/updateQuizForm`, data);
-    //     // console.log("updated");
-    //   }, 0.75 * 1000);
-    // }
     if (countRef.current === 0) {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
-
+      // Delay sending data for 0.75 seconds in order to not send on every key press.
       timeoutRef.current = setTimeout(() => {
+        const quizStringified = JSON.stringify(quiz); // Turn object into a string.
+
         // prettier-ignore
         axios
-          .post(`${apiURL}/updateQuizzes`, { subjectId, courseId, chapterId, quiz })
+          .post(`${apiURL}/updateQuizzes`, { subjectId, courseId, chapterId, quizStringified })
           .then((data: any) => console.log("quiz on type: ", data))
           .catch((err: any) => console.error(err));
       }, 0.75 * 1000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quiz]);
-
-  /** Update correct answer in database. */
 
   /** Update question input field as you type. */
   const updateQuestion = (
@@ -140,7 +117,7 @@ function SetQuizzes(): JSX.Element {
     });
   };
 
-  /** Update answer input field as you type.  */
+  /** Update answer input field as you type. */
   const updateAnswer = (
     e: React.ChangeEvent<HTMLInputElement>,
     parentIndex: number,

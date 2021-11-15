@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\CustomFunctions;
+use Carbon\Carbon;
 
 class UpdateChapters extends Controller
 {
     private $data = NULL;
+    private $dateTime = NULL;
     private $courseId = NULL;
     private $subjectId = NULL;
     private $chapterId = NULL;
@@ -17,6 +19,7 @@ class UpdateChapters extends Controller
     public function __construct()
     {
         $this->data = (new CustomFunctions)->jsonDecode();
+        $this->dateTime = (new Carbon)->format((new CustomFunctions)->dateTimeFormat());
         $this->courseId = $this->data['courseId'];
         $this->chapterId = $this->data['chapterId'];
         $this->subjectId = $this->data["subjectId"];
@@ -32,6 +35,9 @@ class UpdateChapters extends Controller
                 ["subject_id", $this->subjectId],
                 ["id", $this->chapterId],
             ])
-            ->update(["name" => $this->chapterName]);
+            ->update([
+                "name" => $this->chapterName,
+                "updated_at" => $this->dateTime,
+            ]);
     }
 }
