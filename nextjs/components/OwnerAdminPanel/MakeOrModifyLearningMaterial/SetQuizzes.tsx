@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 // import sendGetData from "../../customComponents/Fetch/sendGetData";
 // import sendData from "../../customComponents/Fetch/sendData";
+import { useRouter } from "next/router";
 import axios from "axios";
 import IOSSwitch from "../../CustomComponents/IOSSwitch/IOSSwitch";
 import apiURL from "../../ApiURL/ApiURL";
@@ -33,7 +34,12 @@ interface IAnswers {
   value: false;
 }
 
-function QuizForm(): JSX.Element {
+function SetQuizzes(): JSX.Element {
+  const router = useRouter();
+  const { subjectId, courseId, chapterId } = router.query;
+
+  console.log("router.query: ", router.query);
+
   // const { urlIDs } = props; // In order to upload data to database in correct location.
   // const { courseID, chapterID } = urlIDs;
 
@@ -41,9 +47,9 @@ function QuizForm(): JSX.Element {
    * This is used to prevent 'useEffect(()=> {...},[inputList])'
    * from updating data to the database too early.
    */
-  const countInputListRef = useRef<number>(2);
+  const countRef = useRef<number>(2);
   const timeoutInputListRef = useRef<NodeJS.Timeout>(null);
-  const [inputList, setInputList] = useState<IInputList>({
+  const [quiz, setQuiz] = useState<IInputList>({
     numberOfQuestions: 1,
     data: [
       {
@@ -67,15 +73,24 @@ function QuizForm(): JSX.Element {
     //     console.log("Error: ", errorMsg);
     //   }
     // );
+    axios
+      .post(`${apiURL}/getQuizzes`, { subjectId, courseId, chapterId })
+      .then((data: any) => console.log("quiz data: ", data))
+      .catch((err: any) => console.error(err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /**
-   * Count countRef to 0 first in order for 'useEffect(()=>{...},[inputList])'
-   * to not send data to the database too early because 'inputList' state will update
+   * Count countRef to 0 first in order for 'useEffect(()=>{...},[quiz])'
+   * to not send data to the database too early because 'quiz' state will update
    * immediately causing 'useEffect' to be called which it is not desired on the first go.
-   * Then send data to the database.
    * */
+  useEffect(() => {
+    if (countRef.current !== 0) {
+      countRef.current--;
+    }
+  }, [quiz]);
+
   useEffect(() => {
     // if (countInputListRef.current !== 0) {
     //   countInputListRef.current--;
@@ -94,7 +109,7 @@ function QuizForm(): JSX.Element {
     //   }, 0.75 * 1000);
     // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputList]);
+  }, [quiz]);
 
   /** Update correct answer in database. */
 
@@ -104,7 +119,7 @@ function QuizForm(): JSX.Element {
     parentIndex: number
   ): void => {
     const { value } = e.target;
-    setInputList((prevState: IInputList) => {
+    setQuiz((prevState: IInputList) => {
       // eslint-disable-next-line no-param-reassign
       prevState.data[parentIndex].question = value;
       return { ...prevState };
@@ -118,7 +133,7 @@ function QuizForm(): JSX.Element {
     childIndex: number
   ): void => {
     const { value } = e.target;
-    setInputList((prevState: IInputList) => {
+    setQuiz((prevState: IInputList) => {
       // eslint-disable-next-line no-param-reassign
       prevState.data[parentIndex].answers[childIndex].answer = value;
       return { ...prevState };
@@ -127,7 +142,7 @@ function QuizForm(): JSX.Element {
 
   /** Append another question input field along with answers children and correct answers. */
   const addQuestion = (): void => {
-    setInputList((prevState: IInputList) => {
+    setQuiz((prevState: IInputList) => {
       prevState.data.push({
         question: "",
         points: 1, // How many points the question is worth if answered correctly.
@@ -144,7 +159,7 @@ function QuizForm(): JSX.Element {
    * specifying how many questions specified by a number will be emptied.
    * */
   const eraseNumberOfQuestionsInputField = (): void => {
-    setInputList((prevState: IInputList) => {
+    setQuiz((prevState: IInputList) => {
       // eslint-disable-next-line no-param-reassign
       prevState.numberOfQuestions = "";
       return { ...prevState };
@@ -153,7 +168,7 @@ function QuizForm(): JSX.Element {
 
   /** Remove question input field along with answers children and correct answers. */
   const removeQuestion = (parentIndex: number): void => {
-    setInputList((prevState: IInputList) => {
+    setQuiz((prevState: IInputList) => {
       prevState.data.splice(parentIndex, 1);
       return { ...prevState };
     });
@@ -161,7 +176,7 @@ function QuizForm(): JSX.Element {
 
   /** Append another answer to the question along with a correct answer. */
   const addAnswer = (parentIndex: number): void => {
-    setInputList((prevState: IInputList) => {
+    setQuiz((prevState: IInputList) => {
       prevState.data[parentIndex].answers.push({
         answer: "",
         value: false,
@@ -172,7 +187,7 @@ function QuizForm(): JSX.Element {
 
   /** Remove an answer from the question along with the respective correct answer. */
   const removeAnswer = (parentIndex: number, childIndex: number): void => {
-    setInputList((prevState: IInputList) => {
+    setQuiz((prevState: IInputList) => {
       prevState.data[parentIndex].answers.splice(childIndex, 1);
       return { ...prevState };
     });
@@ -187,7 +202,7 @@ function QuizForm(): JSX.Element {
 
     if (Number.isNaN(value) || value <= 0) {
       /** If user erases everything in the input field. */
-      setInputList((prevState: IInputList) => {
+      setQuiz((prevState: IInputList) => {
         // eslint-disable-next-line no-param-reassign
         prevState.numberOfQuestions = "";
         return { ...prevState };
@@ -201,7 +216,7 @@ function QuizForm(): JSX.Element {
           answers: [{ answer: "", value: false }],
         });
       }
-      setInputList((prevState: IInputList) => {
+      setQuiz((prevState: IInputList) => {
         // eslint-disable-next-line no-param-reassign
         prevState.data = list;
         // eslint-disable-next-line no-param-reassign
@@ -221,7 +236,7 @@ function QuizForm(): JSX.Element {
 
     if (Number.isNaN(value) || value <= 0) {
       /** If the user erases everything in the input field. */
-      setInputList((prevState: IInputList) => {
+      setQuiz((prevState: IInputList) => {
         // eslint-disable-next-line no-param-reassign
         prevState.data[parentIndex].numberOfAnswers = "";
         return { ...prevState };
@@ -230,7 +245,7 @@ function QuizForm(): JSX.Element {
       for (let i = 0; i < value; i++) {
         list.push({ answer: "", value: false });
       }
-      setInputList((prevState: IInputList) => {
+      setQuiz((prevState: IInputList) => {
         // eslint-disable-next-line no-param-reassign
         prevState.data[parentIndex].numberOfAnswers = value;
         // eslint-disable-next-line no-param-reassign
@@ -245,7 +260,7 @@ function QuizForm(): JSX.Element {
    * specifying how many answers per question specified by a number will be emptied.
    * */
   const eraseNumberOfAnswersInputField = (parentIndex: number): void => {
-    setInputList((prevState: IInputList) => {
+    setQuiz((prevState: IInputList) => {
       // eslint-disable-next-line no-param-reassign
       prevState.data[parentIndex].numberOfAnswers = "";
       return { ...prevState };
@@ -255,7 +270,7 @@ function QuizForm(): JSX.Element {
   return (
     <>
       <div className="quizForm">
-        {inputList.data.map((x: IData, i: number) => (
+        {quiz.data.map((x: IData, i: number) => (
           //! ATTENTION: Here we must use the index of the map as the key otherwise the form won't work as intended.
           // eslint-disable-next-line react/no-array-index-key
           <div key={i}>
@@ -271,7 +286,7 @@ function QuizForm(): JSX.Element {
               />
             </label>
 
-            {inputList.data.length - 1 === i && (
+            {quiz.data.length - 1 === i && (
               <button
                 type="button"
                 onClick={(): void => {
@@ -282,7 +297,7 @@ function QuizForm(): JSX.Element {
                 +
               </button>
             )}
-            {inputList.data.length - 1 !== 0 && (
+            {quiz.data.length - 1 !== 0 && (
               <button
                 type="button"
                 onClick={(): void => {
@@ -296,12 +311,12 @@ function QuizForm(): JSX.Element {
             {i === 0 && (
               <input
                 type="text"
-                value={inputList.numberOfQuestions}
+                value={quiz.numberOfQuestions}
                 onChange={(e): void => addNumberOfQuestions(e)}
               />
             )}
             {x.answers.map(
-              (y: any /*! To be changed later it 'interface' */, j: number) => (
+              (y: any /*! To be changed later in 'interface' */, j: number) => (
                 //! ATTENTION: Here we must use the index of the map as the key otherwise the form won't work as intended.
                 // eslint-disable-next-line react/no-array-index-key
                 <div key={j}>
@@ -309,12 +324,12 @@ function QuizForm(): JSX.Element {
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Răspunsul#
                     {j + 1}: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />
                     <IOSSwitch
-                      isON={inputList.data[i].answers[j].value}
+                      isON={quiz.data[i].answers[j].value}
                       onToggle={(): void =>
-                        setInputList((prevState) => {
+                        setQuiz((prevState) => {
+                          // prettier-ignore
                           // eslint-disable-next-line no-param-reassign
-                          prevState.data[i].answers[j].value =
-                            !prevState.data[i].answers[j].value;
+                          prevState.data[i].answers[j].value = !prevState.data[i].answers[j].value;
                           return { ...prevState };
                         })
                       }
@@ -369,9 +384,9 @@ function QuizForm(): JSX.Element {
           </div>
         ))}
       </div>
-      {JSON.stringify(inputList, null, 2)}
+      {JSON.stringify(quiz, null, 2)}
     </>
   );
 }
 
-export default QuizForm;
+export default SetQuizzes;
