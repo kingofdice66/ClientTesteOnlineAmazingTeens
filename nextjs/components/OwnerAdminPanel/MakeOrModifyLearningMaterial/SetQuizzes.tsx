@@ -48,7 +48,7 @@ function SetQuizzes(): JSX.Element {
    * from updating data to the database too early.
    */
   const countRef = useRef<number>(2);
-  const timeoutInputListRef = useRef<NodeJS.Timeout>(null);
+  const timeoutRef = useRef<NodeJS.Timeout>();
   const [quiz, setQuiz] = useState<IInputList>({
     numberOfQuestions: 1,
     data: [
@@ -91,6 +91,7 @@ function SetQuizzes(): JSX.Element {
     }
   }, [quiz]);
 
+  /** Update quiz to database as you make modifications . */
   useEffect(() => {
     // if (countInputListRef.current !== 0) {
     //   countInputListRef.current--;
@@ -108,6 +109,19 @@ function SetQuizzes(): JSX.Element {
     //     // console.log("updated");
     //   }, 0.75 * 1000);
     // }
+    if (countRef.current === 0) {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      timeoutRef.current = setTimeout(() => {
+        // prettier-ignore
+        axios
+          .post(`${apiURL}/updateQuizzes`, { subjectId, courseId, chapterId, quiz })
+          .then((data: any) => console.log("quiz on type: ", data))
+          .catch((err: any) => console.error(err));
+      }, 0.75 * 1000);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quiz]);
 

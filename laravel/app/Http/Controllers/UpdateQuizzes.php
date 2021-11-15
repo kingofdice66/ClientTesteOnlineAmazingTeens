@@ -23,7 +23,7 @@ class UpdateQuizzes extends Controller
         $this->quizForm = $this->data["quiz"];
     }
 
-    public function setData()
+    public function updateData()
     {
         // DB::table("chapters")
         //     ->where([
