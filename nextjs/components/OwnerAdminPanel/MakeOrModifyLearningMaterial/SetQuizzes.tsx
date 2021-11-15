@@ -31,11 +31,6 @@ function SetQuizzes(): JSX.Element {
   const router = useRouter();
   const { subjectId, courseId, chapterId } = router.query;
 
-  console.log("router.query: ", router.query);
-
-  // const { urlIDs } = props; // In order to upload data to database in correct location.
-  // const { courseID, chapterID } = urlIDs;
-
   /**
    * This is used to prevent 'useEffect(()=> {...},[inputList])'
    * from updating data to the database too early.

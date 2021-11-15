@@ -1,4 +1,3 @@
-import React from "react";
 import style from "./IOSSwitch.module.scss";
 
 interface IProps {
@@ -30,9 +29,7 @@ function IOSSwitch(props: IProps): JSX.Element {
           className={style.checkbox}
         />
         <span
-          // className="slider round"
-          // className={style.slider:style.round}
-          // style={{ backgroundColor: isON && ONColor }}
+          className={style.slider}
           style={{ backgroundColor: isON ? ONColor : OFFColor }}
         />
       </label>
