@@ -51,21 +51,11 @@ function SetQuizzes(): JSX.Element {
 
   /** Get data from the database. Run once on page load. */
   useEffect(() => {
-    // sendGetData(`${apiURL}/api/getQuizForm`, urlIDs).then(
-    //   (data: any /* To be set at a later time. */) => {
-    //     if (data.quizForm !== null) {
-    //       setInputList(JSON.parse(data.quizForm));
-    //     }
-    //   },
-    //   (errorMsg) => {
-    //     console.log("Error: ", errorMsg);
-    //   }
-    // );
     axios
       .post(`${apiURL}/getQuizzes`, { subjectId, courseId, chapterId })
       .then((data: any) => {
         console.log("quiz data on page load: ", data.data);
-        setQuiz(data.data);
+        if (data.data) setQuiz(data.data);
       })
       .catch((err: any) => console.error(err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
