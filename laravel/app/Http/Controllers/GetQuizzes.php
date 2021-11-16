@@ -21,20 +21,19 @@ class GetQuizzes extends Controller
         $this->chapterId = $this->data["chapterId"];
         $this->subjectId = $this->data["subjectId"];
         $this->courseId = $this->data["courseId"];
-
-        // $this->quizForm =
-        //     DB::table("chapters")
-        //     ->where([
-        //         ["subject_id" => $this->subjectId],
-        //         ["course_id" => $this->courseId],
-        //         ["id" => $this->chapterId],
-        //     ])
-        //     ->value("quiz_form");
     }
 
     public function getData()
     {
-        // return $this->quizForm;
-        return ["GetQuizzes" => "success"];
+        $this->quizForm =
+            DB::table("chapters")
+            ->where([
+                ["subject_id", $this->subjectId],
+                ["course_id", $this->courseId],
+                ["id", $this->chapterId],
+            ])
+            ->value("quiz_form");
+
+        return  $this->quizForm;
     }
 }

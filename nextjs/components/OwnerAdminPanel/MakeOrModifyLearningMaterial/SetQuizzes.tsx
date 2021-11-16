@@ -63,7 +63,10 @@ function SetQuizzes(): JSX.Element {
     // );
     axios
       .post(`${apiURL}/getQuizzes`, { subjectId, courseId, chapterId })
-      .then((data: any) => console.log("quiz data on page load: ", data.data))
+      .then((data: any) => {
+        console.log("quiz data on page load: ", data.data);
+        setQuiz(data.data);
+      })
       .catch((err: any) => console.error(err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
