@@ -6,11 +6,15 @@ use App\Http\Controllers\UpdateCourses;
 use App\Http\Controllers\UpdateChapters;
 use App\Http\Controllers\UpdateQuizzes;
 use App\Http\Controllers\GetSubjects;
+use App\Http\Controllers\GetDraftsNewTopic_Title;
+use App\Http\Controllers\GetDraftsNewTopic_Comment;
 use App\Http\Controllers\GetCourseNameOnPageLoad;
 use App\Http\Controllers\GetChapterNameOnPageLoad;
 use App\Http\Controllers\GetCourses;
 use App\Http\Controllers\GetChapters;
 use App\Http\Controllers\GetQuizzes;
+use App\Http\Controllers\SetDraftsNewTopic_Title;
+use App\Http\Controllers\SetDraftsNewTopic_Comment;
 use App\Http\Controllers\SetChapters;
 use App\Http\Controllers\SetSubjects;
 use App\Http\Controllers\SetCourses;
@@ -85,3 +89,19 @@ Route::post("getQuizzes", [GetQuizzes::class, "getData"]);
 
 /** Update quizzes. */
 Route::post("updateQuizzes", [UpdateQuizzes::class, "updateData"]);
+
+// ######################################################################
+// #########                 DRAFTS NEW TOPIC                   #########
+// ######################################################################
+
+/** Set drafts for new topic for the title. */
+Route::post("setDraftsNewTopic_Title", [SetDraftsNewTopic_Title::class, "setData"]);
+
+/** Set drafts for new topic for the comment. */
+Route::post("setDraftsNewTopic_Comment", [SetDraftsNewTopic_Comment::class, "setData"]);
+
+/** Get drafts for the new topic for the title. */
+Route::post("getDraftsNewTopic_Title", [GetDraftsNewTopic_Title::class, "getData"]);
+
+/** Get drafts for the new topic the comment. */
+Route::post("getDraftsNewTopic_Comment", [GetDraftsNewTopic_Comment::class, "getData"]);

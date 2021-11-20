@@ -30,7 +30,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Helpers/CustomFunctions.php"
+            "app/Helpers/CustomFunctions.php",
+            "app/Helpers/ForumRegexFunctions.php"
         ]
     },
     "autoload-dev": {
