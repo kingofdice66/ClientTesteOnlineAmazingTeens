@@ -29,11 +29,12 @@ class SetCourses extends Controller
     public function setData()
     {
 
-        DB::table("courses")->insert([
-            "name" => $this->courseName,
-            "subject_id" => $this->subjectId,
-            "created_at" => $this->dateTime->format($this->dateTimeFormat),
-        ]);
+        DB::table("courses")
+            ->insert([
+                "name" => $this->courseName,
+                "subject_id" => $this->subjectId,
+                "created_at" => $this->dateTime->format($this->dateTimeFormat),
+            ]);
 
         /** Get the courses id, the one just created. */
         $courseId =

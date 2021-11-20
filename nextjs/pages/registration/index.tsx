@@ -1,5 +1,7 @@
-function Registration(): JSX.Element {
-  return <div>Registration</div>;
+import Registration from "../../components/Registration/Registration";
+
+function registration(): JSX.Element {
+  return <Registration />;
 }
 
-export default Registration;
+export default registration;

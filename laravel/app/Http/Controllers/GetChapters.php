@@ -16,7 +16,10 @@ class GetChapters extends Controller
 
     public function getData()
     {
-        $this->dataArray = DB::table("subjects")->select("name", "id")->get();
+        $this->dataArray =
+            DB::table("subjects")
+            ->select("name", "id")
+            ->get();
 
         return [
             "subjects" => $this->dataArray,

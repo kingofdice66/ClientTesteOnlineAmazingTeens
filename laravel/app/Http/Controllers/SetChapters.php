@@ -30,14 +30,15 @@ class SetChapters extends Controller
     /** Set the name of the chapter. */
     public function setData()
     {
-        DB::table("chapters")->insert(
-            [
-                "name" => $this->chapterName,
-                "created_at" => $this->dateTime->format($this->dateTimeFormat),
-                "subject_id" => $this->subjectId,
-                "course_id" => $this->courseId,
-            ]
-        );
+        DB::table("chapters")
+            ->insert(
+                [
+                    "name" => $this->chapterName,
+                    "created_at" => $this->dateTime->format($this->dateTimeFormat),
+                    "subject_id" => $this->subjectId,
+                    "course_id" => $this->courseId,
+                ]
+            );
 
         // Get the id of the chapter just created.
         $this->chapterId = DB::table("chapters")->max("id");
