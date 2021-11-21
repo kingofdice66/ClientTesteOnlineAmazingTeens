@@ -18,6 +18,7 @@ use App\Http\Controllers\SetDraftsNewTopic_Comment;
 use App\Http\Controllers\SetChapters;
 use App\Http\Controllers\SetSubjects;
 use App\Http\Controllers\SetCourses;
+use App\Http\Controllers\SetUsers;
 
 
 /*
@@ -105,3 +106,10 @@ Route::post("getDraftsNewTopic_Title", [GetDraftsNewTopic_Title::class, "getData
 
 /** Get drafts for the new topic the comment. */
 Route::post("getDraftsNewTopic_Comment", [GetDraftsNewTopic_Comment::class, "getData"]);
+
+// ######################################################################
+// #########                   REGISTER USERS                   #########
+// ######################################################################
+
+/** Register users. */
+Route::post("setUsers", [SetUsers::class, "setData"]);
