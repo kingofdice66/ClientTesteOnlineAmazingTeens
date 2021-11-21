@@ -33,6 +33,7 @@ function Registration(): JSX.Element {
         <input id="email" type="email" placeholder="adresa de email..." />
       </label>
       <br />
+      
 
       <label htmlFor="password">
         Introdu parola: <br />
