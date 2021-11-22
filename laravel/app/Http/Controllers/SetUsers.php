@@ -40,8 +40,8 @@ class SetUsers extends Controller
                 "email" => $this->email,
                 "password" => $this->hashedPassword,
                 "token" => $this->token,
+                "token_expiration" => $this->expiration,
                 "created_at" => $this->dateTime,
-                "expiration_token" => $this->expiration,
             ]);
     }
 }
