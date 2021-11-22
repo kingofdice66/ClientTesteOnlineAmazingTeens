@@ -57,7 +57,7 @@ function Registration(): JSX.Element {
 
       {/* prettier-ignore */}
       <label htmlFor="email">
-        EMail: <br />
+        Email: <br />
         <input 
           id="email" 
           type="email" 
@@ -74,7 +74,7 @@ function Registration(): JSX.Element {
         <input 
           id="password" 
           type="password" 
-          placeholder="introdu parola..." 
+          placeholder="parola..." 
           value={userInfo.password}
           onChange={(e): void => setUserInfo({ ...userInfo, password: e.target.value })}
         />
