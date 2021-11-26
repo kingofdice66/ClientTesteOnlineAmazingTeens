@@ -18,8 +18,7 @@ use App\Http\Controllers\SetDraftsNewTopic_Comment;
 use App\Http\Controllers\SetChapters;
 use App\Http\Controllers\SetSubjects;
 use App\Http\Controllers\SetCourses;
-use App\Http\Controllers\SetUsers;
-
+use App\Http\Controllers\RegisterUsers;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,4 +111,4 @@ Route::post("getDraftsNewTopic_Comment", [GetDraftsNewTopic_Comment::class, "get
 // ######################################################################
 
 /** Register users. */
-Route::post("setUsers", [SetUsers::class, "setData"]);
+Route::post("registerUsers", [RegisterUsers::class, "setData"]);
