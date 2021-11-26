@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\CustomFunctions;
-
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class LoginUsers extends Controller
 {
@@ -21,8 +22,13 @@ class LoginUsers extends Controller
         $this->password = $this->data["password"];
     }
 
-    public function checkData()
+    public function checkData(Request $request)
     {
-        // 
+        $password =
+            DB::table("users")
+            ->select("password")
+            ->where("username", $request->username)
+            ->get();
+        return ["password" => $password];
     }
 }
