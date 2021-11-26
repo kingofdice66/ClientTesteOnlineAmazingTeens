@@ -8,25 +8,16 @@ use App\Helpers\CustomFunctions;
 
 class GetCourses extends Controller
 {
-    private $dataArray = NULL;
-    private $data = NULL;
-    private $subjectId = NULL;
-
-    public function __construct()
+    public function getData(Request $request)
     {
-        $this->data = (new CustomFunctions)->jsonDecode();
-        $this->subjectId = $this->data["subjectId"];
-    }
 
-    public function getData()
-    {
-        $this->dataArray =
+        $dataArray =
             DB::table("courses")
             ->select("name", "id")
-            ->where("subject_id", $this->subjectId)
+            ->where("subject_id", $request->subjectId)
             ->orderBy("id", "asc")
             ->get();
 
-        return $this->dataArray;
+        return $dataArray;
     }
 }

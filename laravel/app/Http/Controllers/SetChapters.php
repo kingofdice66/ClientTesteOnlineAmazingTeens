@@ -10,33 +10,25 @@ use Carbon\Carbon;
 
 class SetChapters extends Controller
 {
-    private $data = NULL;
-    private $courseId = NULL;
-    private $subjectId = NULL;
-    private $chapterName = NULL;
     private $dateTime = NULL;
     private $dateTimeFormat = NULL;
 
     public function __construct()
     {
-        $this->data = (new CustomFunctions)->jsonDecode();
-        $this->courseId = $this->data["courseId"];
-        $this->subjectId = $this->data["subjectId"];
-        $this->chapterName = $this->data["chapterName"];
         $this->dateTime = new Carbon;
         $this->dateTimeFormat = (new CustomFunctions)->dateTimeFormat();
     }
 
     /** Set the name of the chapter. */
-    public function setData()
+    public function setData(Request $request)
     {
         DB::table("chapters")
             ->insert(
                 [
-                    "name" => $this->chapterName,
+                    "name" => $request->chapterName,
                     "created_at" => $this->dateTime->format($this->dateTimeFormat),
-                    "subject_id" => $this->subjectId,
-                    "course_id" => $this->courseId,
+                    "subject_id" => $request->subjectId,
+                    "course_id" => $request->courseId,
                 ]
             );
 

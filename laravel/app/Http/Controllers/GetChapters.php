@@ -7,22 +7,15 @@ use Illuminate\Support\Facades\DB;
 
 class GetChapters extends Controller
 {
-    private $dataArray = NULL;
-
-    public function __construct()
-    {
-        //
-    }
-
     public function getData()
     {
-        $this->dataArray =
+        $dataArray =
             DB::table("subjects")
             ->select("name", "id")
             ->get();
 
         return [
-            "subjects" => $this->dataArray,
+            "subjects" => $dataArray,
         ];
     }
 }

@@ -9,33 +9,23 @@ use Carbon\Carbon;
 
 class UpdateQuizzes extends Controller
 {
-    private $data = NULL;
     private $dateTime = NULL;
-    private $quizForm = NULL;
-    private $subjectId = NULL;
-    private $courseId = NULL;
-    private $chapterId = NULL;
 
     public function __construct()
     {
-        $this->data = (new CustomFunctions)->jsonDecode();
         $this->dateTime = (new Carbon)->format((new CustomFunctions)->dateTimeFormat());
-        $this->subjectId = $this->data["subjectId"];
-        $this->courseId = $this->data["courseId"];
-        $this->chapterId = $this->data["chapterId"];
-        $this->quizForm = $this->data["quizStringified"];
     }
 
-    public function updateData()
+    public function updateData(Request $request)
     {
         DB::table("chapters")
             ->where([
-                ["subject_id", $this->subjectId],
-                ["course_id", $this->courseId],
-                ["id", $this->chapterId],
+                ["subject_id", $request->subjectId],
+                ["course_id", $request->courseId],
+                ["id", $request->chapterId],
             ])
             ->update([
-                "quiz_form" => $this->quizForm,
+                "quiz_form" => $request->quizForm,
                 "updated_at" => $this->dateTime,
             ]);
     }

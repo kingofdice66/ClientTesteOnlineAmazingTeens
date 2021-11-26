@@ -9,23 +9,17 @@ use Carbon\Carbon;
 
 class SetDraftsNewTopic_Comment extends Controller
 {
-    private $data = NULL;
-    private $comment = NULL;
     private $dateTime = NULL;
     private $dateTimeFormat = NULL;
 
-
-
     public function __construct()
     {
-        $this->data = (new CustomFunctions)->jsonDecode();
-        $this->comment = $this->data["comment"];
         $this->dateTime = new Carbon;
         $this->dateTimeFormat = (new CustomFunctions)->dateTimeFormat();
     }
 
-    public function setData()
+    public function setData(Request $request)
     {
-        return ["SetDraftNewTopic" => $this->comment];
+        return ["SetDraftNewTopic" => $request->comment];
     }
 }

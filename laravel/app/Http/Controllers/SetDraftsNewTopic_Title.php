@@ -9,27 +9,21 @@ use Carbon\Carbon;
 
 class SetDraftsNewTopic_Title extends Controller
 {
-    private $data = NULL;
-    private $title = NULL;
     private $dateTime = NULL;
     private $dateTimeFormat = NULL;
 
-
-
     public function __construct()
     {
-        $this->data = (new CustomFunctions)->jsonDecode();
-        $this->title = $this->data["title"];
         $this->dateTime = new Carbon;
         $this->dateTimeFormat = (new CustomFunctions)->dateTimeFormat();
     }
 
-    public function setData()
+    public function setData(Request $request)
     {
         // DB::table("drafts_new_topic")->insert([
         //     "name" => $this->title,
         // ]);
 
-        return ["SetDraftsNewTopic_Title" => $this->title];
+        return ["SetDraftsNewTopic_Title" => $request->title];
     }
 }

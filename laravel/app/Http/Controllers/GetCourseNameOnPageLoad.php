@@ -8,29 +8,17 @@ use App\Helpers\CustomFunctions;
 
 class GetCourseNameOnPageLoad extends Controller
 {
-    private $data = NULL;
-    private $courseId = NULL;
-    private $subjectId = NULL;
-    private $courseName = NULL;
-
-    public function __construct()
+    public function getData(Request $request)
     {
-        $this->data = (new CustomFunctions)->jsonDecode();
-        $this->subjectId = $this->data["subjectId"];
-        $this->courseId = $this->data["courseId"];
-    }
-
-    public function getData()
-    {
-        $this->courseName =
+        $courseName =
             DB::table("courses")
             ->select("name")
             ->where([
-                ["subject_id", $this->subjectId],
-                ["id", $this->courseId],
+                ["subject_id", $request->subjectId],
+                ["id", $request->courseId],
             ])
             ->first();
 
-        return $this->courseName;
+        return $courseName;
     }
 }

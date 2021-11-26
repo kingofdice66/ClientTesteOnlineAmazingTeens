@@ -9,34 +9,23 @@ use Carbon\Carbon;
 
 class UpdateChapters extends Controller
 {
-    private $data = NULL;
     private $dateTime = NULL;
-    private $courseId = NULL;
-    private $subjectId = NULL;
-    private $chapterId = NULL;
-    private $chapterName = NULL;
 
     public function __construct()
     {
-        $this->data = (new CustomFunctions)->jsonDecode();
         $this->dateTime = (new Carbon)->format((new CustomFunctions)->dateTimeFormat());
-        $this->courseId = $this->data['courseId'];
-        $this->chapterId = $this->data['chapterId'];
-        $this->subjectId = $this->data["subjectId"];
-        $this->chapterName = $this->data['chapterName'];
     }
 
-    public function updateData()
+    public function updateData(Request $request)
     {
-
         DB::table("chapters")
             ->where([
-                ["course_id", $this->courseId],
-                ["subject_id", $this->subjectId],
-                ["id", $this->chapterId],
+                ["course_id", $request->courseId],
+                ["subject_id", $request->subjectId],
+                ["id", $request->chapterId],
             ])
             ->update([
-                "name" => $this->chapterName,
+                "name" => $request->chapterName,
                 "updated_at" => $this->dateTime,
             ]);
     }

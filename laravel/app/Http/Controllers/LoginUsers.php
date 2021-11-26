@@ -16,7 +16,6 @@ class LoginUsers extends Controller
 
     public function __construct()
     {
-        $this->data = (new CustomFunctions)->jsonDecode();
         $this->username = $this->data["username"];
         $this->email = $this->data["email"];
         $this->password = $this->data["password"];
