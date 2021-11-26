@@ -29,6 +29,7 @@ class LoginUsers extends Controller
             ->select("password")
             ->where("username", $request->username)
             ->get();
+
         return ["password" => $password];
     }
 }
