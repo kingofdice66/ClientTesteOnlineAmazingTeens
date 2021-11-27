@@ -84,6 +84,7 @@ function Registration(): JSX.Element {
         );
         return { ...prevState };
       });
+      boolFlag = false;
     }
     // Else just set it to ""
     else {
@@ -143,7 +144,7 @@ function Registration(): JSX.Element {
       });
       boolFlag = false;
     }
-    // Password length must be between 6 and 30 characters long. Interval[3, 30]
+    // Password length must be between 8 and 30 characters long. Interval[8, 30]
     else if (!(passwordLength >= 8 && passwordLength <= 30)) {
       setInputError((prevState) => {
         // eslint-disable-next-line no-param-reassign
@@ -156,16 +157,6 @@ function Registration(): JSX.Element {
         return { ...prevState };
       });
       boolFlag = false;
-    } else if (password.match(/^[ ]*$/)) {
-      setInputError((prevState) => {
-        // eslint-disable-next-line no-param-reassign
-        prevState.passwordMatch = (
-          <span style={{ color: "red", fontWeight: "bold" }}>
-            Câmpul nu poate fi gol
-          </span>
-        );
-        return { ...prevState };
-      });
     } else {
       setInputError((prevState) => {
         // eslint-disable-next-line no-param-reassign
@@ -181,25 +172,17 @@ function Registration(): JSX.Element {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    console.log("username: ", userInfo.username);
-    console.log("password: ", userInfo.password);
-    console.log("retypePassword: ", userInfo.retypedPassword);
-    console.log("email: ", userInfo.email);
-    console.log("form submitted");
-
     const data = {
       username: userInfo.username,
       password: userInfo.password,
       email: userInfo.email,
     };
 
-    console.log("data: ", data);
-
     if (checkInput()) {
-      // axios
-      //   .post(`${apiURL}/registerUsers`, data)
-      //   .then((res: any) => console.log("res: ", res.data))
-      //   .catch((err: any) => console.error(err));
+      axios
+        .post(`${apiURL}/registerUsers`, data)
+        .then((res: any) => console.log("res: ", res.data))
+        .catch((err: any) => console.error(err));
     }
   };
 
