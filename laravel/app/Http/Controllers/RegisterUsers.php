@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use App\Helpers\CustomFunctions;
+use Carbon\Carbon;
 
 class RegisterUsers extends Controller
 {
@@ -14,8 +17,8 @@ class RegisterUsers extends Controller
         $boolFlag = true;
 
         $username = $data["username"];
-        $email    = $data["email"];
         $password = $data["password"];
+        $email    = $data["email"];
 
         // ####################################################
         // #######        CHECK USERNAME FIELD          #######
@@ -61,29 +64,39 @@ class RegisterUsers extends Controller
         return $boolFlag;
     }
 
+
+
+    private $dateTime = NULL;
+    private $tokenExpiration = NULL;
+
+    public function __construct()
+    {
+        $this->dateTime = (new Carbon)->format((new CustomFunctions)->dateTimeFormat());
+        $this->tokenExpiration = (new Carbon)->addMinutes(30)->format((new CustomFunctions)->dateTimeFormat());
+    }
+
     public function setData(Request $request)
     {
+        $username = trim($request->username);
+        $email    = trim($request->email);
+        $password = $request->password;
+
         $data = [
-            "username" => trim($request->username),
-            "password" => $request->password,
-            "email"    => trim($request->email),
+            "username" => $username,
+            "email"    => $email,
+            "password" => $password,
         ];
 
         if ($this->checkDataValidity($data)) {
-            echo "TRUE" . "<br>";
-        } else {
-            echo "FALSE" . "<br>";
+            DB::table("users")
+                ->insert([
+                    "username"         => $username,
+                    "email"            => $email,
+                    "password"         => Hash::make($password),
+                    "token"            => Str::random(60),
+                    "token_expiration" => $this->tokenExpiration,
+                    "created_at"       => $this->dateTime,
+                ]);
         }
-
-        // DB::table("users")
-        //     ->insert([
-        //         "username" => trim($request->username),
-        //         "password" => Hash::make($request->password),
-        //     ]);
-
-        // return [
-        //     "username" => trim($request->username),
-        //     "password" => $request->password,
-        // ];
     }
 }
