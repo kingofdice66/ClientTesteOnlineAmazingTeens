@@ -47,7 +47,11 @@ function Registration(): JSX.Element {
           <span style={{ color: "red", fontWeight: "bold" }}>
             Caracterele acceptate sunt &nbsp;
             <span style={{ color: "blue", fontWeight: "bold" }}>
-              a-zA-Z0-9_-
+              a-zA-Z0-9_- <br />
+              Exemplu:
+              <br />
+              JohnDoe, John-Doe, <br />
+              John_Doe1, John123 etc.
             </span>
           </span>
         );
@@ -67,6 +71,19 @@ function Registration(): JSX.Element {
         return { ...prevState };
       });
       boolFlag = false;
+    }
+    // Username must be between 3 and 30 characters
+    else if (!(username.length >= 3 && username.length <= 30)) {
+      setInputError((prevState) => {
+        // eslint-disable-next-line no-param-reassign
+        prevState.username = (
+          <span style={{ color: "red", fontWeight: "bold" }}>
+            Numele utilizatorului trebuie <br />
+            sa contină intre 3 si 30 caractere
+          </span>
+        );
+        return { ...prevState };
+      });
     }
     // Else just set it to ""
     else {
@@ -97,19 +114,6 @@ function Registration(): JSX.Element {
       });
       boolFlag = false;
     }
-    // Check if the field is empty.
-    else if (email.match(/^[ ]*$/)) {
-      setInputError((prevState) => {
-        // eslint-disable-next-line no-param-reassign
-        prevState.email = (
-          <span style={{ color: "red", fontWeight: "bold" }}>
-            Câmpul nu poate fi gol
-          </span>
-        );
-        return { ...prevState };
-      });
-      boolFlag = false;
-    }
     // Else just set it to null.
     else {
       setInputError((prevState) => {
@@ -124,9 +128,9 @@ function Registration(): JSX.Element {
     // ####################################################
 
     const passwordLength = userInfo.password.length;
+    const { password } = userInfo;
 
-    // Verify if password and retyped password are fields
-    // are equal.
+    // Verify if password and retyped password fields are equal.
     if (userInfo.password !== userInfo.retypedPassword) {
       setInputError((prevState) => {
         // eslint-disable-next-line no-param-reassign
@@ -140,13 +144,34 @@ function Registration(): JSX.Element {
       boolFlag = false;
     }
     // Password length must be between 6 and 30 characters long. Interval[3, 30]
-    else if (passwordLength >= 6 && passwordLength <= 30) {
+    else if (!(passwordLength >= 8 && passwordLength <= 30)) {
+      setInputError((prevState) => {
+        // eslint-disable-next-line no-param-reassign
+        prevState.passwordMatch = (
+          <span style={{ color: "red", fontWeight: "bold" }}>
+            Parola trebuie sa conțină <br />
+            între 8 si 30 caractere
+          </span>
+        );
+        return { ...prevState };
+      });
+      boolFlag = false;
+    } else if (password.match(/^[ ]*$/)) {
+      setInputError((prevState) => {
+        // eslint-disable-next-line no-param-reassign
+        prevState.passwordMatch = (
+          <span style={{ color: "red", fontWeight: "bold" }}>
+            Câmpul nu poate fi gol
+          </span>
+        );
+        return { ...prevState };
+      });
+    } else {
       setInputError((prevState) => {
         // eslint-disable-next-line no-param-reassign
         prevState.passwordMatch = "";
         return { ...prevState };
       });
-      boolFlag = false;
     }
     // ####################################################
 
