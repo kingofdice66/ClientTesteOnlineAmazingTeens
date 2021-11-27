@@ -79,7 +79,7 @@ function Registration(): JSX.Element {
         prevState.username = (
           <span style={{ color: "red", fontWeight: "bold" }}>
             Numele utilizatorului trebuie <br />
-            sa contină intre 3 si 30 caractere
+            sa conțină intre 3 si 30 caractere
           </span>
         );
         return { ...prevState };
