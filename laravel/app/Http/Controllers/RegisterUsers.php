@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Helpers\CustomFunctions;
+use App\Mail\EmailConfirmationRegistration;
 use Carbon\Carbon;
 
 class RegisterUsers extends Controller
@@ -80,6 +82,7 @@ class RegisterUsers extends Controller
         $username = trim($request->username);
         $email    = trim($request->email);
         $password = $request->password;
+        $token    = Str::random(60);
 
         $data = [
             "username" => $username,
@@ -93,10 +96,17 @@ class RegisterUsers extends Controller
                     "username"         => $username,
                     "email"            => $email,
                     "password"         => Hash::make($password),
-                    "token"            => Str::random(60),
-                    "token_expiration" => $this->tokenExpiration,
+                    "token"            => $token,
+                    "token_expiration" => $this->tokenExpiration, // Time before the token expire.
                     "created_at"       => $this->dateTime,
                 ]);
         }
+
+        $emailData = [
+            "username" => $username,
+            "token"    => $token,
+        ];
+
+        Mail::to("kingofdice66@gmail.com")->send(new EmailConfirmationRegistration($emailData));
     }
 }
