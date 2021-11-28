@@ -29,107 +29,142 @@ function Registration(): JSX.Element {
     email: "",
   });
 
-  /** Check if the input fields are correct. */
-  const checkInput = (): boolean => {
-    let boolFlag = true;
+  // Flag for users input. If a field is invalid set it to false. Should be false by default.
+  const [inputErrorFlag, setInputErrorFlag] = useState<boolean>(false);
 
-    // ####################################################
-    // #######        CHECK USERNAME FIELD          #######
-    // ####################################################
-
+  /** Check if username already exists in database and also for input errors. */
+  const checkUsername = (): void => {
     const username = userInfo.username.trim(); // First trim the text.
+    let usernameAvailability = true; // Check if username exists in database. Default to true.
 
-    // Check for appropriate characters.
-    if (!username.match(/^[a-zA-Z0-9_-]*$/)) {
-      setInputError((prevState) => {
-        // eslint-disable-next-line no-param-reassign
-        prevState.username = (
-          <span style={{ color: "red", fontWeight: "bold" }}>
-            Caracterele acceptate sunt &nbsp;
-            <span style={{ color: "blue", fontWeight: "bold" }}>
-              a-zA-Z0-9_- <br />
-              Exemplu:
-              <br />
-              JohnDoe, John-Doe, <br />
-              John_Doe1, John123 etc.
-            </span>
-          </span>
-        );
-        return { ...prevState };
-      });
-      boolFlag = false;
-    }
-    // Check if the field is empty.
-    else if (username.match(/^[ ]*$/)) {
-      setInputError((prevState) => {
-        // eslint-disable-next-line no-param-reassign
-        prevState.username = (
-          <span style={{ color: "red", fontWeight: "bold" }}>
-            Câmpul nu poate fi gol
-          </span>
-        );
-        return { ...prevState };
-      });
-      boolFlag = false;
-    }
-    // Username must be between 3 and 30 characters
-    else if (!(username.length >= 3 && username.length <= 30)) {
-      setInputError((prevState) => {
-        // eslint-disable-next-line no-param-reassign
-        prevState.username = (
-          <span style={{ color: "red", fontWeight: "bold" }}>
-            Numele utilizatorului trebuie <br />
-            sa conțină intre 3 si 30 caractere
-          </span>
-        );
-        return { ...prevState };
-      });
-      boolFlag = false;
-    }
-    // Else just set it to ""
-    else {
-      setInputError((prevState) => {
-        // eslint-disable-next-line no-param-reassign
-        prevState.username = "";
-        return { ...prevState };
-      });
-    }
+    axios
+      .post(`${apiURL}/checkUsernameAvailability`, { username })
+      .then((res: any) => {
+        // Check if the username exists in database.
+        if (res.data.exists === true) {
+          usernameAvailability = false;
+        }
 
-    // ####################################################
-    // #######           CHECK EMAIL FIELD          #######
-    // ####################################################
+        if (!usernameAvailability) {
+          setInputError((prevState) => {
+            // eslint-disable-next-line no-param-reassign
+            prevState.username = (
+              <span style={{ color: "red", fontWeight: "bold" }}>
+                Numele nu este disponibil
+              </span>
+            );
+            return { ...prevState };
+          });
+          setInputErrorFlag(true);
+        } else if (!username.match(/^[a-zA-Z0-9_-]*$/)) {
+          setInputError((prevState) => {
+            // eslint-disable-next-line no-param-reassign
+            prevState.username = (
+              <span style={{ color: "red", fontWeight: "bold" }}>
+                Caracterele acceptate sunt &nbsp;
+                <span style={{ color: "blue", fontWeight: "bold" }}>
+                  a-zA-Z0-9_- <br />
+                  Exemplu:
+                  <br />
+                  JohnDoe, John-Doe, <br />
+                  John_Doe13, John123 etc.
+                </span>
+              </span>
+            );
+            return { ...prevState };
+          });
+          setInputErrorFlag(true);
+        }
+        // Check if the field is empty.
+        else if (username.match(/^[ ]*$/)) {
+          setInputError((prevState) => {
+            // eslint-disable-next-line no-param-reassign
+            prevState.username = (
+              <span style={{ color: "red", fontWeight: "bold" }}>
+                Câmpul nu poate fi gol
+              </span>
+            );
+            return { ...prevState };
+          });
+          setInputErrorFlag(true);
+        }
+        // Username must be between 3 and 30 characters
+        else if (!(username.length >= 3 && username.length <= 30)) {
+          setInputError((prevState) => {
+            // eslint-disable-next-line no-param-reassign
+            prevState.username = (
+              <span style={{ color: "red", fontWeight: "bold" }}>
+                Numele utilizatorului trebuie <br />
+                sa conțină intre 3 si 30 caractere
+              </span>
+            );
+            return { ...prevState };
+          });
+          setInputErrorFlag(true);
+        }
+        // Else just set it to ""
+        else {
+          setInputError((prevState) => {
+            // eslint-disable-next-line no-param-reassign
+            prevState.username = "";
+            return { ...prevState };
+          });
+        }
+      })
+      .catch((err: any) => console.error(err));
+  };
 
+  const checkEmail = (): void => {
     const email = userInfo.email.trim(); // First trim the text.
+    let emailAvailability = true; // Check if the email already exists in database. Default is true.
 
-    // Check if the field contains an '@' as all emails should.
-    if (!email.match(/@/)) {
-      setInputError((prevState) => {
-        // eslint-disable-next-line no-param-reassign
-        prevState.email = (
-          <span style={{ color: "red", fontWeight: "bold" }}>
-            Adresa de email nu este corect introdusă <br />
-            Trebuie sa conțină un @
-          </span>
-        );
-        return { ...prevState };
-      });
-      boolFlag = false;
-    }
-    // Else just set it to null.
-    else {
-      setInputError((prevState) => {
-        // eslint-disable-next-line no-param-reassign
-        prevState.email = "";
-        return { ...prevState };
-      });
-    }
+    axios
+      .post(`${apiURL}/checkEmailAvailability`, { email })
+      .then((res: any) => {
+        // Check if the email already exists in database.
+        if (res.data.exist === true) {
+          emailAvailability = false;
+        }
 
-    // ####################################################
-    // ####            VERIFY PASSWORD FIELD           ####
-    // ####################################################
+        if (!emailAvailability) {
+          setInputError((prevState) => {
+            // eslint-disable-next-line no-param-reassign
+            prevState.email = (
+              <span style={{ color: "red", fontWeight: "bold" }}>
+                Adresa de email exista deja
+              </span>
+            );
+            return { ...prevState };
+          });
+        }
+        // Check if the field contains an '@' as all emails should.
+        else if (!email.match(/@/)) {
+          setInputError((prevState) => {
+            // eslint-disable-next-line no-param-reassign
+            prevState.email = (
+              <span style={{ color: "red", fontWeight: "bold" }}>
+                Adresa de email nu este corect introdusă <br />
+                Trebuie sa conțină un @
+              </span>
+            );
+            return { ...prevState };
+          });
+          setInputErrorFlag(true);
+        }
+        // Else just set it to null.
+        else {
+          setInputError((prevState) => {
+            // eslint-disable-next-line no-param-reassign
+            prevState.email = "";
+            return { ...prevState };
+          });
+        }
+      })
+      .catch((err: any) => console.error(err));
+  };
 
+  const checkPassword = (): void => {
     const passwordLength = userInfo.password.length;
-    const { password } = userInfo;
 
     // Verify if password and retyped password fields are equal.
     if (userInfo.password !== userInfo.retypedPassword) {
@@ -142,7 +177,7 @@ function Registration(): JSX.Element {
         );
         return { ...prevState };
       });
-      boolFlag = false;
+      setInputErrorFlag(true);
     }
     // Password length must be between 8 and 30 characters long. Interval[8, 30]
     else if (!(passwordLength >= 8 && passwordLength <= 30)) {
@@ -156,7 +191,7 @@ function Registration(): JSX.Element {
         );
         return { ...prevState };
       });
-      boolFlag = false;
+      setInputErrorFlag(true);
     } else {
       setInputError((prevState) => {
         // eslint-disable-next-line no-param-reassign
@@ -164,9 +199,6 @@ function Registration(): JSX.Element {
         return { ...prevState };
       });
     }
-    // ####################################################
-
-    return boolFlag;
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -178,12 +210,15 @@ function Registration(): JSX.Element {
       email: userInfo.email,
     };
 
-    if (checkInput()) {
-      axios
-        .post(`${apiURL}/registerUsers`, data)
-        .then((res: any) => console.log("res: ", res.data))
-        .catch((err: any) => console.error(err));
-    }
+    console.log("form submitted");
+
+    // If there are no error in the input field, submit data.
+    // if (!inputError) {
+    //   axios
+    //     .post(`${apiURL}/registerUsers`, data)
+    //     .then((res: any) => console.log("res: ", res.data))
+    //     .catch((err: any) => console.error(err));
+    // }
   };
 
   return (
@@ -197,6 +232,7 @@ function Registration(): JSX.Element {
           placeholder="username..."
           value={userInfo.username}
           onChange={(e): void => setUserInfo({ ...userInfo, username: e.target.value })}
+          onBlur={checkUsername}
         />
       </label>
       <br />
@@ -211,6 +247,7 @@ function Registration(): JSX.Element {
           placeholder="adresa de email..." 
           value={userInfo.email}
           onChange={(e): void => setUserInfo({ ...userInfo, email: e.target.value })}
+          onBlur={checkEmail}
         />
       </label>
       <br />
@@ -238,11 +275,13 @@ function Registration(): JSX.Element {
           placeholder="parola..."
           value={userInfo.retypedPassword}
           onChange={(e): void => setUserInfo({ ...userInfo, retypedPassword: e.target.value })}
+          onBlur={checkPassword}
         />
       </label>
       <br />
       <div>{inputError.passwordMatch}</div>
 
+      {/* prettier-ignore */}
       <button type="submit">Înregistreaza-mă</button>
     </form>
   );

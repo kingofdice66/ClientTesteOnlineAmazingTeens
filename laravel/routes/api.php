@@ -19,6 +19,8 @@ use App\Http\Controllers\SetChapters;
 use App\Http\Controllers\SetSubjects;
 use App\Http\Controllers\SetCourses;
 use App\Http\Controllers\RegisterUsers;
+use App\Http\Controllers\CheckUsernameAvailability;
+use App\Http\Controllers\CheckEmailAvailability;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,3 +114,17 @@ Route::post("getDraftsNewTopic_Comment", [GetDraftsNewTopic_Comment::class, "get
 
 /** Register users. */
 Route::post("registerUsers", [RegisterUsers::class, "setData"]);
+
+// ######################################################################
+// #########             CHECK USERNAME AVILABILITY             #########
+// ######################################################################
+
+/** Check if the username exists in database. */
+Route::post("checkUsernameAvailability", [CheckUsernameAvailability::class, "getData"]);
+
+// ######################################################################
+// #########              CHECK EMAIL AVILABILITY               #########
+// ######################################################################
+
+/** Check if the email exists in database. */
+Route::post("checkEmailAvailability", [CheckEmailAvailability::class, "getData"]);
