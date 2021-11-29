@@ -11,8 +11,6 @@ class EmailVerificationRegistration extends Controller
 {
     public function getData(Request $request)
     {
-        // Token from database to be compared to the URL one. To be set bellow.
-        $DBToken = NULL;
         // Token from URL to be compared to the database one.
         $URLToken = $request->token;
         // Get current time for comparison with the one in 'token_expiration' database to see if the token has expired.
