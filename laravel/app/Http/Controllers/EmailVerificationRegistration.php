@@ -32,16 +32,16 @@ class EmailVerificationRegistration extends Controller
             ->where("email", $request->email)
             ->value("token");
 
+        // Token is set to null in database once user is authenticated.
+        if ($DBToken === NULL) {
+            return ["message" => "already_verified"];
+        }
+
         // Get the time for when the token expires.
         $DBTokenExpirationTime =
             DB::table("users")
             ->where("email", $request->email)
             ->value("token_expiration_time");
-
-        // Token is set to null in database once user is authenticated.
-        if ($DBTokenExpirationTime === NULL) {
-            return ["message" => "already_verified"];
-        }
 
         // Check to see if the token has expired.
         if (!($currentTime <= $DBTokenExpirationTime)) {
