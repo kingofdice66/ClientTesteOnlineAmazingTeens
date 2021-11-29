@@ -19,50 +19,50 @@ class EmailVerificationRegistration extends Controller
         $currentTime = (new Carbon)->unix();
 
         // Check if the respective email exists.
-        $emailExists =
+        $DBEmail =
             DB::table("users")
             ->where("email", $request->email)
             ->exists();
 
-        // If respective email exists, get the token from database corresponding to this email. 
-        // If not, possible cause, malformed URL.
-        if ($emailExists) {
-            $DBToken =
-                DB::table("users")
-                ->where("email", $request->email)
-                ->value("token");
-        } else {
+        // If email does not exist, possible cause, URL tampering.
+        if (!$DBEmail) {
             return ["message" => "invalid_email"];
         }
 
+        $DBToken =
+            DB::table("users")
+            ->where("email", $request->email)
+            ->value("token");
+
         // Get the time for when the token expires.
-        $tokenExpiration =
+        $DBTokenExpirationTime =
             DB::table("users")
             ->where("email", $request->email)
             ->value("token_expiration_time");
 
-        if ($tokenExpiration === NULL) {
+        // Token is set to null in database once user is authenticated.
+        if ($DBTokenExpirationTime === NULL) {
             return ["message" => "already_verified"];
         }
 
         // Check to see if the token has expired.
-        if (!($currentTime <= $tokenExpiration)) {
+        if (!($currentTime <= $DBTokenExpirationTime)) {
             return ["message" => "token_expired"];
         }
 
-        // Compare token from ULR to the one from database.
-        // If not, possible cause, malformed URL.
-        if ($DBToken === $URLToken) {
-            DB::table("users")
-                ->where("email", $request->email)
-                ->update([
-                    "email_confirmed" => 1,
-                    "token" => NULL,
-                    "token_expiration_time" => NULL,
-                ]);
-            return ["message" => "ok"];
-        } else {
+        // Compare token from ULR to the one from database. If mismatch, then could be from URL tampering.
+        if ($DBToken !== $URLToken) {
             return ["message" => "invalid_token"];
         }
+
+        DB::table("users")
+            ->where("email", $request->email)
+            ->update([
+                "email_confirmed" => 1,
+                "token" => NULL,
+                "token_expiration_time" => NULL,
+            ]);
+
+        return ["message" => "ok"];
     }
 }

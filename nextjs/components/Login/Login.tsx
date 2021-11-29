@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import apiURL from "../ApiURL/ApiURL";
 
 interface IUserInfo {
   username: string;
@@ -19,6 +20,15 @@ function Login(): JSX.Element {
     console.log("password: ", userInfo.password);
 
     console.log("logged in");
+
+    axios.post(
+      `${apiURL}/loginUsers`,
+      {
+        username: userInfo.username,
+        password: userInfo.password,
+      },
+      { withCredentials: true }
+    );
   };
 
   return (

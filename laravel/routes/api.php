@@ -22,6 +22,7 @@ use App\Http\Controllers\RegisterUsers;
 use App\Http\Controllers\CheckUsernameAvailability;
 use App\Http\Controllers\CheckEmailAvailability;
 use App\Http\Controllers\EmailVerificationRegistration;
+use App\Http\Controllers\LoginUsers;
 
 /*
 |--------------------------------------------------------------------------
@@ -115,6 +116,13 @@ Route::post("getDraftsNewTopic_Comment", [GetDraftsNewTopic_Comment::class, "get
 
 /** Register users. */
 Route::post("registerUsers", [RegisterUsers::class, "setData"]);
+
+// ######################################################################
+// #########                    LOGIN USERS                     #########
+// ######################################################################
+
+/** Login users and give a JWT(JSON Web Token) cookie httpOnly for authorization. */
+Route::post("loginUsers", [LoginUsers::class, "getJWT"]);
 
 // ######################################################################
 // #########             CHECK USERNAME AVILABILITY             #########
