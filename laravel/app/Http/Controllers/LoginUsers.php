@@ -32,7 +32,7 @@ class LoginUsers extends Controller
             ->where("username", $request->username)
             ->value("email_confirmed");
 
-        // User hasn't confirmed his email.
+        // Check if the user has confirmed his email.
         if ($EmailConfirmed !== 1) {
             return ["message" => "email_not_confirmed"];
         }
