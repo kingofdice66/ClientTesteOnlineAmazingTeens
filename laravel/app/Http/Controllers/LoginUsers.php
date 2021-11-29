@@ -27,6 +27,16 @@ class LoginUsers extends Controller
             return ["message" => "incorrect"];
         }
 
+        $EmailConfirmed =
+            DB::table("users")
+            ->where("username", $request->username)
+            ->value("email_confirmed");
+
+        // User hasn't confirmed his email.
+        if ($EmailConfirmed !== 1) {
+            return ["message" => "email_not_confirmed"];
+        }
+
         $DBPassword =
             DB::table("users")
             ->where("username", $request->username)
