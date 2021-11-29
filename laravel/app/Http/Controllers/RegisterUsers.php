@@ -74,7 +74,7 @@ class RegisterUsers extends Controller
     public function __construct()
     {
         $this->dateTime = (new Carbon)->format((new CustomFunctions)->dateTimeFormat());
-        $this->tokenExpiration = (new Carbon)->addMinutes(30)->format((new CustomFunctions)->dateTimeFormat());
+        $this->tokenExpiration = (new Carbon)->addMinutes(30)->unix();
     }
 
     public function setData(Request $request)
@@ -93,12 +93,12 @@ class RegisterUsers extends Controller
         if ($this->checkDataValidity($data)) {
             DB::table("users")
                 ->insert([
-                    "username"         => $username,
-                    "email"            => $email,
-                    "password"         => Hash::make($password),
-                    "token"            => $token,
-                    "token_expiration" => $this->tokenExpiration, // Time before the token expire.
-                    "created_at"       => $this->dateTime,
+                    "username"              => $username,
+                    "email"                 => $email,
+                    "password"              => Hash::make($password),
+                    "token"                 => $token,
+                    "token_expiration_time" => $this->tokenExpiration, // Time before the token expire.
+                    "created_at"            => $this->dateTime,
                 ]);
         }
 
@@ -107,6 +107,6 @@ class RegisterUsers extends Controller
             "token"    => $token,
         ];
 
-        Mail::to("kingofdice66@gmail.com")->send(new EmailConfirmationRegistration($emailData));
+        // Mail::to("kingofdice66@gmail.com")->send(new EmailConfirmationRegistration($emailData));
     }
 }

@@ -213,12 +213,14 @@ function Registration(): JSX.Element {
     console.log("form submitted");
 
     // If there are no error in the input field, submit data.
-    // if (!inputError) {
-    //   axios
-    //     .post(`${apiURL}/registerUsers`, data)
-    //     .then((res: any) => console.log("res: ", res.data))
-    //     .catch((err: any) => console.error(err));
-    // }
+    if (!inputErrorFlag) {
+      console.log("form sumbitted");
+
+      axios
+        .post(`${apiURL}/registerUsers`, data)
+        .then((res: any) => console.log("res: ", res.data))
+        .catch((err: any) => console.error(err));
+    }
   };
 
   return (

@@ -33,7 +33,7 @@
     "no-plusplus": "off",
     "import/no-unresolved": "error",
     "quotes": ["error", "double"],
-    "linebreak-style": ["error", "unix"],
+    "linebreak-style": ["error", "windows"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".tsx"] }],
     "react/jsx-one-expression-per-line": [0],
     "camelcase": ["error", { "allow": ["^UNSAFE_"] }],

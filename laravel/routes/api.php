@@ -21,6 +21,7 @@ use App\Http\Controllers\SetCourses;
 use App\Http\Controllers\RegisterUsers;
 use App\Http\Controllers\CheckUsernameAvailability;
 use App\Http\Controllers\CheckEmailAvailability;
+use App\Http\Controllers\EmailVerificationRegistration;
 
 /*
 |--------------------------------------------------------------------------
@@ -128,3 +129,10 @@ Route::post("checkUsernameAvailability", [CheckUsernameAvailability::class, "get
 
 /** Check if the email exists in database. */
 Route::post("checkEmailAvailability", [CheckEmailAvailability::class, "getData"]);
+
+// ######################################################################
+// #########              CHECK IF EMAIL IS VALID               #########
+// ######################################################################
+
+/** A token is sent via email to check the users email. That token is verified here. */
+Route::post("verifyEmail", [EmailVerificationRegistration::class, "getData"]);
