@@ -37,7 +37,8 @@ function Registration(): JSX.Element {
   //! Attention: Should be false by default. Reason: waiting for axios.
   const [emailOK, setEmailOK] = useState<boolean>(false);
 
-  // See if everything is oke when checking password.
+  // See if everything is ok when checking password.
+  //! Attention: Should be false by default.
   const [passwordOK, setPasswordOK] = useState<boolean>(false);
 
   /** Check if username already exists in database and also for input errors. */
@@ -212,13 +213,7 @@ function Registration(): JSX.Element {
     checkEmail();
     checkPassword();
 
-    const data = {
-      username: userInfo.username,
-      password: userInfo.password,
-      email: userInfo.email,
-    };
-
-    // If there are no error in the input field, submit data.
+    // If there are no errors in the input field, submit data.
     if (usernameOK && emailOK && passwordOK) {
       console.log("form sumbitted");
 

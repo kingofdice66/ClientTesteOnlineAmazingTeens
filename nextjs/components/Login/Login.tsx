@@ -13,6 +13,8 @@ function Login(): JSX.Element {
     password: "",
   });
 
+  const [errorMsg, setErrorMsg] = useState<any>(null);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
@@ -21,14 +23,31 @@ function Login(): JSX.Element {
 
     console.log("logged in");
 
-    axios.post(
-      `${apiURL}/loginUsers`,
-      {
-        username: userInfo.username,
-        password: userInfo.password,
-      },
-      { withCredentials: true }
-    );
+    axios
+      .post(
+        `${apiURL}/loginUsers`,
+        { username: userInfo.username, password: userInfo.password },
+        { withCredentials: true }
+      )
+      .then((res: any) => {
+        if (res.data.message === "incorrect") {
+          setErrorMsg(
+            <span style={{ color: "red", fontWeight: "bold" }}>
+              Parola si/sau numele sunt <br />
+              incorect introduse
+            </span>
+          );
+        } else if (res.data.message === "email_not_confirmed") {
+          setErrorMsg(
+            <span style={{ color: "red", fontWeight: "bold" }}>
+              Email-ul nu este confirmat
+            </span>
+          );
+        } else {
+          setErrorMsg("");
+        }
+      })
+      .catch((err: any) => console.error(err));
   };
 
   return (
@@ -58,7 +77,7 @@ function Login(): JSX.Element {
         />
       </label>
       <br />
-
+      <div>{errorMsg}</div>
       <button type="submit">Intră în cont</button>
     </form>
   );

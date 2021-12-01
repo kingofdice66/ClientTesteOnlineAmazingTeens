@@ -22,7 +22,10 @@ class LoginUsers extends Controller
 
         // First check if the username exists in database.
         if (!$DBUsername) {
-            return ["message" => "incorrect"];
+            return [
+                "message"  => "incorrect",
+                "username" => "exists"
+            ];
         }
 
         $EmailConfirmed =
@@ -42,7 +45,10 @@ class LoginUsers extends Controller
 
         // Password does not match. Incorrect password.
         if (!Hash::check($request->password, $DBPassword)) {
-            return ["message" => "incorrect"];
+            return [
+                "message"  => "incorrect",
+                "password" => "does not match",
+            ];
         }
 
         $userId =
