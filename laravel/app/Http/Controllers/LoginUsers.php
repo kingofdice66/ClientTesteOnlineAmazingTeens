@@ -5,17 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Helpers\CustomFunctions;
 use Carbon\Carbon;
 use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 
 class LoginUsers extends Controller
 {
     /** Set JWT(JSON Web Token) cookie httpOnly if user has successfully logged in for authorization. */
     public function getJWT(Request $request)
     {
-        $expirationTime = 30;
+        $expirationTime = 30; // Minutes.
 
         $DBUsername =
             DB::table("users")
@@ -52,7 +50,7 @@ class LoginUsers extends Controller
             ->where("username", $request->username)
             ->value("id");
 
-        // If everything is ok, then send JWT cookie.
+        // If everything is ok, then send JWT(JSON Web Token) cookie.
         $issuer    = env("JWT_ISS");
         $issuedAt  = (new Carbon)->unix();
         $expireAt  = (new Carbon)->addMinutes($expirationTime)->unix();

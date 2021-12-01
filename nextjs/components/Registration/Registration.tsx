@@ -29,8 +29,16 @@ function Registration(): JSX.Element {
     email: "",
   });
 
-  // Flag for users input. If a field is invalid set it to false. Should be false by default.
-  const [inputErrorFlag, setInputErrorFlag] = useState<boolean>(false);
+  // See if everything is ok when checking username input field.
+  //! Attention: Should be false by default. Reason: waiting for axios.
+  const [usernameOK, setUsernameOK] = useState<boolean>(false);
+
+  // See if everything is ok when checking email input field.
+  //! Attention: Should be false by default. Reason: waiting for axios.
+  const [emailOK, setEmailOK] = useState<boolean>(false);
+
+  // See if everything is oke when checking password.
+  const [passwordOK, setPasswordOK] = useState<boolean>(false);
 
   /** Check if username already exists in database and also for input errors. */
   const checkUsername = (): void => {
@@ -55,7 +63,6 @@ function Registration(): JSX.Element {
             );
             return { ...prevState };
           });
-          setInputErrorFlag(true);
         } else if (!username.match(/^[a-zA-Z0-9_-]*$/)) {
           setInputError((prevState) => {
             // eslint-disable-next-line no-param-reassign
@@ -73,7 +80,6 @@ function Registration(): JSX.Element {
             );
             return { ...prevState };
           });
-          setInputErrorFlag(true);
         }
         // Check if the field is empty.
         else if (username.match(/^[ ]*$/)) {
@@ -86,7 +92,6 @@ function Registration(): JSX.Element {
             );
             return { ...prevState };
           });
-          setInputErrorFlag(true);
         }
         // Username must be between 3 and 30 characters
         else if (!(username.length >= 3 && username.length <= 30)) {
@@ -100,7 +105,6 @@ function Registration(): JSX.Element {
             );
             return { ...prevState };
           });
-          setInputErrorFlag(true);
         }
         // Else just set it to ""
         else {
@@ -110,6 +114,7 @@ function Registration(): JSX.Element {
             return { ...prevState };
           });
         }
+        setUsernameOK(true);
       })
       .catch((err: any) => console.error(err));
   };
@@ -149,7 +154,6 @@ function Registration(): JSX.Element {
             );
             return { ...prevState };
           });
-          setInputErrorFlag(true);
         }
         // Else just set it to null.
         else {
@@ -158,6 +162,7 @@ function Registration(): JSX.Element {
             prevState.email = "";
             return { ...prevState };
           });
+          setEmailOK(true);
         }
       })
       .catch((err: any) => console.error(err));
@@ -177,7 +182,6 @@ function Registration(): JSX.Element {
         );
         return { ...prevState };
       });
-      setInputErrorFlag(true);
     }
     // Password length must be between 8 and 30 characters long. Interval[8, 30]
     else if (!(passwordLength >= 8 && passwordLength <= 30)) {
@@ -191,18 +195,22 @@ function Registration(): JSX.Element {
         );
         return { ...prevState };
       });
-      setInputErrorFlag(true);
     } else {
       setInputError((prevState) => {
         // eslint-disable-next-line no-param-reassign
         prevState.passwordMatch = "";
         return { ...prevState };
       });
+      setPasswordOK(true);
     }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+
+    checkUsername();
+    checkEmail();
+    checkPassword();
 
     const data = {
       username: userInfo.username,
@@ -210,16 +218,14 @@ function Registration(): JSX.Element {
       email: userInfo.email,
     };
 
-    console.log("form submitted");
-
     // If there are no error in the input field, submit data.
-    if (!inputErrorFlag) {
+    if (usernameOK && emailOK && passwordOK) {
       console.log("form sumbitted");
 
-      axios
-        .post(`${apiURL}/registerUsers`, data)
-        .then((res: any) => console.log("res: ", res.data))
-        .catch((err: any) => console.error(err));
+      //   axios
+      //     .post(`${apiURL}/registerUsers`, data)
+      //     .then((res: any) => console.log("res: ", res.data))
+      //     .catch((err: any) => console.error(err));
     }
   };
 
