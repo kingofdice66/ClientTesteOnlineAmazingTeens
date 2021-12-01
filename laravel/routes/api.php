@@ -18,6 +18,7 @@ use App\Http\Controllers\SetDraftsNewTopic_Comment;
 use App\Http\Controllers\SetChapters;
 use App\Http\Controllers\SetSubjects;
 use App\Http\Controllers\SetCourses;
+use App\Http\Controllers\SetForumTopics;
 use App\Http\Controllers\RegisterUsers;
 use App\Http\Controllers\CheckUsernameAvailability;
 use App\Http\Controllers\CheckEmailAvailability;
@@ -144,3 +145,10 @@ Route::post("checkEmailAvailability", [CheckEmailAvailability::class, "getData"]
 
 /** A token is sent via email to check the users email. That token is verified here. */
 Route::post("verifyEmail", [EmailVerificationRegistration::class, "getData"]);
+
+// ######################################################################
+// #########                      FORUM                         #########
+// ######################################################################
+
+/** Set forum topics. */
+Route::post("setForumTopics", [SetForumTopics::class, "setData"]);

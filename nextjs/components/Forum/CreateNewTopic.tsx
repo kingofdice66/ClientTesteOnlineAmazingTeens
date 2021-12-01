@@ -7,6 +7,7 @@ function CreateNewTopic(): JSX.Element {
   const timeoutCommentRef = useRef<NodeJS.Timeout>();
   const timeoutTitleRef = useRef<NodeJS.Timeout>();
   const [title, setTitle] = useState<string>("");
+  const [editorContent, setEditorContent] = useState<string>("");
 
   /**
    * This is used to prevent 'useEffect(()=> {...},[title])'
@@ -14,8 +15,14 @@ function CreateNewTopic(): JSX.Element {
    */
   const countRef = useRef<number>(2);
 
+  const submitTopic = (): void => {
+    console.log("topic submitted");
+    console.log("editor content: ", editorContent);
+    axios.post(`${apiURL}/setForumTopics`, { title, comment: editorContent });
+  };
+
   /** Save new topic comment as you type as draft in database. */
-  const handleOnEditorChange = (evt: any, editor: any): void => {
+  const handleOnEditorChange = (evt: any): void => {
     // #################################################################
     // #######                    setTimeout()                   #######
     // #################################################################
@@ -85,12 +92,16 @@ function CreateNewTopic(): JSX.Element {
         />
       </label>
       <br />
-      <br />
       <TinyMCE
-        // prettier-ignore
-        onEditorChange={(evt: any, editor: any): void => handleOnEditorChange(evt, editor)} // It gets executed upon editor changes like typing, text bolding etc.
+        onEditorChange={(evt: any, editor: any): void => {
+          handleOnEditorChange(evt);
+          setEditorContent(evt);
+        }} // It gets executed upon editor changes like typing, text bolding etc.
         initialValue="<h1>Hello There!</h1>"
       />
+      <button type="button" onClick={submitTopic}>
+        Creeaza topicul
+      </button>
     </>
   );
 }
