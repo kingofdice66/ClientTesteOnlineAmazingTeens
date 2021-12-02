@@ -13,6 +13,7 @@ use App\Http\Controllers\GetChapterNameOnPageLoad;
 use App\Http\Controllers\GetCourses;
 use App\Http\Controllers\GetChapters;
 use App\Http\Controllers\GetQuizzes;
+use App\Http\Controllers\GetForumTopics;
 use App\Http\Controllers\SetDraftsNewTopic_Title;
 use App\Http\Controllers\SetDraftsNewTopic_Comment;
 use App\Http\Controllers\SetChapters;
@@ -152,3 +153,6 @@ Route::post("verifyEmail", [EmailVerificationRegistration::class, "getData"]);
 
 /** Set forum topics. */
 Route::post("setForumTopics", [SetForumTopics::class, "setData"]);
+
+/** Get forum topics. */
+Route::get("getForumTopics", [GetForumTopics::class, "getData"]);

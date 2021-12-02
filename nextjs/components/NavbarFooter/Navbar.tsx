@@ -57,7 +57,7 @@ function Navbar(): JSX.Element {
           </li>
 
           <li>
-            <Link href="/forum" passHref>
+            <Link href="/forum/topics" passHref>
               <a
                 href="dummy"
                 // eslint-disable-next-line camelcase
