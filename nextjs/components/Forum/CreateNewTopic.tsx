@@ -16,9 +16,11 @@ function CreateNewTopic(): JSX.Element {
   const countRef = useRef<number>(2);
 
   const submitTopic = (): void => {
-    console.log("topic submitted");
-    console.log("editor content: ", editorContent);
-    axios.post(`${apiURL}/setForumTopics`, { title, comment: editorContent });
+    axios.post(
+      `${apiURL}/setForumTopics`,
+      { title, comment: editorContent },
+      { withCredentials: true }
+    );
   };
 
   /** Save new topic comment as you type as draft in database. */

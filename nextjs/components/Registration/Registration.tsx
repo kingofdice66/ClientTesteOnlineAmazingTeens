@@ -217,10 +217,16 @@ function Registration(): JSX.Element {
     if (usernameOK && emailOK && passwordOK) {
       console.log("form sumbitted");
 
-      //   axios
-      //     .post(`${apiURL}/registerUsers`, data)
-      //     .then((res: any) => console.log("res: ", res.data))
-      //     .catch((err: any) => console.error(err));
+      const data = {
+        username: userInfo.username,
+        password: userInfo.password,
+        email: userInfo.email,
+      };
+
+      axios
+        .post(`${apiURL}/registerUsers`, data)
+        .then((res: any) => console.log("res: ", res.data))
+        .catch((err: any) => console.error(err));
     }
   };
 

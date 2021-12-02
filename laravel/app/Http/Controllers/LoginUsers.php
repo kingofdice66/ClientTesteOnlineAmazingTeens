@@ -13,7 +13,7 @@ class LoginUsers extends Controller
     /** Set JWT(JSON Web Token) cookie httpOnly if user has successfully logged in for authorization. */
     public function getJWT(Request $request)
     {
-        $expirationTime = 30; // Minutes.
+        $expirationTime = 60 * 24; // Minutes. 
 
         $DBUsername =
             DB::table("users")
@@ -58,15 +58,12 @@ class LoginUsers extends Controller
 
         // If everything is ok, then send JWT(JSON Web Token) cookie.
         $issuer    = env("JWT_ISS");
-        $issuedAt  = (new Carbon)->unix();
         $expireAt  = (new Carbon)->addMinutes($expirationTime)->unix();
         $algorithm = env("JWT_ALG");
         $key       = env("JWT_KEY");
 
         $payload = [
             "iss"      => $issuer,
-            "iat"      => $issuedAt,
-            "nbf"      => $issuedAt,
             "exp"      => $expireAt,
             "username" => $request->username,
             "userId"   => $userId,
