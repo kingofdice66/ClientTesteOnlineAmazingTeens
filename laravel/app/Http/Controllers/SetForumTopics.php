@@ -28,6 +28,7 @@ class SetForumTopics extends Controller
         $algorithm = env("JWT_ALG");
         $jwt_login = $request->cookie("jwt_login");
 
+        // Cookie does not exist.
         if ($jwt_login === NULL) {
             return ["message" => "cookie_not_exist"];
         }
@@ -41,10 +42,12 @@ class SetForumTopics extends Controller
         $issuer   = $JWTDecoded["issuer"];
         $expireAt = $JWTDecoded["expireAt"];
 
+        // The issuer is not correct.
         if ($issuer !== "localhost") {
             return ["message" => "issuer_not_correct"];
         }
 
+        // The cookie has expired.
         if (!($expireAt >= $this->currentTime)) {
             return ["message" => "cookie_expired"];
         }
