@@ -34,31 +34,62 @@ class SetForumTopics extends Controller
         }
 
         try {
-            $JWTDecoded = (array) JWT::decode($jwt_login, new Key($key, $algorithm));
+            $JWT_Decoded = (array) JWT::decode($jwt_login, new Key($key, $algorithm));
         } catch (Exception $e) {
             return ["message" => $e->getMessage()];
         }
 
-        $issuer   = $JWTDecoded["issuer"];
-        $expireAt = $JWTDecoded["expireAt"];
+        $JWT_Issuer   = $JWT_Decoded["issuer"];
+        $JWT_ExpireAt = $JWT_Decoded["expireAt"];
+        $JWT_UserId   = $JWT_Decoded["userId"];
+        $JWT_Username = $JWT_Decoded["username"];
 
         // The issuer is not correct.
-        if ($issuer !== "localhost") {
+        if ($JWT_Issuer !== "localhost") {
             return ["message" => "issuer_not_correct"];
         }
 
         // The cookie has expired.
-        if (!($expireAt >= $this->currentTime)) {
+        if (!($JWT_ExpireAt >= $this->currentTime)) {
             return ["message" => "cookie_expired"];
         }
 
+        // ###########################################################
+        // ##########            SET FORUM TOPICS           ##########
+        // ###########################################################
+
+        // Set forum topics.
         DB::table("forum_topics")
             ->insert([
-                "title"      => htmlspecialchars($request->title),
-                "comment"    => Purifier::clean($request->comment),
-                "user_id"    => $JWTDecoded["userId"],
-                "username"   => $JWTDecoded["username"],
+                "title"      => htmlspecialchars(trim($request->title)),
+                "user_id"    => $JWT_UserId,
+                "username"   => $JWT_Username,
                 "created_at" => $this->dateTime,
             ]);
+
+        // ###########################################################
+        // ##########           GET FORUM TOPIC ID          ##########
+        // ###########################################################
+
+        // Get the topic id, the topic just created.
+        $topicId =
+            DB::table("forum_topics")
+            ->where("user_id", $JWT_UserId)
+            ->max("id");
+
+        // ###########################################################
+        // ##########        SET FORUM TOPIC COMMENT        ##########
+        // ###########################################################
+
+        // Set forum topic comments.
+        DB::table("forum_topic_comments")
+            ->insert([
+                "comment"  => Purifier::clean($request->comment),
+                "username" => $JWT_Username,
+                "topic_id" => $topicId, // The topic id just created.
+                "user_id"  => $JWT_UserId,
+            ]);
+        // ###########################################################
+
     }
 }

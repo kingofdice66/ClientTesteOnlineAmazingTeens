@@ -16,7 +16,6 @@ class CreateForumTopicsTable extends Migration
         Schema::create('forum_topics', function (Blueprint $table) {
             $table->id();
             $table->text("title");
-            $table->mediumText("comment");
             $table->text("username");
             $table->unsignedBigInteger("user_id"); // The user who started the respective topic.
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade")->onUpdate("cascade");
