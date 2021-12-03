@@ -13,11 +13,13 @@ use Exception;
 
 class SetForumTopics extends Controller
 {
-    private $dateTime = NULL;
+    private $dateTime    = NULL;
+    private $currentTime = NULL;
 
     public function __construct()
     {
-        $this->dateTime = (new Carbon)->format((new CustomFunctions)->dateTimeFormat());
+        $this->dateTime    = (new Carbon)->format((new CustomFunctions)->dateTimeFormat());
+        $this->currentTime = (new Carbon)->unix();
     }
 
     public function setData(Request $request)
@@ -26,21 +28,34 @@ class SetForumTopics extends Controller
         $algorithm = env("JWT_ALG");
         $jwt_login = $request->cookie("jwt_login");
 
+        if ($jwt_login === NULL) {
+            return ["message" => "cookie_not_exist"];
+        }
+
         try {
             $JWTDecoded = (array) JWT::decode($jwt_login, new Key($key, $algorithm));
         } catch (Exception $e) {
             return ["message" => $e->getMessage()];
         }
 
-        // DB::table("forum_topics")
-        //     ->insert([
-        //         "title"      => htmlspecialchars($request->title),
-        //         "comment"    => Purifier::clean($request->comment),
-        //         "user_id"    => $JWTDecoded["userId"],
-        //         "username"   => $JWTDecoded["username"],
-        //         "created_at" => $this->dateTime,
-        //     ]);
+        $issuer   = $JWTDecoded["issuer"];
+        $expireAt = $JWTDecoded["expireAt"];
 
-        return ["SetForumTopics" =>  Purifier::clean($request->comment)];
+        if ($issuer !== "localhost") {
+            return ["message" => "issuer_not_correct"];
+        }
+
+        if (!($expireAt >= $this->currentTime)) {
+            return ["message" => "cookie_expired"];
+        }
+
+        DB::table("forum_topics")
+            ->insert([
+                "title"      => htmlspecialchars($request->title),
+                "comment"    => Purifier::clean($request->comment),
+                "user_id"    => $JWTDecoded["userId"],
+                "username"   => $JWTDecoded["username"],
+                "created_at" => $this->dateTime,
+            ]);
     }
 }
