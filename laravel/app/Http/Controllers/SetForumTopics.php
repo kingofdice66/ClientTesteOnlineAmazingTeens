@@ -61,7 +61,7 @@ class SetForumTopics extends Controller
         // Set forum topics.
         DB::table("forum_topics")
             ->insert([
-                "title"      => htmlspecialchars(trim($request->title)),
+                "title"      => trim($request->title),
                 "user_id"    => $JWT_UserId,
                 "username"   => $JWT_Username,
                 "created_at" => $this->dateTime,
@@ -84,10 +84,11 @@ class SetForumTopics extends Controller
         // Set forum topic comments.
         DB::table("forum_topic_comments")
             ->insert([
-                "comment"  => Purifier::clean($request->comment),
-                "username" => $JWT_Username,
-                "topic_id" => $topicId, // The topic id just created.
-                "user_id"  => $JWT_UserId,
+                "comment"    => Purifier::clean($request->comment),
+                "username"   => $JWT_Username,
+                "topic_id"   => $topicId, // The topic id just created.
+                "user_id"    => $JWT_UserId,
+                "created_at" => $this->dateTime,
             ]);
         // ###########################################################
 

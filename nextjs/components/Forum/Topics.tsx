@@ -1,5 +1,6 @@
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+import slugify from "slugify";
 import useSWR from "swr";
 import { v4 as uuidV4 } from "uuid";
 import apiURL from "../ApiURL/ApiURL";
@@ -14,11 +15,13 @@ function Topics(): JSX.Element {
 
   return data.map((x: any) => (
     <React.Fragment key={uuidV4()}>
-      <Link href="/forum/topic">
-        <a href="dummy">
-          <div dangerouslySetInnerHTML={{ __html: `${x.comment}` }} />
-        </a>
+      <Link
+        href={`/forum/topic/${x.user_id}/${slugify(x.title).toLowerCase()}`}
+        passHref
+      >
+        <a href="dummy">{x.title}</a>
       </Link>
+      <br />
     </React.Fragment>
   ));
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\GetDraftsNewTopic_Title;
 use App\Http\Controllers\GetDraftsNewTopic_Comment;
 use App\Http\Controllers\GetCourseNameOnPageLoad;
 use App\Http\Controllers\GetChapterNameOnPageLoad;
+use App\Http\Controllers\GetForumTopicComments;
 use App\Http\Controllers\GetCourses;
 use App\Http\Controllers\GetChapters;
 use App\Http\Controllers\GetQuizzes;
@@ -156,3 +157,6 @@ Route::post("setForumTopics", [SetForumTopics::class, "setData"]);
 
 /** Get forum topics. */
 Route::get("getForumTopics", [GetForumTopics::class, "getData"]);
+
+/** Get forum topic comments. */
+Route::post("getForumTopicComments", [GetForumTopicComments::class, "getData"]);

@@ -12,9 +12,8 @@ class GetForumTopics extends Controller
         $topics = DB::table("forum_topics")
             ->select(
                 "title",
-                "comment",
+                "username",
                 "user_id",
-                "username"
             )
             ->get();
 
