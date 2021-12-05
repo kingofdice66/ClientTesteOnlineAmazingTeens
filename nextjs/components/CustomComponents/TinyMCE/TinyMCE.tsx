@@ -4,7 +4,8 @@ interface IProps {
   onEditorChange: (evt: any, editor: any) => void;
   initialValue: any;
   height: number;
-  onInit: any;
+  // eslint-disable-next-line react/require-default-props
+  onInit?: any;
 }
 
 function TinyMCE(props: IProps): JSX.Element {

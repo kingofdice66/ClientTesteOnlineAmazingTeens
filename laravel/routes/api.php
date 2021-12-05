@@ -11,6 +11,7 @@ use App\Http\Controllers\GetDraftsNewTopic_Comment;
 use App\Http\Controllers\GetCourseNameOnPageLoad;
 use App\Http\Controllers\GetChapterNameOnPageLoad;
 use App\Http\Controllers\GetForumTopicComments;
+use App\Http\Controllers\GetForumTopicCommentForReply;
 use App\Http\Controllers\GetCourses;
 use App\Http\Controllers\GetChapters;
 use App\Http\Controllers\GetQuizzes;
@@ -128,7 +129,7 @@ Route::post("registerUsers", [RegisterUsers::class, "setData"]);
 Route::post("loginUsers", [LoginUsers::class, "getJWT"]);
 
 // ######################################################################
-// #########             CHECK USERNAME AVILABILITY             #########
+// #########             CHECK USERNAME AVAILABILITY             #########
 // ######################################################################
 
 /** Check if the username exists in database. */
@@ -160,3 +161,6 @@ Route::get("getForumTopics", [GetForumTopics::class, "getData"]);
 
 /** Get forum topic comments. */
 Route::post("getForumTopicComments", [GetForumTopicComments::class, "getData"]);
+
+/** Get forum topic comment for replying. */
+Route::post("getForumTopicCommentForRely", [GetForumTopicCommentForReply::class, "getData"]);

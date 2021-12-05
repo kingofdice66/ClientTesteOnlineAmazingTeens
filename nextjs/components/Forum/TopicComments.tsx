@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { v4 as uuidV4 } from "uuid";
 import useSWR from "swr";
+import axios from "axios";
 import apiURL from "../ApiURL/ApiURL";
 import TinyMCE from "../CustomComponents/TinyMCE/TinyMCE";
 
@@ -15,6 +16,10 @@ function Topic(): JSX.Element {
   console.log("data: ", data);
 
   const replyToComment = (): void => {
+    axios
+      .post(`${apiURL}/getForumTopicCommentForRely`)
+      .then((res: any) => console.log("res", res.data))
+      .catch((err: any) => console.error(err));
     console.log(
       "editorContent: ",
       editorRef.current.setContent("<h1>TEST</h1>")
