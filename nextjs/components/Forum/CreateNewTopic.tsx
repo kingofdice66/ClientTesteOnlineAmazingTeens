@@ -95,6 +95,7 @@ function CreateNewTopic(): JSX.Element {
       </label>
       <br />
       <TinyMCE
+        height={400}
         onEditorChange={(evt: any, editor: any): void => {
           handleOnEditorChange(evt);
           setEditorContent(evt);

@@ -3,10 +3,12 @@ import { Editor } from "@tinymce/tinymce-react";
 interface IProps {
   onEditorChange: (evt: any, editor: any) => void;
   initialValue: any;
+  height: number;
+  onInit: any;
 }
 
 function TinyMCE(props: IProps): JSX.Element {
-  const { onEditorChange, initialValue } = props;
+  const { onEditorChange, initialValue, height, onInit } = props;
 
   return (
     <Editor
@@ -16,8 +18,9 @@ function TinyMCE(props: IProps): JSX.Element {
       onEditorChange={onEditorChange} // It gets executed upon editor changes like typing, text bolding etc.
       // onInit={(evt: any, editor: any): void => (editorRef.current = editor)}
       initialValue={initialValue}
+      onInit={onInit}
       init={{
-        height: 500,
+        height: `${height}`,
         menubar: false,
         // eslint-disable-next-line camelcase
         browser_spellcheck: true,
