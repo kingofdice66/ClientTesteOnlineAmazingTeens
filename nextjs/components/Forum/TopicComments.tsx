@@ -8,6 +8,8 @@ import TinyMCE from "../CustomComponents/TinyMCE/TinyMCE";
 function Topic(): JSX.Element {
   const { data, error } = useSWR(`${apiURL}/getForumTopicComments`);
   const [editorContent, setEditorContent] = useState<string>("");
+  const [replyComment, setReplyComment] = useState<string>("");
+  const concatCommentsRef = useRef<string>(""); // Concatenate multiple replies.
   const editorRef = useRef<any>(null);
 
   if (!data) return <h1>Loading...</h1>;
@@ -15,19 +17,25 @@ function Topic(): JSX.Element {
 
   console.log("data: ", data);
 
+  // Reply to chosen comment/comments.
   const replyToComment = (topicId: number, userId: number): void => {
     console.log("replyToComment_topicId: ", topicId);
     console.log("replyToComment_userId: ", userId);
 
     axios
       .post(`${apiURL}/getForumTopicCommentForRely`, { topicId, userId })
-      .then((res: any) => editorRef.current.setContent(res.data))
+      .then((res: any) => {
+        concatCommentsRef.current += res.data;
+        setReplyComment(concatCommentsRef.current);
+        editorRef.current.setContent(concatCommentsRef.current);
+      })
       .catch((err: any) => console.error(err));
+  };
 
-    // console.log(
-    //   "editorContent: ",
-    //   editorRef.current.setContent("<h1>TEST</h1>")
-    // );
+  // Post reply to database.
+  const postReply = (): void => {
+    console.log("postReply", replyComment);
+    concatCommentsRef.current = ""; // Clear text;
   };
 
   return (
@@ -55,6 +63,9 @@ function Topic(): JSX.Element {
         onEditorChange={(evt: any, editor: any): void => setEditorContent(evt)}
         initialValue="<h1>Hello Comment!</h1>"
       />
+      <br />
+      {/* prettier-ignore */}
+      <button type="button" onClick={postReply}>Post Reply</button>
     </>
   );
 }

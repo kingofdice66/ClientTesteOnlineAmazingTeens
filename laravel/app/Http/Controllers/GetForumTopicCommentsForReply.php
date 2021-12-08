@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class GetForumTopicCommentForReply extends Controller
+class GetForumTopicCommentsForReply extends Controller
 {
     public function getData(Request $request)
     {
@@ -18,12 +18,5 @@ class GetForumTopicCommentForReply extends Controller
             ->value("comment");
 
         return $comment;
-
-        // return [
-        //     "GetForumTopicCommentForReply" => "success",
-        //     "topicId" => $request->topicId,
-        //     "userId" => $request->userId,
-        //     "comment" => $comment,
-        // ];
     }
 }
