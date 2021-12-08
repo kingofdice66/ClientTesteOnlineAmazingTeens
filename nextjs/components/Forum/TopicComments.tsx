@@ -15,15 +15,19 @@ function Topic(): JSX.Element {
 
   console.log("data: ", data);
 
-  const replyToComment = (): void => {
+  const replyToComment = (topicId: number, userId: number): void => {
+    console.log("replyToComment_topicId: ", topicId);
+    console.log("replyToComment_userId: ", userId);
+
     axios
-      .post(`${apiURL}/getForumTopicCommentForRely`)
-      .then((res: any) => console.log("res", res.data))
+      .post(`${apiURL}/getForumTopicCommentForRely`, { topicId, userId })
+      .then((res: any) => editorRef.current.setContent(res.data))
       .catch((err: any) => console.error(err));
-    console.log(
-      "editorContent: ",
-      editorRef.current.setContent("<h1>TEST</h1>")
-    );
+
+    // console.log(
+    //   "editorContent: ",
+    //   editorRef.current.setContent("<h1>TEST</h1>")
+    // );
   };
 
   return (
@@ -39,7 +43,7 @@ function Topic(): JSX.Element {
             </div>
             <div dangerouslySetInnerHTML={{ __html: `${x.comment}` }} />
             {/* prettier-ignore */}
-            <button type="button" onClick={replyToComment}>Reply</button>
+            <button type="button" onClick={():void => replyToComment(x.topic_id, x.user_id)}>Reply</button>
           </div>
         </React.Fragment>
       ))}

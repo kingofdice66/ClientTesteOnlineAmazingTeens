@@ -16,11 +16,7 @@ function forum(props: any): JSX.Element {
 export default forum;
 
 interface ISSP {
-  props: {
-    fallback: {
-      [x: string]: any;
-    };
-  };
+  props: { fallback: { [x: string]: any } };
 }
 
 export async function getServerSideProps(): Promise<ISSP> {

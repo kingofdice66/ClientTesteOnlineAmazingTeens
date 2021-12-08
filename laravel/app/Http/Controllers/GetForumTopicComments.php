@@ -12,13 +12,14 @@ class GetForumTopicComments extends Controller
         $topicComments =
             DB::table("forum_topic_comments")
             ->select(
+                "id",
                 "comment",
                 "username",
                 "created_at",
                 "topic_id",
                 "user_id",
             )
-            ->where("id", $request->id)
+            ->where("topic_id", $request->topicId)
             ->get();
 
         return $topicComments;

@@ -129,7 +129,7 @@ Route::post("registerUsers", [RegisterUsers::class, "setData"]);
 Route::post("loginUsers", [LoginUsers::class, "getJWT"]);
 
 // ######################################################################
-// #########             CHECK USERNAME AVAILABILITY             #########
+// #########             CHECK USERNAME AVAILABILITY            #########
 // ######################################################################
 
 /** Check if the username exists in database. */

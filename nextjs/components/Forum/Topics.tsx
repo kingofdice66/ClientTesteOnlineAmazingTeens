@@ -16,7 +16,7 @@ function Topics(): JSX.Element {
   return data.map((x: any) => (
     <React.Fragment key={uuidV4()}>
       <Link
-        href={`/forum/topic/${x.user_id}/${slugify(x.title).toLowerCase()}`}
+        href={`/forum/topic-comments/${x.id}/${slugify(x.title).toLowerCase()}`}
         passHref
       >
         <a href="dummy">{x.title}</a>

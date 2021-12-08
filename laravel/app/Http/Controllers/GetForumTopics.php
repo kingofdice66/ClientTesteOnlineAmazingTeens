@@ -11,9 +11,11 @@ class GetForumTopics extends Controller
     {
         $topics = DB::table("forum_topics")
             ->select(
+                "id",
                 "title",
                 "username",
                 "user_id",
+                "created_at"
             )
             ->get();
 

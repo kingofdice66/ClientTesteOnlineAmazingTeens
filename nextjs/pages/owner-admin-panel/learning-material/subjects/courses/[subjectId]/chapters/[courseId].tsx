@@ -20,11 +20,7 @@ function chapters(props: any): JSX.Element {
 export default chapters;
 
 interface ISSP {
-  props: {
-    fallback: {
-      [x: string]: any;
-    };
-  };
+  props: { fallback: { [x: string]: any } };
 }
 
 export async function getServerSideProps(context: any): Promise<ISSP> {

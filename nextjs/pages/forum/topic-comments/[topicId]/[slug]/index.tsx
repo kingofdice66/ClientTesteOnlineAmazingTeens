@@ -16,16 +16,13 @@ function index(props: any): JSX.Element {
 export default index;
 
 interface ISSP {
-  props: {
-    fallback: {
-      [x: string]: any;
-    };
-  };
+  props: { fallback: { [x: string]: any } };
 }
 
 export async function getServerSideProps(context: any): Promise<ISSP> {
-  const { id } = context.params;
-  const topics = await axios.post(`${apiURL}/getForumTopicComments`, { id });
+  const { topicId } = context.params;
+  // prettier-ignore
+  const topics = await axios.post(`${apiURL}/getForumTopicComments`, { topicId });
 
   return {
     props: { fallback: { [`${apiURL}/getForumTopicComments`]: topics.data } },

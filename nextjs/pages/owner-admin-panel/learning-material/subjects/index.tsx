@@ -21,11 +21,7 @@ function subjects(props: any): JSX.Element {
 export default subjects;
 
 interface ISSP {
-  props: {
-    fallback: {
-      [x: string]: any;
-    };
-  };
+  props: { fallback: { [x: string]: any } };
 }
 
 export async function getServerSideProps(): Promise<ISSP> {
