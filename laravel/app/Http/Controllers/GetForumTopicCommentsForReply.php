@@ -17,6 +17,14 @@ class GetForumTopicCommentsForReply extends Controller
             ])
             ->value("comment");
 
+        // TODO: Make sure to use forum regex functions here later!
+
+        $comment = <<<REPLY
+        <p>[QUOTE="username:{$request->username},post:{$request->commentId},member:{$request->userId}"]</p>
+            $comment
+        <p>[/QUOTE]</p> 
+        REPLY;
+
         return $comment;
     }
 }
