@@ -11,13 +11,14 @@ use App\Http\Controllers\GetDraftsNewTopic_Comment;
 use App\Http\Controllers\GetCourseNameOnPageLoad;
 use App\Http\Controllers\GetChapterNameOnPageLoad;
 use App\Http\Controllers\GetForumTopicComments;
-use App\Http\Controllers\GetForumTopicCommentForReply;
+use App\Http\Controllers\GetForumTopicCommentsForReply;
 use App\Http\Controllers\GetCourses;
 use App\Http\Controllers\GetChapters;
 use App\Http\Controllers\GetQuizzes;
 use App\Http\Controllers\GetForumTopics;
 use App\Http\Controllers\SetDraftsNewTopic_Title;
 use App\Http\Controllers\SetDraftsNewTopic_Comment;
+use App\Http\Controllers\SetReplyForumTopicComments;
 use App\Http\Controllers\SetChapters;
 use App\Http\Controllers\SetSubjects;
 use App\Http\Controllers\SetCourses;
@@ -163,4 +164,7 @@ Route::get("getForumTopics", [GetForumTopics::class, "getData"]);
 Route::post("getForumTopicComments", [GetForumTopicComments::class, "getData"]);
 
 /** Get forum topic comment for replying. */
-Route::post("getForumTopicCommentForRely", [GetForumTopicCommentForReply::class, "getData"]);
+Route::post("getForumTopicCommentsForRely", [GetForumTopicCommentsForReply::class, "getData"]);
+
+/** Set replied comments.. */
+Route::post("setReplyForumTopicComments", [SetReplyForumTopicComments::class, "setData"]);

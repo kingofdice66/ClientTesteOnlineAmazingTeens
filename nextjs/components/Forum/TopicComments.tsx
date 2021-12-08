@@ -23,7 +23,7 @@ function Topic(): JSX.Element {
     console.log("replyToComment_userId: ", userId);
 
     axios
-      .post(`${apiURL}/getForumTopicCommentForRely`, { topicId, userId })
+      .post(`${apiURL}/getForumTopicCommentsForRely`, { topicId, userId })
       .then((res: any) => {
         concatCommentsRef.current += res.data;
         setReplyComment(concatCommentsRef.current);
@@ -35,6 +35,12 @@ function Topic(): JSX.Element {
   // Post reply to database.
   const postReply = (): void => {
     console.log("postReply", replyComment);
+
+    axios
+      .post(`${apiURL}/setReplyForumTopicComments`, { comment: replyComment })
+      .then((res: any) => console.log("response: ", res.data))
+      .catch((err: any) => console.error(err));
+
     concatCommentsRef.current = ""; // Clear text;
   };
 
