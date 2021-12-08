@@ -20,15 +20,12 @@ function Topic(): JSX.Element {
   // Reply to chosen comment/comments.
   // prettier-ignore
   const replyToComment = (commentId: number, topicId: number, userId: number, username: string): void => {
-    console.log("replyToComment_topicId: ", commentId);
-    console.log("replyToComment_userId: ", userId);
-
     axios
       .post(`${apiURL}/getForumTopicCommentsForRely`, { commentId, topicId, userId, username })
       .then((res: any) => {
         concatCommentsRef.current += res.data;
         setReplyComment(concatCommentsRef.current);
-        editorRef.current.setContent(concatCommentsRef.current);
+        editorRef.current.setContent(concatCommentsRef.current); // Set editor content.
       })
       .catch((err: any) => console.error(err));
   };
@@ -58,7 +55,7 @@ function Topic(): JSX.Element {
             </div>
             <div dangerouslySetInnerHTML={{ __html: `${x.comment}` }} />
             {/* prettier-ignore */}
-            <button type="button" onClick={():void => replyToComment(x.id, x.topic_id,x.user_id, x.username)}>Reply</button>
+            <button type="button" onClick={():void => replyToComment(x.comment_id, x.topic_id,x.user_id, x.username)}>Reply</button>
           </div>
         </React.Fragment>
       ))}

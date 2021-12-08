@@ -12,7 +12,7 @@ class GetForumTopicComments extends Controller
         $topicComments =
             DB::table("forum_topic_comments")
             ->select(
-                "id",
+                "id AS comment_id",
                 "comment",
                 "username",
                 "created_at",
