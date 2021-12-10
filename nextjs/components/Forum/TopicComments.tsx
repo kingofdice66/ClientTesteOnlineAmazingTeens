@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useRouter } from "next/router";
 import { v4 as uuidV4 } from "uuid";
 import useSWR from "swr";
 import axios from "axios";
@@ -6,6 +7,7 @@ import apiURL from "../ApiURL/ApiURL";
 import TinyMCE from "../CustomComponents/TinyMCE/TinyMCE";
 
 function Topic(): JSX.Element {
+  const router = useRouter();
   const { data, error } = useSWR(`${apiURL}/getForumTopicComments`);
   const [editorContent, setEditorContent] = useState<string>("");
   const [replyComment, setReplyComment] = useState<string>("");
@@ -32,14 +34,18 @@ function Topic(): JSX.Element {
 
   // Post reply to database.
   const postReply = (): void => {
-    console.log("postReply", replyComment);
+    const { topicId } = router.query;
 
+    console.log("postReply-topicId", topicId);
+
+    // prettier-ignore
     axios
-      .post(`${apiURL}/setReplyForumTopicComments`, { comment: replyComment })
+      .post(`${apiURL}/setReplyForumTopicComments`, { comment: editorContent, topicId })
       .then((res: any) => console.log("response: ", res.data))
       .catch((err: any) => console.error(err));
 
-    concatCommentsRef.current = ""; // Clear text;
+    concatCommentsRef.current = ""; // Clear text
+    editorRef.current.setContent(""); // Clear editor content
   };
 
   return (
@@ -55,7 +61,7 @@ function Topic(): JSX.Element {
             </div>
             <div dangerouslySetInnerHTML={{ __html: `${x.comment}` }} />
             {/* prettier-ignore */}
-            <button type="button" onClick={():void => replyToComment(x.comment_id, x.topic_id,x.user_id, x.username)}>Reply</button>
+            <button type="button" onClick={():void => replyToComment(x.comment_id, x.topic_id,x.user_id, x.username)}>Răspunde</button>
           </div>
         </React.Fragment>
       ))}
@@ -69,7 +75,7 @@ function Topic(): JSX.Element {
       />
       <br />
       {/* prettier-ignore */}
-      <button type="button" onClick={postReply}>Post Reply</button>
+      <button type="button" onClick={postReply}>Postează Răspunsul</button>
     </>
   );
 }

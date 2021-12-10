@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\ForumRegexFunctions;
 
 class GetForumTopicCommentsForReply extends Controller
 {
@@ -17,7 +18,9 @@ class GetForumTopicCommentsForReply extends Controller
             ])
             ->value("comment");
 
-        // TODO: Make sure to use forum regex functions here later!
+        $comment = (new ForumRegexFunctions)->extractCommentsReply($comment);
+
+        $comment = (new ForumRegexFunctions)->removeNewlinesAndSingleBreak($comment);
 
         $comment = <<<REPLY
         <p>[QUOTE="username:{$request->username},post:{$request->commentId},member:{$request->userId}"]</p>
