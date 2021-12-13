@@ -16,7 +16,7 @@ class DecodeLoginJWT
     $this->currentTime = (new Carbon)->unix();
   }
 
-  /** Decode the JWT(JSON Website Cookie) cookie. Cookie is set up when you log in. */
+  /** Decode the JWT(JSON Website Cookie) cookie. Cookie is set up when user logs in. */
   public function decodeJWT(object $request): array
   {
 

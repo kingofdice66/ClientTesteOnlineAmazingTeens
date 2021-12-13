@@ -5,6 +5,7 @@ import useSWR from "swr";
 import axios from "axios";
 import apiURL from "../ApiURL/ApiURL";
 import TinyMCE from "../CustomComponents/TinyMCE/TinyMCE";
+import style from "./TopicComments.module.scss";
 
 function Topic(): JSX.Element {
   const router = useRouter();
@@ -12,7 +13,7 @@ function Topic(): JSX.Element {
   const [editorContent, setEditorContent] = useState<string>("");
   const [replyComment, setReplyComment] = useState<string>("");
   const concatCommentsRef = useRef<string>(""); // Concatenate multiple replies.
-  const editorRef = useRef<any>(null);
+  const editorRef = useRef<any>();
 
   if (!data) return <h1>Loading...</h1>;
   if (error) return <h1>Error</h1>;
@@ -40,7 +41,7 @@ function Topic(): JSX.Element {
 
     // prettier-ignore
     axios
-      .post(`${apiURL}/setReplyForumTopicComments`, { comment: editorContent, topicId })
+      .post(`${apiURL}/setReplyForumTopicComments`, { comment: editorContent, topicId }, { withCredentials: true })
       .then((res: any) => console.log("response: ", res.data))
       .catch((err: any) => console.error(err));
 
@@ -48,29 +49,36 @@ function Topic(): JSX.Element {
     editorRef.current.setContent(""); // Clear editor content
   };
 
+  const handleOnEditorChange = (evt: any): void => {
+    setEditorContent(evt);
+    concatCommentsRef.current = evt;
+  };
+
   return (
     <>
       {data.map((x: any) => (
         <React.Fragment key={uuidV4()}>
           <div>
-            {/* prettier-ignore */}
-            <div>
-              Username: {x.username} &nbsp;&nbsp; 
-              Topic id: {x.topic_id} &nbsp;&nbsp;
-              User id: {x.user_id} &nbsp;&nbsp;
+            <div className={style.commentInfo}>
+              <span style={{ color: "white", fontWeight: "bold" }}>
+                Created at: {x.created_at}
+              </span>
             </div>
-            <div dangerouslySetInnerHTML={{ __html: `${x.comment}` }} />
+            <div
+              id={`comment_id${x.comment_id}`} // For bookmarks so user can jump to this comment when user want's to know the original quote.
+              dangerouslySetInnerHTML={{ __html: `${x.comment}` }}
+            />
             {/* prettier-ignore */}
-            <button type="button" onClick={():void => replyToComment(x.comment_id, x.topic_id,x.user_id, x.username)}>Răspunde</button>
+            <button type="button" onClick={(): void => replyToComment(x.comment_id, x.topic_id, x.user_id, x.username)}>Răspunde</button>
           </div>
         </React.Fragment>
       ))}
       <br />
       {/* prettier-ignore */}
       <TinyMCE
-        onInit={(evt: any, editor: any): void => {editorRef.current = editor}}
+        onInit={(evt: any, editor: any): void => { editorRef.current = editor }}
         height={150}
-        onEditorChange={(evt: any, editor: any): void => setEditorContent(evt)}
+        onEditorChange={(evt: any, editor: any): void => handleOnEditorChange(evt)}
         initialValue="<h1>Hello Comment!</h1>"
       />
       <br />

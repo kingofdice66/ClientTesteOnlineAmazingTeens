@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\ForumRegexFunctions;
 
 class GetForumTopicComments extends Controller
 {
@@ -21,6 +22,10 @@ class GetForumTopicComments extends Controller
             )
             ->where("topic_id", $request->topicId)
             ->get();
+
+        foreach ($topicComments as $value) {
+            $value->comment =  (new ForumRegexFunctions)->quoteSubstitution($value->comment);
+        }
 
         return $topicComments;
     }
