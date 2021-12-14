@@ -11,7 +11,6 @@ function Topic(): JSX.Element {
   const router = useRouter();
   const { data, error } = useSWR(`${apiURL}/getForumTopicComments`);
   const [editorContent, setEditorContent] = useState<string>("");
-  const [replyComment, setReplyComment] = useState<string>("");
   const concatCommentsRef = useRef<string>(""); // Concatenate multiple replies.
   const editorRef = useRef<any>();
 
@@ -20,6 +19,9 @@ function Topic(): JSX.Element {
 
   console.log("data: ", data);
 
+  // TODO: Make sure to fix the problem where the comment reply is not the correct comment downloaded from database.
+  // TODO: Possible problem, the commentId must be incorrect.
+
   // Reply to chosen comment/comments.
   // prettier-ignore
   const replyToComment = (commentId: number, topicId: number, userId: number, username: string): void => {
@@ -27,7 +29,6 @@ function Topic(): JSX.Element {
       .post(`${apiURL}/getForumTopicCommentsForRely`, { commentId, topicId, userId, username })
       .then((res: any) => {
         concatCommentsRef.current += res.data;
-        setReplyComment(concatCommentsRef.current);
         editorRef.current.setContent(concatCommentsRef.current); // Set editor content.
       })
       .catch((err: any) => console.error(err));
@@ -49,6 +50,7 @@ function Topic(): JSX.Element {
     editorRef.current.setContent(""); // Clear editor content
   };
 
+  /** Function is called every time editor content is changed. */
   const handleOnEditorChange = (evt: any): void => {
     setEditorContent(evt);
     concatCommentsRef.current = evt;

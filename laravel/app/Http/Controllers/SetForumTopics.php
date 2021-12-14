@@ -8,6 +8,7 @@ use App\Helpers\CustomFunctions;
 use App\Helpers\DecodeLoginJWT;
 use Mews\Purifier\Facades\Purifier;
 use Carbon\Carbon;
+use Exception;
 
 class SetForumTopics extends Controller
 {
@@ -26,6 +27,11 @@ class SetForumTopics extends Controller
         // ###########################################################
 
         $decodedJWT = (new DecodeLoginJWT)->decodeJWT($request);
+
+        // Check if everything was ok when JWT(JSON Web Token) was in the process of decoding.
+        if ($decodedJWT["message"] !== "ok") {
+            return  $decodedJWT["message"];
+        }
 
         $JWT_UserId   = $decodedJWT["userId"];
         $JWT_Username = $decodedJWT["username"];

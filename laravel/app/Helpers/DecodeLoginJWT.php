@@ -52,6 +52,7 @@ class DecodeLoginJWT
     }
 
     return [
+      "message"  => "ok",
       "userId"   => $JWT_UserId,
       "username" => $JWT_Username,
     ];
