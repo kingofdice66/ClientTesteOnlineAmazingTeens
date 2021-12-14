@@ -13,6 +13,7 @@ class GetForumTopicCommentsForReply extends Controller
         $comment =
             DB::table("forum_topic_comments")
             ->where([
+                ["id", $request->commentId],
                 ["topic_id", $request->topicId],
                 ["user_id", $request->userId]
             ])

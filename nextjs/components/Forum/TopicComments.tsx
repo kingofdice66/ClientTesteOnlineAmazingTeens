@@ -63,7 +63,8 @@ function Topic(): JSX.Element {
           <div>
             <div className={style.commentInfo}>
               <span style={{ color: "white", fontWeight: "bold" }}>
-                Created at: {x.created_at}
+                Created at: {x.created_at} &nbsp; &nbsp;&nbsp; COMMENT ID:{" "}
+                {x.comment_id}
               </span>
             </div>
             <div
