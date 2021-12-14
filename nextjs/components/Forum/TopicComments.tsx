@@ -19,9 +19,6 @@ function Topic(): JSX.Element {
 
   console.log("data: ", data);
 
-  // TODO: Make sure to fix the problem where the comment reply is not the correct comment downloaded from database.
-  // TODO: Possible problem, the commentId must be incorrect.
-
   // Reply to chosen comment/comments.
   // prettier-ignore
   const replyToComment = (commentId: number, topicId: number, userId: number, username: string): void => {
