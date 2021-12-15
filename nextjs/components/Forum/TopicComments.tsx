@@ -11,6 +11,7 @@ function Topic(): JSX.Element {
   const router = useRouter();
   const { data, error } = useSWR(`${apiURL}/getForumTopicComments`);
   const [editorContent, setEditorContent] = useState<string>("");
+  const [commentPreview, setCommentPreview] = useState<string>("");
   const concatCommentsRef = useRef<string>(""); // Concatenate multiple replies.
   const editorRef = useRef<any>();
 
@@ -47,6 +48,14 @@ function Topic(): JSX.Element {
     editorRef.current.setContent(""); // Clear editor content
   };
 
+  const previewComment = (): void => {
+    console.log("preview comment");
+    axios
+      .post(`${apiURL}/previewTopicComments`, { comment: editorContent })
+      .then((res: any) => setCommentPreview(res.data))
+      .catch((err: any) => console.error(err));
+  };
+
   /** Function is called every time editor content is changed. */
   const handleOnEditorChange = (evt: any): void => {
     setEditorContent(evt);
@@ -69,11 +78,16 @@ function Topic(): JSX.Element {
               dangerouslySetInnerHTML={{ __html: `${x.comment}` }}
             />
             {/* prettier-ignore */}
-            <button type="button" onClick={(): void => replyToComment(x.comment_id, x.topic_id, x.user_id, x.username)}>Răspunde</button>
+            <a href="#editor">
+              <button type="button" onClick={(): void => replyToComment(x.comment_id, x.topic_id, x.user_id, x.username)}>
+                Răspunde
+              </button>
+            </a>
           </div>
         </React.Fragment>
       ))}
       <br />
+      <div id="editor" />
       {/* prettier-ignore */}
       <TinyMCE
         onInit={(evt: any, editor: any): void => { editorRef.current = editor }}
@@ -84,6 +98,9 @@ function Topic(): JSX.Element {
       <br />
       {/* prettier-ignore */}
       <button type="button" onClick={postReply}>Postează Răspunsul</button>
+      {/* prettier-ignore */}
+      <button type="button" onClick={previewComment}>Previzualizează Răspunsul</button>
+      <div dangerouslySetInnerHTML={{ __html: `${commentPreview}` }} />
     </>
   );
 }

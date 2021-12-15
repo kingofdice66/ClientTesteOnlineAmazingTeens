@@ -54,7 +54,7 @@ class ForumRegexFunctions
     border-left: 5px solid #ff0066; 
     padding: 10px;
   ">
-  <a href="#comment_id$2">$1 said:</a><br>
+  <a href="#comment_id$2">$1 a spus:</a><br>
   $4
   </blockquote>
   REPL;

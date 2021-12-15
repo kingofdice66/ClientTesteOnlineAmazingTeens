@@ -28,6 +28,7 @@ use App\Http\Controllers\CheckUsernameAvailability;
 use App\Http\Controllers\CheckEmailAvailability;
 use App\Http\Controllers\EmailVerificationRegistration;
 use App\Http\Controllers\LoginUsers;
+use App\Http\Controllers\PreviewTopicComments;
 
 /*
 |--------------------------------------------------------------------------
@@ -168,3 +169,6 @@ Route::post("getForumTopicCommentsForRely", [GetForumTopicCommentsForReply::clas
 
 /** Set replied comments.. */
 Route::post("setReplyForumTopicComments", [SetReplyForumTopicComments::class, "setData"]);
+
+/** Preview topic comment. */
+Route::post("previewTopicComments", [PreviewTopicComments::class, "getData"]);
