@@ -49,7 +49,11 @@ class ForumRegexFunctions
     $quotePattern = '%(?s)\[QUOTE="username:(.+?),post:(\d+?),member:(\d+?)"\](?:(?:<br>)+)?(.*?)(?:(?:<br>)+)?\[/QUOTE\]%';
 
     $quoteReplace = <<<REPL
-  <blockquote>
+  <blockquote style="
+    background-color: #cfcdc8; 
+    border-left: 5px solid #ff0066; 
+    padding: 10px;
+  ">
   <a href="#comment_id$2">$1 said:</a><br>
   $4
   </blockquote>

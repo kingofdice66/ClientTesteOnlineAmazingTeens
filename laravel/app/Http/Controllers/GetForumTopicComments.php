@@ -26,7 +26,6 @@ class GetForumTopicComments extends Controller
 
         foreach ($topicComments as $value) {
             $value->comment =  (new ForumRegexFunctions)->quoteSubstitution($value->comment);
-            // $value->created_at = $value->created_at->format("d-m-Y");
             $value->created_at =  Carbon::createFromFormat("Y-m-d H:i:s.u", $value->created_at)->toDateTimeLocalString();
         }
 

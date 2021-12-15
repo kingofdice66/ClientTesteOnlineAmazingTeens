@@ -26,7 +26,7 @@ class GetForumTopicCommentsForReply extends Controller
         $comment = <<<REPLY
         <p>[QUOTE="username:{$request->username},post:{$request->commentId},member:{$request->userId}"]</p>
             $comment
-        <p>[/QUOTE]</p> 
+        <p>[/QUOTE]</p>
         REPLY;
 
         return $comment;
