@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\ForumRegexFunctions;
+use Carbon\Carbon;
 
 class GetForumTopicComments extends Controller
 {
@@ -25,6 +26,8 @@ class GetForumTopicComments extends Controller
 
         foreach ($topicComments as $value) {
             $value->comment =  (new ForumRegexFunctions)->quoteSubstitution($value->comment);
+            // $value->created_at = $value->created_at->format("d-m-Y");
+            $value->created_at =  Carbon::createFromFormat("Y-m-d H:i:s.u", $value->created_at)->toDateTimeLocalString();
         }
 
         return $topicComments;
