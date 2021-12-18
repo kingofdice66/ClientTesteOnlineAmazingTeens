@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import { v4 as uuidV4 } from "uuid";
 import useSWR from "swr";
@@ -7,13 +7,34 @@ import apiURL from "../ApiURL/ApiURL";
 import TinyMCE from "../CustomComponents/TinyMCE/TinyMCE";
 import style from "./TopicComments.module.scss";
 
+interface IEditorPosition {
+  x: any;
+  y: any;
+}
+
 function Topic(): JSX.Element {
   const router = useRouter();
   const { data, error } = useSWR(`${apiURL}/getForumTopicComments`);
+  // prettier-ignore
+  const [editorPosition, setEditorPosition] = useState<IEditorPosition>({x: 0, y: 0,}); // Editor scroll position
   const [editorContent, setEditorContent] = useState<string>("");
   const [commentPreview, setCommentPreview] = useState<string>("");
   const concatCommentsRef = useRef<string>(""); // Concatenate multiple replies.
   const editorRef = useRef<any>();
+
+  // ###################################################
+  // #######         Get editor position          ######
+  // ###################################################
+  // Get the editor position to scroll to its position
+  // when replying to comments.
+  useEffect(() => {
+    // Get element position.
+    const el = document.getElementById("editor");
+    const xPos = el?.offsetLeft;
+    const yPos = el?.offsetTop;
+    setEditorPosition({ ...editorPosition, x: xPos, y: yPos });
+  }, []);
+  // ###################################################
 
   if (!data) return <h1>Loading...</h1>;
   if (error) return <h1>Error</h1>;
@@ -30,19 +51,23 @@ function Topic(): JSX.Element {
         editorRef.current.setContent(concatCommentsRef.current); // Set editor content.
       })
       .catch((err: any) => console.error(err));
+
+      window.scrollTo({ 
+        top: editorPosition.y,
+        left: editorPosition.x,
+        behavior: "smooth",
+      });
   };
 
   // Post reply to database.
   const postReply = (): void => {
     const { topicId } = router.query;
 
-    console.log("postReply-topicId", topicId);
-
-    // prettier-ignore
-    axios
-      .post(`${apiURL}/setReplyForumTopicComments`, { comment: editorContent, topicId }, { withCredentials: true })
-      .then((res: any) => console.log("response: ", res.data))
-      .catch((err: any) => console.error(err));
+    axios.post(
+      `${apiURL}/setReplyForumTopicComments`,
+      { comment: editorContent, topicId },
+      { withCredentials: true }
+    );
 
     concatCommentsRef.current = ""; // Clear text
     editorRef.current.setContent(""); // Clear editor content
@@ -78,11 +103,9 @@ function Topic(): JSX.Element {
               dangerouslySetInnerHTML={{ __html: `${x.comment}` }}
             />
             {/* prettier-ignore */}
-            <a href="#editor">
-              <button type="button" onClick={(): void => replyToComment(x.comment_id, x.topic_id, x.user_id, x.username)}>
-                Răspunde
-              </button>
-            </a>
+            <button type="button" onClick={(): void => replyToComment(x.comment_id, x.topic_id, x.user_id, x.username)}>
+              Răspunde
+            </button>
           </div>
         </React.Fragment>
       ))}
@@ -98,6 +121,7 @@ function Topic(): JSX.Element {
       <br />
       {/* prettier-ignore */}
       <button type="button" onClick={postReply}>Postează Răspunsul</button>
+      &nbsp;&nbsp;&nbsp;
       {/* prettier-ignore */}
       <button type="button" onClick={previewComment}>Previzualizează Răspunsul</button>
       <div dangerouslySetInnerHTML={{ __html: `${commentPreview}` }} />

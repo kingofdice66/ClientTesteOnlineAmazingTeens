@@ -13,7 +13,7 @@ function Subjects(): JSX.Element {
   const createSubject = (): void => {
     axios
       .post(`${apiURL}/setSubjects`, { subjectName })
-      .then(() => router.replace(router.asPath))
+      .then(() => router.replace(router.asPath)) // 'router.replace(router.asPath)' to make the data refresh without page reload
       .catch((err: any) => console.error(err));
 
     setSubjectName(""); // Clear textarea;
