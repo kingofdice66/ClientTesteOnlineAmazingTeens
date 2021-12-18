@@ -29,6 +29,7 @@ function TinyMCE(props: IProps): JSX.Element {
           "advlist autolink lists link image charmap anchor",
           "searchreplace visualblocks code fullscreen",
           "insertdatetime media table paste code help wordcount",
+          "autoresize",
         ],
         toolbar:
           "undo redo | formatselect | bold italic backcolor |" +

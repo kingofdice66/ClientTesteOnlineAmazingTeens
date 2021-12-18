@@ -23,12 +23,17 @@ class GetForumTopicCommentsForReply extends Controller
 
         $comment = (new ForumRegexFunctions)->removeNewlinesAndSingleBreak($comment);
 
-        $comment = <<<REPLY
-        <p>[QUOTE="username:{$request->username},post:{$request->commentId},member:{$request->userId}"]</p>
-            $comment
-        <p>[/QUOTE]</p>
-        REPLY;
+        // $comment = <<<REPLY
+        // <p>[QUOTE="username:{$request->username},post:{$request->commentId},member:{$request->userId}"]</p>
+        //     $comment
+        // <p>[/QUOTE]</p>
+        // REPLY;
 
-        return $comment;
+        return [
+            "comment" => $comment,
+            "username" => $request->username,
+            "commentId" => $request->commentId,
+            "userId" => $request->userId,
+        ];
     }
 }
