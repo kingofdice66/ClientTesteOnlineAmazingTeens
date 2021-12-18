@@ -10,7 +10,7 @@ function wrappedComment(comment: string, username: string): string {
         >
         <div style="color: blue">${username} a spus:</div>
           ${comment}
-        </blockquote>`;
+        </blockquote><br>`;
   return wrapped;
 }
 

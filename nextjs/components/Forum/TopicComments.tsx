@@ -5,6 +5,7 @@ import useSWR from "swr";
 import axios from "axios";
 import apiURL from "../ApiURL/ApiURL";
 import BlockQuoteComment from "../CustomComponents/ManipulateComments/BlockQuoteComment";
+import RemoveBrBetweenBlockQuotes from "../CustomComponents/ManipulateComments/RemoveBrBetweenBlockQuotes";
 import TinyMCE from "../CustomComponents/TinyMCE/TinyMCE";
 import style from "./TopicComments.module.scss";
 
@@ -47,16 +48,17 @@ function Topic(): JSX.Element {
   if (!data) return <h1>Loading...</h1>;
   if (error) return <h1>Error</h1>;
 
-  console.log("data: ", data);
-
   // Reply to chosen comment/comments.
   // prettier-ignore
   const replyToComment = (commentId: number, topicId: number, userId: number, username: string): void => {
     axios
       .post(`${apiURL}/getForumTopicCommentsForRely`, { commentId, topicId, userId, username })
       .then((res: any) => {
-        concatCommentsRef.current += BlockQuoteComment(res.data.comment, username);
-        editorRef.current.setContent(concatCommentsRef.current); // Set editor content.
+        const tmp = BlockQuoteComment(res.data.comment, username);
+        concatCommentsRef.current += tmp;
+        concatCommentsRef.current = RemoveBrBetweenBlockQuotes(concatCommentsRef.current);
+        console.log(concatCommentsRef.current);
+          editorRef.current.setContent(concatCommentsRef.current); // Set editor content.
       })
       .catch((err: any) => console.error(err));
 
