@@ -6,7 +6,7 @@ function removeBr(quote: string): string {
   console.log(typeof quote);
 
   const replace = quote.replace(
-    /(?:\s+?)?<p>&nbsp;<\/p>(?:\s+?)?<blockquote(.+?)>/s,
+    /(?:\s+?)?(?:<br>|<p>&nbsp;<\/p>)(?:\s+?)?<blockquote(.+?)>/s,
     "<blockquote$1>"
   );
 
