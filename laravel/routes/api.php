@@ -29,6 +29,7 @@ use App\Http\Controllers\CheckEmailAvailability;
 use App\Http\Controllers\EmailVerificationRegistration;
 use App\Http\Controllers\LoginUsers;
 use App\Http\Controllers\PreviewTopicComments;
+use App\Http\Controllers\RemoveBrakesBetweenQuotesRegex;
 
 /*
 |--------------------------------------------------------------------------
@@ -172,3 +173,6 @@ Route::post("setReplyForumTopicComments", [SetReplyForumTopicComments::class, "s
 
 /** Preview topic comment. */
 Route::post("previewTopicComments", [PreviewTopicComments::class, "getData"]);
+
+/** Remove brakes in between 'blockquote' tag. */
+Route::post("removeBrakesBetweenQuotesRegex", [RemoveBrakesBetweenQuotesRegex::class, "getData"]);

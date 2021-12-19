@@ -4,8 +4,7 @@ import { v4 as uuidV4 } from "uuid";
 import useSWR from "swr";
 import axios from "axios";
 import apiURL from "../ApiURL/ApiURL";
-import BlockQuoteComment from "../CustomComponents/ManipulateComments/BlockQuoteComment";
-import RemoveBrBetweenBlockQuotes from "../CustomComponents/ManipulateComments/RemoveBrBetweenBlockQuotes";
+import RemoveBrakeBetweenBlockQuotes from "../CustomComponents/ManipulateComments/RemoveBrakeBetweenBlockQuotes";
 import TinyMCE from "../CustomComponents/TinyMCE/TinyMCE";
 import style from "./TopicComments.module.scss";
 
@@ -53,12 +52,20 @@ function Topic(): JSX.Element {
   const replyToComment = (commentId: number, topicId: number, userId: number, username: string): void => {
     axios
       .post(`${apiURL}/getForumTopicCommentsForRely`, { commentId, topicId, userId, username })
-      .then((res: any) => {
-        const tmp = BlockQuoteComment(res.data.comment, username);
-        concatCommentsRef.current += tmp;
-        concatCommentsRef.current = RemoveBrBetweenBlockQuotes(concatCommentsRef.current);
-        console.log(concatCommentsRef.current);
-          editorRef.current.setContent(concatCommentsRef.current); // Set editor content.
+      .then((comment: any) => {
+        // #########################################################################################
+        // ###############   Use regex on server side to manipulate the string   ###################
+        // #########################################################################################
+        // This is used to remove brakes in between 'blockquote' tag.
+        // Uses regex on server side and not client side in order to not deal with browser support.
+        concatCommentsRef.current += comment.data;
+        axios.post(`${apiURL}/removeBrakesBetweenQuotesRegex`, {comment: concatCommentsRef.current}).then((commentRegex:any)=>{
+          console.log("commentRegex: ", commentRegex.data);
+          console.log(typeof data);
+          // concatCommentsRef.current = RemoveBrakeBetweenBlockQuotes(concatCommentsRef.current);
+          editorRef.current.setContent(commentRegex.data); // Set editor content.
+          // #########################################################################################
+        }).catch((err: any)=>console.error(err));
       })
       .catch((err: any) => console.error(err));
 

@@ -4,6 +4,41 @@ namespace App\Helpers;
 
 class ForumRegexFunctions
 {
+  /** Remove brakes in between 'blockquote' tag. */
+  public function removeBrakesBetweenQuotes(string $str): string
+  {
+    // This is for removing '<br>' or '<p>&nbsp;</p>' between block quotes like for example
+    // if we have something like '<blockquote>...</blockquote><p>&nbsp;</p><blockquote>...</blockquote>
+    //!                                                        ^ this <p>&nbsp;</p> must be removed
+
+    $pattern = '%(?:\R+?)?(?:<br>|<p>&nbsp;<\/p>)(?:\R+?)?<blockquote(.+?)>%s';
+
+    $replace = '<blockquote$1>';
+
+    $str = preg_replace($pattern, $replace, $str);
+
+
+    return $str;
+  }
+
+  /** Wrap comment in blockquote. This is use for replying to comments*/
+  public function wrapCommentInBlockquote(string $comment, string $username): string
+  {
+    $comment = <<<COMM
+        <blockquote style="
+          background-color: #cfcdc8; 
+          border-left: 5px solid #ff0066; 
+          padding: 10px;
+          margin: 5px 0 5px 0"
+        >
+        <div style="color: blue">${username} a spus:</div>
+          ${comment}
+        </blockquote><br>
+        COMM;
+
+    return $comment;
+  }
+
   /** Extract quoted text. */
   public function quoteSubstitution(string $str): string
   {
