@@ -69,12 +69,12 @@ class ForumRegexFunctions
 
     $str = preg_replace($pattern, $replace, $str);
     // ##############################################
-    // ###    Replace '</p>', '<p>' and '<br>'    ###
+    // ##  Replace '</p>', &nbsp, '<p>' and '<br>' ##
     // ##############################################
     // (#1) Remove '<p>' tags and replace it with ""(nothing)
     // (#2) Remove '</p>' tags and replace it with '<br>'
     // (#3) Remove '<br>' tags only at the end of text
-    // (#4) Remove '&nbsp;' only only the end of text
+    // (#4) Remove '&nbsp;' only the end of text
     $pattern = [
       '%<p>%sm', // (#1)
       '%</p>%sm', // (#2)
@@ -166,7 +166,7 @@ class ForumRegexFunctions
   // Remove '<p></p>' tags
   public function removePTags(string $str): string
   {
-    //  (#1) remove newlines
+    // (#1) remove newlines
     // (#2) remove '<p></p>' tags and replace is with ""(nothing)
     $pattern = [
       "%(\R+)%ms", // (#1)
