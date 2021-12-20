@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\DecodeLoginJWT;
 use App\Helpers\CustomFunctions;
+use App\Helpers\ForumRegexFunctions;
 use Mews\Purifier\Facades\Purifier;
 use Carbon\Carbon;
 
@@ -30,10 +31,12 @@ class SetReplyForumTopicComments extends Controller
         $JWT_UserId   = $decodedJWT["userId"];
         $JWT_Username = $decodedJWT["username"];
 
+        $comment = (new ForumRegexFunctions)->convertBlockQuote($request->comment);
+
         // Set forum topic comments.
         DB::table("forum_topic_comments")
             ->insert([
-                "comment"    => Purifier::clean($request->comment),
+                "comment"    => Purifier::clean($comment),
                 "username"   => $JWT_Username,
                 "topic_id"   => $request->topicId,
                 "user_id"    => $JWT_UserId,

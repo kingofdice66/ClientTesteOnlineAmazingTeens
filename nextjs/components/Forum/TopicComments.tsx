@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import { v4 as uuidV4 } from "uuid";
 import useSWR from "swr";
 import axios from "axios";
+import RegexForumFunctions from "../CustomComponents/RegexForumFunctions/RegexForumFunctions";
 import apiURL from "../ApiURL/ApiURL";
-import RemoveBrakeBetweenBlockQuotes from "../CustomComponents/ManipulateComments/RemoveBrakeBetweenBlockQuotes";
 import TinyMCE from "../CustomComponents/TinyMCE/TinyMCE";
 import style from "./TopicComments.module.scss";
 
@@ -14,12 +14,12 @@ interface IPosition {
 }
 
 function Topic(): JSX.Element {
+  const regex = new RegexForumFunctions();
   const router = useRouter();
   const { data, error } = useSWR(`${apiURL}/getForumTopicComments`);
   // prettier-ignore
   const [editorPosition, setEditorPosition] = useState<IPosition>({x: 0, y: 0,}); // Editor scroll position
   const [editorContent, setEditorContent] = useState<string>("");
-  const [commentPreview, setCommentPreview] = useState<string>("");
   const concatCommentsRef = useRef<string>(""); // Concatenate multiple replies.
   const editorRef = useRef<any>();
 
@@ -32,8 +32,6 @@ function Topic(): JSX.Element {
     // Get element position.
     const editorPos = document.getElementById("editor");
     // Get element position
-    const previewCommentPos = document.getElementById("previewComment");
-
     setEditorPosition((prevState) => {
       // eslint-disable-next-line no-param-reassign
       prevState.x = editorPos?.offsetLeft;
@@ -53,19 +51,9 @@ function Topic(): JSX.Element {
     axios
       .post(`${apiURL}/getForumTopicCommentsForRely`, { commentId, topicId, userId, username })
       .then((comment: any) => {
-        // #########################################################################################
-        // ###############   Use regex on server side to manipulate the string   ###################
-        // #########################################################################################
-        // This is used to remove brakes in between 'blockquote' tag.
-        // Uses regex on server side and not client side in order to not deal with browser support.
         concatCommentsRef.current += comment.data;
-        axios.post(`${apiURL}/removeBrakesBetweenQuotesRegex`, {comment: concatCommentsRef.current}).then((commentRegex:any)=>{
-          console.log("commentRegex: ", commentRegex.data);
-          console.log(typeof data);
-          // concatCommentsRef.current = RemoveBrakeBetweenBlockQuotes(concatCommentsRef.current);
-          editorRef.current.setContent(commentRegex.data); // Set editor content.
-          // #########################################################################################
-        }).catch((err: any)=>console.error(err));
+        concatCommentsRef.current = regex.removeBrakesBetweenQuotes(concatCommentsRef.current);
+        editorRef.current.setContent(concatCommentsRef.current); // Set editor content.
       })
       .catch((err: any) => console.error(err));
 
@@ -80,6 +68,8 @@ function Topic(): JSX.Element {
   const postReply = (): void => {
     const { topicId } = router.query;
 
+    console.log("editorContent: ", editorContent);
+
     axios.post(
       `${apiURL}/setReplyForumTopicComments`,
       { comment: editorContent, topicId },
@@ -88,13 +78,6 @@ function Topic(): JSX.Element {
 
     concatCommentsRef.current = ""; // Clear text
     editorRef.current.setContent(""); // Clear editor content
-  };
-
-  const previewComment = (): void => {
-    axios
-      .post(`${apiURL}/previewTopicComments`, { comment: editorContent })
-      .then((res: any) => setCommentPreview(res.data))
-      .catch((err: any) => console.error(err));
   };
 
   /** Function is called every time editor content is changed. */
@@ -126,7 +109,6 @@ function Topic(): JSX.Element {
         </React.Fragment>
       ))}
       <br />
-      <div id="editor" />
       {/* prettier-ignore */}
       <TinyMCE
         onInit={(evt: any, editor: any): void => { editorRef.current = editor }}
@@ -135,13 +117,10 @@ function Topic(): JSX.Element {
         initialValue="<h1>Hello Comment!</h1>"
       />
       <br />
+      <div id="editor" />
       {/* prettier-ignore */}
       <button type="button" onClick={postReply}>Postează Răspunsul</button>
       &nbsp;&nbsp;&nbsp;
-      {/* prettier-ignore */}
-      <button type="button" onClick={previewComment}>Previzualizează Răspunsul</button>
-      <div dangerouslySetInnerHTML={{ __html: `${commentPreview}` }} />
-      <div id="previewComment" />
     </>
   );
 }

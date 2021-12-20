@@ -9,7 +9,7 @@ class ForumRegexFunctions
   {
     // This is for removing '<br>' or '<p>&nbsp;</p>' between block quotes like for example
     // if we have something like '<blockquote>...</blockquote><p>&nbsp;</p><blockquote>...</blockquote>
-    //!                                                        ^ this <p>&nbsp;</p> must be removed
+    //!                                                            ^ this <p>&nbsp;</p> must be removed
 
     $pattern = '%(?:\R+?)?(?:<br>|<p>&nbsp;<\/p>)(?:\R+?)?<blockquote(.+?)>%s';
 
@@ -21,18 +21,34 @@ class ForumRegexFunctions
     return $str;
   }
 
+  /** Convert from <blockquote> to [QUOTE] before storing it in database. */
+  public function convertBlockQuote(string $str): string
+  {
+    $pattern = "%<blockquote(?:.*?)style(?:.*?)data-username=(.*?)data-comment_id=(.*?)data-user_id=(.*?)>(?:\s+)?<div(?:.*?)>(?:.*?)<\/div>(?:\+)?(.*?)<\/blockquote>%sm";
+
+    $replace = '<p>[QUOTE=username:$1,post:$2,member:$3]</p><p>$4</p><p>[/QUOTE]</p>';
+
+    $str = preg_replace($pattern, $replace, $str);
+
+    return $str;
+  }
+
   /** Wrap comment in blockquote. This is use for replying to comments*/
-  public function wrapCommentInBlockquote(string $comment, string $username): string
+  public function wrapCommentInBlockquote(string $comment, string $username, string $commentId, int $userId): string
   {
     $comment = <<<COMM
-        <blockquote style="
-          background-color: #cfcdc8; 
-          border-left: 5px solid #ff0066; 
-          padding: 10px;
-          margin: 5px 0 5px 0"
+        <blockquote
+          style="
+              background-color: #cfcdc8; 
+              border-left: 5px solid #ff0066; 
+              padding: 10px;
+              margin: 5px 0 5px 0"
+          data-username=$username
+          data-comment_id=$commentId
+          data-user_id=$userId
         >
-        <div style="color: blue">${username} a spus:</div>
-          ${comment}
+        <div style="color: blue">$username a spus:</div>
+          $comment
         </blockquote><br>
         COMM;
 
@@ -42,77 +58,63 @@ class ForumRegexFunctions
   /** Extract quoted text. */
   public function quoteSubstitution(string $str): string
   {
-    /** 
-     * (#1) Remove line breaks from text coming from database.
-     * Must be used otherwise regex won't work properly.
-     * (#2) Remove white spaces from beginning and end of the string.
-     * Must be used otherwise regex won't work properly.
-     * For some reason, white space is added into database.
-     */
+    // #############################################
+    // ######        Remove newlines      #######
+    // #############################################
+    // String comes with newlines attached, so it is
+    // unnecessary and thus removed
+    $pattern = '%(\R+)%sm';
 
+    $replace = '';
+
+    $str = preg_replace($pattern, $replace, $str);
+    // ##############################################
+    // ###    Replace '</p>', '<p>' and '<br>'    ###
+    // ##############################################
+    // (#1) Remove '<p>' tags and replace it with ""(nothing)
+    // (#2) Remove '</p>' tags and replace it with '<br>'
+    // (#3) Remove '<br>' tags only at the end of text
+    // (#4) Remove '&nbsp;' only only the end of text
     $pattern = [
-      "%\R+%", // (#1)
-      "%(?s)^\s+|\s+$%" // (#2)
+      '%<p>%sm', // (#1)
+      '%</p>%sm', // (#2)
+      '%((<br>)+)$%sm', // (#3)
+      '%((&nbsp;)+)$%sm' // (#4)
     ];
 
-    $replace = ["", ""];
+    $replace = ['', '<br>', '', ''];
+
+    $str = preg_replace($pattern, $replace, $str);
+    // ##############################################
+    // ###    Replace [QUOTE] with <blockquote>   ###
+    // ##############################################
+    $pattern = '%\[QUOTE=username:"(.*?)"(?:.*?),post:"(.*?)"(?:.*?),member:"(.*?)"](.*?)\[/QUOTE]%ms';
+
+    $replace = <<<REPL
+      <blockquote style="
+        background-color: #cfcdc8;
+        border-left: 5px solid #ff0066;
+        padding: 10px;
+        margin: 5px 0 5px 0"
+      >
+      <a href="#comment_id$2">$1 a spus:</a>
+        $4
+      </blockquote>
+    REPL;
 
     $str = preg_replace($pattern, $replace, $str);
 
-    // ############################################################################
-    // ############                   strip <p>  tags                  ############
-    // ############################################################################
+    // #########################################################
+    // ###  Replace "</blockquote><br>" with "</blockquote>" ###
+    // #########################################################
+    //  Replace "</blockquote><br>" with "</blockquote>" to strip a brake "<br>" 
+    //  at the end of a blockquote so it doesn't break the text where it isn't suppose to.  
+    $pattern = "%</blockquote><br>%";
 
-    // (#1) Strip "<p>" and replace it with ""(nothing)
-    // (#2) Strip "&nbsp;" from text.
-    // (#3) Replace "</p>" with "<br>".
+    $replace = "</blockquote>";
 
-    $divPattern = [
-      "%(?s)<p>%", // (#1)
-      "%(?s)(&nbsp;)*%", // (#2)
-      "%(?s)</p>%"  // (#3)
-    ];
-
-    $divReplace = ["", "", "<br>"];
-
-    $str = preg_replace($divPattern, $divReplace, $str);
-
-    // ############################################################################
-    // ############              extract quoted information            ############
-    // ############################################################################
-
-    $quotePattern = '%(?s)\[QUOTE="username:(.+?),post:(\d+?),member:(\d+?)"\](?:(?:<br>)+)?(.*?)(?:(?:<br>)+)?\[/QUOTE\]%';
-
-    $quoteReplace = <<<REPL
-  <blockquote style="
-    background-color: #cfcdc8; 
-    border-left: 5px solid #ff0066; 
-    padding: 10px;
-  ">
-  <a href="#comment_id$2">$1 a spus:</a><br>
-  $4
-  </blockquote>
-  REPL;
-
-    $str = preg_replace($quotePattern, $quoteReplace, $str);
-
-    // ############################################################################
-    // ######         replace "</blockquote><br>" with "</blockquote>"       ######
-    // ############################################################################
-
-    /** 
-     * Replace "</blockquote><br>" with "</blockquote>" to strip a brake "<br>" 
-     * at the end of a blockquote so it doesn't break the text where it isn't suppose to. 
-     */
-
-    $patternQuote = "%</blockquote><br>%";
-
-    $replaceQuote = "</blockquote>";
-
-    $str = preg_replace($patternQuote, $replaceQuote, $str);
-
-    // ############################################################################
-
+    $str = preg_replace($pattern, $replace, $str);
+    // ##############################################
     return $str;
   }
 
@@ -135,6 +137,7 @@ class ForumRegexFunctions
      * so it's stripped from inside quote. It means that you are quoting someone who has quoted someone.
      */
 
+    /* 
     $pattern = [
       "%(?s)\[QUOTE(?:.*?)\](?:.*?)\[/QUOTE\]%", // (#2)
     ];
@@ -142,6 +145,7 @@ class ForumRegexFunctions
     $replace = [""];
 
     $str = preg_replace($pattern, $replace, $str);
+    */
 
     return $str;
   }
