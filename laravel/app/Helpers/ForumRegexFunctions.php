@@ -136,16 +136,11 @@ class ForumRegexFunctions
      * (#2) When quoting someone, text inside "[QUOTE...]<div>some text inside</div>[/QUOTE]" is not desired,
      * so it's stripped from inside quote. It means that you are quoting someone who has quoted someone.
      */
+    $pattern = "%\[QUOTE(?:.*?)\](?:.*?)\[/QUOTE\]%ms"; // (#2)
 
-    /* 
-    $pattern = [
-      "%(?s)\[QUOTE(?:.*?)\](?:.*?)\[/QUOTE\]%", // (#2)
-    ];
-
-    $replace = [""];
+    $replace = "";
 
     $str = preg_replace($pattern, $replace, $str);
-    */
 
     return $str;
   }
@@ -168,21 +163,14 @@ class ForumRegexFunctions
     return $str;
   }
 
-  /** Remove a single brake from beginning of text and newlines. */
-  public function removeNewlinesAndSingleBreak(string $str): string
+  // Remove '<p></p>' tags
+  public function removePTags(string $str): string
   {
-    /**
-     * (#1) Remove line break from text coming from database.
-     * Must be used otherwise regex won't work properly.
-     * (#2) Remove a single brake at the beginning of text.
-     * For some reason, when rich text field is empty, when a draft is saved, a single "<br>"(brake/newline)
-     * is stored in database in drafts, so we remove it.
-     * Example: <br><div>kkkk</div><div>ssss</div> ==> <div>kkkk</div><div>ssss</div> 
-     */
-
+    //  (#1) remove newlines
+    // (#2) remove '<p></p>' tags and replace is with ""(nothing)
     $pattern = [
-      "%\R+%", // (#1)
-      "%(?s)^<br>%" // (#2)
+      "%(\R+)%ms", // (#1)
+      "%(<p></p>)%ms", // (#2)
     ];
 
     $replace = ["", ""];

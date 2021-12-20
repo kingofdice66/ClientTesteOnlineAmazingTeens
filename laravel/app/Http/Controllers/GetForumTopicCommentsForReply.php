@@ -21,7 +21,7 @@ class GetForumTopicCommentsForReply extends Controller
 
         $comment = (new ForumRegexFunctions)->extractCommentsReply($comment);
 
-        $comment = (new ForumRegexFunctions)->removeNewlinesAndSingleBreak($comment);
+        $comment = (new ForumRegexFunctions)->removePTags($comment);
 
         $comment = (new ForumRegexFunctions)->wrapCommentInBlockquote($comment, $request->username, $request->commentId, $request->userId);
 
