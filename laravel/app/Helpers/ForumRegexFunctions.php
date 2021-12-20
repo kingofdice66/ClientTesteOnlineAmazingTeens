@@ -79,8 +79,8 @@ class ForumRegexFunctions
     $pattern = [
       '%^((<br>)+)%ms', // (#1)
       '%((<br>)+)$%ms', // (#2)
-      '%^(<p>(\s+?)<\/p>)+%msu', // (#3)
-      '%(<p>(\s+?)<\/p>)+$%msu' // (#4)
+      '%^(<p>(\s+?)<\/p>)+%msu', // (#3) //! make sure to set the u(unicode) - ms+u - flag otherwise it won't work
+      '%(<p>(\s+?)<\/p>)+$%msu' // (#4) //! make sure to set the u(unicode) - ms+u - flag otherwise it won't work
     ];
 
     $replace = ['', '', '', ''];
