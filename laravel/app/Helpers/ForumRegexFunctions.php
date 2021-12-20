@@ -68,6 +68,25 @@ class ForumRegexFunctions
     $replace = '';
 
     $str = preg_replace($pattern, $replace, $str);
+
+    // #############################################
+    // ##   Remove brakes from beginning and end  ##
+    // #############################################
+    // (#1) Remove '<br>' tags from beginning
+    // (#2) Remove '<br>' tags from end
+    // (#3) Remove '<p>...</p>' tags from beginning
+    // (#4) Remove '<p>...</p>' from end
+    $pattern = [
+      '%^((<br>)+)%ms', // (#1)
+      '%((<br>)+)$%ms', // (#2)
+      '%^(<p>(\s+?)<\/p>)+%msu', // (#3)
+      '%(<p>(\s+?)<\/p>)+$%msu' // (#4)
+    ];
+
+    $replace = ['', '', '', ''];
+
+    $str = preg_replace($pattern, $replace, $str);
+
     // ##############################################
     // ##  Replace '</p>', &nbsp, '<p>' and '<br>' ##
     // ##############################################
