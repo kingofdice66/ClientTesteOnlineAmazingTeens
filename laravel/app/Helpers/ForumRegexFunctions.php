@@ -152,6 +152,25 @@ class ForumRegexFunctions
 
     $str = preg_replace($remNewlinePattern, $replace, $str);
 
+    // #############################################
+    // ##   Remove brakes from beginning and end  ##
+    // #############################################
+    // (#1) Remove '<br>' tags from beginning
+    // (#2) Remove '<br>' tags from end
+    // (#3) Remove '<p>...</p>' tags from beginning
+    // (#4) Remove '<p>...</p>' from end
+    $pattern = [
+      '%^((<br>)+)%ms', // (#1)
+      '%((<br>)+)$%ms', // (#2)
+      '%^(<p>(\s+?)<\/p>)+%msu', // (#3) //! make sure to set the u(unicode) - ms+u - flag otherwise it won't work
+      '%(<p>(\s+?)<\/p>)+$%msu' // (#4) //! make sure to set the u(unicode) - ms+u - flag otherwise it won't work
+    ];
+
+    $replace = ['', '', '', ''];
+
+    $str = preg_replace($pattern, $replace, $str);
+    // #############################################
+
     /**  
      * (#2) When quoting someone, text inside "[QUOTE...]<div>some text inside</div>[/QUOTE]" is not desired,
      * so it's stripped from inside quote. It means that you are quoting someone who has quoted someone.
