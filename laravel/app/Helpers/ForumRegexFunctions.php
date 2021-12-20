@@ -26,7 +26,7 @@ class ForumRegexFunctions
   {
     $pattern = "%<blockquote(?:.*?)style(?:.*?)data-username=(.*?)data-comment_id=(.*?)data-user_id=(.*?)>(?:\s+)?<div(?:.*?)>(?:.*?)<\/div>(?:\+)?(.*?)<\/blockquote>%sm";
 
-    $replace = '<p>[QUOTE=username:$1,post:$2,member:$3]</p><p>$4</p><p>[/QUOTE]</p>';
+    $replace = '<p>[QUOTE=username:$1,post:$2,member:$3]</p>$4<p>[/QUOTE]</p>';
 
     $str = preg_replace($pattern, $replace, $str);
 
@@ -59,10 +59,10 @@ class ForumRegexFunctions
   public function quoteSubstitution(string $str): string
   {
     // #############################################
-    // ######        Remove newlines      #######
+    // ######         Remove newlines        #######
     // #############################################
-    // String comes with newlines attached, so it is
-    // unnecessary and thus removed
+    // String comes with newlines from database 
+    // attached, so it is unnecessary and thus removed
     $pattern = '%(\R+)%sm';
 
     $replace = '';
@@ -74,7 +74,7 @@ class ForumRegexFunctions
     // (#1) Remove '<p>' tags and replace it with ""(nothing)
     // (#2) Remove '</p>' tags and replace it with '<br>'
     // (#3) Remove '<br>' tags only at the end of text
-    // (#4) Remove '&nbsp;' only the end of text
+    // (#4) Remove '&nbsp;' only at the end of text
     $pattern = [
       '%<p>%sm', // (#1)
       '%</p>%sm', // (#2)
@@ -85,6 +85,7 @@ class ForumRegexFunctions
     $replace = ['', '<br>', '', ''];
 
     $str = preg_replace($pattern, $replace, $str);
+
     // ##############################################
     // ###    Replace [QUOTE] with <blockquote>   ###
     // ##############################################
@@ -114,7 +115,7 @@ class ForumRegexFunctions
     $replace = "</blockquote>";
 
     $str = preg_replace($pattern, $replace, $str);
-    // ##############################################
+
     return $str;
   }
 
