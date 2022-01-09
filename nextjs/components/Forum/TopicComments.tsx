@@ -57,6 +57,7 @@ function Topic(): JSX.Element {
       })
       .catch((err: any) => console.error(err));
 
+      // Scroll to editor position
       window.scrollTo({ 
         top: editorPosition.y,
         left: editorPosition.x,
@@ -70,14 +71,19 @@ function Topic(): JSX.Element {
 
     console.log("editorContent: ", editorContent);
 
-    axios.post(
-      `${apiURL}/setReplyForumTopicComments`,
-      { comment: editorContent, topicId },
-      { withCredentials: true }
-    );
+    axios
+      .post(
+        `${apiURL}/setReplyForumTopicComments`,
+        { comment: editorContent, topicId },
+        { withCredentials: true }
+      )
+      .then((res: any) => router.replace(router.asPath))
+      .catch((err: any) => console.error(err));
 
     concatCommentsRef.current = ""; // Clear text
     editorRef.current.setContent(""); // Clear editor content
+
+    // router.replace(router.asPath);
   };
 
   /** Function is called every time editor content is changed. */
@@ -96,6 +102,9 @@ function Topic(): JSX.Element {
                 Creat la: {x.created_at} UTC &nbsp; &nbsp;&nbsp; COMMENT ID:{" "}
                 {x.comment_id}
               </span>
+            </div>
+            <div style={{ backgroundColor: "green", color: "white" }}>
+              Postat de: {x.username}
             </div>
             <div
               id={`comment_id${x.comment_id}`} // For bookmarks so user can jump to this comment when user want's to know the original quote.

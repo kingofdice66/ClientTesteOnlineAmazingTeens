@@ -62,7 +62,9 @@ class ForumRegexFunctions
     // ######         Remove newlines        #######
     // #############################################
     // String comes with newlines from database 
-    // attached, so it is unnecessary and thus removed
+    // attached, so it is unnecessary and thus removed.
+    // Must be used first, otherwise regex manipulation 
+    // won't work as intended.
     $pattern = '%(\R+)%sm';
 
     $replace = '';
@@ -141,10 +143,10 @@ class ForumRegexFunctions
   /** Extract comments and leave out quoted text. This function is used for replying to comments. */
   public function extractCommentsReply(string $str): string
   {
-    /**
-     * (#1) Remove line breaks from text coming from database. 
-     * Must be used otherwise regex won't work properly. 
-     */
+    //  (#1) String comes with newlines from database 
+    // attached, so it is unnecessary and thus removed.
+    // Must be used first, otherwise regex manipulation 
+    // won't work as intended.Remove line breaks from text coming from database. 
 
     $remNewlinePattern = "%\R+%"; // (#1)
 
@@ -205,7 +207,10 @@ class ForumRegexFunctions
   // Remove '<p></p>' tags
   public function removePTags(string $str): string
   {
-    // (#1) remove newlines
+    // (#1) String comes with newlines from database 
+    // attached, so it is unnecessary and thus removed.
+    // Must be used first, otherwise regex manipulation 
+    // won't work as intended.
     // (#2) remove '<p></p>' tags and replace is with ""(nothing)
     $pattern = [
       "%(\R+)%ms", // (#1)
