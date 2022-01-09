@@ -21,6 +21,8 @@ function Navbar(): JSX.Element {
   const pattern_login = /\/login/;
   // eslint-disable-next-line camelcase
   const pattern_registration = /\/registration/;
+  // eslint-disable-next-line camelcase
+  const pattern_chat = /\/chat/;
 
   // ###################################################
   // ######                  Tests                ######
@@ -35,6 +37,8 @@ function Navbar(): JSX.Element {
   const highlight_login = pattern_login.test(router.pathname);
   // eslint-disable-next-line camelcase
   const highlight_registration = pattern_registration.test(router.pathname);
+  // eslint-disable-next-line camelcase
+  const highlight_chat = pattern_chat.test(router.pathname);
   // ####################################################################
 
   // console.log("highlight_adminPanel: ", highlight_adminPanel);
@@ -100,6 +104,18 @@ function Navbar(): JSX.Element {
                 className={highlight_registration ? style.active : ""}
               >
                 Înregistrare
+              </a>
+            </Link>
+          </li>
+
+          <li>
+            <Link href="/registration" passHref>
+              <a
+                href="dummy"
+                // eslint-disable-next-line camelcase
+                className={highlight_chat ? style.active : ""}
+              >
+                Chat
               </a>
             </Link>
           </li>
