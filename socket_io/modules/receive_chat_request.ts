@@ -8,11 +8,12 @@ const receiveChatRequest = (receiveChatRqst: any, room: any, jwtCookie: any): vo
   // TODO: has no errors, is not expired etc.
   // TODO: example:
   // TODO: if(are_no_errors), if(not_expired) etc.
-  // TODO: if conditions are met, only then send request
+  // TODO: if conditions are met, only then receive request
 
-  //! don't forget to change "roomName" to the name of the room
   // "sentChatRequest" because the other user has to send a chat request
-  receiveChatRqst.to(room).on("sentChatRequest");
+  receiveChatRqst.to(room).on("sentChatRequest", (msg: any) => {
+    console.log(msg)
+  });
 };
 
 export default receiveChatRequest;
