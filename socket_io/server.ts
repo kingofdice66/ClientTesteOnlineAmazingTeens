@@ -5,6 +5,7 @@ import { Server } from "socket.io";
 import axios from "axios";
 import sendChatRequest from "./modules/send_chat_request";
 import receiveChatRequest from "./modules/receive_chat_request";
+import getJWTCookie from "./modules/get_and_decode_jwt_cookie";
 const cookie = require("cookie");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -18,21 +19,6 @@ const io = new Server(httpServer, {
 });
 
 // #########################################################################
-// ####                     GET AND DECODE JWT COOKIE                   ####
-// #########################################################################
-/** Get and decode JWT cookie. */
-const getJWTCookie = (socket: any): { err: any; decoded: any } => {
-  // get cookies
-  const cookies = cookie.parse(socket.handshake.headers.cookie || "");
-
-  // prettier-ignore
-  // decoded JWT cookie
-  const jwtCookie = jwt.verify(cookies.jwt, process.env.JWT_KEY, (err: any, decoded: any) => ({err, decoded}))
-
-  return jwtCookie;
-};
-
-// #########################################################################
 // #####                      SEND CHAT REQUESTS                       #####
 // #########################################################################
 // Send a chat request notification to a specific user in order
@@ -43,7 +29,10 @@ const getJWTCookie = (socket: any): { err: any; decoded: any } => {
 const sendChatRqst = io.of("/send_chat_request");
 
 sendChatRqst.on("connection", (socket: any) => {
-  sendChatRequest(sendChatRqst, getJWTCookie(socket));
+  const jwtCookie = getJWTCookie(socket, cookie, jwt);
+  const room = jwtCookie.decoded.name; // the name of the room is the username
+
+  sendChatRequest(sendChatRqst, room, jwtCookie);
 });
 // #########################################################################
 // #####                      RECEIVE CHAT REQUESTS                    #####
@@ -55,7 +44,10 @@ sendChatRqst.on("connection", (socket: any) => {
 const receiveChatRqst = io.of("/receive_chat_request");
 
 receiveChatRqst.on("connection", (socket: any) => {
-  receiveChatRequest(receiveChatRqst, getJWTCookie(socket));
+  const jwtCookie = getJWTCookie(socket, cookie, jwt);
+  const room = jwtCookie.decoded.name; // the name of the room is the username
+
+  receiveChatRequest(receiveChatRqst, room, jwtCookie);
 });
 // #########################################################################
 
