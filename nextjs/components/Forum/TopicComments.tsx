@@ -29,7 +29,6 @@ function Topic(): JSX.Element {
   // Get the editor position to scroll to its position
   // when replying to comments.
   useEffect(() => {
-    // Get element position.
     const editorPos = document.getElementById("editor");
     // Get element position
     setEditorPosition((prevState) => {

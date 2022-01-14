@@ -76,6 +76,7 @@ function Login(): JSX.Element {
           onChange={(e): void => setUserInfo({ ...userInfo, password: e.target.value })}
         />
       </label>
+
       <br />
       <div>{errorMsg}</div>
       <button type="submit">Intră în cont</button>
