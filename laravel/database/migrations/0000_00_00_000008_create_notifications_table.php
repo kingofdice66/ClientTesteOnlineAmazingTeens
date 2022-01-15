@@ -20,7 +20,7 @@ class CreateNotificationsTable extends Migration
             $table->tinyText("username"); // Senders username.
             $table->unsignedBigInteger("user_id"); // Senders id.
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade")->onUpdate("cascade");
-            $table->boolean("active")->default(false); // "false" if the user hasn't read the notification.
+            $table->boolean("status")->default(false); // "false" if the user hasn't read the notification.
             $table->timestamps(6);
         });
     }
