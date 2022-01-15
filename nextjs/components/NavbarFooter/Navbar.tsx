@@ -23,6 +23,8 @@ function Navbar(): JSX.Element {
   const pattern_registration = /\/registration/;
   // eslint-disable-next-line camelcase
   const pattern_chat = /\/chat/;
+  // eslint-disable-next-line camelcase
+  const pattern_notifications = /\/notifications/;
 
   // ###################################################
   // ######                  Tests                ######
@@ -39,10 +41,9 @@ function Navbar(): JSX.Element {
   const highlight_registration = pattern_registration.test(router.pathname);
   // eslint-disable-next-line camelcase
   const highlight_chat = pattern_chat.test(router.pathname);
+  // eslint-disable-next-line camelcase
+  const highlight_notifications = pattern_notifications.test(router.pathname);
   // ####################################################################
-
-  // console.log("highlight_adminPanel: ", highlight_adminPanel);
-  // console.log("highlight_home: ", highlight_home);
 
   return (
     <div className={style.links}>
@@ -116,6 +117,18 @@ function Navbar(): JSX.Element {
                 className={highlight_chat ? style.active : ""}
               >
                 Chat
+              </a>
+            </Link>
+          </li>
+
+          <li>
+            <Link href="/notifications" passHref>
+              <a
+                href="dummy"
+                // eslint-disable-next-line camelcase
+                className={highlight_notifications ? style.active : ""}
+              >
+                Notificari
               </a>
             </Link>
           </li>
