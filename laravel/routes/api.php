@@ -12,6 +12,7 @@ use App\Http\Controllers\GetCourseNameOnPageLoad;
 use App\Http\Controllers\GetChapterNameOnPageLoad;
 use App\Http\Controllers\GetForumTopicComments;
 use App\Http\Controllers\GetForumTopicCommentsForReply;
+use App\Http\Controllers\GetNotifications;
 use App\Http\Controllers\GetCourses;
 use App\Http\Controllers\GetChapters;
 use App\Http\Controllers\GetQuizzes;
@@ -23,6 +24,7 @@ use App\Http\Controllers\SetChapters;
 use App\Http\Controllers\SetSubjects;
 use App\Http\Controllers\SetCourses;
 use App\Http\Controllers\SetForumTopics;
+use App\Http\Controllers\SetNotifications;
 use App\Http\Controllers\RegisterUsers;
 use App\Http\Controllers\CheckUsernameAvailability;
 use App\Http\Controllers\CheckEmailAvailability;
@@ -176,3 +178,13 @@ Route::post("previewTopicComments", [PreviewTopicComments::class, "getData"]);
 
 /** Remove brakes in between 'blockquote' tag. */
 Route::post("removeBrakesBetweenQuotesRegex", [RemoveBrakesBetweenQuotesRegex::class, "getData"]);
+
+// ######################################################################
+// #########                   NOTIFICATIONS                    #########
+// ######################################################################
+
+/** Set notifications. */
+Route::post("setNotifications", [SetNotifications::class, "setData"]);
+
+/** Get notifications. */
+Route::get("getNotifications", [GetNotifications::class, "getData"]);

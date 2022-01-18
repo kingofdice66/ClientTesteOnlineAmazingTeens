@@ -4,6 +4,8 @@ exports.__esModule = true;
 /* eslint-disable import/newline-after-import */
 var http_1 = require("http");
 var socket_io_1 = require("socket.io");
+var send_notification_1 = require("./modules/send_notification");
+var get_and_decode_jwt_cookie_1 = require("./modules/get_and_decode_jwt_cookie");
 var cookie = require("cookie");
 var jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -14,28 +16,16 @@ var io = new socket_io_1.Server(httpServer, {
         credentials: true
     }
 });
-var notification = io.of("/notification"); // for notifications
+// --------------------------------------------------------------------
+// Send a notification to a respective user.
+// --------------------------------------------------------------------
+// Send notification to a respective user when sender
+// is sending a message, a chat request etc. to a specified receiver.
+var notification = io.of("/notification");
 notification.on("connection", function (socket) {
-    // get cookies
-    var cookies = cookie.parse(socket.handshake.headers.cookie || "");
-    // make sure the JWT cookie exists
-    if (cookies.jwt) {
-        jwt.verify(cookies.jwt, process.env.JWT_KEY, function (err, decoded) {
-            // make sure the JWT is valid, if not, return
-            if (err) {
-                console.error(err);
-                return;
-            }
-            // Join room,  room=username. Username is encoded in JWT
-            socket.join(decoded.name);
-        });
-    }
-    // receive message then send it back to the appropriate room
-    socket.on("chatMsg", function (msg) {
-        console.log(msg);
-        notification.to("Razvan").emit("chatMsg", msg);
-    });
+    (0, send_notification_1["default"])(socket, (0, get_and_decode_jwt_cookie_1["default"])(socket, cookie, jwt));
 });
+// --------------------------------------------------------------------
 httpServer.listen(process.env.PORT, function () {
     console.log("socket.io connection established on port " + process.env.PORT);
 });

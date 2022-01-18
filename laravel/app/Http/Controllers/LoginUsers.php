@@ -13,7 +13,7 @@ class LoginUsers extends Controller
     /** Set JWT(JSON Web Token) cookie httpOnly if user has successfully logged in for authorization. */
     public function getJWT(Request $request)
     {
-        $expirationTime = 60 * 24; // In minutes. (60 * 24 = 24 hours)
+        $expirationTime = 60 * 24; // In minutes. (60min * 24min = 24 hours)
 
         $DBUsername =
             DB::table("users")

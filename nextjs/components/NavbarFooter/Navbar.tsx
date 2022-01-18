@@ -25,6 +25,8 @@ function Navbar(): JSX.Element {
   const pattern_chat = /\/chat/;
   // eslint-disable-next-line camelcase
   const pattern_notifications = /\/notifications/;
+  // eslint-disable-next-line camelcase
+  const pattern_account = /\/account/;
 
   // ###################################################
   // ######                  Tests                ######
@@ -43,6 +45,8 @@ function Navbar(): JSX.Element {
   const highlight_chat = pattern_chat.test(router.pathname);
   // eslint-disable-next-line camelcase
   const highlight_notifications = pattern_notifications.test(router.pathname);
+  // eslint-disable-next-line camelcase
+  const highlight_account = pattern_account.test(router.pathname);
   // ####################################################################
 
   return (
@@ -128,7 +132,19 @@ function Navbar(): JSX.Element {
                 // eslint-disable-next-line camelcase
                 className={highlight_notifications ? style.active : ""}
               >
-                Notificari
+                Notificări
+              </a>
+            </Link>
+          </li>
+
+          <li>
+            <Link href="/account" passHref>
+              <a
+                href="dummy"
+                // eslint-disable-next-line camelcase
+                className={highlight_account ? style.active : ""}
+              >
+                Contul tău
               </a>
             </Link>
           </li>
