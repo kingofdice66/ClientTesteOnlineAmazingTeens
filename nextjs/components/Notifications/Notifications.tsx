@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import apiURL from "../ApiURL/ApiURL";
 
 function Notifications(): JSX.Element {

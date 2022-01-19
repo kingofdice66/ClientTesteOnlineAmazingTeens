@@ -17,6 +17,7 @@ use App\Http\Controllers\GetCourses;
 use App\Http\Controllers\GetChapters;
 use App\Http\Controllers\GetQuizzes;
 use App\Http\Controllers\GetForumTopics;
+use App\Http\Controllers\GetChatRequests;
 use App\Http\Controllers\SetDraftsNewTopic_Title;
 use App\Http\Controllers\SetDraftsNewTopic_Comment;
 use App\Http\Controllers\SetReplyForumTopicComments;
@@ -25,6 +26,7 @@ use App\Http\Controllers\SetSubjects;
 use App\Http\Controllers\SetCourses;
 use App\Http\Controllers\SetForumTopics;
 use App\Http\Controllers\SetNotifications;
+use App\Http\Controllers\SetChatRequests;
 use App\Http\Controllers\RegisterUsers;
 use App\Http\Controllers\CheckUsernameAvailability;
 use App\Http\Controllers\CheckEmailAvailability;
@@ -188,3 +190,13 @@ Route::post("setNotifications", [SetNotifications::class, "setData"]);
 
 /** Get notifications. */
 Route::get("getNotifications", [GetNotifications::class, "getData"]);
+
+// ######################################################################
+// #########                   CHAT REQUESTS                    #########
+// ######################################################################
+
+/** Set chat requests. */
+Route::post("setChatRequests", [SetChatRequests::class, "setData"]);
+
+/** Get chat requests. */
+Route::get("getChatRequests", [GetChatRequests::class, "getData"]);

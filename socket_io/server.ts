@@ -17,9 +17,9 @@ const io = new Server(httpServer, {
   },
 });
 
-// --------------------------------------------------------------------
-// Send a notification to a respective user.
-// --------------------------------------------------------------------
+// #####################################################################
+// ####           Send a notification to a respective user.         ####
+// #####################################################################
 // Send notification to a respective user when sender
 // is sending a message, a chat request etc. to a specified receiver.
 const notification = io.of("/notification");
@@ -27,7 +27,7 @@ const notification = io.of("/notification");
 notification.on("connection", (socket: any) => {
   sendNotification(socket, getJWTCookie(socket, cookie, jwt));
 });
-// --------------------------------------------------------------------
+// #####################################################################
 
 httpServer.listen(process.env.PORT, () => {
   console.log(`socket.io connection established on port ${process.env.PORT}`);
