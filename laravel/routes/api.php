@@ -143,7 +143,7 @@ Route::post("loginUsers", [LoginUsers::class, "getJWT"]);
 Route::post("checkUsernameAvailability", [CheckUsernameAvailability::class, "getData"]);
 
 // ######################################################################
-// #########              CHECK EMAIL AVILABILITY               #########
+// #########              CHECK EMAIL AVAILABILITY              #########
 // ######################################################################
 
 /** Check if the email exists in database. */

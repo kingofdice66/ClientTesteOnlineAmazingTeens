@@ -1,0 +1,27 @@
+$transition-width: width 0.2s;
+
+.links {
+  background-color: red;
+
+  z-index: 1;
+  white-space: nowrap;
+  position: sticky;
+  width: 95px;
+  height: 100vh;
+  transition: $transition-width;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
+}
+
+.links:hover {
+  width: 200px;
+  transition: $transition-width;
+}

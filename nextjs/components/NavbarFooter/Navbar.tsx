@@ -138,7 +138,7 @@ function Navbar(): JSX.Element {
           </li>
 
           <li>
-            <Link href="/account" passHref>
+            <Link href="/account/messages" passHref>
               <a
                 href="dummy"
                 // eslint-disable-next-line camelcase
