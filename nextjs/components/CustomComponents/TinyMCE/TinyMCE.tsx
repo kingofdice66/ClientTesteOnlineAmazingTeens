@@ -21,7 +21,7 @@ function TinyMCE(props: IProps): JSX.Element {
       initialValue={initialValue}
       onInit={onInit}
       init={{
-        height: `${height}`,
+        height: height,
         menubar: false,
         // eslint-disable-next-line camelcase
         browser_spellcheck: true,
@@ -29,7 +29,6 @@ function TinyMCE(props: IProps): JSX.Element {
           "advlist autolink lists link image charmap anchor",
           "searchreplace visualblocks code fullscreen",
           "insertdatetime media table paste code help wordcount",
-          "autoresize",
         ],
         toolbar:
           "undo redo | formatselect | bold italic backcolor |" +

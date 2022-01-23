@@ -4,7 +4,7 @@ import style from "./index.module.scss";
 
 function sendMessage(): JSX.Element {
   return (
-    <div className={style.flex}>
+    <div className={style.flexbox}>
       <div>
         <LeftNavbar />
       </div>

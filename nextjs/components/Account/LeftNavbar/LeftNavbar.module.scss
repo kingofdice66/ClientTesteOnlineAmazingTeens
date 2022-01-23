@@ -3,7 +3,7 @@ $transition-width: width 0.2s;
 .links {
   background-color: red;
 
-  z-index: 1;
+  z-index: 100; // 100 to be sure
   white-space: nowrap;
   position: sticky;
   width: 95px;
@@ -11,8 +11,13 @@ $transition-width: width 0.2s;
   transition: $transition-width;
 
   ul {
+    background-color: black;
     margin: 0;
-    padding: 0;
+    padding: 30px 0 0 15px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
   }
 
   a {

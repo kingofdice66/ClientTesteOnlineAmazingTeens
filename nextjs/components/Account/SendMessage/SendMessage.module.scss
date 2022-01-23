@@ -1,7 +1,15 @@
-.sendMessage {
-  z-index: 0;
+$left: 95px;
+
+.wrapper {
   overflow-wrap: break-word;
   background-color: blue;
   position: absolute;
-  left: 0;
+  height: 100vh;
+  width: calc(100% - $left);
+  left: $left;
+
+  .form {
+    background: red;
+    margin: 10px 20px 0 10px;
+  }
 }
