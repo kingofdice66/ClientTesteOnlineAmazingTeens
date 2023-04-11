@@ -1,0 +1,8 @@
+{
+  "locales": ["en", "ro"],
+  "defaultLocale": "ro",
+  "localeDetection": false,
+  "pages": {
+    "*": ["TopNavbar"]
+  }
+}

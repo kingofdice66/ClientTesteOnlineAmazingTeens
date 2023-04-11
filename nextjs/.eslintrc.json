@@ -46,8 +46,10 @@
     //**************************************************************************
     // !note you must disable the base rule as it can report incorrect errors
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": ["error"]
+    "@typescript-eslint/no-shadow": ["error"],
     //**************************************************************************
+    // !note this rule isn't needed because typescript is being used
+    "react/require-default-props": [0]
   },
   "overrides": [
     {
