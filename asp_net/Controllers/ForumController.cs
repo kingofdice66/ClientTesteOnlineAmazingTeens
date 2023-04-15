@@ -17,7 +17,8 @@ public class ForumController : Controller
 			$"topic_id: {data.topic_id}\n" +
 			$"topic_title: {data.topic_title}\n" +
 			$"section_id: {data.subsection_id}\n" +
-			$"user_id: {data.user_id}\n";
+			$"created_at: {DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()}\n" +
+			$"updated_at: {DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()}";
 	}
 }
 
@@ -36,7 +37,4 @@ public class Topic
 
 	[Required(ErrorMessage = "{0} is required")]
 	public int subsection_id { get; set; }
-
-	[Required(ErrorMessage = "{0} is required")]
-	public int user_id { get; set; }
 }
