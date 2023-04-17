@@ -12,6 +12,7 @@ CREATE TABLE users(
     last_name TEXT,
     avatar BOOLEAN NOT NULL DEFAULT FALSE, /*avatar - FALSE if user doesn’t have avatar and TRUE if user does*/
     token TEXT NOT NULL, /* token - Verification key. It will be send by email. */
+    verified BOOLEAN NOT NULL DEFAULT FALSE, /*verified - user is verified or not, TRUE for yes FALSE for no. A token fore verification will bes sent by email.*/
     expiration TEXT NOT NULL, /* expiration - If the user doesn’t verify his email in a certain amount of time, the user must resend email verification.*/
     date_of_birth DATE NOT NULL,
     gender TEXT NOT NULL,
