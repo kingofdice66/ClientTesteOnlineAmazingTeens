@@ -18,17 +18,7 @@ public class RegistrationController : Controller
 	[HttpPost]
 	public string RegisterUser([FromBody] User_Registration data)
 	{
-		//MimeMessage email = new();
-		//email.From.Add(MailboxAddress.Parse("kingofdice66@gmail.com"));
-		//email.To.Add(MailboxAddress.Parse("1c094a6d5339f1"));
-		//email.Subject = "Test Email Subject";
-		//email.Body = new TextPart(TextFormat.Html) { Text = "<h1><b>Text inside div<b></h1>" };
-
-		//using SmtpClient smtp = new();
-		//smtp.Connect("sandbox.smtp.mailtrap.io", 587, SecureSocketOptions.StartTls);
-		//smtp.Authenticate("1c094a6d5339f1", "93e385b57eee60");
-		//smtp.Send(email);
-		//smtp.Disconnect(true);
+		SendEmailConfirmation(data.username, data.email);
 
 		return
 			$"username: {data.username}\n" +
@@ -36,6 +26,24 @@ public class RegistrationController : Controller
 			$"first_name: {data.first_name}\n" +
 			$"last_name: {data.last_name}\n" +
 			$"date_of_borth: {data.date_of_birth}";
+	}
+
+	/// <summary>
+	/// Send a link by email containing a unique token that when clicked the email will be confirmed.
+	/// </summary>
+	private static void SendEmailConfirmation(string username, string emailFrom)
+	{
+		MimeMessage email = new();
+		email.From.Add(MailboxAddress.Parse(emailFrom));
+		email.To.Add(MailboxAddress.Parse("1c094a6d5339f1"));
+		email.Subject = "Test Email Subject";
+		email.Body = new TextPart(TextFormat.Html) { Text = $"<h1><b>Email from {username}<b></h1>" };
+
+		using SmtpClient smtp = new();
+		smtp.Connect("sandbox.smtp.mailtrap.io", 587, SecureSocketOptions.StartTls);
+		smtp.Authenticate("1c094a6d5339f1", "93e385b57eee60");
+		smtp.Send(email);
+		smtp.Disconnect(true);
 	}
 }
 
