@@ -27,3 +27,6 @@ D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.pdb
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.genruntimeconfig.cache
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\ref\asp_net.dll
+D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\BouncyCastle.Cryptography.dll
+D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\MailKit.dll
+D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\MimeKit.dll

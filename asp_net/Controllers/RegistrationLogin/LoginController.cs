@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace asp_net.Controllers.RegistrationLogin
+namespace asp_net.Controllers.RegistrationLogin;
+
+public class LoginController : Controller
 {
-	public class LoginController : Controller
+	public IActionResult Index()
 	{
-		public IActionResult Index()
-		{
-			return View();
-		}
+		return View();
 	}
 }
