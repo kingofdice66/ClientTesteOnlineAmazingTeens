@@ -18,20 +18,22 @@ public class RegistrationController : Controller
 	[HttpPost]
 	public string RegisterUser([FromBody] User_Registration data)
 	{
-		SendEmailConfirmation(data.username, data.email);
+		//SendEmailConfirmation(data.username, data.email);
 
 		return
 			$"username: {data.username}\n" +
 			$"email: {data.email}\n" +
 			$"first_name: {data.first_name}\n" +
 			$"last_name: {data.last_name}\n" +
-			$"date_of_borth: {data.date_of_birth}";
+			$"date_of_birth: {data.date_of_birth}\n" +
+			$"gender: {data.gender}\n" +
+			$"password: {data.password}\n";
 	}
 
 	/// <summary>
 	/// Send a link by email containing a unique token that when clicked the email will be confirmed.
 	/// </summary>
-	private static void SendEmailConfirmation(string username, string emailFrom)
+	private static void SendEmailConfirmation(string? username, string? emailFrom)
 	{
 		MimeMessage email = new();
 		email.From.Add(MailboxAddress.Parse(emailFrom));
@@ -49,12 +51,17 @@ public class RegistrationController : Controller
 
 public class User_Registration
 {
-	[Required(ErrorMessage = "{0} is required")]
+	[Required(ErrorMessage = "Username is required")]
 	[MinLength(4, ErrorMessage = "Minimum length required is {0}")]
 	[MaxLength(20, ErrorMessage = "Maximum length required is {0}")]
 	public string? username { set; get; }
 
-	[Required(ErrorMessage = "{0} is required")]
+	[Required(ErrorMessage = "Password is required")]
+	[MinLength(8, ErrorMessage = "Minimum length required is {0}")]
+	[MaxLength(300, ErrorMessage = "Maximum length required is {0}")]
+	public string? password { set; get; }
+
+	[Required(ErrorMessage = "Email is required")]
 	[EmailAddress(ErrorMessage = "Is not a valid email address")]
 	[MinLength(2, ErrorMessage = "Minimum length required is {0}")]
 	[MaxLength(300, ErrorMessage = "Maximum length required is {0}")]
@@ -67,6 +74,11 @@ public class User_Registration
 	[MinLength(2, ErrorMessage = "Minimum length required is {0}")]
 	[MaxLength(30, ErrorMessage = "Maximum length required is {0}")]
 	public string? last_name { set; get; }
+
+	[Required(ErrorMessage = "Gender is required")]
+	[MinLength(2, ErrorMessage = "Minimum length required is {0}")]
+	[MaxLength(30, ErrorMessage = "Maximum length required is {0}")]
+	public string? gender { set; get; }
 
 	[DateTime]
 	public string? date_of_birth { set; get; }
