@@ -2,7 +2,13 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import "normalize.css";
 import type { AppProps } from "next/app";
+import NavBar from "../components/Navbar/NavBar";
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <NavBar />
+      <Component {...pageProps} />
+    </>
+  );
 }
