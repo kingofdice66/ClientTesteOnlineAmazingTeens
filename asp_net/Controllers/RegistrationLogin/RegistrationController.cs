@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using asp_net.Helpers;
 using System.Text.Json;
@@ -23,9 +24,9 @@ public class RegistrationController : Controller
 		return
 			$"username: {data.username}\n" +
 			$"email: {data.email}\n" +
-			$"first_name: {data.first_name}\n" +
-			$"last_name: {data.last_name}\n" +
-			$"date_of_birth: {data.date_of_birth}\n" +
+			$"firstName: {data.firstName}\n" +
+			$"lastName: {data.lastName}\n" +
+			$"dateOfBirth: {data.dateOfBirth}\n" +
 			$"gender: {data.gender}\n" +
 			$"password: {data.password}\n";
 	}
@@ -52,6 +53,7 @@ public class RegistrationController : Controller
 public class User_Registration
 {
 	[Required(ErrorMessage = "Username is required")]
+	[RegularExpression(@"^(?![_-])[a-zA-Z0-9_-]+$", ErrorMessage = "Does not match '^(?![_-])[a-zA-Z0-9_-]+$' format")]
 	[MinLength(4, ErrorMessage = "Minimum length required is {0}")]
 	[MaxLength(20, ErrorMessage = "Maximum length required is {0}")]
 	public string? username { set; get; }
@@ -69,11 +71,11 @@ public class User_Registration
 
 	[MinLength(2, ErrorMessage = "Minimum length required is {0}")]
 	[MaxLength(30, ErrorMessage = "Maximum length required is {0}")]
-	public string? first_name { set; get; }
+	public string? firstName { set; get; }
 
 	[MinLength(2, ErrorMessage = "Minimum length required is {0}")]
 	[MaxLength(30, ErrorMessage = "Maximum length required is {0}")]
-	public string? last_name { set; get; }
+	public string? lastName { set; get; }
 
 	[Required(ErrorMessage = "Gender is required")]
 	[MinLength(2, ErrorMessage = "Minimum length required is {0}")]
@@ -81,5 +83,5 @@ public class User_Registration
 	public string? gender { set; get; }
 
 	[DateTime]
-	public string? date_of_birth { set; get; }
+	public string? dateOfBirth { set; get; }
 }

@@ -34,7 +34,7 @@ const schema = yup.object().shape({
     .string()
     .required("Câmpul nu poate fi gol")
     .matches(
-      /^(?![_-])[a-zA-Z0-9_-]+$/gs,
+      /^(?![_-])[a-zA-Z0-9_-]+$/,
       "Format neacceptat. Poate să conțină numai numere, litere, '_' și/sau '-'. Fără '-' și/sau '_' la început."
     ) // The username must not start with "-" or/and "_"
     // and must contain only letter and numbers and is not allowed on multiple lines
