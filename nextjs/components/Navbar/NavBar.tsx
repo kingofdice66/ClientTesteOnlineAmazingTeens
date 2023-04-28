@@ -8,9 +8,7 @@ function NavBar(): JSX.Element {
         <Typography variant="h6">My App Title</Typography>
         <Box sx={{ ml: "auto" }}>
           <Link href="/registration">
-            <Button component="a" variant="contained">
-              Înregistrează-te
-            </Button>
+            <Button variant="contained">Înregistrează-te</Button>
           </Link>
         </Box>
       </Toolbar>
