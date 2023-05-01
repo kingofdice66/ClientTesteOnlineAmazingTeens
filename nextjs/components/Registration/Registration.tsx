@@ -4,7 +4,17 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Button, TextField } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  FormHelperText,
+} from "@mui/material";
+import axios from "axios";
 import dayjs from "dayjs";
 import "dayjs/locale/ro";
 
@@ -25,7 +35,15 @@ const MinMax = {
   },
   email: {
     min: 2,
-    max: 300,
+    max: 150,
+  },
+  password: {
+    min: 8,
+    max: 150,
+  },
+  retypePassword: {
+    min: 8,
+    max: 150,
   },
 };
 
@@ -63,6 +81,16 @@ const schema = yup.object().shape({
     .required("Câmpul nu poate fi gol")
     .max(new Date("2100-12-31"), "Data nu este validă")
     .typeError("Data nu este validă"),
+  gender: yup.string().required("Alegerea sexului este necesar"),
+  password: yup
+    .string()
+    .required("Câmpul nu poate fi gol")
+    .min(MinMax.password.min, `Minimum ${MinMax.password.min} caractere`)
+    .max(MinMax.password.max, `Maximum ${MinMax.password.max} caractere`),
+  retypePassword: yup
+    .string()
+    .required("Câmpul nu poate fi gol")
+    .oneOf([yup.ref("password")], "Parola nu se potrivește"),
 });
 
 type UseForm = yup.InferType<typeof schema>;
@@ -81,21 +109,41 @@ const Registration = (): JSX.Element => {
       lastName: "",
       email: "",
       dateOfBirth: new Date("0000-00-00"), // set to `0000-00-00` intentionally in order to give an error if is not filled
+      gender: "",
+      password: "",
+      retypePassword: "",
     },
   });
 
   const onSubmit = (data: UseForm): void => {
-    console.log(data);
+    // console.log(data);
+    // console.log(
+    //   `${data.dateOfBirth.getDate()}/${
+    //     data.dateOfBirth.getMonth() + 1
+    //   }/${data.dateOfBirth.getFullYear()}`
+    // ); // +1 because the months start at 0 as being the first month
+    axios
+      .post("http://localhost:5177/registration/registeruser", {
+        username: data.username,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        dateOfBirth: data.dateOfBirth,
+        gender: data.gender,
+        password: data.password,
+      })
+      .then((resp) => console.log(resp.data))
+      .catch((error) => error);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <TextField
         error={!!errors.username}
-        label="Nume utilizator"
+        label="Nume utilizator *"
         helperText={
           // prettier-ignore
-          errors?.username ? errors?.username?.message : "Câmp obligatoriu"
+          errors?.username ? errors?.username?.message : ""
         }
         {...register("username")}
       />
@@ -103,10 +151,10 @@ const Registration = (): JSX.Element => {
 
       <TextField
         error={!!errors.email}
-        label="Email"
+        label="Email *"
         helperText={
           // prettier-ignore
-          errors?.email ? errors?.email?.message : "Câmp obligatoriu"
+          errors?.email ? errors?.email?.message : ""
         }
         {...register("email")}
       />
@@ -117,7 +165,7 @@ const Registration = (): JSX.Element => {
         label="Nume"
         helperText={
           // prettier-ignore
-          errors?.firstName ? errors?.firstName?.message : "Câmpul nu este obligatoriu"
+          errors?.firstName ? errors?.firstName?.message : ""
         }
         {...register("firstName")}
       />
@@ -128,7 +176,7 @@ const Registration = (): JSX.Element => {
         label="Prenume"
         helperText={
           // prettier-ignore
-          errors?.lastName? errors?.lastName?.message : "Câmpul nu este obligatoriu"
+          errors?.lastName? errors?.lastName?.message : ""
         }
         {...register("lastName")}
       />
@@ -141,12 +189,12 @@ const Registration = (): JSX.Element => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               format="DD/MM/YYYY"
-              label="An naștere"
+              label="Anul nașterii *"
               onChange={(date): void => field.onChange(date)}
               slotProps={{
                 textField: {
                   // prettier-ignore
-                  helperText: errors.dateOfBirth ? errors?.dateOfBirth?.message : "Câmp obligatoriu",
+                  helperText: errors.dateOfBirth ? errors?.dateOfBirth?.message : "",
                 },
               }}
             />
@@ -154,6 +202,66 @@ const Registration = (): JSX.Element => {
         )}
       />
       <br />
+
+      <Controller
+        name="gender"
+        control={control}
+        render={({ field }): JSX.Element => (
+          <FormControl error={!!errors.gender}>
+            <FormLabel id="gender">Sex: *</FormLabel>
+            <RadioGroup
+              row
+              aria-labelledby="gender"
+              onChange={(e): void => field.onChange(e)}
+            >
+              <FormControlLabel
+                value="female"
+                control={<Radio />}
+                label="Masculin"
+              />
+              <FormControlLabel
+                value="male"
+                control={<Radio />}
+                label="Feminin"
+              />
+              <FormControlLabel
+                value="other"
+                control={<Radio />}
+                label="Altul"
+              />
+            </RadioGroup>
+          </FormControl>
+        )}
+      />
+      <FormHelperText sx={{ color: "red" }}>
+        {errors?.gender?.message}
+      </FormHelperText>
+      <br />
+
+      <TextField
+        error={!!errors.password}
+        label="Parola"
+        type="password"
+        helperText={
+          // prettier-ignore
+          errors?.password ? errors?.password?.message : ""
+        }
+        {...register("password")}
+      />
+      <br />
+
+      <TextField
+        error={!!errors.password}
+        label="Rescrie parola"
+        type="password"
+        helperText={
+          // prettier-ignore
+          errors?.retypePassword ? errors?.retypePassword?.message : ""
+        }
+        {...register("retypePassword")}
+      />
+
+      <FormHelperText>Câmpurile marcate cu * sunt obligatorii</FormHelperText>
 
       <Button variant="contained" type="submit">
         Înregistrează-mă
