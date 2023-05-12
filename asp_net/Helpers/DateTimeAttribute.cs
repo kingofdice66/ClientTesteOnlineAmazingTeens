@@ -10,7 +10,7 @@ public class DateTimeAttribute : ValidationAttribute
 		if (value == null)
 			return new ValidationResult($"{validationContext.DisplayName} is required");
 
-		if (!DateTime.TryParse((string)value, new CultureInfo("fr-FR"), DateTimeStyles.None, out DateTime valueDateTime))
+		if (!DateTime.TryParseExact((string)value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result))
 			return new ValidationResult($"{validationContext.DisplayName} format not accepted");
 
 		return ValidationResult.Success;

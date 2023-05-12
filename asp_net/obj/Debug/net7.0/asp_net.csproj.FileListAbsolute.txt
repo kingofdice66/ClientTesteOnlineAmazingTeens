@@ -1,3 +1,9 @@
+D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.csproj.AssemblyReference.cache
+D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.GeneratedMSBuildEditorConfig.editorconfig
+D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.AssemblyInfoInputs.cache
+D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.AssemblyInfo.cs
+D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.csproj.CoreCompileInputs.cache
+D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.MvcApplicationPartsAssemblyInfo.cache
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\appsettings.Development.json
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\appsettings.json
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\asp_net.exe
@@ -5,14 +11,11 @@ D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\asp_net.runtimeconfig.json
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\asp_net.dll
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\asp_net.pdb
+D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\BouncyCastle.Cryptography.dll
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\Dapper.dll
+D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\MailKit.dll
+D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\MimeKit.dll
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\Npgsql.dll
-D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.csproj.AssemblyReference.cache
-D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.GeneratedMSBuildEditorConfig.editorconfig
-D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.AssemblyInfoInputs.cache
-D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.AssemblyInfo.cs
-D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.csproj.CoreCompileInputs.cache
-D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.MvcApplicationPartsAssemblyInfo.cache
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\staticwebassets\msbuild.asp_net.Microsoft.AspNetCore.StaticWebAssets.props
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\staticwebassets\msbuild.build.asp_net.props
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.asp_net.props
@@ -27,6 +30,3 @@ D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.pdb
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.genruntimeconfig.cache
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\ref\asp_net.dll
-D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\BouncyCastle.Cryptography.dll
-D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\MailKit.dll
-D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\MimeKit.dll

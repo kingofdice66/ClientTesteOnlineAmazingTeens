@@ -1,5 +1,5 @@
-import Forum from "../../components/Forum/Forum";
+import Sections from "../../components/Forum/Sections";
 
-const index = (): JSX.Element => <Forum />;
+const index = (): JSX.Element => <Sections />;
 
 export default index;

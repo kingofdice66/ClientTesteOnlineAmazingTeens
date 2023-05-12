@@ -95,6 +95,16 @@ const schema = yup.object().shape({
 
 type UseForm = yup.InferType<typeof schema>;
 
+/**
+ * For the date format. For example, if the day is 1 and month is 4 then it will return 01 and 04 for compatibility.
+ * The server has to receive the date in the format "dd/MM/yyyy". For example "01/04/2020".
+ */
+const DateFormat = (date: number): string => {
+  if (date < 10) return `0${date}`;
+
+  return `${date}`;
+};
+
 const Registration = (): JSX.Element => {
   const {
     control,
@@ -116,19 +126,17 @@ const Registration = (): JSX.Element => {
   });
 
   const onSubmit = (data: UseForm): void => {
-    // console.log(data);
-    // console.log(
-    //   `${data.dateOfBirth.getDate()}/${
-    //     data.dateOfBirth.getMonth() + 1
-    //   }/${data.dateOfBirth.getFullYear()}`
-    // ); // +1 because the months start at 0 as being the first month
     axios
       .post("http://localhost:5177/registration/registeruser", {
         username: data.username,
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
-        dateOfBirth: data.dateOfBirth,
+        // prettier-ignore
+        dateOfBirth: 
+              `${DateFormat(data.dateOfBirth.getDate())}/` + 
+              `${DateFormat(data.dateOfBirth.getMonth() + 1)}/` + 
+              `${DateFormat(data.dateOfBirth.getFullYear())}`,
         gender: data.gender,
         password: data.password,
       })
@@ -215,17 +223,17 @@ const Registration = (): JSX.Element => {
               onChange={(e): void => field.onChange(e)}
             >
               <FormControlLabel
-                value="female"
+                value="masculin"
                 control={<Radio />}
                 label="Masculin"
               />
               <FormControlLabel
-                value="male"
+                value="feminin"
                 control={<Radio />}
                 label="Feminin"
               />
               <FormControlLabel
-                value="other"
+                value="altul"
                 control={<Radio />}
                 label="Altul"
               />

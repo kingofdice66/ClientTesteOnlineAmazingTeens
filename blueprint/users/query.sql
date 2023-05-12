@@ -14,7 +14,7 @@ CREATE TABLE users(
     token TEXT NOT NULL, /* token - Verification key. It will be send by email. */
     verified_email BOOLEAN NOT NULL DEFAULT FALSE, /* verified_email - user is verified or not, TRUE for yes FALSE for no. A token fore verification will bes sent by email.*/
     token_expiration TEXT NOT NULL, /* token_expiration - If the user doesn’t verify his email in a certain amount of time, the user must resend email verification.*/
-    date_of_birth DATE NOT NULL,
+    date_of_birth TEXT NOT NULL, /* date_of_birth - the format should be yyyy-mm-dd */
     gender TEXT NOT NULL,
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL
