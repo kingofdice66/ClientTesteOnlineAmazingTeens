@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
+using asp_net.Helpers;
 using Npgsql;
 using Dapper;
-using asp_net.Helpers;
 
 namespace asp_net.Controllers.RegistrationLogin;
 
@@ -39,7 +39,7 @@ public class EmailValidationController : Controller
 			else
 				return "validation failed";
 		}
-		catch (InvalidOperationException ex)
+		catch (Exception ex)
 		{
 			return ex.Message;
 		}

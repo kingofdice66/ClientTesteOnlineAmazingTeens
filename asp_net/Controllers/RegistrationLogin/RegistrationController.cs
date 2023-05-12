@@ -18,6 +18,7 @@ public class RegistrationController : Controller
 
 		// get current unix time
 		long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
 		// token will expire after 30 minutes
 		long tokenExpiration = DateTimeOffset.UtcNow.AddMinutes(30).ToUnixTimeMilliseconds();
 
