@@ -56,26 +56,26 @@ const schema = yup.object().shape({
       "Format neacceptat. Poate să conțină numai numere, litere, '_' și/sau '-'. Fără '-' și/sau '_' la început."
     ) // The username must not start with "-" or/and "_"
     // and must contain only letter and numbers and is not allowed on multiple lines
-    .min(MinMax.username.min, `Minimum ${MinMax.username.min} caractere`)
-    .max(MinMax.username.max, `Maximum ${MinMax.username.max} caractere`),
+    .min(MinMax.username.min, `Minim ${MinMax.username.min} caractere`)
+    .max(MinMax.username.max, `Maxim ${MinMax.username.max} caractere`),
   email: yup
     .string()
     .required("Câmpul nu poate fi gol")
     .email("Adresa de email nu este validă")
-    .min(MinMax.email.min, `Minimum ${MinMax.email.min} caractere`)
-    .max(300),
+    .min(MinMax.email.min, `Minim ${MinMax.email.min} caractere`)
+    .max(MinMax.email.max, `Maxim ${MinMax.email.max} caractere`),
   firstName: yup
     .string()
     .nullable()
     .transform((v) => (v === "" ? null : v))
-    .min(MinMax.firstName.min, `Minimum ${MinMax.firstName.min} caractere`)
-    .max(MinMax.firstName.max, `Maximum ${MinMax.firstName.max} caractere`),
+    .min(MinMax.firstName.min, `Minim ${MinMax.firstName.min} caractere`)
+    .max(MinMax.firstName.max, `Maxim ${MinMax.firstName.max} caractere`),
   lastName: yup
     .string()
     .nullable()
     .transform((v) => (v === "" ? null : v))
-    .min(MinMax.lastName.min, `Minimum ${MinMax.lastName.min} caractere`)
-    .max(MinMax.lastName.max, `Maximum ${MinMax.lastName.max} caractere`),
+    .min(MinMax.lastName.min, `Minim ${MinMax.lastName.min} caractere`)
+    .max(MinMax.lastName.max, `Maxim ${MinMax.lastName.max} caractere`),
   dateOfBirth: yup
     .date()
     .required("Câmpul nu poate fi gol")
