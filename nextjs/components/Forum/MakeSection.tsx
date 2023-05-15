@@ -2,8 +2,9 @@
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Box } from "@mui/material";
 import axios from "axios";
+import TinyMCE from "../TinyMCE/TinyMCE";
 
 const MinMax = {
   subject: {
@@ -11,7 +12,7 @@ const MinMax = {
     max: 100,
   },
   comment: {
-    min: 3,
+    min: 10,
     max: 1000,
   },
 };
@@ -25,7 +26,7 @@ const schema = yup.object().shape({
   comment: yup
     .string()
     .required("Câmpul nu poate fi gol")
-    .min(MinMax.comment.min, `Minim ${MinMax.comment.min} caractere`)
+    .min(MinMax.comment.min, "Prea puține caractere")
     .max(MinMax.comment.max, `Maxim ${MinMax.comment.max} caractere`),
 });
 
@@ -60,6 +61,18 @@ const MakeSection = (): JSX.Element => {
         }
         {...register("subject")}
       />
+      <br />
+
+      <Controller
+        name="comment"
+        control={control}
+        render={({ field }): JSX.Element => <TinyMCE field={field} />}
+      />
+      <Box sx={{ color: "red" }}>{errors?.comment?.message}</Box>
+
+      <Button type="submit" variant="contained">
+        POSTEAZĂ
+      </Button>
     </form>
   );
 };
