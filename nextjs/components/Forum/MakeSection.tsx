@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -11,9 +12,10 @@ const MinMax = {
     min: 10,
     max: 100,
   },
-  comment: {
+  // Character length that does not contain the HTML from TinyMCE. Used only for control. Will not be going to database.
+  textLength: {
     min: 10,
-    max: 1000,
+    max: 2000,
   },
 };
 
@@ -23,16 +25,19 @@ const schema = yup.object().shape({
     .required("Câmpul nu poate fi gol")
     .min(MinMax.subject.min, `Minim ${MinMax.subject.min} caractere`)
     .max(MinMax.subject.max, `Maxim ${MinMax.subject.max} caractere`),
-  comment: yup
+  textLength: yup
     .string()
     .required("Câmpul nu poate fi gol")
-    .min(MinMax.comment.min, "Prea puține caractere")
-    .max(MinMax.comment.max, `Maxim ${MinMax.comment.max} caractere`),
+    .min(MinMax.textLength.min, `Minim ${MinMax.textLength.min} caractere`)
+    .max(MinMax.textLength.max, `Maxim ${MinMax.textLength.max} caractere`),
 });
 
 type UseForm = yup.InferType<typeof schema>;
 
 const MakeSection = (): JSX.Element => {
+  // contains the text from TinyMCE that contains HTML which will be going to database
+  const [comment, setComment] = useState<string | null>(null);
+
   const {
     control,
     register,
@@ -42,12 +47,13 @@ const MakeSection = (): JSX.Element => {
     resolver: yupResolver(schema),
     defaultValues: {
       subject: "",
-      comment: "",
+      textLength: "",
     },
   });
 
   const onSubmit = (data: UseForm): void => {
     console.log(data);
+    console.log(comment);
   };
 
   return (
@@ -64,11 +70,13 @@ const MakeSection = (): JSX.Element => {
       <br />
 
       <Controller
-        name="comment"
+        name="textLength"
         control={control}
-        render={({ field }): JSX.Element => <TinyMCE field={field} />}
+        render={({ field }): JSX.Element => (
+          <TinyMCE field={field} setComment={setComment} />
+        )}
       />
-      <Box sx={{ color: "red" }}>{errors?.comment?.message}</Box>
+      <Box sx={{ color: "red" }}>{errors?.textLength?.message}</Box>
 
       <Button type="submit" variant="contained">
         POSTEAZĂ
