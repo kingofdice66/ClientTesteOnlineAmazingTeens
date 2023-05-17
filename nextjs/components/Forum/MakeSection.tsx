@@ -15,7 +15,7 @@ const MinMax = {
   // Character length that does not contain the HTML from TinyMCE. Used only for control. Will not be going to database.
   textLength: {
     min: 10,
-    max: 2000,
+    max: 10000,
   },
 };
 
