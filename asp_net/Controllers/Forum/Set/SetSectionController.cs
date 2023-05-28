@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using asp_net.Helpers;
+using Dapper;
+using Npgsql;
 
 namespace asp_net.Controllers.Forum.Set;
 
@@ -7,8 +11,68 @@ namespace asp_net.Controllers.Forum.Set;
 public class SetSectionController : Controller
 {
 	[HttpPost]
-	public string Set()
+	public string Set([FromBody] SetSection data)
 	{
-		return "success";
+		// get current unix time
+		long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+		using NpgsqlConnection con = new(Database.ConnectionInfo());
+		con.Open();
+
+		const string query = @"
+			INSERT INTO sections(
+				title,
+				description,
+				created_by,
+				created_at,
+				updated_at
+			)
+
+			VALUES(
+				@title,
+				@description,
+				@created_by,
+				@created_at,
+				@updated_at
+			);
+		";
+
+		DynamicParameters dp = new();
+		dp.Add("@title", data.title);
+		dp.Add("@description", data.description);
+		dp.Add("@created_by", 1);
+		dp.Add("@created_at", unixTimestamp);
+		dp.Add("@updated_at", unixTimestamp);
+
+		try
+		{
+			int rowsAffected = con.Execute(query, dp);
+
+			if (rowsAffected > 0)
+			{
+				return "success";
+			}
+			else
+			{
+				return "failed";
+			}
+		}
+		catch (Exception ex)
+		{
+			return ex.Message;
+		}
 	}
+}
+
+public class SetSection
+{
+	[Required(ErrorMessage = "{0} is required")]
+	[MinLength(10, ErrorMessage = "Minimum length is {0}")]
+	[MaxLength(50, ErrorMessage = "Maximum length is {0}")]
+	public string? title { get; set; }
+
+	[Required(ErrorMessage = "{0} is required")]
+	[MinLength(10, ErrorMessage = "Minimum length is {0}")]
+	[MaxLength(500, ErrorMessage = "Maximum length is {0}")]
+	public string? description { get; set; }
 }

@@ -11,7 +11,7 @@ namespace asp_net.Controllers.RegistrationLogin;
 public class RegistrationController : Controller
 {
 	[HttpPost]
-	public string RegisterUser([FromBody] User_Registration data)
+	public string RegisterUser([FromBody] Registration data)
 	{
 		// token for email verification
 		string token = VerificationToken.Generate();
@@ -102,7 +102,7 @@ public class RegistrationController : Controller
 	}
 }
 
-public class User_Registration
+public class Registration
 {
 	[Required(ErrorMessage = "Username is required")]
 	[RegularExpression(@"^(?![_-])[a-zA-Z0-9_-]+$", ErrorMessage = "Does not match '^(?![_-])[a-zA-Z0-9_-]+$' format")]

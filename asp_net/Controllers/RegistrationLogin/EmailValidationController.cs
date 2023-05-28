@@ -12,7 +12,7 @@ namespace asp_net.Controllers.RegistrationLogin;
 public class EmailValidationController : Controller
 {
 	[HttpPost]
-	public string ValidateEmail([FromBody] UserToken data)
+	public string ValidateEmail([FromBody] EmailValidation data)
 	{
 		using NpgsqlConnection con = new(Database.ConnectionInfo());
 		con.Open();
@@ -46,7 +46,7 @@ public class EmailValidationController : Controller
 	}
 }
 
-public class UserToken
+public class EmailValidation
 {
 	[Required(ErrorMessage = "{0} is required")]
 	[RegularExpression(@"^.{128}$", ErrorMessage = "{0} does not contain the required character length")]

@@ -1,82 +1,88 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Button, TextField, Box } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import axios from "axios";
-import TinyMCE from "../TinyMCE/TinyMCE";
+import ApiURL from "../ApiURL/ApiURL";
 
 const MinMax = {
-  subject: {
+  title: {
     min: 10,
-    max: 100,
+    max: 50,
   },
-  // Character length that does not contain the HTML from TinyMCE. Used only for control. Will not be going to database.
-  textLength: {
+  description: {
     min: 10,
-    max: 10000,
+    max: 500,
   },
 };
 
 const schema = yup.object().shape({
-  subject: yup
+  title: yup
     .string()
     .required("Câmpul nu poate fi gol")
-    .min(MinMax.subject.min, `Minim ${MinMax.subject.min} caractere`)
-    .max(MinMax.subject.max, `Maxim ${MinMax.subject.max} caractere`),
-  textLength: yup
+    .min(MinMax.title.min, `Minim ${MinMax.title.min} caractere`)
+    .max(MinMax.title.max, `Maxim ${MinMax.title.max} caractere`),
+  description: yup
     .string()
-    .required("Câmpul nu poate fi gol")
-    .min(MinMax.textLength.min, `Minim ${MinMax.textLength.min} caractere`)
-    .max(MinMax.textLength.max, `Maxim ${MinMax.textLength.max} caractere`),
+    .nullable()
+    .transform((v) => (v === "" ? null : v))
+    .min(MinMax.description.min, `Minim ${MinMax.description.min} caractere`)
+    .max(MinMax.description.max, `Maxim ${MinMax.description.max} caractere`),
 });
 
 type UseForm = yup.InferType<typeof schema>;
 
 const MakeSection = (): JSX.Element => {
-  // contains the text from TinyMCE that contains HTML which will be going to database
-  const [comment, setComment] = useState<string | null>(null);
-
   const {
-    control,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<UseForm>({
     resolver: yupResolver(schema),
     defaultValues: {
-      subject: "",
-      textLength: "",
+      title: "",
+      description: "",
     },
   });
 
   const onSubmit = (data: UseForm): void => {
-    console.log(data);
-    console.log(comment);
+    console.log(data.description);
+    console.log(data.title);
+    axios
+      .post(`${ApiURL}/SetSection/Set`, {
+        title: data.title,
+        description: data.description,
+      })
+      .then((response): void => console.log(response))
+      .catch((error): void => error);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <TextField
-        error={!!errors.subject}
-        label="Descriere"
+        error={!!errors.title}
+        label="Titlul"
         helperText={
           // prettier-ignore
-          errors?.subject ? errors?.subject?.message : ""
+          errors?.title ? errors?.title?.message : ""
         }
-        {...register("subject")}
+        {...register("title")}
       />
       <br />
 
-      <Controller
-        name="textLength"
-        control={control}
-        render={({ field }): JSX.Element => (
-          <TinyMCE field={field} setComment={setComment} />
-        )}
+      <TextField
+        error={!!errors.description}
+        label="Descriere"
+        multiline
+        rows={5}
+        helperText={
+          // prettier-ignore
+          errors?.description ? errors?.description?.message : ""
+        }
+        {...register("description")}
       />
-      <Box sx={{ color: "red" }}>{errors?.textLength?.message}</Box>
+      <br />
 
       <Button type="submit" variant="contained">
         POSTEAZĂ

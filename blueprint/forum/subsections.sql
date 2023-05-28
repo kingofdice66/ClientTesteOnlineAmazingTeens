@@ -1,6 +1,7 @@
 CREATE TABLE subsections(
     id BIGSERIAL PRIMARY KEY,
     title TEXT NOT NULL,
+    description TEXT,
     section_id BIGINT NOT NULL,
         CONSTRAINT fk_sections
         FOREIGN KEY(section_id)
