@@ -1,5 +1,15 @@
+import { useRouter } from "next/router";
+
 const Topics = (): JSX.Element => {
-  return <div>Topics</div>;
+  const { sectionId, subsectionId } = useRouter().query;
+
+  return (
+    <>
+      <div>Topics</div>
+      <div>sectionId: {sectionId}</div>
+      <div>subsectionId: {subsectionId}</div>
+    </>
+  );
 };
 
 export default Topics;

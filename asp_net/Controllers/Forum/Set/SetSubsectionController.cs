@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using asp_net.Helpers;
+using Npgsql;
+using Dapper;
 
 namespace asp_net.Controllers.Forum.Set;
 
@@ -10,10 +13,57 @@ public class SetSubsectionController : Controller
 	[HttpPost]
 	public string Set([FromBody] SetSubsection data)
 	{
-		return
-			$"title: {data.title}\n" +
-			$"description: {data.title}\n" +
-			$"subsection_id: {data.subsection_id}";
+		// get current unix time
+		long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+		using NpgsqlConnection con = new(Database.ConnectionInfo());
+		con.Open();
+
+		const string query = @"
+			INSERT INTO subsections(
+				title,
+				description,
+				section_id,
+				created_by,
+				created_at,
+				updated_at
+			)
+
+			VALUES(
+				@title,
+				@description,
+				@section_id,
+				@created_by,
+				@created_at,
+				@updated_at
+			);
+		";
+
+		DynamicParameters dp = new();
+		dp.Add("@title", data.title);
+		dp.Add("@description", data.description);
+		dp.Add("@section_id", data.sectionId);
+		dp.Add("@created_by", 1);
+		dp.Add("@created_at", unixTimestamp);
+		dp.Add("@updated_at", unixTimestamp);
+
+		try
+		{
+			int rowsAffected = con.Execute(query, dp);
+
+			if (rowsAffected > 0)
+			{
+				return "success";
+			}
+			else
+			{
+				return "failed";
+			}
+		}
+		catch (Exception ex)
+		{
+			return ex.Message;
+		}
 	}
 }
 
@@ -29,5 +79,5 @@ public class SetSubsection
 	[MaxLength(50, ErrorMessage = "Maximum length is {0}")]
 	public string? description { get; set; }
 
-	public int subsection_id { get; set; }
+	public int sectionId { get; set; }
 }

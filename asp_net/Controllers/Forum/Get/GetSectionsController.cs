@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using asp_net.Helpers;
 using Dapper;
 using Npgsql;
 
@@ -11,10 +12,41 @@ public class GetSectionsController : Controller
 	[HttpPost]
 	public string Get()
 	{
-		const string jsonString = @"[{""name"": ""razvan"", ""age"": 34}]";
+		using NpgsqlConnection con = new(Database.ConnectionInfo());
+		con.Open();
 
-		string data = JsonSerializer.Serialize(jsonString);
+		const string query = @"
+			SELECT
+				id,
+				title,
+				description
+			FROM
+				sections;
+		";
 
-		return data;
+		try
+		{
+			IEnumerable<GetSections> sections = con.Query<GetSections>(query).ToList();
+
+			if (sections.Any())
+			{
+				return JsonSerializer.Serialize(sections);
+			}
+			else
+			{
+				return "failed";
+			}
+		}
+		catch (Exception ex)
+		{
+			return ex.Message;
+		}
 	}
+}
+
+public class GetSections
+{
+	public int id { get; set; }
+	public string? title { get; set; }
+	public string? description { get; set; }
 }

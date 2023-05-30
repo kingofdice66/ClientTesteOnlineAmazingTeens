@@ -37,7 +37,7 @@ const schema = yup.object().shape({
 type UseForm = yup.InferType<typeof schema>;
 
 const MakeSubsection = (): JSX.Element => {
-  const { subsection_id } = useRouter().query;
+  const { sectionId } = useRouter().query;
 
   const {
     register,
@@ -53,15 +53,15 @@ const MakeSubsection = (): JSX.Element => {
 
   const onSubmit = (data: UseForm): void => {
     console.log(data);
-    console.log("subsection_id: ", subsection_id);
-    axios
-      .post(`${ApiURL}/SetSubsection/Set`, {
-        title: data.title,
-        description: data.description,
-        subsection_id,
-      })
-      .then((response) => console.log(response))
-      .catch((error) => error);
+    console.log("subsectionId: ", sectionId);
+    // axios
+    //   .post(`${ApiURL}/SetSubsection/Set`, {
+    //     title: data.title,
+    //     description: data.description,
+    //     subsectionId,
+    //   })
+    //   .then((response) => console.log(response))
+    //   .catch((error) => error);
   };
 
   return (

@@ -1,5 +1,9 @@
+import { useRouter } from "next/router";
+
 const Subsections = (): JSX.Element => {
-  return <div>Subsections</div>;
+  const { subsectionId } = useRouter().query;
+
+  return <div>SubsectionId: {subsectionId}</div>;
 };
 
 export default Subsections;
