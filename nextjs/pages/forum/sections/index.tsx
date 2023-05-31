@@ -15,8 +15,14 @@ const index = (props: any): JSX.Element => {
 
 export default index;
 
+interface ISections {
+  title: string;
+  description: string;
+  id: number;
+}
+
 interface ISSP {
-  props: { fallback: { [x: string]: any } };
+  props: { fallback: { [x: string]: ISections[] } };
 }
 
 export const getServerSideProps = async (): Promise<ISSP> => {

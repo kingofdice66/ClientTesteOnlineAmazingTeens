@@ -54,14 +54,14 @@ const MakeSubsection = (): JSX.Element => {
   const onSubmit = (data: UseForm): void => {
     console.log(data);
     console.log("subsectionId: ", sectionId);
-    // axios
-    //   .post(`${ApiURL}/SetSubsection/Set`, {
-    //     title: data.title,
-    //     description: data.description,
-    //     subsectionId,
-    //   })
-    //   .then((response) => console.log(response))
-    //   .catch((error) => error);
+    axios
+      .post(`${ApiURL}/SetSubsection/Set`, {
+        title: data.title,
+        description: data.description,
+        sectionId,
+      })
+      .then((response) => console.log(response))
+      .catch((error) => error);
   };
 
   return (
