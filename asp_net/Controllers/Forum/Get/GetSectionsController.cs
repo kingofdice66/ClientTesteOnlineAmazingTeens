@@ -7,6 +7,7 @@ using Npgsql;
 namespace asp_net.Controllers.Forum.Get;
 
 [Route("[controller]/[action]")]
+[ApiController]
 public class GetSectionsController : Controller
 {
 	[HttpPost]
@@ -26,7 +27,7 @@ public class GetSectionsController : Controller
 
 		try
 		{
-			IEnumerable<GetSections> sections = con.Query<GetSections>(query).ToList();
+			IEnumerable<SectionsQuery> sections = con.Query<SectionsQuery>(query).ToList();
 
 			if (sections.Any())
 			{
@@ -34,7 +35,7 @@ public class GetSectionsController : Controller
 			}
 			else
 			{
-				return "failed";
+				return "empty";
 			}
 		}
 		catch (Exception ex)
@@ -42,11 +43,11 @@ public class GetSectionsController : Controller
 			return ex.Message;
 		}
 	}
-}
 
-public class GetSections
-{
-	public int id { get; set; }
-	public string? title { get; set; }
-	public string? description { get; set; }
+	public class SectionsQuery
+	{
+		public int id { get; set; }
+		public string? title { get; set; }
+		public string? description { get; set; }
+	}
 }

@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using asp_net.Helpers;
 using Dapper;
 using Npgsql;
-using System.Collections.Immutable;
-using System.ComponentModel.DataAnnotations;
 
 namespace asp_net.Controllers.Forum.Get;
 
@@ -13,7 +12,7 @@ namespace asp_net.Controllers.Forum.Get;
 public class GetSubsectionsController : Controller
 {
 	[HttpPost]
-	public string Get([FromBody] SectionId data)
+	public string Get([FromBody] SectionIdRequest data)
 	{
 		using NpgsqlConnection con = new(Database.ConnectionInfo());
 		con.Open();
@@ -34,7 +33,7 @@ public class GetSubsectionsController : Controller
 
 		try
 		{
-			IEnumerable<GetSubsections> subsections = con.Query<GetSubsections>(query, dp).ToList();
+			IEnumerable<SubsectionsQuery> subsections = con.Query<SubsectionsQuery>(query, dp).ToList();
 
 			if (subsections.Any())
 			{
@@ -42,7 +41,7 @@ public class GetSubsectionsController : Controller
 			}
 			else
 			{
-				return "failed";
+				return "empty";
 			}
 		}
 		catch (System.Exception ex)
@@ -50,17 +49,17 @@ public class GetSubsectionsController : Controller
 			return ex.Message;
 		}
 	}
-}
 
-public class GetSubsections
-{
-	public int id { get; set; }
-	public string? title { get; set; }
-	public string? description { get; set; }
-}
+	public class SubsectionsQuery
+	{
+		public int id { get; set; }
+		public string? title { get; set; }
+		public string? description { get; set; }
+	}
 
-public class SectionId
-{
-	[Required(ErrorMessage = "{0} is required")]
-	public int sectionId { get; set; }
+	public class SectionIdRequest
+	{
+		[Required(ErrorMessage = "{0} is required")]
+		public int sectionId { get; set; }
+	}
 }

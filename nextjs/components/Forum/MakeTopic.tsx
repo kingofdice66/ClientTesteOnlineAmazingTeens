@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Button, TextField, Box } from "@mui/material";
 import axios from "axios";
+import { useRouter } from "next/router";
 import ApiURL from "../ApiURL/ApiURL";
 import TinyMCE from "../TinyMCE/TinyMCE";
 
@@ -36,8 +37,9 @@ const schema = yup.object().shape({
 type UseForm = yup.InferType<typeof schema>;
 
 const MakeTopic = (): JSX.Element => {
+  const { sectionId, subsectionId } = useRouter().query;
   // contains the text from TinyMCE that contains HTML which will be going to database
-  const [comment, setComment] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
 
   const {
     control,
@@ -54,9 +56,14 @@ const MakeTopic = (): JSX.Element => {
 
   const onSubmit = (data: UseForm): void => {
     console.log(data);
-    console.log(comment);
+    console.log(message);
     axios
-      .post(`${ApiURL}/SetTopic/Set`, { subject: data.subject, comment })
+      .post(`${ApiURL}/SetTopic/Set`, {
+        subject: data.subject,
+        message,
+        sectionId,
+        subsectionId,
+      })
       .then((response) => console.log(response))
       .catch((error) => error);
   };
@@ -78,7 +85,7 @@ const MakeTopic = (): JSX.Element => {
         name="textLength"
         control={control}
         render={({ field }): JSX.Element => (
-          <TinyMCE field={field} setComment={setComment} />
+          <TinyMCE field={field} setText={setMessage} />
         )}
       />
       <Box sx={{ color: "red" }}>{errors?.textLength?.message}</Box>

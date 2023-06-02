@@ -10,7 +10,7 @@ namespace asp_net.Controllers.Forum.Set;
 public class SetTopicController : Controller
 {
 	[HttpPost]
-	public string Set([FromBody] SetTopic data)
+	public string Set([FromBody] TopicRequest data)
 	{
 		//long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
@@ -67,15 +67,15 @@ public class SetTopicController : Controller
 			$"sectionId: {data.sectionId}\n" +
 			$"subsectionId: {data.subsectionId}";
 	}
-}
 
-public class SetTopic
-{
-	public string? subject { get; set; }
+	public class TopicRequest
+	{
+		public string? subject { get; set; }
 
-	public string? comment { get; set; }
+		public string? comment { get; set; }
 
-	public int sectionId { get; set; }
+		public int sectionId { get; set; }
 
-	public int subsectionId { get; set; }
+		public int subsectionId { get; set; }
+	}
 }

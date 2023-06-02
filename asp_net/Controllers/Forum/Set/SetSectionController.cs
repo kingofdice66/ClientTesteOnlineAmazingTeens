@@ -11,7 +11,7 @@ namespace asp_net.Controllers.Forum.Set;
 public class SetSectionController : Controller
 {
 	[HttpPost]
-	public string Set([FromBody] SetSection data)
+	public string Set([FromBody] SectionRequest data)
 	{
 		// get current unix time
 		long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -62,17 +62,17 @@ public class SetSectionController : Controller
 			return ex.Message;
 		}
 	}
-}
 
-public class SetSection
-{
-	[Required(ErrorMessage = "{0} is required")]
-	[MinLength(3, ErrorMessage = "Minimum length is {0}")]
-	[MaxLength(50, ErrorMessage = "Maximum length is {0}")]
-	public string? title { get; set; }
+	public class SectionRequest
+	{
+		[Required(ErrorMessage = "{0} is required")]
+		[MinLength(3, ErrorMessage = "Minimum length is {0}")]
+		[MaxLength(50, ErrorMessage = "Maximum length is {0}")]
+		public string? title { get; set; }
 
-	[Required(ErrorMessage = "{0} is required")]
-	[MinLength(3, ErrorMessage = "Minimum length is {0}")]
-	[MaxLength(500, ErrorMessage = "Maximum length is {0}")]
-	public string? description { get; set; }
+		[Required(ErrorMessage = "{0} is required")]
+		[MinLength(3, ErrorMessage = "Minimum length is {0}")]
+		[MaxLength(500, ErrorMessage = "Maximum length is {0}")]
+		public string? description { get; set; }
+	}
 }

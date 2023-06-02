@@ -7,11 +7,11 @@ interface IProps {
     { subject: string; textLength: string },
     "textLength"
   >;
-  setComment: (content: string) => void;
+  setText: (content: string) => void;
 }
 
 const TinyMCE = (props: IProps): JSX.Element => {
-  const { field, setComment } = props;
+  const { field, setText } = props;
 
   return (
     <Editor
@@ -19,7 +19,7 @@ const TinyMCE = (props: IProps): JSX.Element => {
       tinymceScriptSrc="/tinymce/tinymce.min.js"
       onEditorChange={(content, editor): void => {
         field.onChange(editor.getContent({ format: "text" }));
-        setComment(content);
+        setText(content);
       }}
       init={{
         content_style: "p {margin: 0; padding: 0;}",

@@ -18,6 +18,8 @@ const Topics = (): JSX.Element => {
   if (!data) return <h1>Loading...</h1>;
   if (error) return <h1>Error</h1>;
 
+  console.log(data);
+
   return (
     <>
       {/* prettier-ignore */}
@@ -25,11 +27,15 @@ const Topics = (): JSX.Element => {
         <Button variant="contained">Crează Topic</Button>
       </Link>
 
-      {data.map((x: ITopics) => (
-        <div key={uuidv4()}>
-          <div>{x.title}</div>
-        </div>
-      ))}
+      {data !== "empty" ? (
+        data.map((x: ITopics) => (
+          <div key={uuidv4()}>
+            <div>{x.title}</div>
+          </div>
+        ))
+      ) : (
+        <div>Nothing to see</div>
+      )}
     </>
   );
 };
