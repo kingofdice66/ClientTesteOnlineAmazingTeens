@@ -8,11 +8,11 @@ import ApiURL from "../ApiURL/ApiURL";
 
 const MinMax = {
   title: {
-    min: 10,
+    min: 3,
     max: 50,
   },
   description: {
-    min: 10,
+    min: 3,
     max: 500,
   },
 };

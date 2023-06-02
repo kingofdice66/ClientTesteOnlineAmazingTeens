@@ -67,12 +67,12 @@ public class SetSectionController : Controller
 public class SetSection
 {
 	[Required(ErrorMessage = "{0} is required")]
-	[MinLength(10, ErrorMessage = "Minimum length is {0}")]
+	[MinLength(3, ErrorMessage = "Minimum length is {0}")]
 	[MaxLength(50, ErrorMessage = "Maximum length is {0}")]
 	public string? title { get; set; }
 
 	[Required(ErrorMessage = "{0} is required")]
-	[MinLength(10, ErrorMessage = "Minimum length is {0}")]
+	[MinLength(3, ErrorMessage = "Minimum length is {0}")]
 	[MaxLength(500, ErrorMessage = "Maximum length is {0}")]
 	public string? description { get; set; }
 }

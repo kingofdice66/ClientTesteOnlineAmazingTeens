@@ -1,4 +1,4 @@
-import MakeSubsection from "../../../components/Forum/MakeSubsection";
+import MakeSubsection from "../../../../../components/Forum/MakeSubsection";
 
 const index = (): JSX.Element => <MakeSubsection />;
 

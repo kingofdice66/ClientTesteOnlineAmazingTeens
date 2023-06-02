@@ -30,3 +30,6 @@ D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.pdb
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\asp_net.genruntimeconfig.cache
 D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\obj\Debug\net7.0\ref\asp_net.dll
+D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\AngleSharp.dll
+D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\AngleSharp.Css.dll
+D:\projects\WebDevelopment\ClientTesteOnlineAmazingTeens\asp_net\bin\Debug\net7.0\HtmlSanitizer.dll

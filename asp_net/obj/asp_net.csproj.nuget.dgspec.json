@@ -49,13 +49,17 @@
               "target": "Package",
               "version": "[2.0.123, )"
             },
+            "HtmlSanitizer": {
+              "target": "Package",
+              "version": "[8.0.645, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[4.0.0, )"
             },
             "Npgsql": {
               "target": "Package",
-              "version": "[7.0.2, )"
+              "version": "[7.0.4, )"
             }
           },
           "imports": [

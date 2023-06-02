@@ -21,13 +21,13 @@ const Sections = (): JSX.Element => {
 
   return data.map((x: ISections) => (
     <React.Fragment key={uuidv4()}>
-      <Link href={`/forum/subsections/${x.id}`}>
+      <Link href={`/forum/sections/${x.id}/subsections`}>
         <div>Title: {x.title}</div>
       </Link>
 
       <div>Description: {x.description}</div>
 
-      <Link href={`/forum/make-subsection/${x.id}`}>
+      <Link href={`/forum/sections/${x.id}/make-subsection`}>
         <Button variant="contained">Crează Subsecțiune</Button>
       </Link>
     </React.Fragment>

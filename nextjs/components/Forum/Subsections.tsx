@@ -23,15 +23,10 @@ const Subsections = (): JSX.Element => {
 
   return data.map((x: ISubsections) => (
     <React.Fragment key={uuidv4()}>
-      <Link href="#test">
+      <Link href={`/forum/sections/${sectionId}/subsections/${x.id}/topics`}>
         <div>Title: {x.title}</div>
       </Link>
-
       <div>Description: {x.description}</div>
-
-      <Link href={`/forum/sections/${sectionId}/subsections/${x.id}`}>
-        <Button variant="contained">Crează Topic</Button>
-      </Link>
     </React.Fragment>
   ));
 };

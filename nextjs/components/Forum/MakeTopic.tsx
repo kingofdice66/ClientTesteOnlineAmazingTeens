@@ -5,11 +5,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Button, TextField, Box } from "@mui/material";
 import axios from "axios";
+import ApiURL from "../ApiURL/ApiURL";
 import TinyMCE from "../TinyMCE/TinyMCE";
 
 const MinMax = {
   subject: {
-    min: 10,
+    min: 3,
     max: 100,
   },
   // Character length that does not contain the HTML from TinyMCE. Used only for control. Will not be going to database.
@@ -54,6 +55,10 @@ const MakeTopic = (): JSX.Element => {
   const onSubmit = (data: UseForm): void => {
     console.log(data);
     console.log(comment);
+    axios
+      .post(`${ApiURL}/SetTopic/Set`, { subject: data.subject, comment })
+      .then((response) => console.log(response))
+      .catch((error) => error);
   };
 
   return (

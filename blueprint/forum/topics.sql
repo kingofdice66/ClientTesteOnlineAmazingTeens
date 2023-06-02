@@ -1,7 +1,6 @@
 CREATE TABLE topics(
     id BIGSERIAL PRIMARY KEY,
-    subject TEXT NOT NULL,
-    message TEXT NOT NULL,
+    title TEXT NOT NULL,
     created_by BIGINT NOT NULL,
         constraint fk_users
         FOREIGN KEY(created_by)
