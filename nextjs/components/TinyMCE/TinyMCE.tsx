@@ -4,7 +4,7 @@ import { ControllerRenderProps } from "react-hook-form";
 
 interface IProps {
   field: ControllerRenderProps<
-    { subject: string; textLength: string },
+    { title: string; textLength: string },
     "textLength"
   >;
   setText: (content: string) => void;

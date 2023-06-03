@@ -2,7 +2,7 @@ CREATE TABLE topics(
     id BIGSERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     created_by BIGINT NOT NULL,
-        constraint fk_users
+        CONSTRAINT fk_users
         FOREIGN KEY(created_by)
         REFERENCES users(id)
         ON DELETE CASCADE

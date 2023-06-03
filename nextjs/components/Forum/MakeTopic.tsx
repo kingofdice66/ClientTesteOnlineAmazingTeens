@@ -10,7 +10,7 @@ import ApiURL from "../ApiURL/ApiURL";
 import TinyMCE from "../TinyMCE/TinyMCE";
 
 const MinMax = {
-  subject: {
+  title: {
     min: 3,
     max: 100,
   },
@@ -22,11 +22,11 @@ const MinMax = {
 };
 
 const schema = yup.object().shape({
-  subject: yup
+  title: yup
     .string()
     .required("Câmpul nu poate fi gol")
-    .min(MinMax.subject.min, `Minim ${MinMax.subject.min} caractere`)
-    .max(MinMax.subject.max, `Maxim ${MinMax.subject.max} caractere`),
+    .min(MinMax.title.min, `Minim ${MinMax.title.min} caractere`)
+    .max(MinMax.title.max, `Maxim ${MinMax.title.max} caractere`),
   textLength: yup
     .string()
     .required("Câmpul nu poate fi gol")
@@ -39,7 +39,7 @@ type UseForm = yup.InferType<typeof schema>;
 const MakeTopic = (): JSX.Element => {
   const { sectionId, subsectionId } = useRouter().query;
   // contains the text from TinyMCE that contains HTML which will be going to database
-  const [message, setMessage] = useState<string | null>(null);
+  const [comment, setComment] = useState<string | null>(null);
 
   const {
     control,
@@ -49,18 +49,18 @@ const MakeTopic = (): JSX.Element => {
   } = useForm<UseForm>({
     resolver: yupResolver(schema),
     defaultValues: {
-      subject: "",
+      title: "",
       textLength: "",
     },
   });
 
   const onSubmit = (data: UseForm): void => {
     console.log(data);
-    console.log(message);
+    console.log(comment);
     axios
       .post(`${ApiURL}/SetTopic/Set`, {
-        subject: data.subject,
-        message,
+        title: data.title,
+        comment,
         sectionId,
         subsectionId,
       })
@@ -71,13 +71,13 @@ const MakeTopic = (): JSX.Element => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <TextField
-        error={!!errors.subject}
+        error={!!errors.title}
         label="Descriere"
         helperText={
           // prettier-ignore
-          errors?.subject ? errors?.subject?.message : ""
+          errors?.title ? errors?.title?.message : ""
         }
-        {...register("subject")}
+        {...register("title")}
       />
       <br />
 
@@ -85,7 +85,7 @@ const MakeTopic = (): JSX.Element => {
         name="textLength"
         control={control}
         render={({ field }): JSX.Element => (
-          <TinyMCE field={field} setText={setMessage} />
+          <TinyMCE field={field} setText={setComment} />
         )}
       />
       <Box sx={{ color: "red" }}>{errors?.textLength?.message}</Box>
