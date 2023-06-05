@@ -6,6 +6,7 @@ import Link from "next/link";
 import ApiURL from "../ApiURL/ApiURL";
 
 interface ITopics {
+  id: number;
   title: string;
 }
 
@@ -30,7 +31,11 @@ const Topics = (): JSX.Element => {
       {data !== "empty" ? (
         data.map((x: ITopics) => (
           <div key={uuidv4()}>
-            <div>{x.title}</div>
+            <Link
+              href={`/forum/sections/${sectionId}/subsections/${subsectionId}/topics/${x.id}/comments`}
+            >
+              {x.title}
+            </Link>
           </div>
         ))
       ) : (

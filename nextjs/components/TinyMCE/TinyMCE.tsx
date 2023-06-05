@@ -3,10 +3,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { ControllerRenderProps } from "react-hook-form";
 
 interface IProps {
-  field: ControllerRenderProps<
-    { title: string; textLength: string },
-    "textLength"
-  >;
+  field: any;
   setText: (content: string) => void;
 }
 

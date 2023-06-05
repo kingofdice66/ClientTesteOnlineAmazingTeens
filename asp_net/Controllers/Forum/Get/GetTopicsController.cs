@@ -19,6 +19,7 @@ public class GetTopicsController : Controller
 
 		const string query = @"
 			SELECT
+				id,
 				title,
 				created_by,
 				created_at
@@ -55,6 +56,7 @@ public class GetTopicsController : Controller
 
 	public class TopicsQuery
 	{
+		public int id { get; set; }
 		public string? title { get; set; }
 		public string? created_by { get; set; }
 		public string? created_at { get; set; }
