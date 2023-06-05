@@ -9,38 +9,41 @@ namespace asp_net.Controllers.Forum.Get;
 
 [Route("[controller]/[action]")]
 [ApiController]
-public class GetTopicsController : Controller
+public class GetTopicCommentsController : Controller
 {
 	[HttpPost]
-	public string Get([FromBody] TopicsRequest data)
+	public string Get([FromBody] TopicCommentsRequest data)
 	{
 		using NpgsqlConnection con = new(Database.ConnectionInfo());
 		con.Open();
 
 		const string query = @"
 			SELECT
-				title,
+				comment,
 				created_by,
 				created_at
 			FROM
-				topics
+				topic_comments
 			WHERE
+				topic_id=@topicId
+				AND
 				section_id=@sectionId
 				AND
 				subsection_id=@subsectionId;
 		";
 
 		DynamicParameters dp = new();
-		dp.Add(@"sectionId", data.sectionId);
-		dp.Add(@"subsectionId", data.subsectionId);
+		dp.Add("@topicId", data.topicId);
+		dp.Add("@sectionId", data.sectionId);
+		dp.Add("@subsectionId", data.subsectionId);
 
 		try
 		{
-			IEnumerable<TopicsQuery> topics = con.Query<TopicsQuery>(query, dp).ToList();
+			IEnumerable<TopicCommentsQuery> topicComments = con.Query<TopicCommentsQuery>(query, dp).ToList();
 
-			if (topics.Any())
+			if (topicComments.Any())
 			{
-				return JsonSerializer.Serialize(topics);
+				return JsonSerializer.Serialize(topicComments);
 			}
 			else
 			{
@@ -53,15 +56,18 @@ public class GetTopicsController : Controller
 		}
 	}
 
-	public class TopicsQuery
+	public class TopicCommentsQuery
 	{
-		public string? title { get; set; }
+		public string? comment { get; set; }
 		public string? created_by { get; set; }
 		public string? created_at { get; set; }
 	}
 
-	public class TopicsRequest
+	public class TopicCommentsRequest
 	{
+		[Required(ErrorMessage = "{0} is required")]
+		public int topicId { get; set; }
+
 		[Required(ErrorMessage = "{0} is required")]
 		public int sectionId { get; set; }
 

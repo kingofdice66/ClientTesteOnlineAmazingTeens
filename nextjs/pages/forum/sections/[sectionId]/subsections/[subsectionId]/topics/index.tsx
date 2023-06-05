@@ -20,9 +20,7 @@ interface ITopics {
 }
 
 interface ISSP {
-  props: {
-    fallback: { [key: string]: ITopics[] };
-  };
+  props: { fallback: { [key: string]: ITopics[] } };
 }
 
 export const getServerSideProps = async (context: any): Promise<ISSP> => {

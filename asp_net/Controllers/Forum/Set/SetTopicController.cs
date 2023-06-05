@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using asp_net.Helpers;
-using System.Data;
-using Npgsql;
 using Dapper;
+using Npgsql;
 
 namespace asp_net.Controllers.Forum.Set;
 
@@ -12,8 +11,11 @@ namespace asp_net.Controllers.Forum.Set;
 public class SetTopicController : Controller
 {
 	[HttpPost]
-	public string Set([FromBody] TopicRequest data)
+	public IActionResult Set([FromBody] TopicRequest data)
 	{
+		// Indicates the status of the request
+		TopicResponse response = new();
+
 		long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
 		string purifiedComment = SanitizeHtml.Sanitize(data.comment);
@@ -54,14 +56,18 @@ public class SetTopicController : Controller
 		{
 			int rowsAffectedTopics = con.Execute(queryTopics, dpTopics);
 
-			if (rowsAffectedTopics <= 0)
+			if (rowsAffectedTopics > 0)
 			{
-				return "topics failed";
+				response.Add("topic added successfully");
+			}
+			else
+			{
+				response.Add("topic failed to add");
 			}
 		}
 		catch (Exception ex)
 		{
-			return ex.Message;
+			response.Add($"topic exception error = {ex.Message}");
 		}
 
 		// Using unix timestamp to get the id ensures concurrency protection
@@ -76,19 +82,24 @@ public class SetTopicController : Controller
 
 		DynamicParameters dpTopicId = new();
 		dpTopicId.Add("@unixTimestamp", unixTimestamp);
+
 		// Get the newly created topic id
 		long? topicId = con.QueryFirstOrDefault<long>(queryTopicId, dpTopicId);
 
 		try
 		{
-			if (!topicId.HasValue)
+			if (topicId.HasValue)
 			{
-				return "failed to retrieve topic_id from 'topics'";
+				response.Add("topic id retrieved successfully");
+			}
+			else
+			{
+				response.Add("failed to retrieve topic_id from 'topics'");
 			}
 		}
 		catch (Exception ex)
 		{
-			return ex.Message;
+			response.Add($"topicID retrieval exception error = {ex.Message}");
 		}
 
 		const string queryTopicComments = @"
@@ -127,17 +138,34 @@ public class SetTopicController : Controller
 		{
 			int rowsAffectedTopicComments = con.Execute(queryTopicComments, dpTopicComments);
 
-			if (rowsAffectedTopicComments <= 0)
+			if (rowsAffectedTopicComments > 0)
 			{
-				return "topic comments failed";
+				response.Add("new topic comment added successfully");
+			}
+			else
+			{
+				response.Add("new topic comments failed to be added");
 			}
 		}
 		catch (Exception ex)
 		{
-			return ex.Message;
+			response.Add($"topicComments exception = {ex.Message}");
 		}
 
-		return "success";
+		return Ok(new { response.responses });
+	}
+
+	public class TopicResponse
+	{
+		public string[]? responses { get; set; }
+
+		private readonly List<string> responses_ = new();
+
+		public void Add(string status)
+		{
+			responses_.Add(status);
+			responses = responses_.ToArray();
+		}
 	}
 
 	public class TopicRequest

@@ -11,8 +11,10 @@ namespace asp_net.Controllers.Forum.Set;
 public class SetSectionController : Controller
 {
 	[HttpPost]
-	public string Set([FromBody] SectionRequest data)
+	public IActionResult Set([FromBody] SectionRequest data)
 	{
+		SectionResponse response = new();
+
 		// get current unix time
 		long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
@@ -50,16 +52,31 @@ public class SetSectionController : Controller
 
 			if (rowsAffected > 0)
 			{
-				return "success";
+				response.Add("section added successfully");
 			}
 			else
 			{
-				return "failed";
+				response.Add("section failed to add");
 			}
 		}
 		catch (Exception ex)
 		{
-			return ex.Message;
+			response.Add($"section exception error:  {ex.Message}");
+		}
+
+		return Ok(new { response.responses });
+	}
+
+	public class SectionResponse
+	{
+		public string[]? responses { get; set; }
+
+		private readonly List<string> responses_ = new();
+
+		public void Add(string status)
+		{
+			responses_.Add(status);
+			responses = responses_.ToArray();
 		}
 	}
 
