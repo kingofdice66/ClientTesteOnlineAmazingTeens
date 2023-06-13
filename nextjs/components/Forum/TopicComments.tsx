@@ -30,6 +30,7 @@ const schema = yup.object().shape({
 type UseForm = yup.InferType<typeof schema>;
 
 interface ITopicComments {
+  id: number;
   comment: string;
   created_by: string;
   created_at: string;
@@ -42,9 +43,11 @@ const TopicComments = (): JSX.Element => {
 
   const [comment, setComment] = useState<string | null>(null);
 
+  // TinyMCE editor parameter.
+  const [editor, setEditor] = useState<any>(null);
+
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm<UseForm>({
@@ -59,9 +62,19 @@ const TopicComments = (): JSX.Element => {
   if (!data) return <h1>Loading...</h1>;
   if (error) return <h1>Error</h1>;
 
-  const onSubmit = (data_: UseForm): void => {
-    console.log(data_);
+  const onSubmit = (): void => {
     console.log(comment);
+  };
+
+  const reply = (id: number): void => {
+    console.log("reply");
+    console.log(`id: ${id}`);
+    console.log(`sectionId: ${sectionId}`);
+    console.log(`subsectionId: ${subsectionId}`);
+    console.log(`topicId: ${topicId}`);
+    editor.insertContent(
+      "<blockquote class='topic_comments'><p><a href='https://www.google.com'>TEST_LINK</a></p><p>Blockquote text</p></blockquote><br>"
+    );
   };
 
   return (
@@ -69,6 +82,9 @@ const TopicComments = (): JSX.Element => {
       {data.map((x: ITopicComments) => (
         <div key={uuidv4()}>
           <div dangerouslySetInnerHTML={{ __html: x.comment }} />
+          <Button variant="contained" onClick={(): void => reply(x.id)}>
+            Răspunde
+          </Button>
         </div>
       ))}
 
@@ -77,7 +93,7 @@ const TopicComments = (): JSX.Element => {
           name="textLength"
           control={control}
           render={({ field }): JSX.Element => (
-            <TinyMCE field={field} setText={setComment} />
+            <TinyMCE field={field} setText={setComment} setEditor={setEditor} />
           )}
         />
         <Box sx={{ color: "red" }}>{errors?.textLength?.message}</Box>

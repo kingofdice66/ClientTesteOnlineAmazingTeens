@@ -19,6 +19,7 @@ public class GetTopicCommentsController : Controller
 
 		const string query = @"
 			SELECT
+				id,
 				comment,
 				created_by,
 				created_at
@@ -58,6 +59,7 @@ public class GetTopicCommentsController : Controller
 
 	public class TopicCommentsQuery
 	{
+		public int id { get; set; }
 		public string? comment { get; set; }
 		public string? created_by { get; set; }
 		public string? created_at { get; set; }
