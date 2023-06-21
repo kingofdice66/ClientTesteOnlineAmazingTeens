@@ -95,6 +95,7 @@ public class SetSubsectionController : Controller
 		[MaxLength(500, ErrorMessage = "Maximum length is {0}")]
 		public string? description { get; set; }
 
+		[Required(ErrorMessage = "{0} is required")]
 		public int sectionId { get; set; }
 	}
 }

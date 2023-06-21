@@ -11,6 +11,10 @@ public class SanitizeHtml
 	{
 		HtmlSanitizer sanitizer = new();
 
+		sanitizer.AllowedAttributes.Add("data-quote");
+		sanitizer.AllowedAttributes.Add("data-post");
+		sanitizer.AllowedAttributes.Add("data-member");
+
 		string sanitizedHtml = sanitizer.Sanitize(html);
 
 		return sanitizedHtml;

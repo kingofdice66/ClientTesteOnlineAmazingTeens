@@ -1,3 +1,17 @@
 .topic_comments {
-  background-color: red;
+  background-color: rgba(209, 202, 202, 0.541);
+  border-left: 3px solid blue;
+  padding-left: 5px;
+  margin: 5px 0;
+}
+
+.topic_comments p {
+  margin: 0;
+  padding: 0;
+}
+
+[data-quote]::before {
+  display: block;
+  color: orangered;
+  content: attr(data-quote) " a spus:";
 }

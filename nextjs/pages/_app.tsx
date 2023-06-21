@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import "normalize.css";
+import "../styles/normalize.css";
 import type { AppProps } from "next/app";
 import NavBar from "../components/Navbar/NavBar";
 

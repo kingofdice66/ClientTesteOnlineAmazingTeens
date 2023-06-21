@@ -1,5 +1,5 @@
 /* eslint-disable react/no-danger */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -8,8 +8,16 @@ import useSWR from "swr";
 import { v4 as uuidv4 } from "uuid";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import axios from "axios";
 import ApiURL from "../ApiURL/ApiURL";
 import TinyMCE from "../TinyMCE/TinyMCE";
+import QuoteStyle from "../../public/TinyMCE.module";
+
+import {
+  RgxBlockquote,
+  RgxRemoveQuotes,
+  RgxRemoveWhiteSpace,
+} from "../../helpers/Regex";
 
 const MinMax = {
   // Character length that does not contain the HTML from TinyMCE. Used only for control. Will not be going to database.
@@ -36,15 +44,21 @@ interface ITopicComments {
   created_at: string;
 }
 
+interface Replies {
+  reply: string;
+}
+
+type IReplies = Replies[];
+
 const TopicComments = (): JSX.Element => {
   const { sectionId, subsectionId, topicId } = useRouter().query;
-
   const { data, error } = useSWR(`${ApiURL}/GetTopicComments/Get`);
-
+  // TinyMCE text.
   const [comment, setComment] = useState<string | null>(null);
-
   // TinyMCE editor parameter.
   const [editor, setEditor] = useState<any>(null);
+  // The replies that the usef just entered. They will be shown temporarily on the current page.
+  const [replies, setReplies] = useState<IReplies>([{ reply: "" }]);
 
   const {
     control,
@@ -57,36 +71,80 @@ const TopicComments = (): JSX.Element => {
     },
   });
 
-  console.log(data);
+  // console.log(data);
 
   if (!data) return <h1>Loading...</h1>;
   if (error) return <h1>Error</h1>;
 
   const onSubmit = (): void => {
-    console.log(comment);
+    axios
+      .post(`${ApiURL}/SetTopicComment/Set`, {
+        sectionId,
+        subsectionId,
+        topicId,
+        comment,
+      })
+      .then((response) => {
+        // prettier-ignore
+        setReplies((prevState: IReplies) => [...prevState, { reply: comment || "" }]);
+        console.log(response.data);
+      })
+      .catch((error_) => error_);
+
+    console.log(typeof comment);
   };
 
   const reply = (id: number): void => {
-    console.log("reply");
-    console.log(`id: ${id}`);
-    console.log(`sectionId: ${sectionId}`);
-    console.log(`subsectionId: ${subsectionId}`);
-    console.log(`topicId: ${topicId}`);
-    editor.insertContent(
-      "<blockquote class='topic_comments'><p><a href='https://www.google.com'>TEST_LINK</a></p><p>Blockquote text</p></blockquote><br>"
-    );
+    axios
+      .post(`${ApiURL}/GetTopicComment/Get`, {
+        sectionId,
+        subsectionId,
+        topicId,
+        commentId: id,
+      })
+      .then((response) => {
+        // eslint-disable-next-line no-underscore-dangle
+        let comment_ = RgxRemoveQuotes(response.data);
+        comment_ = RgxBlockquote(comment_);
+        comment_ = RgxRemoveWhiteSpace(comment_);
+
+        editor.insertContent(
+          `<blockquote class="topic_comments" data-quote="kingofdice66" data-post="1434" data-member="1234">
+              ${comment_}
+           </blockquote><br/>`
+        );
+      })
+      .catch((error_) => error_);
+
+    // editor.insertContent(
+    //   `<blockquote class="topic_comments" data-quote="kingofdice66" data-post="1434" data-member="1234">
+    //       <p class="comment">
+    //         Blockquote text
+    //       </p>
+    //   </blockquote><br/>`
+    // );
   };
 
   return (
     <>
-      {data.map((x: ITopicComments) => (
-        <div key={uuidv4()}>
-          <div dangerouslySetInnerHTML={{ __html: x.comment }} />
-          <Button variant="contained" onClick={(): void => reply(x.id)}>
-            Răspunde
-          </Button>
-        </div>
-      ))}
+      {data !== "empty" ? (
+        data.map((x: ITopicComments): JSX.Element => {
+          // eslint-disable-next-line no-underscore-dangle
+          let comment_ = RgxBlockquote(x.comment);
+          comment_ = RgxRemoveWhiteSpace(comment_);
+
+          return (
+            <div key={uuidv4()}>
+              <div dangerouslySetInnerHTML={{ __html: comment_ }} />
+              <Button variant="contained" onClick={(): void => reply(x.id)}>
+                Răspunde
+              </Button>
+            </div>
+          );
+        })
+      ) : (
+        <div>Nothing to see</div>
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
@@ -102,6 +160,10 @@ const TopicComments = (): JSX.Element => {
           POSTEAZĂ
         </Button>
       </form>
+      {/* eslint-disable-next-line react/no-unknown-property */}
+      <style jsx global>
+        {QuoteStyle}
+      </style>
     </>
   );
 };
