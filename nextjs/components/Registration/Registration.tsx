@@ -112,13 +112,13 @@ const Registration = (): JSX.Element => {
     handleSubmit,
     formState: { errors },
   } = useForm<UseForm>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver<UseForm>(schema),
     defaultValues: {
       username: "",
       firstName: "",
       lastName: "",
       email: "",
-      dateOfBirth: new Date("0000-00-00"), // set to `0000-00-00` intentionally in order to give an error if is not filled
+      dateOfBirth: undefined,
       gender: "",
       password: "",
       retypePassword: "",
@@ -198,7 +198,7 @@ const Registration = (): JSX.Element => {
             <DatePicker
               format="DD/MM/YYYY"
               label="Anul nașterii *"
-              onChange={(date): void => field.onChange(date)}
+              onChange={(date: any): void => field.onChange(date)}
               slotProps={{
                 textField: {
                   // prettier-ignore
