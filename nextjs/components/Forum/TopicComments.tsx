@@ -58,7 +58,7 @@ const TopicComments = (): JSX.Element => {
   // TinyMCE editor parameter.
   const [editor, setEditor] = useState<any>(null);
   // The replies that the usef just entered. They will be shown temporarily on the current page.
-  const [replies, setReplies] = useState<IReplies>([{ reply: "" }]);
+  const [replies, setReplies] = useState<IReplies | null>(null);
 
   const {
     control,
@@ -86,7 +86,11 @@ const TopicComments = (): JSX.Element => {
       })
       .then((response) => {
         // prettier-ignore
-        setReplies((prevState: IReplies) => [...prevState, { reply: comment || "" }]);
+        setReplies((prevState: IReplies | null) => [...prevState || [], { reply: comment || "" }]);
+
+        // Clear TinyMCE text area.
+        editor.setContent("");
+
         console.log(response.data);
       })
       .catch((error_) => error_);
@@ -145,6 +149,17 @@ const TopicComments = (): JSX.Element => {
       ) : (
         <div>Nothing to see</div>
       )}
+
+      {replies !== null
+        ? replies.map(
+            (x: any): JSX.Element => (
+              <div key={uuidv4()}>
+                <Box>Postat de tine acum:</Box>
+                <Box dangerouslySetInnerHTML={{ __html: x.reply }} />
+              </div>
+            )
+          )
+        : ""}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller

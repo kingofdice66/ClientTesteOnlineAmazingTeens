@@ -44,7 +44,7 @@ const MakeSubsection = (): JSX.Element => {
     handleSubmit,
     formState: { errors },
   } = useForm<UseForm>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver<UseForm>(schema),
     defaultValues: {
       title: "",
       description: "",
