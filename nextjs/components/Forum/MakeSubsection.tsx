@@ -34,7 +34,7 @@ const schema = yup.object().shape({
     .max(MinMax.description.max, `Maxim ${MinMax.description.max} caractetere`),
 });
 
-type UseForm = yup.InferType<typeof schema>;
+type IUseForm = yup.InferType<typeof schema>;
 
 const MakeSubsection = (): JSX.Element => {
   const { sectionId } = useRouter().query;
@@ -43,15 +43,15 @@ const MakeSubsection = (): JSX.Element => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UseForm>({
-    resolver: yupResolver<UseForm>(schema),
+  } = useForm({
+    resolver: yupResolver(schema),
     defaultValues: {
       title: "",
       description: "",
     },
   });
 
-  const onSubmit = (data: UseForm): void => {
+  const onSubmit = (data: IUseForm): void => {
     console.log(data);
     console.log("subsectionId: ", sectionId);
     axios

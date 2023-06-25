@@ -31,22 +31,22 @@ const schema = yup.object().shape({
     .max(MinMax.description.max, `Maxim ${MinMax.description.max} caractere`),
 });
 
-type UseForm = yup.InferType<typeof schema>;
+type IUseForm = yup.InferType<typeof schema>;
 
 const MakeSection = (): JSX.Element => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UseForm>({
-    resolver: yupResolver<UseForm>(schema),
+  } = useForm({
+    resolver: yupResolver(schema),
     defaultValues: {
       title: "",
       description: "",
     },
   });
 
-  const onSubmit = (data: UseForm): void => {
+  const onSubmit = (data: IUseForm): void => {
     console.log(data.description);
     console.log(data.title);
     axios

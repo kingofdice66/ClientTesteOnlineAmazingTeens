@@ -151,14 +151,18 @@ const TopicComments = (): JSX.Element => {
       )}
 
       {replies !== null
-        ? replies.map(
-            (x: any): JSX.Element => (
+        ? replies.map((x: any): JSX.Element => {
+            // eslint-disable-next-line no-underscore-dangle
+            let reply_ = RgxBlockquote(x.reply);
+            reply_ = RgxRemoveWhiteSpace(reply_);
+
+            return (
               <div key={uuidv4()}>
                 <Box>Postat de tine acum:</Box>
-                <Box dangerouslySetInnerHTML={{ __html: x.reply }} />
+                <Box dangerouslySetInnerHTML={{ __html: reply_ }} />
               </div>
-            )
-          )
+            );
+          })
         : ""}
 
       <form onSubmit={handleSubmit(onSubmit)}>

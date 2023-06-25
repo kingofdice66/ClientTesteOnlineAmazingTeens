@@ -93,7 +93,7 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("password")], "Parola nu se potrivește"),
 });
 
-type UseForm = yup.InferType<typeof schema>;
+type IUseForm = yup.InferType<typeof schema>;
 
 /**
  * For the date format. For example, if the day is 1 and month is 4 then it will return 01 and 04 for compatibility.
@@ -111,8 +111,8 @@ const Registration = (): JSX.Element => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UseForm>({
-    resolver: yupResolver<UseForm>(schema),
+  } = useForm({
+    resolver: yupResolver(schema),
     defaultValues: {
       username: "",
       firstName: "",
@@ -125,7 +125,7 @@ const Registration = (): JSX.Element => {
     },
   });
 
-  const onSubmit = (data: UseForm): void => {
+  const onSubmit = (data: IUseForm): void => {
     axios
       .post("http://localhost:5177/registration/registeruser", {
         username: data.username,
