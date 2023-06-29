@@ -1,5 +1,5 @@
 /* eslint-disable react/no-danger */
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -13,12 +13,12 @@ import axios from "axios";
 import ApiURL from "../ApiURL/ApiURL";
 import TinyMCE from "../TinyMCE/TinyMCE";
 import QuoteStyle from "../../public/TinyMCE.module";
-
 import {
   RgxBlockquote,
   RgxRemoveQuotes,
   RgxRemoveWhiteSpace,
 } from "../../helpers/Regex";
+import styles from "./TopicComments.module.scss";
 
 const MinMax = {
   // Character length that does not contain the HTML from TinyMCE. Used only for control. Will not be going to database.
@@ -58,7 +58,7 @@ const TopicComments = (): JSX.Element => {
   const [comment, setComment] = useState<string | null>(null);
   // TinyMCE editor parameter.
   const [editor, setEditor] = useState<any>(null);
-  // The replies that the user just entered. They will be shown temporarily on the current page.
+  // The replies that the user just entered. They will be shown temporarily on the current page until the page is refreshed.
   const [replies, setReplies] = useState<IReplies | null>(null);
 
   const {
@@ -77,7 +77,7 @@ const TopicComments = (): JSX.Element => {
     () => (
       <TransitionGroup>
         {replies !== null
-          ? replies.map((x: any, index: number): JSX.Element => {
+          ? replies.map((x: Replies, index: number): JSX.Element => {
               // eslint-disable-next-line no-underscore-dangle
               let reply_ = RgxBlockquote(x.reply);
               reply_ = RgxRemoveWhiteSpace(reply_);
@@ -85,7 +85,7 @@ const TopicComments = (): JSX.Element => {
               return (
                 // eslint-disable-next-line react/no-array-index-key
                 <Fade timeout={2000} key={index}>
-                  <Box dangerouslySetInnerHTML={{ __html: reply_ }} />
+                  <div dangerouslySetInnerHTML={{ __html: reply_ }} />
                 </Fade>
               );
             })
@@ -98,6 +98,7 @@ const TopicComments = (): JSX.Element => {
   if (!data) return <h1>Loading...</h1>;
   if (error) return <h1>Error</h1>;
 
+  /** Submit comment to database. */
   const onSubmit = (): void => {
     axios
       .post(`${ApiURL}/SetTopicComment/Set`, {
@@ -120,6 +121,7 @@ const TopicComments = (): JSX.Element => {
     console.log(typeof comment);
   };
 
+  /** Get the specific comment from database. */
   const reply = (id: number): void => {
     axios
       .post(`${ApiURL}/GetTopicComment/Get`, {
@@ -141,18 +143,10 @@ const TopicComments = (): JSX.Element => {
         );
       })
       .catch((error_) => error_);
-
-    // editor.insertContent(
-    //   `<blockquote class="topic_comments" data-quote="kingofdice66" data-post="1434" data-member="1234">
-    //       <p class="comment">
-    //         Blockquote text
-    //       </p>
-    //   </blockquote><br/>`
-    // );
   };
 
   return (
-    <>
+    <div className={styles.topic_comments_wrapper}>
       {data !== "empty" ? (
         data.map((x: ITopicComments): JSX.Element => {
           // eslint-disable-next-line no-underscore-dangle
@@ -160,11 +154,20 @@ const TopicComments = (): JSX.Element => {
           comment_ = RgxRemoveWhiteSpace(comment_);
 
           return (
-            <div key={uuidv4()}>
-              <div dangerouslySetInnerHTML={{ __html: comment_ }} />
-              <Button variant="contained" onClick={(): void => reply(x.id)}>
-                Răspunde
-              </Button>
+            <div className={styles.topic_comments} key={uuidv4()}>
+              <div className={styles.profile}>Profile</div>
+              <div className={styles.comment}>
+                <div dangerouslySetInnerHTML={{ __html: comment_ }} />
+                <div className={styles.reply_button}>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    onClick={(): void => reply(x.id)}
+                  >
+                    Răspunde
+                  </Button>
+                </div>
+              </div>
             </div>
           );
         })
@@ -172,27 +175,33 @@ const TopicComments = (): JSX.Element => {
         <div>Nothing to see</div>
       )}
 
-      {userRepliesMemo}
+      <div className={styles.replies}>{userRepliesMemo}</div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          name="textLength"
-          control={control}
-          render={({ field }): JSX.Element => (
-            <TinyMCE field={field} setText={setComment} setEditor={setEditor} />
-          )}
-        />
-        <Box sx={{ color: "red" }}>{errors?.textLength?.message}</Box>
+        <div className={styles.editor}>
+          <Controller
+            name="textLength"
+            control={control}
+            render={({ field }): JSX.Element => (
+              <TinyMCE
+                field={field}
+                setText={setComment}
+                setEditor={setEditor}
+              />
+            )}
+          />
+          <Box sx={{ color: "red" }}>{errors?.textLength?.message}</Box>
 
-        <Button type="submit" variant="contained">
-          POSTEAZĂ
-        </Button>
+          <Button type="submit" variant="contained">
+            POSTEAZĂ
+          </Button>
+        </div>
       </form>
       {/* eslint-disable-next-line react/no-unknown-property */}
       <style jsx global>
         {QuoteStyle}
       </style>
-    </>
+    </div>
   );
 };
 

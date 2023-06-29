@@ -1,0 +1,37 @@
+@mixin centered {
+  margin: auto;
+  max-width: 1500px;
+  padding-bottom: 13px;
+}
+
+.topic_comments_wrapper {
+  background-color: #d5cfcf;
+}
+
+.replies {
+  @include centered;
+}
+
+.editor {
+  @include centered;
+}
+
+.topic_comments {
+  display: flex;
+  @include centered;
+
+  .profile {
+    background-color: blue;
+  }
+
+  .comment {
+    background-color: white;
+    padding-left: 5px;
+    width: 100%;
+  }
+
+  .reply_button {
+    float: right;
+    margin-right: 25px;
+  }
+}
