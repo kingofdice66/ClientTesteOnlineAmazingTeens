@@ -1,9 +1,10 @@
 /* eslint-disable react/no-danger */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Button, Box } from "@mui/material";
+import { Button, Box, Fade } from "@mui/material";
+import { TransitionGroup } from "react-transition-group";
 import useSWR from "swr";
 import { v4 as uuidv4 } from "uuid";
 import Link from "next/link";
@@ -57,7 +58,7 @@ const TopicComments = (): JSX.Element => {
   const [comment, setComment] = useState<string | null>(null);
   // TinyMCE editor parameter.
   const [editor, setEditor] = useState<any>(null);
-  // The replies that the usef just entered. They will be shown temporarily on the current page.
+  // The replies that the user just entered. They will be shown temporarily on the current page.
   const [replies, setReplies] = useState<IReplies | null>(null);
 
   const {
@@ -71,7 +72,28 @@ const TopicComments = (): JSX.Element => {
     },
   });
 
-  // console.log(data);
+  /** The replies that the user just posted. */
+  const userRepliesMemo = useMemo(
+    () => (
+      <TransitionGroup>
+        {replies !== null
+          ? replies.map((x: any, index: number): JSX.Element => {
+              // eslint-disable-next-line no-underscore-dangle
+              let reply_ = RgxBlockquote(x.reply);
+              reply_ = RgxRemoveWhiteSpace(reply_);
+
+              return (
+                // eslint-disable-next-line react/no-array-index-key
+                <Fade timeout={2000} key={index}>
+                  <Box dangerouslySetInnerHTML={{ __html: reply_ }} />
+                </Fade>
+              );
+            })
+          : ""}
+      </TransitionGroup>
+    ),
+    [replies]
+  );
 
   if (!data) return <h1>Loading...</h1>;
   if (error) return <h1>Error</h1>;
@@ -150,20 +172,7 @@ const TopicComments = (): JSX.Element => {
         <div>Nothing to see</div>
       )}
 
-      {replies !== null
-        ? replies.map((x: any): JSX.Element => {
-            // eslint-disable-next-line no-underscore-dangle
-            let reply_ = RgxBlockquote(x.reply);
-            reply_ = RgxRemoveWhiteSpace(reply_);
-
-            return (
-              <div key={uuidv4()}>
-                <Box>Postat de tine acum:</Box>
-                <Box dangerouslySetInnerHTML={{ __html: reply_ }} />
-              </div>
-            );
-          })
-        : ""}
+      {userRepliesMemo}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
