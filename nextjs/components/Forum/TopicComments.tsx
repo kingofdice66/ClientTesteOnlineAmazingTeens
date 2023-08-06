@@ -85,7 +85,15 @@ const TopicComments = (): JSX.Element => {
               return (
                 // eslint-disable-next-line react/no-array-index-key
                 <Fade timeout={2000} key={index}>
-                  <div dangerouslySetInnerHTML={{ __html: reply_ }} />
+                  <div className={styles.topic_comments} key={uuidv4()}>
+                    <div className={styles.profile}>
+                      <div>Username</div>
+                      <div>Other Info</div>
+                    </div>
+                    <div className={styles.comment}>
+                      <div dangerouslySetInnerHTML={{ __html: reply_ }} />
+                    </div>
+                  </div>
                 </Fade>
               );
             })
@@ -155,7 +163,10 @@ const TopicComments = (): JSX.Element => {
 
           return (
             <div className={styles.topic_comments} key={uuidv4()}>
-              <div className={styles.profile}>Profile</div>
+              <div className={styles.profile}>
+                <div>Username</div>
+                <div>Other Info</div>
+              </div>
               <div className={styles.comment}>
                 <div dangerouslySetInnerHTML={{ __html: comment_ }} />
                 <div className={styles.reply_button}>
