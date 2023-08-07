@@ -32,7 +32,8 @@ const TinyMCE = (props: IProps): JSX.Element => {
         browser_spellcheck: true,
         contextmenu: false,
         max_height: 300,
-        placeholder: "scrie comentariul...",
+        // placeholder: "scrie comentariul...",
+        placeholder: "adaugă conținutul subcapitolului...",
         plugins: [
           "advlist",
           "autolink",

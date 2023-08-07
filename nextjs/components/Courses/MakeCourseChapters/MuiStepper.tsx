@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Step, Stepper, StepContent, StepButton } from "@mui/material";
+import Link from "next/link";
 import { v4 as uuidv4 } from "uuid";
 
 interface IProps {
@@ -28,7 +29,11 @@ const MuiStepper = (props: IProps): JSX.Element => {
                 <StepContent>
                   {x.subsections.map(
                     (y: any): JSX.Element => (
-                      <div key={uuidv4()}>{y.subsection}</div>
+                      <div key={uuidv4()}>
+                        <Link href="/courses/make-subsection">
+                          {y.subsection}
+                        </Link>
+                      </div>
                     )
                   )}
                 </StepContent>
