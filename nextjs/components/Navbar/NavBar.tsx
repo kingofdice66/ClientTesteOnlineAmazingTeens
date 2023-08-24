@@ -25,7 +25,6 @@ function NavBar(): JSX.Element {
         <Box sx={{ ml: "auto" }}>
           <Paper elevation={7} sx={{ display: "inline", p: "8px 10px" }}>
             <InputBase placeholder="programare, limbi, marketing..." />
-
             <IconButton type="button" sx={{ p: "10px" }}>
               <SearchIcon />
             </IconButton>

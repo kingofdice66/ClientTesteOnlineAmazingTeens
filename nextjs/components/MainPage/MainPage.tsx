@@ -1,3 +1,5 @@
-const MainPage = (): JSX.Element => <div>MainPage</div>;
+import { Box } from "@mui/material";
+
+const MainPage = (): JSX.Element => <Box>MainPage</Box>;
 
 export default MainPage;
