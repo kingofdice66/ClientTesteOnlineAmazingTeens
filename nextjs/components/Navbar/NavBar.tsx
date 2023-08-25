@@ -12,9 +12,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Link from "next/link";
 
-function NavBar(): JSX.Element {
+function NavBar(props: any): JSX.Element {
+  const { navBarRef } = props;
+
   return (
-    <AppBar position="static" color="secondary">
+    <AppBar position="static" color="secondary" ref={navBarRef}>
       <Toolbar>
         <Typography variant="h6">AmazingTeens</Typography>
 

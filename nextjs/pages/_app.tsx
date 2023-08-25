@@ -11,9 +11,9 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
   const [navBarHeight, setNavBarHeight] = useState(null);
   const [footerHeight, setFooterHeight] = useState(null);
   // eslint-disable-next-line no-underscore-dangle
-  const navBarRef = useRef<any>(null);
+  const navBarRef = useRef<any>(null); // get the height of the navigation bar element
   // eslint-disable-next-line no-underscore-dangle
-  const footerRef = useRef<any>(null);
+  const footerRef = useRef<any>(null); // get the height of the footer element
 
   useEffect(() => {
     setNavBarHeight(navBarRef.current.clientHeight);
@@ -22,17 +22,17 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
 
   return (
     <>
-      <Box ref={navBarRef}>
-        <NavBar />
-      </Box>
+      <NavBar navBarRef={navBarRef} />
+
       <Box
-        sx={{ height: `calc(100vh - (${navBarHeight}px + ${footerHeight}px))` }}
+        sx={{
+          height: `calc(100vh - (${navBarHeight}px + ${footerHeight}px))`,
+        }}
       >
         <Component {...pageProps} />
       </Box>
-      <Box ref={footerRef}>
-        <Footer />
-      </Box>
+
+      <Footer footerRef={footerRef} />
     </>
   );
 }

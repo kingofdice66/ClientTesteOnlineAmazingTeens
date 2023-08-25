@@ -1,7 +1,13 @@
 import { Box } from "@mui/material";
 
-function Footer(): JSX.Element {
-  return <Box sx={{ backgroundColor: "red" }}>Footer</Box>;
+function Footer(props: any): JSX.Element {
+  const { footerRef } = props;
+
+  return (
+    <Box sx={{ backgroundColor: "red" }} ref={footerRef}>
+      Footer
+    </Box>
+  );
 }
 
 export default Footer;
