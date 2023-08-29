@@ -17,7 +17,7 @@ const MuiStepper = (props: IProps): JSX.Element => {
       nonLinear
       activeStep={activeStep}
       orientation="vertical"
-      sx={{ backgroundColor: "red", width: "300px" }}
+      sx={{ backgroundColor: "red", width: "inherit", p: "0 20% 0 23%" }}
     >
       {stepArray !== null
         ? stepArray.sections.map(

@@ -18,7 +18,7 @@ const Array = (props: IProps): JSX.Element => {
   });
 
   return (
-    <Box sx={{ backgroundColor: "red", pl: "20%" }}>
+    <Box sx={{ backgroundColor: "red", p: "0 20% 0 23%" }}>
       {fields.map(
         (section, index): JSX.Element => (
           <div key={uuidv4()}>
