@@ -18,19 +18,19 @@ const Array = (props: IProps): JSX.Element => {
   });
 
   return (
-    <>
+    <Box sx={{ backgroundColor: "red" }}>
       {fields.map(
         (section, index): JSX.Element => (
           <div key={uuidv4()}>
             <TextField
-              sx={{ width: 500 }}
+              sx={{ width: 400 }}
               {...register(`sections.${index}.section` as const)}
             />
 
             {index > 0 && (
               <Button
-                onClick={(): void => remove(index)}
                 sx={{ whiteSpace: "nowrap" }}
+                onClick={(): void => remove(index)}
               >
                 Elimină Capitolul
               </Button>
@@ -47,7 +47,7 @@ const Array = (props: IProps): JSX.Element => {
       >
         Adaugă Capitol
       </Button>
-    </>
+    </Box>
   );
 };
 

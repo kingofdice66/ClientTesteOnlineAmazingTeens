@@ -27,7 +27,6 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
       <Box
         sx={{
           height: `calc(100vh - ${navBarHeight}px)`,
-          overflow: "scroll",
         }}
       >
         <Component {...pageProps} />

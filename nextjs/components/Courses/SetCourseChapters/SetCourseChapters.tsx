@@ -46,34 +46,26 @@ const MakeCourseChapters = (): JSX.Element => {
     <Box
       sx={{
         backgroundColor: "blue",
-        height: "100vh",
+        p: "20px 20% 0 23%",
+        marginLeft: "auto",
+        marginRight: "auto",
         overflow: "scroll",
       }}
     >
-      <Box
-        sx={{
-          backgroundColor: "blue",
-          pt: "20px",
-          marginLeft: "auto",
-          marginRight: "auto",
-          width: "30%",
-        }}
-      >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Array {...{ control, register }} />
-          <br />
-          <Button type="submit" variant="contained">
-            Submit
-          </Button>
-        </form>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Array {...{ control, register }} />
         <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <Button onClick={(): void => previewForm()}>Arată Modificările</Button>
-        <MuiStepper {...{ stepArray }} />
-      </Box>
+        <Button type="submit" variant="contained">
+          Submit
+        </Button>
+      </form>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <Button onClick={(): void => previewForm()}>Arată Modificările</Button>
+      <MuiStepper {...{ stepArray }} />
     </Box>
   );
 };
