@@ -47,9 +47,8 @@ const MakeCourseChapters = (): JSX.Element => {
       sx={{
         backgroundColor: "blue",
         p: "20px 20% 0 23%",
-        marginLeft: "auto",
-        marginRight: "auto",
         overflow: "scroll",
+        height: "100vh",
       }}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
