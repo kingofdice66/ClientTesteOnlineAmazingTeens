@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Box } from "@mui/material";
 import { useFieldArray } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import NestedArray from "./NestedArray";
@@ -28,7 +28,10 @@ const Array = (props: IProps): JSX.Element => {
             />
 
             {index > 0 && (
-              <Button onClick={(): void => remove(index)}>
+              <Button
+                onClick={(): void => remove(index)}
+                sx={{ whiteSpace: "nowrap" }}
+              >
                 Elimină Capitolul
               </Button>
             )}
@@ -38,7 +41,10 @@ const Array = (props: IProps): JSX.Element => {
         )
       )}
 
-      <Button onClick={(): void => append({ section: "" })}>
+      <Button
+        sx={{ whiteSpace: "nowrap" }}
+        onClick={(): void => append({ section: "" })}
+      >
         Adaugă Capitol
       </Button>
     </>

@@ -28,14 +28,20 @@ const NestedArray = (props: IProps): JSX.Element => {
               )}
             />
 
-            <Button onClick={(): void => remove(index)}>
+            <Button
+              sx={{ whiteSpace: "nowrap" }}
+              onClick={(): void => remove(index)}
+            >
               Elimină Subcapitolul
             </Button>
           </div>
         )
       )}
 
-      <Button onClick={(): void => append({ subsection: "" })}>
+      <Button
+        sx={{ whiteSpace: "nowrap" }}
+        onClick={(): void => append({ subsection: "" })}
+      >
         Adaugă Subcapitol
       </Button>
     </>

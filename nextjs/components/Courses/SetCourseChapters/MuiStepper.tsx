@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Step, Stepper, StepContent, StepButton } from "@mui/material";
+import { Step, Stepper, StepContent, StepButton, Box } from "@mui/material";
 import Link from "next/link";
 import { v4 as uuidv4 } from "uuid";
 
@@ -13,7 +13,12 @@ const MuiStepper = (props: IProps): JSX.Element => {
   const [activeStep, setActiveStep] = useState<number>(0);
 
   return (
-    <Stepper nonLinear activeStep={activeStep} orientation="vertical">
+    <Stepper
+      nonLinear
+      activeStep={activeStep}
+      orientation="vertical"
+      sx={{ backgroundColor: "red", width: "300px" }}
+    >
       {stepArray !== null
         ? stepArray.sections.map(
             (x: any, i: number): JSX.Element => (
