@@ -53,7 +53,7 @@ const SetChapters = (): JSX.Element => {
         backgroundColor: "blue",
         p: "20px 20% 0 23%",
         overflow: "scroll",
-        height: "100vh",
+        minHeight: "100vh",
       }}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
