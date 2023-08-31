@@ -21,7 +21,7 @@ const Array = (props: IProps): JSX.Element => {
     <Box sx={{ backgroundColor: "red", p: "0 20% 0 23%" }}>
       {fields.map(
         (section, index): JSX.Element => (
-          <div key={uuidv4()}>
+          <div key={section.id}>
             <TextField
               sx={{ width: 400 }}
               {...register(`sections.${index}.section` as const)}

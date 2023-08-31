@@ -21,16 +21,21 @@ import MuiStepper from "./MuiStepper";
 interface IForm {
   sections: {
     section: string;
-    subsections: { subsection: string }[];
+    subsections: {
+      subsection: string;
+      test: boolean; // if test=true then the respective subsection is just a quiz test
+    }[];
   }[];
 }
 
-const MakeCourseChapters = (): JSX.Element => {
+const SetChapters = (): JSX.Element => {
   const [stepArray, setStepArray] = useState<IForm | null>(null);
 
   const { control, register, getValues, handleSubmit } = useForm<IForm>({
     defaultValues: {
-      sections: [{ section: "", subsections: [{ subsection: "" }] }],
+      sections: [
+        { section: "", subsections: [{ subsection: "", test: false }] },
+      ],
     },
   });
 
@@ -69,4 +74,4 @@ const MakeCourseChapters = (): JSX.Element => {
   );
 };
 
-export default MakeCourseChapters;
+export default SetChapters;

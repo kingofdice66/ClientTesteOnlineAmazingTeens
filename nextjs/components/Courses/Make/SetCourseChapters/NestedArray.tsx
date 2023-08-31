@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Checkbox, FormControlLabel } from "@mui/material";
 import { useFieldArray } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
@@ -21,11 +21,22 @@ const NestedArray = (props: IProps): JSX.Element => {
     <>
       {fields.map(
         (subsection, index): JSX.Element => (
-          <div key={uuidv4()}>
+          <div key={subsection.id}>
             <TextField
               {...register(
                 `sections.${nestIndex}.subsections.${index}.subsection` as const
               )}
+            />
+
+            <FormControlLabel
+              label="Test"
+              control={
+                <Checkbox
+                  {...register(
+                    `sections.${nestIndex}.subsections.${index}.test`
+                  )}
+                />
+              }
             />
 
             <Button
