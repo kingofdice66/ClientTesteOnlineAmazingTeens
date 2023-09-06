@@ -9,6 +9,7 @@ import * as yup from "yup";
 import axios from "axios";
 import Link from "next/link";
 import TinyMCE from "../../TinyMCE/TinyMCE";
+import ApiURL from "../../ApiURL/ApiURL";
 
 const MinMax = {
   // Character length that does not contain the HTML from TinyMCE. Used only for control. Will not be going to database.
@@ -63,7 +64,13 @@ const SetTitleAndDescription = (): JSX.Element => {
   const onSubmit = (data: UseForm): void => {
     console.log(data);
     console.log(description);
-    axios.post().then().catch();
+    axios
+      .post(`${ApiURL}/Courses/SetTitleAndDescription`, {
+        tutorialTitle: data.tutorialTitle,
+        description,
+      })
+      .then((response) => setTutorialId(response.data.tutorialId))
+      .catch((error) => error);
   };
 
   return (

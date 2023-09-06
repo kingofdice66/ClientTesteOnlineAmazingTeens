@@ -198,6 +198,7 @@ const TopicComments = (): JSX.Element => {
                 field={field}
                 setText={setComment}
                 setEditor={setEditor}
+                placeholder="comenteaza..."
               />
             )}
           />

@@ -85,7 +85,7 @@ const MakeTopic = (): JSX.Element => {
         name="textLength"
         control={control}
         render={({ field }): JSX.Element => (
-          <TinyMCE field={field} setText={setComment} />
+          <TinyMCE field={field} setText={setComment} placeholder="creaza topic..."/>
         )}
       />
       <Box sx={{ color: "red" }}>{errors?.textLength?.message}</Box>
