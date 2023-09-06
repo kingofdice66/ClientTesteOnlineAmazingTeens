@@ -12,7 +12,7 @@ namespace asp_net.Controllers.Forum.Get;
 public class GetTopicCommentController : Controller
 {
 	[HttpPost]
-	public string Get([FromBody] TopicCommentRequest data)
+	public IActionResult Get([FromBody] Data data)
 	{
 		using NpgsqlConnection con = new(Database.ConnectionInfo());
 		con.Open();
@@ -44,27 +44,20 @@ public class GetTopicCommentController : Controller
 
 			if (topicComment.Any())
 			{
-				return JsonSerializer.Serialize(topicComment);
+				return Ok(JsonSerializer.Serialize(topicComment));
 			}
 			else
 			{
-				return "empty";
+				return Ok("empty");
 			}
 		}
 		catch (Exception ex)
 		{
-			return ex.Message;
+			return BadRequest(ex.Message);
 		}
 	}
 
-	public class TopicCommentQuery
-	{
-		public string? comment { get; set; }
-		public int created_by { get; set; }
-		public int created_at { get; set; }
-	}
-
-	public class TopicCommentRequest
+	public class Data
 	{
 		[Required(ErrorMessage = "{0} is required")]
 		public int sectionId { get; set; }

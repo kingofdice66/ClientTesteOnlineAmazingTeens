@@ -24,6 +24,8 @@ interface IForm {
     subsections: {
       subsection: string;
       test: boolean; // if test=true then the respective subsection is just a quiz test
+      tutorial: string; // tutorial content
+      quiz: { question: string; answer: boolean }[]; // quiz content if the test is selected
     }[];
   }[];
 }
@@ -51,8 +53,8 @@ const SetChapters = (): JSX.Element => {
     <Box
       sx={{
         backgroundColor: "blue",
-        p: "20px 20% 0 23%",
-        overflow: "scroll",
+        p: "20px 20% 20px 23%",
+        overflow: "auto",
         minHeight: "100vh",
       }}
     >

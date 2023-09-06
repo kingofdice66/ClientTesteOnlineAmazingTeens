@@ -12,7 +12,7 @@ namespace asp_net.Controllers.Forum.Get;
 public class GetTopicsController : Controller
 {
 	[HttpPost]
-	public string Get([FromBody] TopicsRequest data)
+	public IActionResult Get([FromBody] Data _)
 	{
 		using NpgsqlConnection con = new(Database.ConnectionInfo());
 		con.Open();
@@ -32,29 +32,29 @@ public class GetTopicsController : Controller
 		";
 
 		DynamicParameters dp = new();
-		dp.Add(@"sectionId", data.sectionId);
-		dp.Add(@"subsectionId", data.subsectionId);
+		dp.Add(@"sectionId", _.sectionId);
+		dp.Add(@"subsectionId", _.subsectionId);
 
 		try
 		{
-			IEnumerable<TopicsQuery> topics = con.Query<TopicsQuery>(query, dp).ToList();
+			IEnumerable<DataQuery> topics = con.Query<DataQuery>(query, dp).ToList();
 
 			if (topics.Any())
 			{
-				return JsonSerializer.Serialize(topics);
+				return Ok(JsonSerializer.Serialize(topics));
 			}
 			else
 			{
-				return "empty";
+				return Ok("empty");
 			}
 		}
 		catch (Exception ex)
 		{
-			return ex.Message;
+			return BadRequest($"Exception error: {ex.Message}");
 		}
 	}
 
-	public class TopicsQuery
+	public class DataQuery
 	{
 		public int id { get; set; }
 		public string? title { get; set; }
@@ -62,7 +62,7 @@ public class GetTopicsController : Controller
 		public string? created_at { get; set; }
 	}
 
-	public class TopicsRequest
+	public class Data
 	{
 		[Required(ErrorMessage = "{0} is required")]
 		public int sectionId { get; set; }

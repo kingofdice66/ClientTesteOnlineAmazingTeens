@@ -11,10 +11,8 @@ namespace asp_net.Controllers.Forum.Set;
 public class SetSectionController : Controller
 {
 	[HttpPost]
-	public IActionResult Set([FromBody] SectionRequest data)
+	public IActionResult Set([FromBody] Data _)
 	{
-		SectionResponse response = new();
-
 		// get current unix time
 		long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
@@ -40,8 +38,8 @@ public class SetSectionController : Controller
 		";
 
 		DynamicParameters dp = new();
-		dp.Add("@title", data.title);
-		dp.Add("@description", data.description);
+		dp.Add("@title", _.title);
+		dp.Add("@description", _.description);
 		dp.Add("@created_by", 1);
 		dp.Add("@created_at", unixTimestamp);
 		dp.Add("@updated_at", unixTimestamp);
@@ -52,35 +50,20 @@ public class SetSectionController : Controller
 
 			if (rowsAffected > 0)
 			{
-				response.Add("section added successfully");
+				return Ok("Added successfully");
 			}
 			else
 			{
-				response.Add("section failed to add");
+				return BadRequest("Failed to add");
 			}
 		}
 		catch (Exception ex)
 		{
-			response.Add($"section exception error:  {ex.Message}");
-		}
-
-		return Ok(new { response.responses });
-	}
-
-	public class SectionResponse
-	{
-		public string[]? responses { get; set; }
-
-		private readonly List<string> responses_ = new();
-
-		public void Add(string status)
-		{
-			responses_.Add(status);
-			responses = responses_.ToArray();
+			return BadRequest($"Exception error:  {ex.Message}");
 		}
 	}
 
-	public class SectionRequest
+	public class Data
 	{
 		[Required(ErrorMessage = "{0} is required")]
 		[MinLength(3, ErrorMessage = "Minimum length is {0}")]

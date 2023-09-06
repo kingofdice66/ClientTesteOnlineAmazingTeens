@@ -11,7 +11,7 @@ namespace asp_net.Controllers.RegistrationLogin;
 public class RegistrationController : Controller
 {
 	[HttpPost]
-	public string RegisterUser([FromBody] Registration data)
+	public IActionResult RegisterUser([FromBody] Data _)
 	{
 		// token for email verification
 		string token = VerificationToken.Generate();
@@ -58,16 +58,16 @@ public class RegistrationController : Controller
 		";
 
 		DynamicParameters dp = new();
-		dp.Add("@username", data.username);
-		dp.Add("@username_lowercase", data.username.ToLower());
-		dp.Add("@email", data.email);
-		dp.Add("@first_name", data.firstName);
-		dp.Add("@last_name", data.lastName);
-		dp.Add("@gender", data.gender);
-		dp.Add("@password", Password.Hash(data.password));
+		dp.Add("@username", _.username);
+		dp.Add("@username_lowercase", _.username.ToLower());
+		dp.Add("@email", _.email);
+		dp.Add("@first_name", _.firstName);
+		dp.Add("@last_name", _.lastName);
+		dp.Add("@gender", _.gender);
+		dp.Add("@password", Password.Hash(_.password));
 		dp.Add("@token", token);
 		dp.Add("@token_expiration", tokenExpiration);
-		dp.Add("@date_of_birth", data.dateOfBirth);
+		dp.Add("@date_of_birth", _.dateOfBirth);
 		dp.Add("@created_at", unixTimestamp);
 		dp.Add("@updated_at", unixTimestamp);
 
@@ -77,32 +77,22 @@ public class RegistrationController : Controller
 
 			if (rowsAffected > 0)
 			{
-				EmailConfirmation.Send(data.username, data.email, token);
-				return "success";
+				EmailConfirmation.Send(_.username, _.email, token);
+				return Ok("success");
 			}
 			else
 			{
-				return "failed";
+				return BadRequest("failed");
 			}
 		}
 		catch (Exception ex)
 		{
-			return ex.Message;
+			return BadRequest($"Exception error: {ex.Message}");
 		}
-
-		//return
-		//	$"username: {data.username}\n" +
-		//	$"email: {data.email}\n" +
-		//	$"firstName: {data.firstName}\n" +
-		//	$"lastName: {data.lastName}\n" +
-		//	$"dateOfBirth: {data.dateOfBirth}\n" +
-		//	$"gender: {data.gender}\n" +
-		//	$"password: {data.password}\n" +
-		//	$"token: {token}";
 	}
 }
 
-public class Registration
+public class Data
 {
 	[Required(ErrorMessage = "Username is required")]
 	[RegularExpression(@"^(?![_-])[a-zA-Z0-9_-]+$", ErrorMessage = "Does not match '^(?![_-])[a-zA-Z0-9_-]+$' format")]

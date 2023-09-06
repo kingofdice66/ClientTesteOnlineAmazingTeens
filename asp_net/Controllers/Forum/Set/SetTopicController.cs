@@ -11,14 +11,14 @@ namespace asp_net.Controllers.Forum.Set;
 public class SetTopicController : Controller
 {
 	[HttpPost]
-	public IActionResult Set([FromBody] TopicRequest data)
+	public IActionResult Set([FromBody] Data _)
 	{
 		// Indicates the status of the request
 		TopicResponse response = new();
 
 		long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-		string purifiedComment = SanitizeHtml.Sanitize(data.comment);
+		string purifiedComment = SanitizeHtml.Sanitize(_.comment);
 
 		using NpgsqlConnection con = new(Database.ConnectionInfo());
 		con.Open();
@@ -45,10 +45,10 @@ public class SetTopicController : Controller
 
 		DynamicParameters dpTopics = new();
 
-		dpTopics.Add("@title", data.title);
+		dpTopics.Add("@title", _.title);
 		dpTopics.Add("@created_by", 1);
-		dpTopics.Add("@section_id", data.sectionId);
-		dpTopics.Add("@subsection_id", data.subsectionId);
+		dpTopics.Add("@section_id", _.sectionId);
+		dpTopics.Add("@subsection_id", _.subsectionId);
 		dpTopics.Add("@created_at", unixTimestamp);
 		dpTopics.Add("@updated_at", unixTimestamp);
 
@@ -58,16 +58,16 @@ public class SetTopicController : Controller
 
 			if (rowsAffectedTopics > 0)
 			{
-				response.Add("topic added successfully");
+				return Ok("Added successfully");
 			}
 			else
 			{
-				response.Add("topic failed to add");
+				return BadRequest("Failed to add");
 			}
 		}
 		catch (Exception ex)
 		{
-			response.Add($"topic exception error = {ex.Message}");
+			return BadRequest($"Exception error = {ex.Message}");
 		}
 
 		// Using unix timestamp to get the id ensures concurrency protection
@@ -127,8 +127,8 @@ public class SetTopicController : Controller
 		DynamicParameters dpTopicComments = new();
 
 		dpTopicComments.Add("@comment", purifiedComment);
-		dpTopicComments.Add("@section_id", data.sectionId);
-		dpTopicComments.Add("@subsection_id", data.subsectionId);
+		dpTopicComments.Add("@section_id", _.sectionId);
+		dpTopicComments.Add("@subsection_id", _.subsectionId);
 		dpTopicComments.Add("@topic_id", topicId);
 		dpTopicComments.Add("@created_by", 1);
 		dpTopicComments.Add("@created_at", unixTimestamp);
@@ -155,20 +155,7 @@ public class SetTopicController : Controller
 		return Ok(new { response.responses });
 	}
 
-	public class TopicResponse
-	{
-		public string[]? responses { get; set; }
-
-		private readonly List<string> responses_ = new();
-
-		public void Add(string status)
-		{
-			responses_.Add(status);
-			responses = responses_.ToArray();
-		}
-	}
-
-	public class TopicRequest
+	public class Data
 	{
 		[Required(ErrorMessage = "{0} is required")]
 		[MinLength(3, ErrorMessage = "Minimum required length is {0}")]

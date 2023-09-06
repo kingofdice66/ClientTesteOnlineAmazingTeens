@@ -13,8 +13,6 @@ public class SetSubsectionController : Controller
 	[HttpPost]
 	public IActionResult Set([FromBody] SubsectionRequest data)
 	{
-		SubsectionResponse response = new();
-
 		// get current unix time
 		long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
@@ -55,31 +53,16 @@ public class SetSubsectionController : Controller
 
 			if (rowsAffected > 0)
 			{
-				response.Add("subsection added successfully");
+				return Ok("Added successfully");
 			}
 			else
 			{
-				response.Add("subsection failed to add");
+				return BadRequest("Failed to add");
 			}
 		}
 		catch (Exception ex)
 		{
-			response.Add($"subsection exception error:  {ex.Message}");
-		}
-
-		return Ok(new { response.responses });
-	}
-
-	public class SubsectionResponse
-	{
-		public string[]? responses { get; set; }
-
-		private readonly List<string> responses_ = new();
-
-		public void Add(string status)
-		{
-			responses_.Add(status);
-			responses = responses_.ToArray();
+			return BadRequest($"Exception error:  {ex.Message}");
 		}
 	}
 

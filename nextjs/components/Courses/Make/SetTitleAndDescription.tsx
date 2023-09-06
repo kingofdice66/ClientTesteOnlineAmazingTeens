@@ -1,10 +1,13 @@
+/* eslint-disable react/jsx-props-no-spreading */
 // Set the title and course description
 
 import { useState } from "react";
-import { TextField, Box } from "@mui/material";
+import { TextField, Box, Button } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import axios from "axios";
+import Link from "next/link";
 import TinyMCE from "../../TinyMCE/TinyMCE";
 
 const MinMax = {
@@ -39,9 +42,14 @@ type UseForm = yup.InferType<typeof schema>;
 
 const SetTitleAndDescription = (): JSX.Element => {
   const [description, setDescription] = useState<string | null>(null);
+  // the link that takes the use to creating the tutorial chapters after he clicks on the submit button
+  const [showLink, setShowLink] = useState<boolean>(false);
+  // the id of the newly created tutorial
+  const [tutorialId, setTutorialId] = useState<number | null>(null);
 
   const {
     control,
+    register,
     handleSubmit,
     formState: { errors },
   } = useForm<UseForm>({
@@ -52,6 +60,12 @@ const SetTitleAndDescription = (): JSX.Element => {
     },
   });
 
+  const onSubmit = (data: UseForm): void => {
+    console.log(data);
+    console.log(description);
+    axios.post().then().catch();
+  };
+
   return (
     <Box
       sx={{
@@ -60,14 +74,39 @@ const SetTitleAndDescription = (): JSX.Element => {
         p: "50px 50px 0 50px",
       }}
     >
-      <TextField label="Numele Tutorialului" />
-      <Controller
-        name="textLength"
-        control={control}
-        render={({ field }): JSX.Element => (
-          <TinyMCE field={field} setText={setDescription} />
-        )}
-      />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <TextField
+          error={!!errors.tutorialTitle}
+          helperText={
+            errors?.tutorialTitle ? errors?.tutorialTitle?.message : ""
+          }
+          label="Numele Tutorialului"
+          {...register("tutorialTitle")}
+        />
+
+        <Controller
+          name="textLength"
+          control={control}
+          render={({ field }): JSX.Element => (
+            <TinyMCE
+              field={field}
+              setText={setDescription}
+              placeholder="descriere tutorial..."
+            />
+          )}
+        />
+        <p>{errors?.textLength ? errors?.textLength?.message : ""}</p>
+
+        <Button type="submit" variant="contained">
+          submit
+        </Button>
+      </form>
+
+      {showLink && (
+        <Link href={`/courses/set-course-chapters/${tutorialId}`}>
+          <Button variant="contained">du-ma catre crearea tutorialului</Button>
+        </Link>
+      )}
     </Box>
   );
 };

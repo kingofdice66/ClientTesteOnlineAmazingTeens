@@ -12,7 +12,7 @@ namespace asp_net.Controllers.Forum.Get;
 public class GetTopicCommentsController : Controller
 {
 	[HttpPost]
-	public string Get([FromBody] TopicCommentsRequest data)
+	public IActionResult Get([FromBody] Data _)
 	{
 		using NpgsqlConnection con = new(Database.ConnectionInfo());
 		con.Open();
@@ -34,30 +34,30 @@ public class GetTopicCommentsController : Controller
 		";
 
 		DynamicParameters dp = new();
-		dp.Add("@topicId", data.topicId);
-		dp.Add("@sectionId", data.sectionId);
-		dp.Add("@subsectionId", data.subsectionId);
+		dp.Add("@topicId", _.topicId);
+		dp.Add("@sectionId", _.sectionId);
+		dp.Add("@subsectionId", _.subsectionId);
 
 		try
 		{
-			IEnumerable<TopicCommentsQuery> topicComments = con.Query<TopicCommentsQuery>(query, dp).ToList();
+			IEnumerable<DataQuery> topicComments = con.Query<DataQuery>(query, dp).ToList();
 
 			if (topicComments.Any())
 			{
-				return JsonSerializer.Serialize(topicComments);
+				return Ok(JsonSerializer.Serialize(topicComments));
 			}
 			else
 			{
-				return "empty";
+				return Ok("empty");
 			}
 		}
 		catch (Exception ex)
 		{
-			return ex.Message;
+			return BadRequest($"Exception error: {ex.Message}");
 		}
 	}
 
-	public class TopicCommentsQuery
+	public class DataQuery
 	{
 		public int id { get; set; }
 		public string? comment { get; set; }
@@ -65,7 +65,7 @@ public class GetTopicCommentsController : Controller
 		public string? created_at { get; set; }
 	}
 
-	public class TopicCommentsRequest
+	public class Data
 	{
 		[Required(ErrorMessage = "{0} is required")]
 		public int topicId { get; set; }

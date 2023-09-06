@@ -12,7 +12,7 @@ namespace asp_net.Controllers.Forum.Get;
 public class GetSubsectionsController : Controller
 {
 	[HttpPost]
-	public string Get([FromBody] SectionIdRequest data)
+	public IActionResult Get([FromBody] Data data)
 	{
 		using NpgsqlConnection con = new(Database.ConnectionInfo());
 		con.Open();
@@ -33,31 +33,31 @@ public class GetSubsectionsController : Controller
 
 		try
 		{
-			IEnumerable<SubsectionsQuery> subsections = con.Query<SubsectionsQuery>(query, dp).ToList();
+			IEnumerable<DataQuery> subsections = con.Query<DataQuery>(query, dp).ToList();
 
 			if (subsections.Any())
 			{
-				return JsonSerializer.Serialize(subsections);
+				return Ok(JsonSerializer.Serialize(subsections));
 			}
 			else
 			{
-				return "empty";
+				return Ok("empty");
 			}
 		}
 		catch (System.Exception ex)
 		{
-			return ex.Message;
+			return BadRequest($"Exception error: {ex.Message}");
 		}
 	}
 
-	public class SubsectionsQuery
+	public class DataQuery
 	{
 		public int id { get; set; }
 		public string? title { get; set; }
 		public string? description { get; set; }
 	}
 
-	public class SectionIdRequest
+	public class Data
 	{
 		[Required(ErrorMessage = "{0} is required")]
 		public int sectionId { get; set; }

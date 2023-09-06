@@ -11,7 +11,7 @@ namespace asp_net.Controllers.Forum.Get;
 public class GetSectionsController : Controller
 {
 	[HttpPost]
-	public string Get()
+	public IActionResult Get()
 	{
 		using NpgsqlConnection con = new(Database.ConnectionInfo());
 		con.Open();
@@ -27,24 +27,24 @@ public class GetSectionsController : Controller
 
 		try
 		{
-			IEnumerable<SectionsQuery> sections = con.Query<SectionsQuery>(query).ToList();
+			IEnumerable<DataQuery> sections = con.Query<DataQuery>(query).ToList();
 
 			if (sections.Any())
 			{
-				return JsonSerializer.Serialize(sections);
+				return Ok(JsonSerializer.Serialize(sections));
 			}
 			else
 			{
-				return "empty";
+				return Ok("empty");
 			}
 		}
 		catch (Exception ex)
 		{
-			return ex.Message;
+			return BadRequest($"Exception error: {ex.Message}");
 		}
 	}
 
-	public class SectionsQuery
+	public class DataQuery
 	{
 		public int id { get; set; }
 		public string? title { get; set; }

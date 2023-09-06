@@ -11,14 +11,11 @@ namespace asp_net.Controllers.Forum.Set;
 public class SetTopicCommentController : Controller
 {
 	[HttpPost]
-	public IActionResult Set([FromBody] TopicCommentRequest data)
+	public IActionResult Set([FromBody] Data _)
 	{
-		// Indicates the status of the rquest
-		TopicCommentResponse response = new();
-
 		long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-		string purifiedComment = SanitizeHtml.Sanitize(data.comment);
+		string purifiedComment = SanitizeHtml.Sanitize(_.comment);
 
 		using NpgsqlConnection con = new(Database.ConnectionInfo());
 		con.Open();
@@ -48,9 +45,9 @@ public class SetTopicCommentController : Controller
 		DynamicParameters dp = new();
 
 		dp.Add("@comment", purifiedComment);
-		dp.Add("@section_id", data.sectionId);
-		dp.Add("@subsection_id", data.subsectionId);
-		dp.Add("@topic_id", data.topicId);
+		dp.Add("@section_id", _.sectionId);
+		dp.Add("@subsection_id", _.subsectionId);
+		dp.Add("@topic_id", _.topicId);
 		dp.Add("@created_by", 1);
 		dp.Add("@created_at", unixTimestamp);
 		dp.Add("@updated_at", unixTimestamp);
@@ -61,35 +58,20 @@ public class SetTopicCommentController : Controller
 
 			if (rowsAffected > 0)
 			{
-				response.Add("topic comment added successfully");
+				return Ok("Added successfully");
 			}
 			else
 			{
-				response.Add("topic comments failed to be added");
+				return BadRequest("Failed to be added");
 			}
 		}
 		catch (Exception ex)
 		{
-			response.Add($"topic comments exception error = {ex.Message}");
-		}
-
-		return Ok(new { response.responses });
-	}
-
-	public class TopicCommentResponse
-	{
-		public string[]? responses { get; set; }
-
-		private readonly List<string> responses_ = new();
-
-		public void Add(string status)
-		{
-			responses_.Add(status);
-			responses = responses_.ToArray();
+			return BadRequest($"Exception error: {ex.Message}");
 		}
 	}
 
-	public class TopicCommentRequest
+	public class Data
 	{
 		[Required(ErrorMessage = "{0} is required")]
 		public int sectionId { get; set; }

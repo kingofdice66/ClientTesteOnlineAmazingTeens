@@ -2,13 +2,14 @@
 import { Editor } from "@tinymce/tinymce-react";
 
 interface IProps {
-  field: any;
+  field: any; // field for Controller for react-hook-form
   setText: (content: string) => void;
   setEditor?: (editor: any) => void;
+  placeholder: string; // placeholder for TinyMCE
 }
 
 const TinyMCE = (props: IProps): JSX.Element => {
-  const { field, setText, setEditor } = props;
+  const { field, setText, setEditor, placeholder } = props;
 
   return (
     <Editor
@@ -32,8 +33,7 @@ const TinyMCE = (props: IProps): JSX.Element => {
         browser_spellcheck: true,
         contextmenu: false,
         max_height: 300,
-        // placeholder: "scrie comentariul...",
-        placeholder: "adaugă conținutul subcapitolului...",
+        placeholder,
         plugins: [
           "advlist",
           "autolink",
