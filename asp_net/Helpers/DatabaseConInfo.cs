@@ -10,7 +10,7 @@ public class Database
 		return
 			$"Host=localhost;" +
 			$"Username=postgres;" +
-			$"Password=painkiller@;" +
+			$"Password=password;" +
 			$"Database=amazing_teens";
 	}
 }
